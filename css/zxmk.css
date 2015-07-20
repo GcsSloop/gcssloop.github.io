@@ -10,7 +10,7 @@ h3{ font-weight: normal;}
 .clearfix { display: block; }
 ul li{ list-style:none;}
 a{ text-decoration:none;}
-body{font-family:"Microsoft Yahei"!important; background:#FFF !important;}
+body{font-family:"Microsoft Yahei"!important;background: url(../images/bg.png) no-repeat top right!important;}
 .index-con{ width:1000px; height:450px; margin:120px auto 0; position:relative;}
 .index-con li{ width:335px; float:left; margin:0 10px 5px 0; position:relative;}
 *html .index-con li{margin:0 10px 10px 0;}
