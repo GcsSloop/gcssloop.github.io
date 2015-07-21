@@ -18,10 +18,10 @@ body{font-family:"Microsoft Yahei"!important;background: url(../images/bg.png) n
 .index-con li a{font-size:30px; color:#fff!important; line-height:63px; zoom:1; position:relative;}
 .in-kct a{height:300px;  display:block; text-align:center;}
 .in-kct a{ background:#b01e00;}
-.in-kct i{ width:150px; height:150px; display:block; background:url(../images/course-icon.png) no-repeat; float:left;;margin:40px 95px 0 95px; }
+.in-kct i{ width:150px; height:150px; display:block; background:url(../images/blog.png) no-repeat; float:left;;margin:40px 95px 0 95px; }
 *html .in-kct i{margin:45px 45px 15px 45px; }
 .in-quest a{ background:#28b779;}
-.in-quest i{background:url(../images/quest-icon.png) no-repeat;}
+.in-quest i{background:url(../images/github.png) no-repeat;}
 .index-con .in-jbk a{width:310px; height:145px; display:block; background:#00bfff; display:block;line-height:145px;}
 .in-jbk i{ width:60px; height:53px; display:block; float:left; background:url(../images/mryl.png) no-repeat; margin:50px 30px 0 55px; }
 *html .in-jbk i{ margin:38px 25px 0 20px;}
@@ -62,7 +62,11 @@ body{font-family:"Microsoft Yahei"!important;background: url(../images/bg.png) n
 .index-con .in-report{ width:310px; height:145px; position:absolute; top:154px; right:-10px; z-index:5}
 .index-con .in-client{ width:310px; height:130px; position:absolute; top:310px; right:-10px; z-index:5}
 .index-con .in-jbk i.hide,.index-con .in-zxl i.hide{ visibility:hidden}
-.index-con .in-kct .ch{ position:absolute; bottom:40px; left:140px;}
+.index-con .in-kct .ch{
+	position: absolute;
+	bottom: 32px;
+	left: 119px;
+}
 .index-con .in-jbk .ch1{ position:absolute; top:0; left:140px;}
 .index-con .in-zxl .ch2{ position:absolute; top:0; left:180px;}
 
