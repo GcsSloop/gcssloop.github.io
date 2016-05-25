@@ -23,7 +23,7 @@ TABLE OF CONTENT
 --------------------------------------*/
 * { font-family: 'Open Sans', sans-serif; }
 body { background: url('../images/body-bg.png') repeat; }
-h1, h2, h3 { text-transform: uppercase; }
+h1, h2, h3 { text-transform: normal; }
 h2 {
   margin-top: 0;
   width: 100%;
@@ -151,6 +151,7 @@ ul { margin: 0; }
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease; 
 }
+
 .templatemo-site-header.sticky h1 { font-size: 34px; }
 .templatemo-site-name {
   font-family: Georgia, Times, serif;
@@ -163,7 +164,7 @@ ul { margin: 0; }
   vertical-align: middle;
   line-height: normal;      
 }
-.templatemo-site-name span:first-child { font-size: 20px; }
+
 .templatemo-site-header .templatemo-nav {
   position: absolute;
   bottom: 14px;
