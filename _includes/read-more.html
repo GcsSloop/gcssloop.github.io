@@ -8,7 +8,7 @@
     <div class="post-list__meta">
       <time datetime="{{current.date | date: date_to_xmlschema}}" class="post-list__meta--date date">{{current.date | date: "%F"}}</time> &#8226; <span class="post-list__meta--tags tags">{{current.tags}}</span>
       <br/><br/>
-      <a class="btn-border-small" href={{current.url}}>继续阅读</a></div>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href={{current.url}}>继续阅读</a></div>
    </div>
    {% endif %}
    
@@ -21,7 +21,7 @@
        <div class="post-list__meta">
           <time datetime="{{current.date | date: date_to_xmlschema}}" class="post-list__meta--date date">{{current.date | date: "%F"}}</time> &#8226; <span class="post-list__meta--tags tags">{{current.tags}}</span>
           <br/><br/>
-          <a class="btn-border-small" href={{current.url}}>继续阅读</a>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href={{current.url}}>继续阅读</a>
        </div>
    </div>
    {% endif %}
