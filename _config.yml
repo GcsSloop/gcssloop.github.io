@@ -24,6 +24,7 @@ blog_button:
 
 nav:
     - {title: GitHub, description: GcsSloop's GitHub, url: 'https://github.com/GcsSloop'}
+    - {title: 知乎, description: 我的知乎, url: 'https://www.zhihu.com/people/li-yu-long-38'}
 
 
 # Pagination
