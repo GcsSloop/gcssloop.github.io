@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/" >
+<channel>
+  <title>ROR Sitemap for http://www.gcssloop.com/</title>
+  <link>http://www.gcssloop.com/</link>
+
+<item>
+     <link>http://www.gcssloop.com/</link>
+     <title>GcsSloop</title>
+     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>0</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/1970/01/about/</link>
+     <title>关于我</title>
+     <description>我是 GcsSloop， 一名生活在2.5次元的魔法师，平时研究一下魔法，做一些魔法卷轴，也会把一些研究成果贡献出来，以帮助新入门的魔法师更快速的成长为高级魔法师。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+</channel>
+</rss>
+  
