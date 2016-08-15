@@ -7,7 +7,7 @@
     <p class="excerpt">{{ current.content | markdownify | strip_html | strip_newlines | truncate: 250 }}&hellip;</p>
     <div class="post-list__meta">
       <time datetime="{{current.date | date: date_to_xmlschema}}" class="post-list__meta--date date">{{current.date | date: "%F"}}</time> &#8226; <span class="post-list__meta--tags tags">{{current.tags}}</span>
-      <br/>
+      <br/><br/>
       <a class="btn-border-small" href={{current.url}}>继续阅读</a></div>
    </div>
    {% endif %}
@@ -20,7 +20,7 @@
        <p class="excerpt">{{ current.content | markdownify | strip_html | strip_newlines | truncate: 250 }}&hellip;</p>
        <div class="post-list__meta">
           <time datetime="{{current.date | date: date_to_xmlschema}}" class="post-list__meta--date date">{{current.date | date: "%F"}}</time> &#8226; <span class="post-list__meta--tags tags">{{current.tags}}</span>
-          <br/>
+          <br/><br/>
           <a class="btn-border-small" href={{current.url}}>继续阅读</a>
        </div>
    </div>
