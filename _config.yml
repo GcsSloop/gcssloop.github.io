@@ -1,11 +1,11 @@
 # Basic
-title: OneV's Den
-subtitle: 上善若水，人淡如菊
-welcome_message: <a href="https://objccn.io/products/" target="_blank">ObjC 中国与 objc.io 合作最新作品《函数式 Swift》,《Core Data》及《Swift 进阶》已经发布</a>，<a href="https://boxueio.com">泊学网正在开展订阅赠书活动，也欢迎前往了解</a>
-description: 嗨，我是王巍 (@onevcat)，一名来自中国的 iOS / Unity 开发者。现居日本，就职于 LINE。正在修行，探求创意之源。
-creator: <a href="http://onev.cat">@onevcat</a>
+title: GcsSloop
+subtitle: Just do IT later.
+welcome_message: 欢迎来到 GcsSloop 的个人主页。
+description: 嗨，我是 GcsSloop，一名来自2.5次元的魔法师。
+creator: <a href="http://www.GcsSloop.com">@GcsSloop</a>
 
-url: "http://onevcat.com"
+url: "http://www.GcsSloop.com"
 
 permalink: /:year/:month/:title/
 
@@ -23,9 +23,8 @@ blog_button:
     description: 访问博客
 
 nav:
-    - {title: 项目, description: 我的项目, url: 'http://project.onevcat.com'}
-    - {title: 关于, description: 了解更多关于我, url: 'http://about.onevcat.com/'}
-    - {title: 订阅, description: 邮件订阅本站, url: '//store.objccn.io/subscribe'}
+    - {title: GitHub, description: GcsSloop's GitHub, url: 'https://github.com/GcsSloop'}
+
 
 # Pagination
 gems: [jekyll-paginate]
@@ -38,13 +37,12 @@ comment:
     # duoshuo:
 # Social
 social:
-    weibo: onevcat
-    github: onevcat
-    twitter: onevcat
-    gplus: 107108267983477358170
-    mail: onev@onevcat.com
+    weibo: GcsSloop
+    github: GcsSloop
+    twitter: GcsSloop
+    mail: GcsSloop@gmail.com
 
 # Google Analytics
 ga:
     id: UA-25719337-1
-    host: onevcat.com
+    host: www.gcssloop.com
