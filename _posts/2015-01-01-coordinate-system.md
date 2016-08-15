@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 安卓中的坐标系
+title: Android自定义View基础-坐标系
 date: 2015-01-01 00:00:00.000000000 +00:00
-tags: GcsSloop, CustomView
+tags: GcsSloop, CustomView, 安卓, 坐标系
 ---
 
 
