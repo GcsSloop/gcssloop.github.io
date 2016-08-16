@@ -4,13 +4,12 @@ title: 安卓自定义View教程目录
 tags: GcsSloop, CustomView, Android, 安卓, 自定义View
 ---
 
-
-从零起步，从入门到懵逼的自定义View教程。
+这是一个从零起步，从入门到懵逼的自定义View教程。
 
 * 基础篇
-    * [安卓自定义View基础 - 坐标系](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B01%5DCoordinateSystem.md)
-    * [安卓自定义View基础 - 角度弧度](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B02%5DAngleAndRadian.md)
-    * [安卓自定义View基础 - 颜色](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B03%5DColor.md)
+    * [安卓自定义View基础 - 坐标系](http://www.gcssloop.com/2015/01/AngleAndRadian/)
+    * [安卓自定义View基础 - 角度弧度](http://www.gcssloop.com/2015/01/AngleAndRadian/)
+    * [安卓自定义View基础 - 颜色](http://www.gcssloop.com/2015/01/Color/)
 * 进阶篇    
     * [安卓自定义View进阶 - 分类和流程](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B01%5DCustomViewProcess.md)
     * [安卓自定义View进阶 - 绘制基本图形](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B02%5DCanvas_BasicGraphics.md)
