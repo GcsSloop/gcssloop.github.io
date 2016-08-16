@@ -1,3 +1,10 @@
+---
+layout: post
+title: Android自定义View目录
+date: 2015-01-01 00:00:00.000000000 +00:00
+tags: GcsSloop, CustomView, Android, 安卓, 自定义View
+---
+
 # 自定义View系列
 
 从零起步，从入门到懵逼的自定义View教程。
