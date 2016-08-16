@@ -191,7 +191,7 @@ thead tr:first-child {
 }
 
 th {font-weight: bold;}
-th:first-child, td:first-child {padding: 0 15px 0 20px;}
+th:first-child, td:first-child {padding: 0 10px 0 10px;}
 
 thead tr:last-child th {
     border-bottom: 1px solid $gray-light;
@@ -205,6 +205,10 @@ tbody td {
 
 td:last-child {
   padding-right: 10px;
+}
+
+tr, td {
+  padding: 0 10px 0 10px;
 }
 
 .date,
