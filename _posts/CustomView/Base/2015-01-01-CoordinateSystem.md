@@ -4,6 +4,7 @@ title: Android自定义View基础-坐标系
 tags: GcsSloop, CustomView, 安卓, 坐标系
 ---
 
+**[本系列相关文章](http://www.gcssloop.com/2016/08/CustomViewIndex/)**
 
 ## 一.屏幕坐标系和数学坐标系的区别
 由于移动设备一般定义屏幕左上角为坐标原点，向右为x轴增大方向，向下为y轴增大方向，
@@ -59,4 +60,11 @@ tags: GcsSloop, CustomView, 安卓, 坐标系
 
 ## 五.参考文章：
 [Android 屏幕（View）坐标系统](http://blog.csdn.net/wangjinyu501/article/details/21827341)
+
+
+## About
+
+### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
+
+[![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f6vy7c5070j308c02sdg0.jpg)](http://www.gcssloop.com/1970/01/about/)
 
