@@ -10,9 +10,12 @@ tags: GcsSloop, CustomView, Android, 安卓, 自定义View
 
 ## 基础篇
 
+[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f1s96hizi5j30rs0dwwha.jpg)](https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B01%5DCoordinateSystem.md)
+
 <p align="center">
+
 <a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B01%5DCoordinateSystem.md" target="_blank"> 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f1s96hizi5j30rs0dwwha.jpg" width=285 /> 
+<img src="" width=285 /> 
 </a>
 <a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B02%5DAngleAndRadian.md" target="_blank"> 
 <img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1s97g6rfbj30rs0dwdiq.jpg" width=285 /> 
