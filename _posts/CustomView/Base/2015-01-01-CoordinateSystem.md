@@ -4,8 +4,6 @@ title: Android自定义View基础-坐标系
 tags: GcsSloop, CustomView, 安卓, 坐标系
 ---
 
-![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f6w2i6yo8tj30rs0dwwha.jpg)
-
 **[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)**
 
 ## 一.屏幕坐标系和数学坐标系的区别
