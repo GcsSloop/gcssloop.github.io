@@ -33,7 +33,7 @@ body {
 a {
   text-decoration: none;
   color: $link-color;
-
+  margin: 0 0;
   &:hover {
     color: $hover-color;
     -o-transition:.5s;
