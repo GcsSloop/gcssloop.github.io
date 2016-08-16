@@ -1,7 +1,9 @@
-# 角度与弧度
+---
+layout: post
+title: Android自定义View基础-角度与弧度
+tags: GcsSloop, CustomView, 安卓, 角度
+---
 
-### 作者微博: [@GcsSloop](http://weibo.com/GcsSloop)
-### [【本系列相关文章】](https://github.com/GcsSloop/AndroidNote/tree/master/CustomView/README.md)
 
 安卓中角度(angle)与弧度(radian)的有关问题。
 
@@ -71,11 +73,6 @@ C = 2πr;
 **在默认的屏幕坐标系中角度增大方向为顺时针。**
 
 ![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f1s2wnsewfj308c0dwt94.jpg)
-
-## About Me
-### 作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a>
-
-<a href="https://github.com/GcsSloop/AndroidNote/blob/magic-world/FINDME.md" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width=300/> </a>
 
 
 

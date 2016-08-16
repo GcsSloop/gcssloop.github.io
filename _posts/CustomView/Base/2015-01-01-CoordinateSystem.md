@@ -1,7 +1,8 @@
-# 安卓中的坐标系
-
-### 作者微博: [@GcsSloop](http://weibo.com/GcsSloop)
-### [【本系列相关文章】](https://github.com/GcsSloop/AndroidNote/tree/master/CustomView/README.md)
+---
+layout: post
+title: Android自定义View基础-坐标系
+tags: GcsSloop, CustomView, 安卓, 坐标系
+---
 
 
 ## 一.屏幕坐标系和数学坐标系的区别
@@ -58,10 +59,4 @@
 
 ## 五.参考文章：
 [Android 屏幕（View）坐标系统](http://blog.csdn.net/wangjinyu501/article/details/21827341)
-
-## About Me
-
-### 作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a>
-
-<a href="https://github.com/GcsSloop/AndroidNote/blob/magic-world/FINDME.md" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width=300/> </a>
 

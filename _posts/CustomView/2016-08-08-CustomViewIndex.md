@@ -1,7 +1,6 @@
 ---
 layout: post
-title: Android自定义View目录
-date: 2015-01-01 00:00:00.000000000 +00:00
+title: 安卓自定义View教程目录
 tags: GcsSloop, CustomView, Android, 安卓, 自定义View
 ---
 
