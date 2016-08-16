@@ -1,4 +1,7 @@
 http://www.gcssloop.com/
 http://www.gcssloop.com/1970/01/about/
-http://www.gcssloop.com/2015/01/coordinate-system/
+http://www.gcssloop.com/2016/08/CustomViewIndex/
+http://www.gcssloop.com/2015/01/Color/
+http://www.gcssloop.com/2015/01/AngleAndRadian/
+http://www.gcssloop.com/2015/01/CoordinateSystem/
 http://www.gcssloop.com/sitemap

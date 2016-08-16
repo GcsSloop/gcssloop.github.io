@@ -21,7 +21,31 @@
      <ror:resourceOf>sitemap</ror:resourceOf>
 </item>
 <item>
-     <link>http://www.gcssloop.com/2015/01/coordinate-system/</link>
+     <link>http://www.gcssloop.com/2016/08/CustomViewIndex/</link>
+     <title>安卓自定义View教程目录</title>
+     <description>这是一个从零起步，从入门到懵逼的自定义View教程。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/01/Color/</link>
+     <title>Android自定义View基础-颜色</title>
+     <description>简要介绍安卓中的颜色相关内容，包括颜色的定义，创建颜色的几种方式，以及颜色的混合模式等。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/01/AngleAndRadian/</link>
+     <title>Android自定义View基础-角度与弧度</title>
+     <description>安卓中角度(angle)与弧度(radian)的有关问题。</description>
+     <ror:updatePeriod>weekly</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/01/CoordinateSystem/</link>
      <title>Android自定义View基础-坐标系</title>
      <description>一.屏幕坐标系和数学坐标系的区别由于移动设备一般定义屏幕左上角为坐标原点，向右为x轴增大方向，向下为y轴增大方向，所以在手机屏幕上的坐标系与数学中常见的坐标系是稍微有点差别的，详情如下：</description>
      <ror:updatePeriod>weekly</ror:updatePeriod>
