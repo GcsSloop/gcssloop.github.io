@@ -199,7 +199,7 @@ thead tr:last-child th {
 
 tbody tr:last-child td {border: none;}
 tbody td {
-    border: 1px solid $gray-light;
+    border-bottom: 1px solid darken($primary-color, 10%);
     font-size: .85em;
 }
 
