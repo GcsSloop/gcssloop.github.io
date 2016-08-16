@@ -5,16 +5,15 @@ date: 2015-01-01 00:00:00.000000000 +00:00
 tags: GcsSloop, CustomView, Android, 安卓, 自定义View
 ---
 
-# 自定义View系列
 
 从零起步，从入门到懵逼的自定义View教程。
 
 ## 基础篇
 
 <p align="center">
-<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B01%5DCoordinateSystem.md" target="_blank"><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f1s96hizi5j30rs0dwwha.jpg" width=285 /></a> 
-<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B02%5DAngleAndRadian.md" target="_blank"><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1s97g6rfbj30rs0dwdiq.jpg" width=285 /></a> 
-<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B03%5DColor.md" target="_blank"><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f1w9s5vyidj30rs0dw0vg.jpg" width=285 /></a> 
+<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B01%5DCoordinateSystem.md" target="_blank"> <img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f1s96hizi5j30rs0dwwha.jpg" width=285 /> </a>
+<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B02%5DAngleAndRadian.md" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1s97g6rfbj30rs0dwdiq.jpg" width=285 /> </a> 
+<a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Base/%5B03%5DColor.md" target="_blank"> <img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f1w9s5vyidj30rs0dw0vg.jpg" width=285 /> </a> 
 </p>
 
 *******
