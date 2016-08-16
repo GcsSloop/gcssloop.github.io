@@ -177,7 +177,6 @@ pre {
 table {
   color: $gray-darkest;
   font-size: .9em;
-  text-align: center;
   line-height: 40px;
   border-spacing: 0;
   border: 2px solid darken($primary-color, 10%);
@@ -188,6 +187,7 @@ thead tr:first-child {
   background-color: darken($primary-color, 10%);
   color: $gray-lightest;
   border: none;
+  text-align: center;
 }
 
 th {font-weight: bold;}
@@ -209,7 +209,6 @@ td:last-child {
 
 tr, td {
   padding: 0 10px 0 10px;
-  align: left;
 }
 
 .date,
