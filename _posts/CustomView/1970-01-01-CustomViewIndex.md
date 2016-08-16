@@ -7,7 +7,7 @@ tags: GcsSloop, CustomView, Android, 安卓, 自定义View
 这是一个从零起步，从入门到懵逼的自定义View教程。
 
 * 基础篇
-    * [安卓自定义View基础 - 坐标系](http://www.gcssloop.com/2015/01/AngleAndRadian/)
+    * [安卓自定义View基础 - 坐标系](http://www.gcssloop.com/2015/01/CoordinateSystem/)
     * [安卓自定义View基础 - 角度弧度](http://www.gcssloop.com/2015/01/AngleAndRadian/)
     * [安卓自定义View基础 - 颜色](http://www.gcssloop.com/2015/01/Color/)
 * 进阶篇    
