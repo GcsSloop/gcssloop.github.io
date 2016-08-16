@@ -66,5 +66,5 @@ tags: GcsSloop, CustomView, 安卓, 坐标系
 
 ### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
-[![](http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg)](http://www.gcssloop.com/1970/01/about/)
+[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
 
