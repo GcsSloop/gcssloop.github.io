@@ -27,7 +27,7 @@ nav:
     - {title: 知乎, description: 我的知乎, url: 'https://www.zhihu.com/people/li-yu-long-38'}
 
 in_site:
-    - {title: CustomView, description: 自定义View教程目录, url: 'http://www.gcssloop.com/2016/08/CustomViewIndex/'}
+    - {title: CustomView, description: 自定义View教程目录, url: 'http://www.gcssloop.com/1970/01/CustomViewIndex/'}
     - {title: About, description: 关于我, url: 'http://www.gcssloop.com/1970/01/about/'}
     
 
