@@ -26,7 +26,9 @@
                 {% for item in site.nav %}
                   <li class="navigation__item"><a href="{{item.url}}" target="_blank" title="{{item.description}}">{{item.title}}</a></li>
                 {% endfor %}
-                <li class="navigation__item"><a href="{{site.about_button.url}}" title="{{site.about_button.description}}" class="blog-button">{{site.about_button.title}}</a></li>
+                {% for item in site.in_site %}
+                  <li class="navigation__item"><a href="{{item.url}}" title="{{item.description}}">{{item.title}}</a></li>
+                {% endfor %}
               </ul>
             </nav>
           </div>

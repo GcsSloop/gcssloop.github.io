@@ -10,7 +10,7 @@ url: "http://www.GcsSloop.com"
 permalink: /:year/:month/:title/
 
 # Format
-highlighter: rouge
+highlighter: true
 markdown: kramdown
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript", tables]
@@ -26,10 +26,10 @@ nav:
     - {title: GitHub, description: GcsSloop's GitHub, url: 'https://github.com/GcsSloop'}
     - {title: 知乎, description: 我的知乎, url: 'https://www.zhihu.com/people/li-yu-long-38'}
 
-about_button:
-    title: About
-    description: 关于我
-    url: http://www.gcssloop.com/1970/01/about/
+in_site:
+    - {title: CustomView, description: 自定义View教程目录, url: 'http://www.gcssloop.com/2016/08/CustomViewIndex/'}
+    - {title: About, description: 关于我, url: 'http://www.gcssloop.com/1970/01/about/'}
+    
 
 
 # Pagination
