@@ -1,6 +1,0 @@
-# robots.txt generated at http://www.51240.com
-User-agent: Googlebot
-Disallow: 
-User-agent: *
-Disallow: 
-Sitemap: http://www.gcssloop.com/sitemap.xml
