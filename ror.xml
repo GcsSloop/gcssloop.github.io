@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/" >
+<channel>
+  <title>ROR Sitemap for http://www.gcssloop.com/</title>
+  <link>http://www.gcssloop.com/</link>
+  <description>GcsSloop，Android自定义View系列文章作者，非著名程序员。</description>
+
+<item>
+     <link>http://www.gcssloop.com/</link>
+     <title>GcsSloop</title>
+     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>0</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/1970/01/CustomViewIndex/</link>
+     <title>安卓自定义View教程目录</title>
+     <description>自定义View目录，包括自定义坐标系，角度弧度，颜色，自定义view流程，Canvas，Path，PathMeasure，贝塞尔曲线，Matrix，2D绘图等相关内容。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/1970/01/about/</link>
+     <title>关于我</title>
+     <description>我是 GcsSloop， 一名生活在2.5次元的魔法师，平时研究一下魔法，做一些魔法卷轴，也会把一些研究成果贡献出来，以帮助新入门的魔法师更快速的成长为高级魔法师。点击此处查看我公布的魔法研究成果。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Matrix_Method/</link>
+     <title>自定义View进阶篇-Matrix详解</title>
+     <description>Matri详解，详细讲解Matrix原理，了解Matrix各种方法，以及关于Matrix的一些实用技巧。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Matrix_Basic/</link>
+     <title>自定义View进阶篇-Matrix原理</title>
+     <description>Matrix原理，详细讲解Matrix原理，了解Matrix各个部分的作用，以及set、pre与post的区别。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Path_PathMeasure/</link>
+     <title>自定义View进阶-PathMeasure</title>
+     <description>PathMeasure， 自定义View中2D绘图部分PathMeasure, 详细讲解PathMeasure的各种用法。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Path_Over/</link>
+     <title>自定义View进阶-Path之完结篇</title>
+     <description>Path完结篇，自定义View2D绘图部分Path，主要讲解Path的操作方法，包括：相对方法，填充模式，布尔运算，边界计算以及reset与rewind的区别。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Path_Bezier/</link>
+     <title>自定义View进阶-Path之贝塞尔曲线</title>
+     <description>Path之贝塞尔曲线，自定义View系列2D绘图部分的内塞尔曲线，主要讲解二阶曲线和三阶曲线的使用方法与使用技巧。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Path_Basic/</link>
+     <title>自定义View进阶-Path之基本操作</title>
+     <description>Path基本操作，自定义View系列2D绘图部分Path，讲述Path常用方法，主要包括，moveTo, setLastPoint, lineTo, close, addRect, addRoundRect, addOval, addCircle, addPath, addArc, arcTo, isEmpty,...</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Canvas_PictureText/</link>
+     <title>自定义View进阶-Canvas之图片文字</title>
+     <description>Canvas之图片文字，讲述自定义控件2D绘图部分的图片和文字处理，包括：绘制图片，位图以及文字。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Canvas_Convert/</link>
+     <title>自定义View进阶-Canvas之画布操作</title>
+     <description>Canvas之画布操作，讲解画布变换相关内容，主要包括：平移，缩放，旋转，错切，以及画布状态保存与回滚。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Canvas_BasicGraphics/</link>
+     <title>自定义View进阶-Canvas之绘制图形</title>
+     <description>自定义View进阶篇，讲解Canvas基础用法，包括，绘制颜色，绘制点，绘制线，绘制矩形，绘制圆角矩形，绘制椭圆，绘制圆，绘制圆弧，以及饼状图示例。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/CustomViewProcess/</link>
+     <title>自定义View进阶-分类与流程</title>
+     <description>进阶篇，主要讲述自定义view的分类，自定义View流程以及相关的一些重点，主要包括，自定义View，自定义ViewGroup。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/page/2/</link>
+     <title>GcsSloop</title>
+     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/sitemap</link>
+     <title>Site Map  Page 1 - Generated by www.xml-sitemaps.com</title>
+     <description>Site Map  Page 1 - Generated by www.xml-sitemaps.com</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>1</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/01/CoordinateSystem/</link>
+     <title>自定义View基础-坐标系</title>
+     <description>自定义View基础内容，主要讲述屏幕坐标系与数学坐标系等差别，以及MotionEvent中 get 和 getRaw 的区别。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/01/AngleAndRadian/</link>
+     <title>自定义View基础-角度与弧度</title>
+     <description>安卓自定义View基础篇，主要讲述角度与弧度的差别以及两者的换算关系。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/01/Color/</link>
+     <title>自定义View基础-颜色</title>
+     <description>安卓自定义View基础篇，主要讲述安卓中颜色相关内容，包括颜色的定义，创建颜色的方式，以及颜色的混合模式等。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/1970/01/contribute/</link>
+     <title>捐赠</title>
+     <description>如果你觉得我公布的魔法研究对你有帮助的话，可以考虑捐赠一些晶石，记得捐赠后在留言板下面写上您的姓名或者昵称，以及可以在社交网络上找到的链接，以便将您添加到捐赠列表。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Path_PathMeasure/x</link>
+     <title>404</title>
+     <description>404</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2015/02/Path_PathMeasure/y</link>
+     <title>404</title>
+     <description>404</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+</channel>
+</rss>
+  
