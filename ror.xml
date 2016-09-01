@@ -3,7 +3,7 @@
 <channel>
   <title>ROR Sitemap for http://www.gcssloop.com/</title>
   <link>http://www.gcssloop.com/</link>
-  <description>GcsSloop，Android自定义View系列文章作者，非著名程序员。</description>
+  <description>GcsSloop，Android自定义View系列文章作者，非著名程序员。</description> 
 
 <item>
      <link>http://www.gcssloop.com/</link>
@@ -150,6 +150,14 @@
      <ror:resourceOf>sitemap</ror:resourceOf>
 </item>
 <item>
+     <link>http://www.gcssloop.com/2014/12/UsePlantUMLInAS(Mac)/</link>
+     <title>在AndroidStudio中使用PlantUML(for Mac)</title>
+     <description>Unified Modeling Language (UML)又称统一建模语言或标准建模语言，用来描述 类（对象的）、对象、关联、职责、行为、接口、用例、包、顺序、协作，以及状态。是用来帮助自己理清众多类之间复杂关系的不二利器，也能帮助别人快速理解你的设计思路。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
      <link>http://www.gcssloop.com/1970/01/contribute/</link>
      <title>捐赠</title>
      <description>如果你觉得我公布的魔法研究对你有帮助的话，可以考虑捐赠一些晶石，记得捐赠后在留言板下面写上您的姓名或者昵称，以及可以在社交网络上找到的链接，以便将您添加到捐赠列表。</description>
@@ -169,6 +177,22 @@
      <link>http://www.gcssloop.com/2015/02/Path_PathMeasure/y</link>
      <title>404</title>
      <description>404</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2014/12/PublishLibraryByJitPack/</link>
+     <title>使用JitPack发布开源库。</title>
+     <description>使用JitPack发布开源库。</description>
+     <ror:updatePeriod>always</ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>http://www.gcssloop.com/2014/12/UsePlantUMLInAS(Win)/</link>
+     <title>在AndroidStudio中使用PlantUML(for Win)</title>
+     <description>Unified Modeling Language (UML)又称统一建模语言或标准建模语言，用来描述 类（对象的）、对象、关联、职责、行为、接口、用例、包、顺序、协作，以及状态。是用来帮助自己理清众多类之间复杂关系的不二利器，也能帮助别人快速理解你的设计思路。</description>
      <ror:updatePeriod>always</ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>

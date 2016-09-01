@@ -4,7 +4,7 @@ category: 自定义View集
 title: 自定义View进阶篇-Matrix详解
 tags: 自定义View, Matrix
 keywords: Matrix, Matrix原理, Matrix详解, mapPoints, mapRadius, mapRect, mapVectors, setPolyToPoly, setRectToRect, rectStaysRect, setSinCos, invert, isAffine, isIdentity, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
-excerpt: Matri详解，详细讲解Matrix原理，了解Matrix各种方法，以及关于Matrix的一些实用技巧。
+excerpt: Matri详解，详细讲解Android中的Matrix原理，了解Matrix各种方法，以及关于Matrix的一些实用技巧，补充了setPolyToPoly的详细信息。
 ---
 
 这应该是目前最详细的一篇讲解Matrix的中文文章了，在上一篇文章[Matrix原理](http://www.gcssloop.com/2015/02/Matrix_Basic/)中，我们对Matrix做了一个简单的了解，偏向理论，在本文中则会详细的讲解Matrix的具体用法，以及与Matrix相关的一些实用技巧。
@@ -31,7 +31,7 @@ excerpt: Matri详解，详细讲解Matrix原理，了解Matrix各种方法，以
 
 构造方法没有在上面表格中列出。
 
-**无参构造**
+#### 无参构造
 
 ``` java
 Matrix ()
@@ -55,7 +55,7 @@ Matrix matrix = new Matrix();
 $$)
 
 
-**有参构造**
+#### 有参构造
 
 ``` java
 Matrix (Matrix src)
@@ -74,19 +74,19 @@ Matrix matrix = new Matrix(src);
 
 基本方法内容比较简单，在此处简要介绍一下。
 
-**1.equals**
+#### 1.equals
 
 比较两个Matrix的数值是否相同。
 
-**2.hashCode**
+#### 2.hashCode
 
 获取Matrix的哈希值。
 
-**3.toString**
+#### 3.toString
 
 将Matrix转换为字符串: `Matrix{[1.0, 0.0, 0.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0]}`
 
-**4.toShortString**
+#### 4.toShortString
 
 将Matrix转换为短字符串: `[1.0, 0.0, 0.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0]`
 
@@ -95,7 +95,7 @@ Matrix matrix = new Matrix(src);
 
 数值操作这一组方法可以帮助我们直接控制Matrix里面的数值。
 
-**1.set**
+#### 1.set
 
 ``` java
 void set (Matrix src)
@@ -103,7 +103,7 @@ void set (Matrix src)
 
 没有返回值，有一个参数，作用是将参数Matrix的数值复制到当前Matrix中。如果参数为空，则重置当前Matrix，相当于`reset()`。
 
-**2.reset**
+#### 2.reset
 
 ``` java
 void reset ()
@@ -111,7 +111,7 @@ void reset ()
 
 重置当前Matrix(将当前Matrix重置为单位矩阵)。
 
-**3.setValues**
+#### 3.setValues
 
 ``` java
 void setValues (float[] values)
@@ -119,7 +119,7 @@ void setValues (float[] values)
 
 setValues的参数是浮点型的一维数组，长度需要大于9，拷贝数组中的前9位数值赋值给当前Matrix。
 
-**4.getValues**
+#### 4.getValues
 
 ``` java
 void getValues (float[] values)
@@ -129,7 +129,7 @@ void getValues (float[] values)
 
 ### 数值计算
 
-**1.mapPoints**
+#### 1.mapPoints
 
 ``` java
 void mapPoints (float[] pts)
@@ -254,7 +254,7 @@ after : src=[0.0, 0.0, 80.0, 100.0, 400.0, 300.0]
 after : dst=[40.0, 100.0, 200.0, 300.0, 0.0, 0.0]
 ```
 
-**2.mapRadius**
+#### 2.mapRadius
 
 ``` java
 float mapRadius (float radius)
@@ -287,7 +287,7 @@ mapRadius: 70.71068
 ```
 
 
-**3.mapRect**
+#### 3.mapRect
 
 ```
 boolean mapRect (RectF rect)
@@ -330,7 +330,7 @@ isRect: false
 
 (2) `boolean mapRect (RectF dst, RectF src)` 测量src并将测量结果放入dst中，返回值是判断矩形经过变换后是否仍为矩形,和之前没有什么太大区别，此处就不啰嗦了。
 
-**4.mapVectors**
+#### 4.mapVectors
 
 测量向量。
 
@@ -406,22 +406,22 @@ mapPoints: [600.0, 900.0]
 
 这一类方法看似不起眼，但拿来稍微加工一下就可能制作意想不到的效果。
 
-**1.setPolyToPoly**
+#### 1.setPolyToPoly
 
 ```java
 boolean setPolyToPoly (
-        float[] src, 	// 原始数组 src [x,y]，存储内容为一组点
-        int srcIndex, 	// 原始数组开始位置
-        float[] dst, 	// 目标数组 dst [x,y]，存储内容为一组点
-        int dstIndex, 	// 目标数组开始位置
-        int pointCount)	// 要使用点的数量 取值范围是: 0到4
+        float[] src,    // 原始数组 src [x,y]，存储内容为一组点
+        int srcIndex,   // 原始数组开始位置
+        float[] dst,    // 目标数组 dst [x,y]，存储内容为一组点
+        int dstIndex,   // 目标数组开始位置
+        int pointCount) // 测控点的数量 取值范围是: 0到4
 ```
 
 Poly全称是Polygon，多边形的意思，了解了意思大致就能知道这个方法是做什么用的了，应该与PS中自由变换中的扭曲有点类似。
 
 ![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f71ppx7q0lg30go0b44ga.gif)
 
-> 从参数我们可以了解到setPolyToPoly最多可以支持4个点，也就是图形的四个角，可以通过这四个角将视图从矩形变换成其他形状。
+> 从参数我们可以了解到setPolyToPoly最多可以支持4个点，这四个点通常为图形的四个角，可以通过这四个角将视图从矩形变换成其他形状。
 
 简单示例:
 
@@ -476,16 +476,102 @@ public class MatrixSetPolyToPolyTest extends View {
 
 
 
-> **用setPolyToPoly这个方法可以制造类似于3D的透视效果。**
+文章发出后有小伙伴在GitHub上提出疑问，说此处讲解到并不清楚，尤其是最后的一个参数，所以特此补充一下内容。
+
+我们知道`pointCount`支持点的个数为0到4个，四个一般指图形的四个角，属于最常用的一种情形，但前面几种是什么情况呢？
+
+> 发布此文的时候之所以没有讲解0到3的情况，是因为前面的几种情况在实际开发中很少会出现，   ~~才不是因为偷懒呢，哼。~~
 
 
 
-**2.setRectToRect**
+| pointCount | 摘要                     |
+| :--------: | ---------------------- |
+|     0      | 相当于`reset`             |
+|     1      | 相当于`translate`         |
+|     2      | 可以进行 缩放、旋转、平移 变换       |
+|     3      | 可以进行 缩放、旋转、平移、错切 变换    |
+|     4      | 可以进行 缩放、旋转、平移、错切以及任何形变 |
+
+> 从上表我们可以观察出一个规律, 随着`pointCount`数值增大setPolyToPoly的可以操作性也越来越强，这不是废话么，可调整点数多了能干的事情自然也多了。
+>
+> 只列一个表格就算交代完毕了显得诚意不足，为了彰显诚意，接下来详细的讲解一下。
+
+
+
+**为什么说前面几种情况在实际开发中很少出现?**
+
+作为开发人员，写出来的代码出了要让机器"看懂"，没有歧义之外，最重要的还是让人看懂，以方便后期的维护修改，从上边的表格中可以看出，前面的几种种情况都可以有更直观的替代方法，只有四个参数的情况下的特殊形变是没有替代方法的。
+
+**测控点选取位置?**
+
+测控点可以选择任何你认为方便的位置，只要src与dst一一对应即可。不过为了方便，通常会选择一些特殊的点： 图形的四个角，边线的中心点以及图形的中心点等。**不过有一点需要注意，测控点选取都应当是不重复的(src与dst均是如此)，如果选取了重复的点会直接导致测量失效，这也意味着，你不允许将一个方形(四个点)映射为三角形(四个点，但其中两个位置重叠)，但可以接近于三角形。**。
+
+**作用范围?**
+
+作用范围当然是设置了Matrix的全部区域，如果你将这个Matrix赋值给了Canvas，它的作用范围就是整个画布，如果你赋值给了Bitmap，它的作用范围就是整张图片。
+
+*****
+
+**接下来用示例演示一下，所有示例的src均为图片大小，dst根据手势变化。**
+
+**pointCount为0**
+
+pointCount为0和`reset`是等价的，而不是保持matrix不变，在最底层的实现中可以看到这样的代码：
+
+```c++
+if (0 == count) {
+    this->reset();
+    return true;
+}
+```
+
+![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f7b7v5z6k3g308c0cxdg6.gif)
+
+**pointCount为1**
+
+pointCount为0和`translate`是等价的，在最底层的实现中可以看到这样的代码：
+
+```c++
+if (1 == count) {
+    this->setTranslate(dst[0].fX - src[0].fX, dst[0].fY - src[0].fY);
+    return true;
+}
+```
+
+> 平移的距离是dst - src.
+
+当测控点为1的时候，由于你只有一个点可以控制，所以你只能拖拽着它在2D平面上滑动。
+
+![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f7b7vp3id5g308c0cxdyx.gif)
+
+**pointCount为2**
+
+当pointCount为2的时候，可以做缩放、平移和旋转。
+
+![](http://ww2.sinaimg.cn/large/005Xtdi2jw1f7b7w51e52g308c0cxx2k.gif)
+
+**pointCount为3**
+
+当pointCount为3的时候，可以做缩放、平移、旋转和错切。
+
+![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f7b7x5mxnug308c0cxwnz.gif)
+
+**pointCount为4**
+
+当pointCount为4的时候，你可以将图像拉伸为任意四边形。
+
+![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f7b7ygigbrg308c0cxaks.gif)
+
+上面已经用图例比较详细的展示了不同操控点个数的情况，如果你依旧存在疑问，可以获取代码自己试一下。
+
+<h4><a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/Code/SetPolyToPoly.md" target="_blank">点击此处查看setPolyToPoly测试代码</a></h4>
+
+#### 2.setRectToRect
 
 ```JAVA
-boolean setRectToRect (RectF src, 			// 源区域
-                RectF dst, 					// 目标区域
-                Matrix.ScaleToFit stf)		// 缩放适配模式
+boolean setRectToRect (RectF src,           // 源区域
+                RectF dst,                  // 目标区域
+                Matrix.ScaleToFit stf)      // 缩放适配模式
 ```
 
 简单来说就是将源矩形的内容填充到目标矩形中，然而在大多数的情况下，源矩形和目标矩形的长宽比是不一致的，到底该如何填充呢，这个填充的模式就由第三个参数 `stf` 来确定。
@@ -559,26 +645,26 @@ public class MatrixSetRectToRectTest extends View {
 
 
 
-**3.rectStaysRect**
+#### 3.rectStaysRect
 
 判断矩形经过变换后是否仍为矩形，假如Matrix进行了平移、缩放则画布仅仅是位置和大小改变，矩形变换后仍然为矩形，但Matrix进行了非90度倍数的旋转或者错切，则矩形变换后就不再是矩形了，这个很好理解，不过多赘述，顺便说一下，前面的`mapRect`方法的返回值就是根据`rectStaysRect`来判断的。
 
 
 
-**4.setSinCos**
+#### 4.setSinCos
 
 设置sinCos值，这个是控制Matrix旋转的，由于Matrix已经封装好了Rotate方法，所以这个并不常用，在此仅作概述。
 
 ```java
 // 方法一
-void setSinCos (float sinValue, 	// 旋转角度的sin值
-                float cosValue)		// 旋转角度的cos值
+void setSinCos (float sinValue,     // 旋转角度的sin值
+                float cosValue)     // 旋转角度的cos值
 
 // 方法二
-void setSinCos (float sinValue, 	// 旋转角度的sin值
-                float cosValue, 	// 旋转角度的cos值
-                float px, 			// 中心位置x坐标
-                float py)			// 中心位置y坐标
+void setSinCos (float sinValue,     // 旋转角度的sin值
+                float cosValue,     // 旋转角度的cos值
+                float px,           // 中心位置x坐标
+                float py)           // 中心位置y坐标
 ```
 
 简单测试:
@@ -620,7 +706,7 @@ setRotate:[0.0, -1.0, 0.0][1.0, 0.0, 0.0][0.0, 0.0, 1.0]
 | isAffine   | 判断当前矩阵是否为仿射矩阵，API21(5.0)才添加的方法。 |
 | isIdentity | 判断当前矩阵是否为单位矩阵。                  |
 
-**1.invert**
+#### 1.invert
 
 求矩阵的逆矩阵，简而言之就是计算与之前相反的矩阵，如果之前是平移200px，则求的矩阵为反向平移200px，如果之前是缩小到0.5f，则结果是放大到2倍。
 
@@ -655,7 +741,7 @@ after  - invert [1.0, 0.0, -200.0][0.0, 1.0, -500.0][0.0, 0.0, 1.0]
 
 
 
-**2.isAffine**
+#### 2.isAffine
 
 判断矩阵是否是仿射矩阵, 貌似并没有太大卵用，因为你无论如何操作结果始终都为true。
 
@@ -686,7 +772,7 @@ isAffine=true
 
 
 
-**3.isIdentity**
+#### 3.isIdentity
 
 判断是否为单位矩阵，什么是单位矩阵呢，就是文章一开始的那个:
 

@@ -33,6 +33,7 @@ excerpt: 自定义View目录，包括自定义坐标系，角度弧度，颜色�
 * [安卓自定义View进阶 - Path完结篇](http://www.gcssloop.com/2015/02/Path_Over/)
 * [安卓自定义View进阶 - PathMeasure](http://www.gcssloop.com/2015/02/Path_PathMeasure/)
 * [安卓自定义View进阶 - Matrix原理](http://www.gcssloop.com/2015/02/Matrix_Basic/)
+* [安卓自定义View进阶 - Matrix详解](http://www.gcssloop.com/2015/02/Matrix_Method/)
 
 
 *****

@@ -446,7 +446,7 @@ PS: 以上省略了get set方法
 
 ``` java
 public class PieView extends View {
-    // 颜色表
+    // 颜色表 (注意: 此处定义颜色使用的是ARGB，带Alpha通道的)
     private int[] mColors = {0xFFCCFF00, 0xFF6495ED, 0xFFE32636, 0xFF800000, 0xFF808000, 0xFFFF8C69, 0xFF808080,
             0xFFE6B800, 0xFF7CFC00};
     // 饼状图初始绘制角度

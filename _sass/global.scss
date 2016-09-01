@@ -185,9 +185,8 @@ table {
 }
 
 thead tr:first-child {
-  background-color: darken($primary-color, 10%);
-  color: $gray-lightest;
-  border: none;
+  color: darken($primary-color, 10%);
+  border: 1px solid $gray-light;
   text-align: center;
 }
 
@@ -195,10 +194,9 @@ th {font-weight: bold;}
 th:first-child, td:first-child {padding: 0 10px 0 10px;}
 
 thead tr:last-child th {
-    border-bottom: 1px solid $gray-light;
+    border: 1px solid $gray-light;
 }
 
-tbody tr:last-child td {border: none;}
 tbody td {
     border-bottom: 1px solid $gray-light;
     font-size: .85em;
@@ -210,6 +208,11 @@ td:last-child {
 
 tr, td {
   padding: 0 10px 0 10px;
+  border: 1px solid $gray-light;
+}
+
+table thead tbody {
+  vertical-align: middle;
 }
 
 .date,
