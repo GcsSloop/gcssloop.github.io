@@ -37,6 +37,9 @@ gems: [jekyll-paginate]
 paginate: 10
 paginate_path: "page/:num/"
 
+gems:
+  - jekyll-sitemap
+
 # Comment
 comment:
     disqus: GcsSloop
