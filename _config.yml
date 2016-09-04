@@ -33,10 +33,7 @@ in_site:
 
 
 # Pagination
-gems: 
-    - jekyll-paginate
-    - jekyll-sitemap
-
+gems: [jekyll-paginate]
 paginate: 10
 paginate_path: "page/:num/"
 
