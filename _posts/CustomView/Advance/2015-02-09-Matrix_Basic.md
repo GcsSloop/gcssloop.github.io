@@ -609,11 +609,9 @@ $$)
 
 ## About
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
+[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
 
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
 
 ## 参考资料
@@ -626,4 +624,3 @@ $$)
 [维基百科-线性映射](https://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84)<br/>
 [齐次坐标系入门级思考](https://oncemore2020.github.io/blog/homogeneous/)<br/>
 [仿射变换与齐次坐标](https://guangchun.wordpress.com/2011/10/12/affineandhomogeneous/)<br/>
-[]()<br/>

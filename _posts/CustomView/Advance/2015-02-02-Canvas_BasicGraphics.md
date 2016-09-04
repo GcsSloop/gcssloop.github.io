@@ -553,14 +553,13 @@ public class PieView extends View {
 
 ## About
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
+[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
 
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
 ## 参考资料：
 
 [View](http://developer.android.com/reference/android/view/View.html)<br/>
 [Canvas](http://developer.android.com/reference/android/graphics/Canvas.html)<br/>
 [Android Canvas绘图详解](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2012/1212/703.html)<br/>
+

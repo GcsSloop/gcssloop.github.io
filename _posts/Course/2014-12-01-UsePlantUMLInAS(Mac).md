@@ -94,11 +94,5 @@ brew info graphviz
 
 #### 好了，到这里该教程正式结束，祝各位小伙伴能愉快的使用plantUML玩耍。
 
-## About
-
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![关于GcsSloop](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
-
 
 

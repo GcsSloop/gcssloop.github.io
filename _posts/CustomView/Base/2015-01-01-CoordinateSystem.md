@@ -5,7 +5,6 @@ title: 自定义View基础-坐标系
 tags: 自定义View, 坐标系
 keywords: 坐标系, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: 自定义View基础内容，主要讲述屏幕坐标系与数学坐标系等差别，以及MotionEvent中 get 和 getRaw 的区别。
-
 ---
 
 ## 一.屏幕坐标系和数学坐标系的区别
@@ -64,14 +63,8 @@ event.getRawY();
 |  3   | MotionEvent中get和getRaw的区别 |
 
 ## 五.参考文章：
-[Android 屏幕（View）坐标系统](http://blog.csdn.net/wangjinyu501/article/details/21827341)
 
+* [◎本系列相关文章](/1970/01/CustomViewIndex/)
+* [Android 屏幕（View）坐标系统](http://blog.csdn.net/wangjinyu501/article/details/21827341)
 
-## About
-
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
-
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![关于GcsSloop](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
 

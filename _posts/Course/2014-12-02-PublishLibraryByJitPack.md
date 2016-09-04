@@ -151,16 +151,3 @@ buildscript {
 
 ### [JitPack地址](https://jitpack.io)
 
-## About
-
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![关于GcsSloop](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
-
-
-
-
-
-
-
-

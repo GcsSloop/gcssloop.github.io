@@ -485,11 +485,9 @@ restore();   //回滚到之前的状态
 
 ## About
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
+[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
 
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
 ******
 

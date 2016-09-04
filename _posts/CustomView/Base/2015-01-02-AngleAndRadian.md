@@ -76,12 +76,8 @@ C = 2πr;
 
 ![角度增大方向](http://ww3.sinaimg.cn/large/005Xtdi2jw1f1s2wnsewfj308c0dwt94.jpg)
 
-## About
+## 参考文章
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
-
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![关于GcsSloop](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+* [◎本系列相关文章](/1970/01/CustomViewIndex/)
 
 

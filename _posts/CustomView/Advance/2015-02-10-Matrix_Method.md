@@ -868,19 +868,13 @@ location2 = [0, 243]
 
 ## About
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
+[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
 
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
 ## 参考资料
 
-[Matrix](https://developer.android.com/reference/android/graphics/Matrix.html)
-
-[Matrix.ScaleToFit](https://developer.android.com/reference/android/graphics/Matrix.ScaleToFit.html)
-
-[Android中图像变换Matrix的原理、代码验证和应用](http://biandroid.iteye.com/blog/1399462)
-
-[Understanding Affine Transformations With Matrix Mathematics](http://code.tutsplus.com/tutorials/understanding-affine-transformations-with-matrix-mathematics--active-10884)
-
+[Matrix](https://developer.android.com/reference/android/graphics/Matrix.html)<br/>
+[Matrix.ScaleToFit](https://developer.android.com/reference/android/graphics/Matrix.ScaleToFit.html)<br/>
+[Android中图像变换Matrix的原理、代码验证和应用](http://biandroid.iteye.com/blog/1399462)<br/>
+[Understanding Affine Transformations With Matrix Mathematics](http://code.tutsplus.com/tutorials/understanding-affine-transformations-with-matrix-mathematics--active-10884)<br/>

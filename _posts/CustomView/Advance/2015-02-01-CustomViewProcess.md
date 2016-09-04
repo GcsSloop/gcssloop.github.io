@@ -246,11 +246,9 @@ protected void onDraw(Canvas canvas) {
 
 ## About
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
+[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
 
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![关于GcsSloop](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
 
 ## 参考资料：
@@ -259,11 +257,9 @@ protected void onDraw(Canvas canvas) {
 [ViewGroup](http://developer.android.com/reference/android/view/ViewGroup.html)<br/>
 [View.MeasureSpec](http://developer.android.com/reference/android/view/View.MeasureSpec.html)<br/>
 [onMeasure，MeasureSpec源码 流程 思路详解](http://blog.csdn.net/a396901990/article/details/36475213)<br/>
-<br/>
 [Android中自定义样式与View的构造函数中的第三个参数defStyle的意义](http://www.cnblogs.com/angeldevil/p/3479431.html) <br/>
 [android view构造函数研究](http://blog.csdn.net/z103594643/article/details/6755017)<br/>
 [Android View构造方法第三参数使用方法详解](http://blog.csdn.net/mybeta/article/details/39993449)<br/>
-<br/>
 [Android 自定义View onMeasure方法的实现](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1102/1891.html)<br/>
 [Android API指南(二)自定义控件02之 onMeasure](http://wangkuiwu.github.io/2014/06/20/View-OnMeasure/)<br/>
 [Android中View的绘制过程 onMeasure方法简述](http://www.cnblogs.com/mengdd/p/3332882.html)<br/>

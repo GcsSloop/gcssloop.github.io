@@ -35,11 +35,3 @@ excerpt: 自定义View目录，包括自定义坐标系，角度弧度，颜色�
 * [安卓自定义View进阶 - Matrix原理](http://www.gcssloop.com/2015/02/Matrix_Basic/)
 * [安卓自定义View进阶 - Matrix详解](http://www.gcssloop.com/2015/02/Matrix_Method/)
 
-
-*****
-
-## About
-
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![关于GcsSloop](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)

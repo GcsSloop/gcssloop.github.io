@@ -536,15 +536,13 @@ Path 和 SVG 结合通常能诞生出一些奇妙的东西，如下:
 
 ## About
 
-#### [本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
+[本系列相关文章](http://www.gcssloop.com/1970/01/CustomViewIndex/)
 
-### 作者微博: [GcsSloop](http://weibo.com/GcsSloop)
-
-[![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f6w5fwi1q2j30a003cglw.jpg)](http://www.gcssloop.com/1970/01/about/)
+作者微博: [GcsSloop](http://weibo.com/GcsSloop)
 
 ## 参考资料
 [PathMeasure](https://developer.android.com/reference/android/graphics/PathMeasure.html)<br/>
 [AndroidSVG](https://bigbadaboom.github.io/androidsvg/)<br/>
 [android-pathview](https://github.com/geftimov/android-pathview)<br/>
-[android Path 和 PathMeasure 进阶](http://blog.csdn.net/cquwentao/article/details/51436852)
+[android Path 和 PathMeasure 进阶](http://blog.csdn.net/cquwentao/article/details/51436852)<br/>
 
