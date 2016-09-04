@@ -178,10 +178,10 @@ table {
   width: 100%;
   color: $gray-darkest;
   font-size: .9em;
-  line-height: 40px;
+  line-height: 1.8em;
   border-spacing: 0;
   border: 2px solid darken($primary-color, 10%);
-  margin: 30px 10px;
+  margin: 30px 0px;
 }
 
 thead tr:first-child {
@@ -207,7 +207,7 @@ td:last-child {
 }
 
 tr, td {
-  padding: 0 10px 0 10px;
+  padding: 5px 10px;
   border: 1px solid $gray-light;
 }
 
