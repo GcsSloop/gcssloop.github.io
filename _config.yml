@@ -7,7 +7,7 @@ creator: <a href="http://www.GcsSloop.com">@GcsSloop</a>
 
 url: "http://www.gcssloop.com"
 
-permalink: /:category/:title/
+permalink: /category/:title/
 
 # Format
 highlighter: rouge
