@@ -33,13 +33,16 @@ in_site:
 
 
 # Pagination
-gems: [jekyll-paginate]
+gems: 
+    - jekyll-paginate
+    - jekyll-sitemap
+
 paginate: 10
 paginate_path: "page/:num/"
 
 # Comment
 comment:
-    disqus: onevcat
+    disqus: GcsSloop
     # duoshuo:
 # Social
 social:
