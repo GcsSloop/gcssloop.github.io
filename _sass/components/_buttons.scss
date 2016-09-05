@@ -28,6 +28,16 @@
   margin-left: 10px;
 }
 
+.btn-contribute {
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  background-color: $primary-color;
+  padding: 6px 8px;
+  font-size: 1.1em;
+  color: white;
+  font-weight: bold;
+}
+
 .btn-secondary {
   border-color: $secondary-color;
   color: $secondary-color;
