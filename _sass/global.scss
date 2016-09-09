@@ -191,7 +191,7 @@ thead tr:first-child {
 }
 
 th {font-weight: bold;}
-th:first-child, td:first-child {padding: 0 10px 0 10px;}
+th:first-child, td:first-child {padding: 5px 10px 5px 10px;}
 
 thead tr:last-child th {
     border: 1px solid $gray-light;
