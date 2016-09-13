@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-Path之基本操作
+title: 安卓自定义View进阶-Path之基本操作
 tags: 自定义View, Path
 keywords: Path, moveTo, setLastPoint, lineTo, close, addRect, addRoundRect, addOval, addCircle, addPath, addArc, arcTo, isEmpty, isRect, set, offset, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Path基本操作，自定义View系列2D绘图部分Path，讲述Path常用方法，主要包括，moveTo, setLastPoint, lineTo, close, addRect, addRoundRect, addOval, addCircle, addPath, addArc, arcTo, isEmpty, isRect, set, offset

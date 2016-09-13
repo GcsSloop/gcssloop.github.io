@@ -1,7 +1,7 @@
 ---
 layout: post
 category:  Course
-title: 使用JitPack发布开源库
+title: 使用JitPack发布Android开源库
 tags: Android, Jitpack
 keywords: Android, Jitpack, GcsSloop
 excerpt: 使用JitPack发布开源库。

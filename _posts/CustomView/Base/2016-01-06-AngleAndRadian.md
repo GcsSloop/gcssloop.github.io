@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View基础-角度与弧度
+title: 安卓自定义View基础-角度与弧度
 tags: 自定义View, 角度, 弧度
 keywords: 角度, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: 安卓自定义View基础篇，主要讲述角度与弧度的差别以及两者的换算关系。

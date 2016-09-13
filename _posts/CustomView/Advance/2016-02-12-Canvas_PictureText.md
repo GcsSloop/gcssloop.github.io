@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-Canvas之图片文字
+title: 安卓自定义View进阶-Canvas之图片文字
 tags: 自定义View, Canvas, Picture, Bitmap
 keywords: 图片, 文字, drawBitmap, drawPicture, drawText, drawPosText, drawTextOnPath, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Canvas之图片文字，讲述自定义控件2D绘图部分的图片和文字处理，包括：绘制图片，位图以及文字。

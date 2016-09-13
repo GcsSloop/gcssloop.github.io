@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-Path之贝塞尔曲线
+title: 安卓自定义View进阶-Path之贝塞尔曲线
 tags: 自定义View, Path, 贝塞尔
 keywords: Path, 贝塞尔曲线, quadTo, cubicTo, 绘制心形, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Path之贝塞尔曲线，自定义View系列2D绘图部分的内塞尔曲线，主要讲解二阶曲线和三阶曲线的使用方法与使用技巧。

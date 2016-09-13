@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-分类与流程
+title: 安卓自定义View进阶-分类与流程
 tags: 自定义View, 自定义ViewGroup, 流程
 keywords: 自定义View分类与流程, 构造函数, onMeasure, onSizeChanged, onLayout, onDraw, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: 进阶篇，主要讲述自定义view的分类，自定义View流程以及相关的一些重点，主要包括，自定义View，自定义ViewGroup。

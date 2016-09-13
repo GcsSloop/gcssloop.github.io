@@ -7,7 +7,7 @@ creator: <a href="http://www.GcsSloop.com">@GcsSloop</a>
 
 url: "http://www.gcssloop.com"
 
-permalink: /:categories/:title/
+permalink: /:categories/:title
 
 # Format
 highlighter: rouge
@@ -27,15 +27,18 @@ nav:
     - {title: 知乎, description: 我的知乎, url: 'https://www.zhihu.com/people/li-yu-long-38'}
 
 in_site:
-    - {title: CustomView, description: 自定义View教程目录, url: '/customview/CustomViewIndex/'}
-    - {title: About, description: 关于我, url: '/info/about/'}
-    
+    - {title: CustomView, description: 自定义View教程目录, url: '/customview/CustomViewIndex'}
+    - {title: About, description: 关于我, url: '/info/about'}
 
+gems:
+    - jekyll-paginate
+    - jekyll-sitemap
 
 # Pagination
-gems: [jekyll-paginate]
 paginate: 10
 paginate_path: "page/:num/"
+
+
 
 # Comment
 comment:
@@ -46,6 +49,7 @@ social:
     weibo: GcsSloop
     github: GcsSloop
     twitter: GcsSloop
+    rss: /feed.xml
     mail: GcsSloop@gmail.com
 
 # Google Analytics

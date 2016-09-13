@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-Path之完结篇
+title: 安卓自定义View进阶-Path之完结篇
 tags: 自定义View, Path, 布尔运算
 keywords: Path, rMoveTo, rLineTo, rQuadTo, rCubicTo, setFillType, getFillType, isInverseFillType, toggleInverseFillType, incReserve, op, computeBounds, reset, rewind, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Path完结篇，自定义View2D绘图部分Path，主要讲解Path的操作方法，包括：相对方法，填充模式，布尔运算，边界计算以及reset与rewind的区别。

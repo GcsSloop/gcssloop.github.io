@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Course
-title: 用JitPack发布时附加文档和源码
+title: 用JitPack发布开源库时附加文档和源码
 tags: Android, Jitpack
 keywords: Android, Jitpack,Javadoc, sources, GcsSloop
 excerpt: 使用JitPack发布开源库的同时添加上源码(sources) 和 文档注释(Javadoc)的 build.gradle 配置方法。
@@ -100,9 +100,11 @@ artifacts {
 
 ### 查看在线文档
 
-如果你在JitPack配置了文档和源码支持，在引用同时就能看到源码的文档，不仅如此，你也可以在线查看。
+如果你在JitPack配置了文档和源码支持，在引用同时就包含了源码和文档，不仅如此，你也可以在线查看。
 
 查看地址是: `https://jitpack.io/com/github/USER/REPO/VERSION/javadoc/`
 
 例如我的一个开源库：`https://jitpack.io/com/github/GcsSloop/ViewSupport/v1.2.2/javadoc/`
 
+在线API文档样式：
+![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f7o8gabelfj31400mbjy0.jpg)

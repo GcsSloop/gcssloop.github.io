@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-Canvas之绘制图形
+title: 安卓自定义View进阶-Canvas之绘制图形
 tags: 自定义View, Canvas
 keywords: Canvas, drawColor, drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc, PieView, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: 自定义View进阶篇，讲解Canvas基础用法，包括，绘制颜色，绘制点，绘制线，绘制矩形，绘制圆角矩形，绘制椭圆，绘制圆，绘制圆弧，以及饼状图示例。

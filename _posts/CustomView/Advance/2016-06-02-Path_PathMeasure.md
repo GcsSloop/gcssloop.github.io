@@ -1,7 +1,7 @@
 ---
 layout: post
 category: CustomView
-title: 自定义View进阶-PathMeasure
+title: 安卓自定义View进阶-PathMeasure
 tags: 自定义View, PathMeasure
 keywords: Path, PathMeasure, PathMeasure详解, setPath, isClosed,  getPosTan, getLength, nextContour, getSegment,  getMatrix, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: PathMeasure， 自定义View中2D绘图部分PathMeasure, 详细讲解PathMeasure的各种用法。
