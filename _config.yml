@@ -33,12 +33,11 @@ in_site:
 gems:
     - jekyll-paginate
     - jekyll-sitemap
+    - jekyll-redirect-from
 
 # Pagination
 paginate: 10
 paginate_path: "page/:num/"
-
-
 
 # Comment
 comment:

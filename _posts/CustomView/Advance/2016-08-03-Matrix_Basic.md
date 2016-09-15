@@ -5,6 +5,8 @@ title: 安卓自定义View进阶-Matrix原理
 tags: 自定义View, Matrix
 keywords: Matrix, Matrix原理, Matrix详解, pre与post的区别, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Matrix原理，详细讲解Matrix原理，了解Matrix各个部分的作用，以及set、pre与post的区别。
+redirect_from:
+  - /2015/02/Matrix_Basic/
 ---
 
 本文内容偏向理论，和 [画布操作](http://www.gcssloop.com/customview/Canvas_Convert/) 有重叠的部分，本文会让你更加深入的了解其中的原理。

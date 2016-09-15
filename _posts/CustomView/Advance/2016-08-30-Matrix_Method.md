@@ -5,6 +5,8 @@ title: 安卓自定义View进阶-Matrix详解
 tags: 自定义View, Matrix
 keywords: Matrix, Matrix原理, Matrix详解, mapPoints, mapRadius, mapRect, mapVectors, setPolyToPoly, setRectToRect, rectStaysRect, setSinCos, invert, isAffine, isIdentity, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Matri详解，详细讲解Android中的Matrix原理，了解Matrix各种方法，以及关于Matrix的一些实用技巧，补充了setPolyToPoly的详细信息。
+redirect_from:
+  - /2015/02/Matrix_Method/
 ---
 
 这应该是目前最详细的一篇讲解Matrix的中文文章了，在上一篇文章[Matrix原理](http://www.gcssloop.com/customview/Matrix_Basic/)中，我们对Matrix做了一个简单的了解，偏向理论，在本文中则会详细的讲解Matrix的具体用法，以及与Matrix相关的一些实用技巧。
