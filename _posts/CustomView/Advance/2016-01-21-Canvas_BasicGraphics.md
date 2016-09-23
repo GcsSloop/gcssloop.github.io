@@ -34,7 +34,7 @@ Canvas我们可以称之为画布，能够在上面绘制各种东西，是安�
 | 画布剪裁       | clipPath,    clipRect                    | 设置画布的显示区域                                |
 | 画布快照       | save, restore, saveLayerXxx, restoreToCount, getSaveCount | 依次为 保存当前状态、 回滚到上一次保存的状态、 保存图层状态、 回滚到指定状态、 获取保存次数 |
 | 画布变换       | translate, scale, rotate, skew           | 依次为 位移、缩放、 旋转、错切                         |
-| Matrix(矩阵) | getMatrix, setMatrix, concat             | 实际画布的位移，缩放等操作的都是图像矩阵Matrix，只不过Matrix比较难以理解和使用，故封装了一些常用的方法。 |
+| Matrix(矩阵) | getMatrix, setMatrix, concat             | 实际上画布的位移，缩放等操作的都是图像矩阵Matrix， 只不过Matrix比较难以理解和使用，故封装了一些常用的方法。 |
 
 > PS： Canvas常用方法在上面表格中已经全部列出了，当然还存在一些其他的方法未列出，具体可以参考官方文档 [Canvas](http://developer.android.com/reference/android/graphics/Canvas.html)
 
@@ -300,7 +300,7 @@ canvas.drawArc(rectF2,0,90,true,mPaint);
 相比于使用椭圆，我们还是使用正圆比较多的，使用正圆展示一下效果：
 
 ``` java
-RectF rectF = new RectF(100,100,800,400);
+RectF rectF = new RectF(100,100,600,600);
 // 绘制背景矩形
 mPaint.setColor(Color.GRAY);
 canvas.drawRect(rectF,mPaint);
@@ -311,7 +311,7 @@ canvas.drawArc(rectF,0,90,false,mPaint);
 
 //-------------------------------------
 
-RectF rectF2 = new RectF(100,600,800,900);
+RectF rectF2 = new RectF(100,700,600,1200);
 // 绘制背景矩形
 mPaint.setColor(Color.GRAY);
 canvas.drawRect(rectF2,mPaint);

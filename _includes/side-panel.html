@@ -24,10 +24,12 @@
               <ul class="navigation">
                 <li class="navigation__item"><a href="/#blog" title="{{site.blog_button.description}}" class="blog-button">{{site.blog_button.title}}</a></li>
                 {% for item in site.nav %}
-                  <li class="navigation__item"><a href="{{item.url}}" target="_blank" title="{{item.description}}">{{item.title}}</a></li>
-                {% endfor %}
-                {% for item in site.in_site %}
-                  <li class="navigation__item"><a href="{{item.url}}" title="{{item.description}}">{{item.title}}</a></li>
+                  {% if item.in_site %}
+                    <li class="navigation__item"><a href="{{item.url}}" title="{{item.description}}">{{item.title}}</a></li>
+                  {% else %}
+                    <li class="navigation__item"><a href="{{item.url}}" target="_blank" title="{{item.description}}">{{item.title}}</a></li>
+                  {% endif %}
+                  
                 {% endfor %}
               </ul>
             </nav>

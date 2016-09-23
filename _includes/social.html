@@ -31,6 +31,16 @@
   </li>
   {% endif %}
 
+    {% if site.social.zhihu %}
+  <!-- Zhihu -->
+  <li class="navigation__item">
+    <a href="https://www.zhihu.com/people/{{site.social.twitter}}" title="@{{site.social.twitter}}" target="_blank">
+      <i class='social fa fa-graduation-cap'></i>
+      <span class="label">知乎</span>
+    </a>
+  </li>
+  {% endif %}
+
   {% if site.social.gplus %}
   <!-- Google Plus -->
   <li class="navigation__item">
@@ -60,6 +70,6 @@
     </a>
   </li>
   {% endif %}
-
+  
   </ul>
 </nav>

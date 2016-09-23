@@ -1,7 +1,7 @@
 # Basic
 title: GcsSloop
 subtitle: Just do IT later.
-welcome_message: 欢迎来到我的魔法世界!
+welcome_message: 欢迎来到我的魔法世界! 
 description: 嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。
 creator: <a href="http://www.GcsSloop.com">@GcsSloop</a>
 
@@ -23,12 +23,11 @@ blog_button:
     description: 访问博客
 
 nav:
-    - {title: GitHub, description: GcsSloop's GitHub, url: 'https://github.com/GcsSloop'}
-    - {title: 知乎, description: 我的知乎, url: 'https://www.zhihu.com/people/li-yu-long-38'}
-
-in_site:
-    - {title: CustomView, description: 自定义View教程目录, url: '/customview/CustomViewIndex'}
-    - {title: About, description: 关于我, url: '/info/about'}
+    - {title: GitHub,     in_site: false,  description: GcsSloop's GitHub, url: 'https://github.com/GcsSloop'}
+    - {title: 知乎,        in_site: false, description: 我的知乎, url: 'https://www.zhihu.com/people/GcsSloop'}
+    - {title: 自定义控件,  in_site: true,  description: 自定义View教程目录, url: '/customview/CustomViewIndex'}
+    - {title: 基友,        in_site: true,  description: 好基(姬)友们和他们的网站, url: '/friends'}
+    - {title: 关于,        in_site: true,  description: 关于我, url: '/info/about'}
 
 gems:
     - jekyll-paginate
@@ -48,6 +47,7 @@ social:
     weibo: GcsSloop
     github: GcsSloop
     twitter: GcsSloop
+    zhihu: GcsSloop
     rss: /feed.xml
     mail: GcsSloop@gmail.com
 
