@@ -12,6 +12,7 @@ excerpt: Unified Modeling Language (UML)又称统一建模语言或标准建模�
 <strong>
 | [Mac](http://www.gcssloop.com/course/UsePlantUMLInAS(Mac)/) 
 | Win
+| 
 </strong>
 
 Unified Modeling Language (UML)又称统一建模语言或标准建模语言，用来描述 类（对象的）、对象、关联、职责、行为、接口、用例、包、顺序、协作，以及状态。是用来帮助自己理清众多类之间复杂关系的不二利器，也能帮助别人快速理解你的设计思路。

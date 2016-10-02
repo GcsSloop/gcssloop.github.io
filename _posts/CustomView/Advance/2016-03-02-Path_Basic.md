@@ -5,6 +5,8 @@ title: 安卓自定义View进阶-Path之基本操作
 tags: 自定义View, Path
 keywords: Path, moveTo, setLastPoint, lineTo, close, addRect, addRoundRect, addOval, addCircle, addPath, addArc, arcTo, isEmpty, isRect, set, offset, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Path基本操作，自定义View系列2D绘图部分Path，讲述Path常用方法，主要包括，moveTo, setLastPoint, lineTo, close, addRect, addRoundRect, addOval, addCircle, addPath, addArc, arcTo, isEmpty, isRect, set, offset
+redirect_from:
+  - /2015/02/Path_Basic/
 ---
 
 在上一篇[Canvas之图片文字](http://www.gcssloop.com/customview/Canvas_PictureText/)中我们了解了如何使用Canvas中绘制图片文字，结合前几篇文章，Canvas的基本操作已经差不多完结了，然而Canvas不仅仅具有这些基本的操作，还可以更加炫酷，本次会了解到path(路径)这个Canvas中的神器，有了这个神器，就能创造出更多**炫(zhuang)酷(B)**的东东了。

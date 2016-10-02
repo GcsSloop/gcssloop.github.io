@@ -95,6 +95,12 @@ buildscript {
     // 重点就是下面这一行(上面两行是为了定位这一行的添加位置)
     classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3' 
 ```
+插件版本可以去官网查看，尽量使用最新版本，在AndroidStudio 2.2 之后插件要使用 1.4.1 以上的版本。
+
+```
+classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1' 
+```
+
 **[完整示例](https://github.com/GcsSloop/SUtil/blob/master/build.gradle)**
 
 **在你要发布的library的 build.gradle(图示2) 中添加如下代码：**

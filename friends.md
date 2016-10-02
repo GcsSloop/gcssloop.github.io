@@ -61,3 +61,10 @@ excerpt: 友情链接。
     GcsSloop
   </a> 
 </div>
+
+
+
+## 友情链接
+
+* [Codpoe的小站](http://codpoe.me/)
+
