@@ -26,7 +26,7 @@ nav:
     - {title: GitHub,     in_site: false,  description: GcsSloop's GitHub, url: 'https://github.com/GcsSloop'}
     - {title: 目录,        in_site: true,  description: 博客目录, url: '/timeline'}
     - {title: 知乎,        in_site: false, description: 我的知乎, url: 'https://www.zhihu.com/people/GcsSloop'}
-    - {title: 自定义控件,  in_site: true,  description: 好基(姬)友们和他们的网站, url: '/customview/CustomViewIndex'}
+    - {title: 自定义控件,  in_site: true,  description: 自定义View教程目录, url: '/customview/CustomViewIndex'}
     - {title: 基友,        in_site: true,  description: 好基(姬)友们和他们的网站, url: '/friends'}
 
 
@@ -48,9 +48,9 @@ social:
     weibo: GcsSloop
     github: GcsSloop
     twitter: GcsSloop
-    zhihu: GcsSloop
     rss: /feed.xml
     mail: GcsSloop@gmail.com
+    copyright: http://choosealicense.online
 
 # Google Analytics
 ga:

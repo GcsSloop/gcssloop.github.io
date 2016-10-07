@@ -15,9 +15,10 @@ excerpt: 自定义View进阶篇，讲解Canvas基础用法，包括，绘制颜�
 
 Canvas我们可以称之为画布，能够在上面绘制各种东西，是安卓平台2D图形绘制的基础，非常强大。
 
-**一般来说，比较基础的东西有两大特点:<br/>
-  1.可操作性强：由于这些是构成上层的基础，所以可操作性必然十分强大。<br/>
-  2.比较难用：各种方法太过基础，想要完美的将这些操作组合起来有一定难度。**
+**一般来说，比较基础的东西有两大特点:**
+
+* 1.可操作性强：由于这些是构成上层的基础，所以可操作性必然十分强大。
+* 2.比较难用：各种方法太过基础，想要完美的将这些操作组合起来有一定难度。
 
 不过不必担心，本系列文章不仅会介绍到Canvas的操作方法，还会简单介绍一些设计思路和技巧。
 
@@ -53,7 +54,7 @@ Canvas我们可以称之为画布，能够在上面绘制各种东西，是安�
 canvas.drawColor(Color.BLUE); //绘制蓝色
 ```
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2742437w3j30u01hcjrq.jpg" width = "300" />
+![](http://ww2.sinaimg.cn/large/005Xtdi2jw1f8f0c7f257j308c0etglf.jpg)
 
 > 关于颜色的更多资料请参考[基础篇_颜色](http://www.gcssloop.com/customview/Color/)
 
@@ -102,7 +103,7 @@ canvas.drawPoints(new float[]{          //绘制一组点，坐标位置由float
 
 > 更多参考这里 [基础篇_坐标系](http://www.gcssloop.com/customview/CoordinateSystem/)
 
-<img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f2743rkifnj30u01hc74n.jpg" width = "300" />
+![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0euxnw7j308c0etmwz.jpg)
 
 ******
 
@@ -118,7 +119,7 @@ canvas.drawLines(new float[]{               // 绘制一组线 每四数字(两�
 },mPaint);
 ```
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2745k83ybj30u01hcq3d.jpg" width = "300" />
+![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f8f0f6xijoj308c0et0sk.jpg)
 
 ******
 
@@ -144,9 +145,11 @@ canvas.drawRect(rectF,mPaint);
 
 以上三种方法所绘制出来的结果是完全一样的。
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f27478692dj30u01hc3yy.jpg" width = "300" /> 
+![](http://ww2.sinaimg.cn/large/005Xtdi2jw1f8f0fkp6sej308c0etglg.jpg)
 
-看到这里,相信很多观众会产生一个疑问，<b>为什么会有Rect和RectF两种？两者有什么区别吗？</b>
+
+
+看到这里,相信很多观众会产生一个疑问，**为什么会有Rect和RectF两种？两者有什么区别吗？**
 
 答案当然是存在区别的，**两者最大的区别就是精度不同，Rect是int(整形)的，而RectF是float(单精度浮点型)的**。除了精度不同，两种提供的方法也稍微存在差别，在这里我们暂时无需关注，想了解更多参见官方文档 [Rect](http://developer.android.com/reference/android/graphics/Rect.html) 和 [RectF](http://developer.android.com/reference/android/graphics/RectF.html)
 
@@ -167,7 +170,7 @@ canvas.drawRoundRect(100,100,800,400,30,30,mPaint);
 
 上面两种方法绘制效果也是一样的，但鉴于第二种方法在API21的时候才添加上，所以我们一般使用的都是第一种。
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2747s3c5zj30u01hcq3e.jpg" width = "300" /> 
+![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f8f0fvkpzqj308c0etglg.jpg)
 
 下面简单解析一下圆角矩形的几个必要的参数的意思。
 
@@ -175,13 +178,13 @@ canvas.drawRoundRect(100,100,800,400,30,30,mPaint);
 
 稍微分析一下，既然是圆角矩形，他的角肯定是圆弧(圆形的一部分)，**我们一般用什么确定一个圆形呢？**
 
-答案是**圆心 和 半径，其中圆心用于确定位置，而半径用于确定大小**。<br/>
+答案是**圆心 和 半径，其中圆心用于确定位置，而半径用于确定大小**。
 
-由于矩形位置已经确定，所以其边角位置也是确定的，那么确定位置的参数就可以省略，只需要用半径就能描述一个圆弧了。<br/>
+由于矩形位置已经确定，所以其边角位置也是确定的，那么确定位置的参数就可以省略，只需要用半径就能描述一个圆弧了。
 
-但是，**半径只需要一个参数，但这里怎么会有两个呢？**<br/>
+但是，**半径只需要一个参数，但这里怎么会有两个呢？**
 
-好吧，让你发现了，**这里圆角矩形的角实际上不是一个正圆的圆弧，而是椭圆的圆弧，这里的两个参数实际上是椭圆的两个半径**，他们看起来个如下图：<br/>
+好吧，让你发现了，**这里圆角矩形的角实际上不是一个正圆的圆弧，而是椭圆的圆弧，这里的两个参数实际上是椭圆的两个半径**，他们看起来个如下图：
 
 ![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f2748fjw2bj308c0dwmx8.jpg)
 
@@ -202,9 +205,9 @@ mPaint.setColor(Color.BLUE);
 canvas.drawRoundRect(rectF,700,400,mPaint);
 ```
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2748ugy2pj30u01hcwf1.jpg" width = "300" /> 
+![](http://ww2.sinaimg.cn/large/005Xtdi2jw1f8f0hfza2kj308c0etmx1.jpg)
 
-其中灰色部分是我们所选定的矩形，而里面的圆角矩形则变成了一个椭圆，<b>实际上在rx为宽度的一半，ry为高度的一半时，刚好是一个椭圆，通过上面我们分析的原理推算一下就能得到，而当rx大于宽度的一半，ry大于高度的一半时，实际上是无法计算出圆弧的，所以drawRoundRect对大于该数值的参数进行了限制(修正)，凡是大于一半的参数均按照一半来处理。</b>
+其中灰色部分是我们所选定的矩形，而里面的圆角矩形则变成了一个椭圆，**实际上在rx为宽度的一半，ry为高度的一半时，刚好是一个椭圆，通过上面我们分析的原理推算一下就能得到，而当rx大于宽度的一半，ry大于高度的一半时，实际上是无法计算出圆弧的，所以drawRoundRect对大于该数值的参数进行了限制(修正)，凡是大于一半的参数均按照一半来处理。**
 
 ******
 
@@ -222,7 +225,7 @@ canvas.drawOval(100,100,800,400,mPaint);
 
 同样，以上两种方法效果完全一样，但一般使用第一种。
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f274afxbiyj30u01hczks.jpg" width = "300" /> 
+![](http://ww3.sinaimg.cn/large/005Xtdi2jw1f8f0hxq2r6j308c0eta9x.jpg)
 
 绘制椭圆实际上就是绘制一个矩形的内切图形，原理如下，就不多说了：
 
@@ -242,7 +245,7 @@ canvas.drawCircle(500,500,400,mPaint);  // 绘制一个圆心坐标在(500,500)�
 
 绘制圆形有四个参数，前两个是圆心坐标，第三个是半径，最后一个是画笔。
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f274c41kknj30u01hcdgf.jpg" width = "300" /> 
+![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f8f0ic63h9j308c0etgli.jpg)
 
 ******
 
@@ -293,7 +296,7 @@ canvas.drawArc(rectF2,0,90,true,mPaint);
 
 上述代码实际上是绘制了一个起始角度为0度，扫过90度的圆弧，两者的区别就是是否使用了中心点，结果如下：
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f274d1smwej30u01hc3z4.jpg" width = "300" /> 
+![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0ijg8pvj308c0ett8m.jpg)
 
 可以发现使用了中心点之后绘制出来类似于一个扇形，而不使用中心点则是圆弧起始点和结束点之间的连线加上圆弧围成的图形。这样中心点这个参数的作用就很明显了，不必多说想必大家试一下就明白了。 另外可以关于角度可以参考一下这篇文章： [角度与弧度](http://www.gcssloop.com/customview/AngleAndRadian/)
 
@@ -321,7 +324,7 @@ mPaint.setColor(Color.BLUE);
 canvas.drawArc(rectF2,0,90,true,mPaint);
 ```
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f274e3surgj30u01hc3z4.jpg" width = "300" /> 
+![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0iuf3h9j308c0etwee.jpg)
 
 ******
 
@@ -365,7 +368,7 @@ paint.setStyle(Paint.Style.FILL_AND_STROKE);
 canvas.drawCircle(200, 800, 100, paint);
 ```
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f274g6lxbpj30u01hcq3n.jpg" width = "300" /> 
+![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0j4t36dj308c0ett8n.jpg)
 
 一图胜千言，通过以上实验我们可以比较明显的看出三种模式的区别，如果只需要边缘不需要填充内容的话只需要设置模式为描边(STROKE)即可。
 
@@ -399,13 +402,15 @@ canvas.drawCircle(200, 800, 100, paint);
 
 先分析饼状图的构成，非常明显，饼状图就是一个又一个的扇形构成的，每个扇形都有不同的颜色，对应的有名字，数据和百分比。
 
-经以上信息可以得出饼状图的最基本数据应包括：<b>名字 数据值 百分比 对应的角度 颜色</b>。
+经以上信息可以得出饼状图的最基本数据应包括：**名字 数据值 百分比 对应的角度 颜色**。
 
-<b>
-用户关心的数据 ： 名字 数据值 百分比<br/>
-需要程序计算的数据： 百分比 对应的角度<br/>
-其中颜色这一项可以用户指定也可以用程序指定(我们这里采用程序指定)。<br/>
-</b>
+> **用户关心的数据 ： 名字 数据值 百分比**
+>
+> **需要程序计算的数据： 百分比 对应的角度**
+>
+> **其中颜色这一项可以用户指定也可以用程序指定(我们这里采用程序指定)。**
+
+
 
 ### 封装数据：
 
@@ -428,6 +433,8 @@ public class PieData {
 ```
 
 PS: 以上省略了get set方法
+
+
 
 ### 自定义View：
 
@@ -543,11 +550,13 @@ public class PieView extends View {
 
 ### 效果图
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f274gz06voj30u01hc3za.jpg" width = "300" /> 
+![](http://ww4.sinaimg.cn/large/005Xtdi2jw1f8f0jt95mlj308c0etweg.jpg)
 
 > **PS: 这个饼状图并没有添加百分比等数据，仅作为示例使用。**
 
 ####  [PieView源码下载](https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/PieView.zip)
+
+
 
 ## 总结：
 

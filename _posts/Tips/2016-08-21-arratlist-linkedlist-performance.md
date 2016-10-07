@@ -11,7 +11,7 @@ excerpt: 用实例测试ArrayList与LinkedList遍历性能。
 
 ## 结构差别:
 
-我们常用的List有两种，ArrayList和LinkedList，但由于内部存储结构的不同，使用不同的遍历方法引起的效果则是千差万别的。
+我们常用的List有两种，ArrayList和LinkedList，虽然两者都是LIst，但由于内部存储结构的不同，使用不同的遍历方法性能却是千差万别的。
 
 | List       | 存储结构 | 特点                    |
 | ---------- | ---- | --------------------- |
@@ -83,7 +83,7 @@ com.gcssloop.alltest I/Time: For-LinkedList：648ms
 
 ## 处理办法:
 
-我们在Java中有 迭代器(Iterator) 以及 For each循环，可以它们来替代掉这个原始的for循环。
+我们在Java中有 迭代器(Iterator) 以及 ForEach 循环，可以用它们来替代掉这个原始的 for 循环。
 
 ### 迭代器(Iterator):
 
@@ -127,13 +127,13 @@ com.gcssloop.alltest I/Time: ForEach-ArrayList： 5ms
 com.gcssloop.alltest I/Time: ForEach-LinkedList：5ms
 ```
 
-由于ForEach循环底层使用的也是迭代器，所以和迭代器性能类似。
+由于 ForEach 循环底层使用的也是迭代器，所以和迭代器性能类似。
 
 
 
 ## 总结:
 
-**推荐使用迭代器(Iterator)和ForEach遍历List，不要使用传统的For循环。**
+**推荐使用 迭代器(Iterator) 和 ForEach 遍历 List，不要使用传统的 For 循环。**
 
 以下是测试处理10000条数据性能:
 

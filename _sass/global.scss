@@ -102,9 +102,10 @@ blockquote {
   padding: 10px 20px;
   margin: 0 0 20px;
   font-family: $serif-font;
-  font-weight: lighter;
+  font-weight: normal;
   font-size: 1em;
   border-left: 3px solid $primary-color;
+  background: lighten($blockquote-bg, 0%);
 
   p {
 
@@ -192,7 +193,10 @@ thead tr:first-child {
 }
 
 th {font-weight: bold;}
-th:first-child, td:first-child {padding: 5px 10px 5px 10px;}
+th:first-child, td:first-child {
+  padding: 5px 10px 5px 10px;
+  border: 1px solid $gray-light;
+}
 
 thead tr:last-child th {
     border: 1px solid $gray-light;
