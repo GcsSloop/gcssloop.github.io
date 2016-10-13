@@ -7,7 +7,7 @@ keywords: 画布操作, Canvas, translate, scale, rotate, skew, save, restore, s
 excerpt: Canvas之画布操作，讲解画布变换相关内容，主要包括：平移，缩放，旋转，错切，以及画布状态保存与回滚。
 ---
 
-上一篇[Canvas之绘制基本图形](http://www.gcssloop.com/customview/Canvas_BasicGraphics/)中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。
+上一篇[Canvas之绘制基本图形][Canvas_BasicGraphics]中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。
 
 本来想把画布操作放到后面部分的，但是发现很多图形绘制都离不开画布操作，于是先讲解一下画布的基本操作方法。
 
@@ -69,9 +69,10 @@ canvas.translate(200,200);
 canvas.drawCircle(0,0,100,mPaint);
 ```
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1ph46qaj30u01hcgm3.jpg" width = "300"/> 
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mhcii1o2j208c0etdfs)
 
-我们首先将坐标系移动一段距离绘制一个圆形，之后再移动一段距离绘制一个圆形，<b>两次移动是可叠加的</b>。
+
+我们首先将坐标系移动一段距离绘制一个圆形，之后再移动一段距离绘制一个圆形，**两次移动是可叠加的**。
 
 *****
 
@@ -99,7 +100,7 @@ public final void scale (float sx, float sy, float px, float py)
 |    1     | 没有变化                       |
 | (1, +∞)  | 根据缩放中心放大n倍                 |
 
-如果在缩放时稍微注意一下就会发现<b>缩放的中心默认为坐标原点,而缩放中心轴就是坐标轴</b>，如下：
+如果在缩放时稍微注意一下就会发现**缩放的中心默认为坐标原点,而缩放中心轴就是坐标轴**，如下：
 
 ``` java
 // 将坐标系原点移动到画布正中心
@@ -118,7 +119,7 @@ canvas.drawRect(rect,mPaint);
 
 (为了更加直观，我添加了一个坐标系，可以比较明显的看出，缩放中心就是坐标原点)
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1vphdjjj30u01hct9r.jpg" width = "300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mhkom4zrj208c0etaa5)  
 
 接下来我们使用第二种方法让缩放中心位置稍微改变一下，如下：
 
@@ -139,7 +140,7 @@ canvas.drawRect(rect,mPaint);
 
 (图中用箭头指示的就是缩放中心。)
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f1w7kv8dj30u01hct9s.jpg" width = "300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjanvhiyj208c0etaa5)  
 
 前面两个示例缩放的数值都是正数，按照表格中的说明，**当缩放比例为负数的时候会根据缩放中心轴进行翻转**，下面我们就来实验一下：
 
@@ -159,7 +160,7 @@ mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
 canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f2f1x76o6qj30u01hc0tu.jpg" width="300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjdx3f48j208c0et3yo) 
 
 > 为了效果明显，这次我不仅添加了坐标系而且对矩形中几个重要的点进行了标注，具有相同字母标注的点是一一对应的。
 
@@ -182,7 +183,7 @@ mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
 canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1xth4p6j30u01hc0u4.jpg" width="300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjfrpvq8j208c0etmxe)
 
 > 添加了这么多的辅助内容，希望大家能够看懂。
 
@@ -212,7 +213,7 @@ for (int i=0; i<=20; i++)
 }
 ```
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f1yfn22xj30u01hcta9.jpg" width = "300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjg7gc8ij208c0et0sy) 
 
 *****
 
@@ -245,7 +246,7 @@ mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
 canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2f1yws38nj30u01hcmy8.jpg" width = "300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjgsi14vj208c0etdfy)  
 
 改变旋转中心位置：
 
@@ -264,7 +265,7 @@ mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
 canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2f1zcmwb2j30u01hcmy9.jpg" width = "300" />
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjh7l2i2j208c0etwem)
 
 <b>好吧，旋转也是可叠加的</b>
 
@@ -290,7 +291,7 @@ for (int i=0; i<=360; i+=10){               // 绘制圆形之间的连接线
 }
 ```
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f1zsnj00j30u01hc75a.jpg" width = "300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjhhwk68j208c0etaa5)  
 
 *****
 
@@ -332,7 +333,7 @@ mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
 canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2f20h7i23j30u01hcdgq.jpg" width = "300" />  
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjhvhfluj208c0etjrf)  
 
 <b>如你所想，错切也是可叠加的，不过请注意，调用次序不同绘制结果也会不同</b>
 
@@ -352,18 +353,18 @@ mPaint.setColor(Color.BLUE);            // 绘制蓝色矩形
 canvas.drawRect(rect,mPaint);
 ```
 
-<img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2f20w0rffj30u01hcgm8.jpg" width = "300" />
+![](https://ws3.sinaimg.cn/large/cf673337jw1f8mjidj4s0j208c0etdft)
 
 *****
 
 #### ⑸快照(save)和回滚(restore)
 
-<b>
-Q: 为什存在快照与回滚<br/>
-A：画布的操作是不可逆的，而且很多画布操作会影响后续的步骤，例如第一个例子，两个圆形都是在坐标原点绘制的，而因为坐标系的移动绘制出来的实际位置不同。所以会对画布的一些状态进行保存和回滚。
-</b>
 
-<b>与之相关的API:</b>
+**Q: 为什存在快照与回滚**  
+A：画布的操作是不可逆的，而且很多画布操作会影响后续的步骤，例如第一个例子，两个圆形都是在坐标原点绘制的，而因为坐标系的移动绘制出来的实际位置不同。所以会对画布的一些状态进行保存和回滚。
+
+
+**与之相关的API:**
 
 | 相关API          | 简介                             |
 | -------------- | ------------------------------ |
@@ -383,8 +384,8 @@ A：画布的操作是不可逆的，而且很多画布操作会影响后续的�
 
 这个栈可以存储画布状态和图层状态。
 
-<b>Q：什么是画布和图层？<br/>
-A：实际上我们看到的画布是由多个图层构成的，如下图(图片来自网络)：<br/>
+**Q：什么是画布和图层？**  
+A：实际上我们看到的画布是由多个图层构成的，如下图(图片来自网络)：  
 
 ![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f2gfrc6fdkj308c0dwglr.jpg)
 
@@ -481,7 +482,7 @@ restore();   //回滚到之前的状态
 
 (,,• ₃ •,,)
 
-<b>PS: 由于本人英文水平有限，某些地方可能存在误解或词语翻译不准确，如果你对此有疑问可以提交Issues进行反馈。</b>
+**PS: 由于本人英文水平有限，某些地方可能存在误解或词语翻译不准确，如果你对此有疑问可以提交Issues进行反馈。**
 
 ## About
 
@@ -493,8 +494,13 @@ restore();   //回滚到之前的状态
 
 ## 四.参考资料
 
-[Canvas](http://developer.android.com/reference/android/graphics/Canvas.html)<br/>
-[canvas变换与操作](http://blog.csdn.net/harvic880925/article/details/39080931)<br/>
-[Canvas之translate、scale、rotate、skew方法讲解](http://blog.csdn.net/tianjian4592/article/details/45234419)<br/>
-[Canvas的save(),saveLayer()和restore()浅谈](http://www.cnblogs.com/liangstudyhome/p/4143498.html)<br/>
-[Graphics->Layers](http://www.programgo.com/article/72302404062/;jsessionid=8E62016408BFFB21D46F9C878A49D8EE)<br/>
+[Canvas](http://developer.android.com/reference/android/graphics/Canvas.html)  
+[canvas变换与操作](http://blog.csdn.net/harvic880925/article/details/39080931)  
+[Canvas之translate、scale、rotate、skew方法讲解](http://blog.csdn.net/tianjian4592/article/details/45234419)  
+[Canvas的save(),saveLayer()和restore()浅谈](http://www.cnblogs.com/liangstudyhome/p/4143498.html)  
+[Graphics->Layers](http://www.programgo.com/article/72302404062/;jsessionid=8E62016408BFFB21D46F9C878A49D8EE)  
+
+
+
+[Canvas_BasicGraphics]: http://www.gcssloop.com/customview/Canvas_BasicGraphics/	"Canvas之绘制基本图形"
+
