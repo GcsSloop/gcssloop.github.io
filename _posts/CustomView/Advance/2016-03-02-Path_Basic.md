@@ -226,9 +226,9 @@ canvas.drawPath(path, mPaint);              // 绘制Path
 
 <img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1axmfeojzj30u01hcwfi.jpg" width = "270" height = "480"/> 
 
-很明显，两个lineTo分别代表第1和第2条线，而close在此处的作用就算连接了B(200,0)点和圆的O之间的第3条线，使之形成一个封闭的图形。
+很明显，两个lineTo分别代表第1和第2条线，而close在此处的作用就算连接了B(200,0)点和原点O之间的第3条线，使之形成一个封闭的图形。
 
-**注意：close的作用是封闭路径，与当前最后一个点和第一个点并不等价。如果连接了最后一个点和第一个点仍然无法形成封闭图形，则close什么 也不做。**
+**注意：close的作用是封闭路径，与连接当前最后一个点和第一个点并不等价。如果连接了最后一个点和第一个点仍然无法形成封闭图形，则close什么 也不做。**
 
 ### 第2组: addXxx与arcTo
 
@@ -255,7 +255,7 @@ public void addRoundRect (RectF rect, float rx, float ry, Path.Direction dir)
 
 **这一类就是在path中添加一个基本形状，基本形状部分和前面所讲的绘制基本形状并无太大差别，详情参考[Canvas(1)颜色与基本形状](https://github.com/GcsSloop/AndroidNote/blob/master/%E9%97%AE%E9%A2%98/Canvas/Canvas(1).md), 本次只将其中不同的部分摘出来详细讲解一下。**
 
-**仔细观察一下第一类是方法，无一例外，在最后都有一个_Path.Direction_，这是一个什么神奇的东东？**
+**仔细观察一下第一类是方法，无一例外，在最后都有一个 `Path.Direction`，这是一个什么神奇的东东？**
 
 Direction的意思是 方向，趋势。 点进去看一下会发现Direction是一个枚举(Enum)类型，里面只有两个枚举常量，如下：
 
@@ -273,7 +273,7 @@ Direction的意思是 方向，趋势。 点进去看一下会发现Direction是
 | 1    | 在添加图形时确定闭合顺序(各个点的记录顺序)    |
 | 2    | 对图形的渲染结果有影响(是判断图形渲染的重要条件) |
 
-这个先剧透这么多，至于对闭合顺序有啥影响，自相交图形的渲染等问题等请慢慢看下去
+这个先剧透这么多，至于对闭合顺序有啥影响，图形的渲染等问题等请慢慢看下去
 
 咱们先研究确定闭合顺序的问题，添加一个矩形试试看：
 
@@ -348,7 +348,7 @@ canvas.drawPath(path,mPaint);
 
 重要的话说三遍，本次是用矩形作为例子的，其他的几个图形基本上都包含了曲线，详情参见后续的贝塞尔曲线部分。
 
-**关于顺时针和逆时针对图形填充结果的影响请等待后续文章，虽然只讲了一个Path，但也是内容颇多，放进一篇中就太长了，请见谅。**
+**关于顺时针和逆时针对图形填充结果的影响请参考 [Path之完结篇][Path_Over]，虽然只讲了一个Path，但也是内容颇多，放进一篇中就太长了，请见谅。**
 
 #### 第二类(Path)
 
@@ -627,3 +627,7 @@ canvas.drawPath(dst,mPaint);                // 绘制dst
 [Path](http://developer.android.com/reference/android/graphics/Path.html)<br/>
 [Canvas](http://developer.android.com/reference/android/graphics/Canvas.html)<br/>
 [android绘图之Path总结](http://ghui.me/post/2015/10/android-graphics-path/)<br/>
+
+
+
+[Path_Over]: http://www.gcssloop.com/customview/Path_Over
