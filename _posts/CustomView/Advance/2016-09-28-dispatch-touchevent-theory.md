@@ -101,12 +101,41 @@ excerpt: 之前讲解了很多与View绘图相关的知识，你可以在安卓�
 >
 > `X` 表示没有该方法。
 
-|  类型  |         相关方法          | Activity | ViewGroup | View |
-| :--: | :-------------------: | :------: | :-------: | :--: |
-| 事件分发 |  dispatchTouchEvent   |    √     |     √     |  √   |
-| 事件拦截 | onInterceptTouchEvent |    X     |     √     |  X   |
-| 事件消费 |     onTouchEvent      |    √     |     √     |  √   |
+<table style="word-break:break-all;">
+  <thead>
 
+    <tr>
+      <th style="text-align: center">类型</th>
+      <th style="text-align: center">相关方法</th>
+      <th style="text-align: center">Activity</th>
+      <th style="text-align: center">ViewGroup</th>
+      <th style="text-align: center">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">事件分发</td>
+      <td style="text-align: center">dispatchTouchEvent</td>
+      <td style="text-align: center">√</td>
+      <td style="text-align: center">√</td>
+      <td style="text-align: center">√</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">事件拦截</td>
+      <td style="text-align: center">onInterceptTouchEvent</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">√</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">事件消费</td>
+      <td style="text-align: center">onTouchEvent</td>
+      <td style="text-align: center">√</td>
+      <td style="text-align: center">√</td>
+      <td style="text-align: center">√</td>
+    </tr>
+  </tbody>
+</table>
 
 这个三个方法均有一个 boolean(布尔) 类型的返回值，通过返回 true 和 false 来控制事件传递的流程。
 
