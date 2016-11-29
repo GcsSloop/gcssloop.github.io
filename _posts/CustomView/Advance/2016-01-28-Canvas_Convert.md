@@ -5,6 +5,8 @@ title: 安卓自定义View进阶-Canvas之画布操作
 tags: 自定义View, Canvas
 keywords: 画布操作, Canvas, translate, scale, rotate, skew, save, restore, saveLayer, restoreToCount, getSaveCount, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop
 excerpt: Canvas之画布操作，讲解画布变换相关内容，主要包括：平移，缩放，旋转，错切，以及画布状态保存与回滚。
+redirect_from:
+  - /2015/02/Canvas_Convert/
 ---
 
 上一篇[Canvas之绘制基本图形][Canvas_BasicGraphics]中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。

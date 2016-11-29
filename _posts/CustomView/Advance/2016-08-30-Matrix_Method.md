@@ -11,6 +11,8 @@ redirect_from:
 
 这应该是目前最详细的一篇讲解Matrix的中文文章了，在上一篇文章[Matrix原理](http://www.gcssloop.com/customview/Matrix_Basic/)中，我们对Matrix做了一个简单的了解，偏向理论，在本文中则会详细的讲解Matrix的具体用法，以及与Matrix相关的一些实用技巧。
 
+> ## ⚠️ 警告：测试本文章示例之前请关闭硬件加速。
+
 ## Matrix方法表
 
 按照惯例，先放方法表做概览。

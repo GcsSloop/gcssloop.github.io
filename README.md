@@ -7,5 +7,3 @@
 备份地址2: http://gcssloop.coding.me
 
 测试地址: http://gcssloop.github.io
-
-### 如果对本网站主题感兴趣的话请移步 [Gcs-Vno-Jekyll](https://github.com/GcsSloop/Gcs-Vno-Jekyll)

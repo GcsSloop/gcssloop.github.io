@@ -380,7 +380,7 @@ public void drawTextOnPath (char[] text, int index, int count, Path path, float 
 
 绘制文字部分大致可以分为三类：
 
-第一类只能指定文本基线位置位置(基线x默认在字符串左侧，基线y默认在字符串下方)。<br/>
+第一类只能指定文本基线位置(基线x默认在字符串左侧，基线y默认在字符串下方)。<br/>
 第二类可以分别指定每个文字的位置。<br/>
 第三类是指定一个路径，根据路径绘制文字。<br/>
 
