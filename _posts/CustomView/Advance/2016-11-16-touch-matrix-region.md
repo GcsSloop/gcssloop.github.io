@@ -569,7 +569,7 @@ public class RemoteControlMenu extends CustomView {
 
 **这两个知识点都不是很难，然而灵活运用起来却是非常强大的，如果有对 Matrix 不了解的小伙伴，推荐去看我 [之前的文章][CustomViewIndex]，里面有关于Matrix的详细介绍，**
 
-
+由于个人水平有限，文章中可能会出现错误，如果你觉得哪一部分有错误，或者发现了错别字等内容，欢迎在评论区告诉我，另外，据说关注 [作者微博](http://weibo.com/GcsSloop) 不仅能第一时间收到新文章消息，还能变帅哦。
 
 ## About Me
 

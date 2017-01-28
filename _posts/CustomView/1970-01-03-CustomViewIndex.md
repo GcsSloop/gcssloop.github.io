@@ -17,29 +17,30 @@ redirect_from:
 
 ### 基础篇
 
-* [安卓自定义View基础 - 坐标系](http://www.gcssloop.com/customview/CoordinateSystem)
-* [安卓自定义View基础 - 角度弧度](http://www.gcssloop.com/customview/AngleAndRadian)
-* [安卓自定义View基础 - 颜色](http://www.gcssloop.com/customview/Color)
+* [安卓自定义View基础 - 坐标系](/customview/CoordinateSystem)
+* [安卓自定义View基础 - 角度弧度](/customview/AngleAndRadian)
+* [安卓自定义View基础 - 颜色](/customview/Color)
 
 *******
 
 ### 进阶篇
 
-* [安卓自定义View进阶 - 分类和流程](http://www.gcssloop.com/customview/CustomViewProcess)  
-* [安卓自定义View进阶 - Canvas之绘制图形](http://www.gcssloop.com/customview/Canvas_BasicGraphics)  
-* [安卓自定义View进阶 - Canvas之画布操作](http://www.gcssloop.com/customview/Canvas_Convert)  
-* [安卓自定义View进阶 - Canvas之图片文字](http://www.gcssloop.com/customview/Canvas_PictureText)  
-* [安卓自定义View进阶 - Path之基本操作](http://www.gcssloop.com/customview/Path_Basic)  
-* [安卓自定义View进阶 - Path之贝塞尔曲线](http://www.gcssloop.com/customview/Path_Bezier)  
-* [安卓自定义View进阶 - Path完结篇](http://www.gcssloop.com/customview/Path_Over)  
-* [安卓自定义View进阶 - PathMeasure](http://www.gcssloop.com/customview/Path_PathMeasure)  
-* [安卓自定义View进阶 - Matrix原理](http://www.gcssloop.com/customview/Matrix_Basic)  
-* [安卓自定义View进阶 - Matrix详解](http://www.gcssloop.com/customview/Matrix_Method)  
-* [安卓自定义View进阶 - Matrix Camera](http://www.gcssloop.com/customview/matrix-3d-camera)  
-* [安卓自定义View进阶 - 事件分发机制原理](http://www.gcssloop.com/customview/dispatch-touchevent-theory)  
-* [安卓自定义View进阶 - 事件分发机制详解](http://www.gcssloop.com/customview/dispatch-touchevent-source)  
-* [安卓自定义View进阶 - MotionEvent详解](http://www.gcssloop.com/customview/motionevent)  
-* [安卓自定义View进阶 - 特殊控件的事件处理方案](http://www.gcssloop.com/customview/touch-matrix-region)  
+* [安卓自定义View进阶 - 分类和流程](/customview/CustomViewProcess)  
+* [安卓自定义View进阶 - Canvas之绘制图形](/customview/Canvas_BasicGraphics)  
+* [安卓自定义View进阶 - Canvas之画布操作](/customview/Canvas_Convert)  
+* [安卓自定义View进阶 - Canvas之图片文字](/customview/Canvas_PictureText)  
+* [安卓自定义View进阶 - Path之基本操作](/customview/Path_Basic)  
+* [安卓自定义View进阶 - Path之贝塞尔曲线](/customview/Path_Bezier)  
+* [安卓自定义View进阶 - Path完结篇](/customview/Path_Over)  
+* [安卓自定义View进阶 - PathMeasure](/customview/Path_PathMeasure)  
+* [安卓自定义View进阶 - Matrix原理](/customview/Matrix_Basic)  
+* [安卓自定义View进阶 - Matrix详解](/customview/Matrix_Method)  
+* [安卓自定义View进阶 - Matrix Camera](/customview/matrix-3d-camera)  
+* [安卓自定义View进阶 - 事件分发机制原理](/customview/dispatch-touchevent-theory)  
+* [安卓自定义View进阶 - 事件分发机制详解](/customview/dispatch-touchevent-source)  
+* [安卓自定义View进阶 - MotionEvent详解](/customview/motionevent)  
+* [安卓自定义View进阶 - 特殊控件的事件处理方案](/customview/touch-matrix-region) 
+* [安卓自定义View进阶 - 多点触控详解](/customview/multi-touch)  
 
 
 *****
@@ -51,6 +52,8 @@ redirect_from:
 > **重要的话说三遍。**  
 >
 > **如何关闭参考这里 [Android如何关闭硬件加速](https://github.com/GcsSloop/AndroidNote/issues/7)**
+
+[**GitHub 版本点这里查看**](https://github.com/GcsSloop/AndroidNote)
 
 ### 博文修复计划
 

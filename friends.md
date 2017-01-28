@@ -68,4 +68,6 @@ excerpt: 友情链接。
 
 * [Codpoe的小站](http://codpoe.me/){:target="_blank"}
 * [Coding and Living](http://www.woaitqs.cc){:target="_blank"}
+* [Zone](https://luhaoaimama1.github.io/){:target="_blank"}
+
 
