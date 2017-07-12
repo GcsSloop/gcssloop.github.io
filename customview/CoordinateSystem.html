@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View基础-坐标系</title>
+  <meta name="description" content="自定义View基础内容，主要讲述屏幕坐标系与数学坐标系等差别，以及MotionEvent中 get 和 getRaw 的区别。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="坐标系, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="坐标系, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View基础-坐标系">
+  <meta name="twitter:description" content="自定义View基础内容，主要讲述屏幕坐标系与数学坐标系等差别，以及MotionEvent中 get 和 getRaw 的区别。">
+  <meta name="twitter:keywords" content="坐标系, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View基础-坐标系">
+  <meta property="og:description" content="自定义View基础内容，主要讲述屏幕坐标系与数学坐标系等差别，以及MotionEvent中 get 和 getRaw 的区别。">
+  <meta name="og:keywords" content="坐标系, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/customview/CoordinateSystem">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex/" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about/" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-01-05 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-01-05</time> &#8226; <span class="post-meta__tags tags">自定义View,坐标系</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View基础-坐标系</h1>
+  </header>
+
+  <section class="post">
+    <h2 id="一屏幕坐标系和数学坐标系的区别">一.屏幕坐标系和数学坐标系的区别</h2>
+
+<p>由于移动设备一般定义屏幕左上角为坐标原点，向右为x轴增大方向，向下为y轴增大方向，
+所以在手机屏幕上的坐标系与数学中常见的坐标系是稍微有点差别的，详情如下：</p>
+
+<p>（<strong>PS：其中的∠a 是对应的，注意y轴方向！</strong>）</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f1qygzfvhoj308c0dwglr.jpg" alt="数学坐标系" />
+<img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f1qyhbqvihj308c0dwjrh.jpg" alt="安卓屏幕坐标系" /></p>
+
+<p><strong>实际屏幕上的默认坐标系如下：</strong></p>
+
+<blockquote>
+  <p>PS: 假设其中棕色部分为手机屏幕</p>
+</blockquote>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f1qyhjy7h8j308c0dwq32.jpg" alt="屏幕默认坐标系示例" /></p>
+
+<h2 id="二view的坐标系">二.View的坐标系</h2>
+
+<p><strong>注意：View的坐标系统是相对于父控件而言的.</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">getTop</span><span class="o">();</span>       <span class="c1">//获取子View左上角距父View顶部的距离</span>
+<span class="n">getLeft</span><span class="o">();</span>      <span class="c1">//获取子View左上角距父View左侧的距离</span>
+<span class="n">getBottom</span><span class="o">();</span>    <span class="c1">//获取子View右下角距父View顶部的距离</span>
+<span class="n">getRight</span><span class="o">();</span>     <span class="c1">//获取子View右下角距父View左侧的距离</span>
+</code></pre>
+</div>
+
+<p><strong>如下图所示：</strong></p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f1qzqwvkkbj308c0dwgm9.jpg" alt="View坐标系" /></p>
+
+<h2 id="三motionevent中-get-和-getraw-的区别">三.MotionEvent中 get 和 getRaw 的区别</h2>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>       <span class="c1">//触摸点相对于其所在组件坐标系的坐标</span>
+<span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+
+<span class="n">event</span><span class="o">.</span><span class="na">getRawX</span><span class="o">();</span>    <span class="c1">//触摸点相对于屏幕默认坐标系的坐标</span>
+<span class="n">event</span><span class="o">.</span><span class="na">getRawY</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p><strong>如下图所示：</strong></p>
+
+<blockquote>
+  <p>PS:其中相同颜色的内容是对应的，其中为了显示方便，蓝色箭头向左稍微偏移了一点.</p>
+</blockquote>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f1r2bdlqhbj308c0dwwew.jpg" alt="get雨getRaw区别" /></p>
+
+<h2 id="四核心要点">四.核心要点</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">序号</th>
+      <th>要点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td>在数学中常见的坐标系与屏幕默认坐标系的差别</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td>View的坐标系是相对于父控件而言的</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td>MotionEvent中get和getRaw的区别</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="五参考文章">五.参考文章：</h2>
+
+<ul>
+  <li><a href="http://www.gcssloop.com/customview/CustomViewIndex/">◎本系列相关文章</a></li>
+  <li><a href="http://blog.csdn.net/wangjinyu501/article/details/21827341">Android 屏幕（View）坐标系统</a></li>
+</ul>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石，鼓励我继续研究! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师，<a href="/contribute">点击这里查看捐赠者名单。</a>
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/AngleAndRadian" title="link to 安卓自定义View基础-角度与弧度">安卓自定义View基础-角度与弧度</a></h2>
+    <p class="excerpt">安卓中角度(angle)与弧度(radian)的有关问题。一.前言1.为什么讲这个？在我们自定义View，尤其是制作一些复杂炫酷的效果的时候，实际上是将一些简单的东西通过数学上精密的计算组合到一...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-01-06 00:00:00 +0800" class="post-list__meta--date date">2016-01-06</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/AngleAndRadian>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/taiji" title="link to 二十多行代码画太极">二十多行代码画太极</a></h2>
+       <p class="excerpt">一个然并卵的自定义View实例，觉得很有趣就做了一个试试，效果看起来貌似还是挺不错的，代码也非常简单。如果想系统的学习自定义View，可以参考: 安卓自定义View教程目录完成效果图技术基础这一...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2015-12-26 00:00:00 +0800" class="post-list__meta--date date">2015-12-26</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/taiji>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

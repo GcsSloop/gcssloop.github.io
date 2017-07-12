@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View进阶-Path之贝塞尔曲线</title>
+  <meta name="description" content="Path之贝塞尔曲线，自定义View系列2D绘图部分的内塞尔曲线，主要讲解二阶曲线和三阶曲线的使用方法与使用技巧。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Path, 贝塞尔曲线, quadTo, cubicTo, 绘制心形, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="Path, 贝塞尔曲线, quadTo, cubicTo, 绘制心形, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View进阶-Path之贝塞尔曲线">
+  <meta name="twitter:description" content="Path之贝塞尔曲线，自定义View系列2D绘图部分的内塞尔曲线，主要讲解二阶曲线和三阶曲线的使用方法与使用技巧。">
+  <meta name="twitter:keywords" content="Path, 贝塞尔曲线, quadTo, cubicTo, 绘制心形, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View进阶-Path之贝塞尔曲线">
+  <meta property="og:description" content="Path之贝塞尔曲线，自定义View系列2D绘图部分的内塞尔曲线，主要讲解二阶曲线和三阶曲线的使用方法与使用技巧。">
+  <meta name="og:keywords" content="Path, 贝塞尔曲线, quadTo, cubicTo, 绘制心形, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/customview/Path_Bezier">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex/" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about/" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-04-29 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-04-29</time> &#8226; <span class="post-meta__tags tags">自定义View,Path,贝塞尔</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View进阶-Path之贝塞尔曲线</h1>
+  </header>
+
+  <section class="post">
+    <p>在上一篇文章<a href="http://www.gcssloop.com/customview/Path_Basic/">Path之基本操作</a>中我们了解了Path的基本使用方法，本次了解Path中非常非常非常重要的内容-贝塞尔曲线。</p>
+
+<hr />
+
+<h2 id="一path常用方法表">一.Path常用方法表</h2>
+
+<blockquote>
+  <p>为了兼容性(<em>偷懒</em>) 本表格中去除了在API21(即安卓版本5.0)以上才添加的方法。忍不住吐槽一下，为啥看起来有些顺手就能写的重载方法要等到API21才添加上啊。宝宝此刻内心也是崩溃的。</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>作用</th>
+      <th>相关方法</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>移动起点</td>
+      <td>moveTo</td>
+      <td>移动下一次操作的起点位置</td>
+    </tr>
+    <tr>
+      <td>设置终点</td>
+      <td>setLastPoint</td>
+      <td>重置当前path中最后一个点位置，如果在绘制之前调用，效果和moveTo相同</td>
+    </tr>
+    <tr>
+      <td>连接直线</td>
+      <td>lineTo</td>
+      <td>添加上一个点到当前点之间的直线到Path</td>
+    </tr>
+    <tr>
+      <td>闭合路径</td>
+      <td>close</td>
+      <td>连接第一个点连接到最后一个点，形成一个闭合区域</td>
+    </tr>
+    <tr>
+      <td>添加内容</td>
+      <td>addRect, addRoundRect,  addOval, addCircle, 	addPath, addArc, arcTo</td>
+      <td>添加(矩形， 圆角矩形， 椭圆， 圆， 路径， 圆弧) 到当前Path (注意addArc和arcTo的区别)</td>
+    </tr>
+    <tr>
+      <td>是否为空</td>
+      <td>isEmpty</td>
+      <td>判断Path是否为空</td>
+    </tr>
+    <tr>
+      <td>是否为矩形</td>
+      <td>isRect</td>
+      <td>判断path是否是一个矩形</td>
+    </tr>
+    <tr>
+      <td>替换路径</td>
+      <td>set</td>
+      <td>用新的路径替换到当前路径所有内容</td>
+    </tr>
+    <tr>
+      <td>偏移路径</td>
+      <td>offset</td>
+      <td>对当前路径之前的操作进行偏移(不会影响之后的操作)</td>
+    </tr>
+    <tr>
+      <td>贝塞尔曲线</td>
+      <td>quadTo, cubicTo</td>
+      <td>分别为二次和三次贝塞尔曲线的方法</td>
+    </tr>
+    <tr>
+      <td>rXxx方法</td>
+      <td>rMoveTo, rLineTo, rQuadTo, rCubicTo</td>
+      <td><strong>不带r的方法是基于原点的坐标系(偏移量)， rXxx方法是基于当前点坐标系(偏移量)</strong></td>
+    </tr>
+    <tr>
+      <td>填充模式</td>
+      <td>setFillType, getFillType, isInverseFillType, toggleInverseFillType</td>
+      <td>设置,获取,判断和切换填充模式</td>
+    </tr>
+    <tr>
+      <td>提示方法</td>
+      <td>incReserve</td>
+      <td>提示Path还有多少个点等待加入<strong>(这个方法貌似会让Path优化存储结构)</strong></td>
+    </tr>
+    <tr>
+      <td>布尔操作(API19)</td>
+      <td>op</td>
+      <td>对两个Path进行布尔运算(即取交集、并集等操作)</td>
+    </tr>
+    <tr>
+      <td>计算边界</td>
+      <td>computeBounds</td>
+      <td>计算Path的边界</td>
+    </tr>
+    <tr>
+      <td>重置路径</td>
+      <td>reset, rewind</td>
+      <td>清除Path中的内容<br /> <strong>reset不保留内部数据结构，但会保留FillType.</strong><br /> <strong>rewind会保留内部的数据结构，但不保留FillType</strong></td>
+    </tr>
+    <tr>
+      <td>矩阵操作</td>
+      <td>transform</td>
+      <td>矩阵变换</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="二path详解">二.Path详解</h2>
+
+<p>上一次除了一些常用函数之外，讲解的基本上都是直线，本次需要了解其中的曲线部分,说到曲线，就不得不提大名鼎鼎的贝塞尔曲线。它的发明者是下面这个人(法国数学家PierreBézier)。</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1ky5bw28pg305k07h3yo.gif" alt="" /></p>
+
+<h3 id="贝塞尔曲线能干什么">贝塞尔曲线能干什么？</h3>
+
+<p>贝塞尔曲线的运用是十分广泛的，可以说<strong>贝塞尔曲线奠定了计算机绘图的基础(<em>因为它可以将任何复杂的图形用精确的数学语言进行描述</em>)</strong>，在你不经意间就已经使用过它了。</p>
+
+<p>你会使用Photoshop的话，你可能会注意到里面有一个<strong>钢笔工具</strong>，这个钢笔工具核心就是贝塞尔曲线。</p>
+
+<p>你说你不会PS？ 没关系，你如果看过前面的文章或者用过2D绘图，肯定绘制过圆，圆弧，圆角矩形等这些东西。这里面的圆弧部分全部都是贝塞尔曲线的运用。</p>
+
+<h4 id="贝塞尔曲线作用十分广泛简单举几个的栗子">贝塞尔曲线作用十分广泛，简单举几个的栗子:</h4>
+
+<ul>
+  <li>QQ小红点拖拽效果</li>
+  <li>一些炫酷的下拉刷新控件</li>
+  <li>阅读软件的翻书效果</li>
+  <li>一些平滑的折线图的制作</li>
+  <li>很多炫酷的动画效果</li>
+</ul>
+
+<h3 id="如何轻松入门贝塞尔曲线">如何轻松入门贝塞尔曲线？</h3>
+
+<p>虽然贝塞尔曲线用途非常广泛，然而目前貌似并没有适合的中文教程，能够搜索出来Android关于贝塞尔曲线的中文文章基本可以分为以下几种：</p>
+
+<ul>
+  <li>科普型(只是让人了解贝塞尔，并没有实质性的内容)</li>
+  <li>装逼型(摆出来一大堆公式，引用一堆英文原文)</li>
+  <li>基础型(仅仅是讲解贝塞尔曲线的两个函数用法)</li>
+  <li>实战型(根据实例讲解其中贝塞尔曲线的运用)</li>
+</ul>
+
+<p>以上几种类型中比较有用的就是基础型和实战型，但两者各有不足，本文会综合两者内容，从零开始学习贝塞尔曲线。</p>
+
+<h3 id="第一步理解贝塞尔曲线的原理">第一步.理解贝塞尔曲线的原理</h3>
+
+<p>此处理解贝塞尔曲线并非是学会公式的推导过程(推倒(ﾉ*･ω･)ﾉ)，而是要了解贝塞尔曲线是如何生成的。<br />
+贝塞尔曲线是用一系列点来控制曲线状态的，我将这些点简单分为两类：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>数据点</td>
+      <td>确定曲线的起始和结束位置</td>
+    </tr>
+    <tr>
+      <td>控制点</td>
+      <td>确定曲线的弯曲程度</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>此处暂时仅作了解概念，接下来就会讲解其中详细的含义。</p>
+</blockquote>
+
+<p><strong>一阶曲线原理：</strong></p>
+
+<p>一阶曲线是没有控制点的，仅有两个数据点(A 和 B)，最终效果一个线段。</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f35of045w8j308c0dwq2z.jpg" alt="" /></p>
+
+<blockquote>
+  <p><strong>上图表示的是一阶曲线生成过程中的某一个阶段，动态过程可以参照下图(本文中贝塞尔曲线相关的动态演示图片来自维基百科)。</strong></p>
+</blockquote>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f9v40d50l8g30a0046tbk.gif" alt="" /></p>
+
+<blockquote>
+  <p><strong>PS：一阶曲线其实就是前面讲解过的lineTo。</strong></p>
+</blockquote>
+
+<p><strong>二阶曲线原理：</strong></p>
+
+<p>二阶曲线由两个数据点(A 和 C)，一个控制点(B)来描述曲线状态，大致如下：</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f35p4913k7j308c0dw74d.jpg" alt="" /></p>
+
+<p>上图中红色曲线部分就是传说中的二阶贝塞尔曲线，那么这条红色曲线是如何生成的呢？接下来我们就以其中的一个状态分析一下：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f361bjqj2vj308c0dwwem.jpg" alt="" /></p>
+
+<p>连接AB BC，并在AB上取点D，BC上取点E，使其满足条件：
+<img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=%5Cfrac%7BAD%7D%7BAB%7D%20%3D%20%5Cfrac%7BBE%7D%7BBC%7D" style="border:none;" /></p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f361oje6h1j308c0dwdg0.jpg" alt="" /></p>
+
+<p>连接DE，取点F，使得: 
+<img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=%5Cfrac%7BAD%7D%7BAB%7D%20%3D%20%5Cfrac%7BBE%7D%7BBC%7D%20%3D%20%5Cfrac%7BDF%7D%7BDE%7D" style="border:none;" /></p>
+
+<p>这样获取到的点F就是贝塞尔曲线上的一个点，动态过程如下：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f9v41f7vi8g30a0046ady.gif" alt="" /></p>
+
+<blockquote>
+  <p><strong>PS: 二阶曲线对应的方法是quadTo</strong></p>
+</blockquote>
+
+<p><strong>三阶曲线原理：</strong></p>
+
+<p>三阶曲线由两个数据点(A 和 D)，两个控制点(B 和 C)来描述曲线状态，如下：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f36myeqcu5j308c0dwdg2.jpg" alt="" /></p>
+
+<p>三阶曲线计算过程与二阶类似，具体可以见下图动态效果：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f9v428wf31g30a004679v.gif" alt="" /></p>
+
+<blockquote>
+  <p><strong>PS: 三阶曲线对应的方法是cubicTo</strong></p>
+</blockquote>
+
+<h4 id="贝塞尔曲线速查表"><a href="https://github.com/GcsSloop/AndroidNote/blob/master/QuickChart/Bezier.md">贝塞尔曲线速查表</a></h4>
+
+<h4 id="强烈推荐点击这里练习贝塞尔曲线可以加深对贝塞尔曲线的理解程度">强烈推荐<a href="http://bezier.method.ac/">点击这里</a>练习贝塞尔曲线，可以加深对贝塞尔曲线的理解程度。</h4>
+
+<h3 id="第二步了解贝塞尔曲线相关函数使用方法">第二步.了解贝塞尔曲线相关函数使用方法</h3>
+
+<h4 id="一阶曲线">一阶曲线：</h4>
+
+<p>一阶曲线是一条线段，非常简单，可以参见上一篇文章<a href="http://www.gcssloop.com/customview/Path_Basic/">Path之基本操作</a>，此处就不详细讲解了。</p>
+
+<h4 id="二阶曲线">二阶曲线：</h4>
+
+<p>通过上面对二阶曲线的简单了解，我们知道二阶曲线是由两个数据点，一个控制点构成，接下来我们就用一个实例来演示二阶曲线是如何运用的。</p>
+
+<p>首先，两个数据点是控制贝塞尔曲线开始和结束的位置，比较容易理解，而控制点则是控制贝塞尔的弯曲状态，相对来说比较难以理解，所以本示例重点在于理解贝塞尔曲线弯曲状态与控制点的关系，废话不多说，先上效果图：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f39vugjg0vg308c0e8409.gif" alt="" /></p>
+
+<blockquote>
+  <p>为了更加容易看出控制点与曲线弯曲程度的关系，上图中绘制出了辅助点和辅助线，从上面的动态图可以看出，贝塞尔曲线在动态变化过程中有类似于橡皮筋一样的弹性效果，因此在制作一些弹性效果的时候很常用。</p>
+</blockquote>
+
+<p>主要代码如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bezier</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Paint</span> <span class="n">mPaint</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">centerX</span><span class="o">,</span> <span class="n">centerY</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">PointF</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">,</span> <span class="n">control</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Bessel1</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="n">mPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">60</span><span class="o">);</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+        <span class="n">control</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">w</span><span class="o">,</span> <span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldw</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldh</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onSizeChanged</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">oldw</span><span class="o">,</span> <span class="n">oldh</span><span class="o">);</span>
+        <span class="n">centerX</span> <span class="o">=</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span>
+        <span class="n">centerY</span> <span class="o">=</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="o">;</span>
+
+        <span class="c1">// 初始化数据点和控制点的位置</span>
+        <span class="n">start</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">-</span><span class="mi">200</span><span class="o">;</span>
+        <span class="n">start</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">;</span>
+        <span class="n">end</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">+</span><span class="mi">200</span><span class="o">;</span>
+        <span class="n">end</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">;</span>
+        <span class="n">control</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">;</span>
+        <span class="n">control</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">-</span><span class="mi">100</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 根据触摸位置更新控制点，并提示重绘</span>
+        <span class="n">control</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+        <span class="n">control</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+        <span class="n">invalidate</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+
+        <span class="c1">// 绘制数据点和控制点</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GRAY</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">start</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">end</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">control</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">control</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">mPaint</span><span class="o">);</span>
+
+        <span class="c1">// 绘制辅助线</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">start</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">control</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">control</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">end</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">control</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">control</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">mPaint</span><span class="o">);</span>
+
+        <span class="c1">// 绘制贝塞尔曲线</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+
+        <span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+
+        <span class="n">path</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">start</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">quadTo</span><span class="o">(</span><span class="n">control</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">control</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">end</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">end</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre>
+</div>
+
+<h4 id="三阶曲线">三阶曲线：</h4>
+
+<p>三阶曲线由两个数据点和两个控制点来控制曲线状态。</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gw1f3bmilt4flg308c0e8q5e.gif" alt="" /></p>
+
+<p>代码:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bezier2</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Paint</span> <span class="n">mPaint</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">centerX</span><span class="o">,</span> <span class="n">centerY</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">PointF</span> <span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">,</span> <span class="n">control1</span><span class="o">,</span> <span class="n">control2</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">mode</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Bezier2</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Bezier2</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+
+        <span class="n">mPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">60</span><span class="o">);</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="n">control1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="n">control2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMode</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">mode</span> <span class="o">=</span> <span class="n">mode</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">w</span><span class="o">,</span> <span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldw</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldh</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onSizeChanged</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">oldw</span><span class="o">,</span> <span class="n">oldh</span><span class="o">);</span>
+        <span class="n">centerX</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="n">centerY</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+
+        <span class="c1">// 初始化数据点和控制点的位置</span>
+        <span class="n">start</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span> <span class="o">-</span> <span class="mi">200</span><span class="o">;</span>
+        <span class="n">start</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">;</span>
+        <span class="n">end</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span> <span class="o">+</span> <span class="mi">200</span><span class="o">;</span>
+        <span class="n">end</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">;</span>
+        <span class="n">control1</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">;</span>
+        <span class="n">control1</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span> <span class="o">-</span> <span class="mi">100</span><span class="o">;</span>
+        <span class="n">control2</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">;</span>
+        <span class="n">control2</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">centerY</span> <span class="o">-</span> <span class="mi">100</span><span class="o">;</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 根据触摸位置更新控制点，并提示重绘</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">control1</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+            <span class="n">control1</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">control2</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+            <span class="n">control2</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">invalidate</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+        <span class="c1">//drawCoordinateSystem(canvas);</span>
+
+        <span class="c1">// 绘制数据点和控制点</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GRAY</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">start</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">end</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">control1</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control1</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">control2</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control2</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+
+        <span class="c1">// 绘制辅助线</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">start</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">control1</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control1</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">control1</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control1</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">control2</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control2</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">control2</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control2</span><span class="o">.</span><span class="na">y</span><span class="o">,</span><span class="n">end</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">end</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+
+        <span class="c1">// 绘制贝塞尔曲线</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+
+        <span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+
+        <span class="n">path</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">start</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">cubicTo</span><span class="o">(</span><span class="n">control1</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">control1</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">control2</span><span class="o">.</span><span class="na">x</span><span class="o">,</span><span class="n">control2</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">end</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">end</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>三阶曲线相比于二阶曲线可以制作更加复杂的形状，但是对于高阶的曲线，用低阶的曲线组合也可达到相同的效果，就是传说中的<strong>降阶</strong>。因此我们对贝塞尔曲线的封装方法一般最高只到三阶曲线。</p>
+</blockquote>
+
+<h4 id="降阶与升阶">降阶与升阶</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>释义</th>
+      <th>变化</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>降阶</td>
+      <td>在保持曲线形状与方向不变的情况下，减少控制点数量，即降低曲线阶数</td>
+      <td>方法变得简单，数据点变多，控制点可能减少，灵活性变弱</td>
+    </tr>
+    <tr>
+      <td>升阶</td>
+      <td>在保持曲线形状与方向不变的情况下，增加控制点数量，即升高曲线阶数</td>
+      <td>方法更加复杂，数据点不变，控制点增加，灵活性变强</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="第三步贝塞尔曲线使用实例">第三步.贝塞尔曲线使用实例</h3>
+
+<p><strong>在制作这个实例之前，首先要明确一个内容，就是在什么情况下需要使用贝塞尔曲线？</strong></p>
+
+<blockquote>
+  <p>需要绘制不规则图形时？ 当然不是！目前来说，我觉得使用贝塞尔曲线主要有以下几个方面(仅个人拙见，可能存在错误，欢迎指正)</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>内容</th>
+      <th>用例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>事先不知道曲线状态，需要实时计算时</td>
+      <td>天气预报气温变化的平滑折线图</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>显示状态会根据用户操作改变时</td>
+      <td>QQ小红点，仿真翻书效果</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>一些比较复杂的运动状态(配合PathMeasure使用)</td>
+      <td>复杂运动状态的动画效果</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>至于只需要一个静态的曲线图形的情况，用图片岂不是更好，大量的计算会很不划算。</p>
+
+<p>如果是显示SVG矢量图的话，已经有相关的解析工具了(内部依旧运用的有贝塞尔曲线)，不需要手动计算。</p>
+
+<p><strong>贝塞尔曲线的主要优点是可以实时控制曲线状态，并可以通过改变控制点的状态实时让曲线进行平滑的状态变化。</strong></p>
+
+<h3 id="接下来我们就用一个简单的示例让一个圆渐变成为心形">接下来我们就用一个简单的示例让一个圆渐变成为心形：</h3>
+
+<h4 id="效果图">效果图：</h4>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f3cg2cs7lyg308c0e8gpn.gif" alt="" /></p>
+
+<h4 id="思路分析">思路分析：</h4>
+
+<p>我们最终的需要的效果是将一个圆转变成一个心形，通过分析可知，圆可以由四段三阶贝塞尔曲线组合而成，如下：</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f3chnpgub3j308c0e7weq.jpg" alt="" /></p>
+
+<p>心形也可以由四段的三阶的贝塞尔曲线组成，如下：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f3chod09sbj308c0e774j.jpg" alt="" /></p>
+
+<p>两者的差别仅仅在于数据点和控制点位置不同，因此只需要调整数据点和控制点的位置，就能将圆形变为心形。</p>
+
+<h4 id="核心难点">核心难点：</h4>
+
+<h5 id="1如何得到数据点和控制点的位置">1.如何得到数据点和控制点的位置？</h5>
+
+<p>关于使用绘制圆形的数据点与控制点早就已经有人详细的计算好了，可以参考stackoverflow的一个回答<a href="http://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves">How to create circle with Bézier curves?</a>其中的数据只需要拿来用即可。</p>
+
+<p>而对于心形的数据点和控制点，可以由圆形的部分数据点和控制点平移后得到，具体参数可以自己慢慢调整到一个满意的效果。</p>
+
+<h5 id="2如何达到渐变效果">2.如何达到渐变效果？</h5>
+
+<p>渐变其实就是每次对数据点和控制点稍微移动一点，然后重绘界面，在短时间多次的调整数据点与控制点，使其逐渐接近目标值，通过不断的重绘界面达到一种渐变的效果。过程可以参照下图动态效果：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f3ch74ewiig308c0e8wic.gif" alt="" /></p>
+
+<h4 id="代码">代码：</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bezier3</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">C</span> <span class="o">=</span> <span class="mf">0.551915024494f</span><span class="o">;</span>     <span class="c1">// 一个常量，用来计算绘制圆形贝塞尔曲线控制点的位置</span>
+
+    <span class="kd">private</span> <span class="n">Paint</span> <span class="n">mPaint</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">mCenterX</span><span class="o">,</span> <span class="n">mCenterY</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">PointF</span> <span class="n">mCenter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mCircleRadius</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>                  <span class="c1">// 圆的半径</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mDifference</span> <span class="o">=</span> <span class="n">mCircleRadius</span><span class="o">*</span><span class="n">C</span><span class="o">;</span>        <span class="c1">// 圆形的控制点与数据点的差值</span>
+
+    <span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">mData</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span>               <span class="c1">// 顺时针记录绘制圆形的四个数据点</span>
+    <span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">mCtrl</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">16</span><span class="o">];</span>              <span class="c1">// 顺时针记录绘制圆形的八个控制点</span>
+
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mDuration</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">;</span>                     <span class="c1">// 变化总时长</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mCurrent</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>                         <span class="c1">// 当前已进行时长</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mCount</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>                         <span class="c1">// 将时长总共划分多少份</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">mPiece</span> <span class="o">=</span> <span class="n">mDuration</span><span class="o">/</span><span class="n">mCount</span><span class="o">;</span>            <span class="c1">// 每一份的时长</span>
+
+
+    <span class="kd">public</span> <span class="nf">Bezier3</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Bezier3</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+
+        <span class="n">mPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">60</span><span class="o">);</span>
+
+
+        <span class="c1">// 初始化数据点</span>
+
+        <span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">mCircleRadius</span><span class="o">;</span>
+
+        <span class="n">mData</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">mCircleRadius</span><span class="o">;</span>
+        <span class="n">mData</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="n">mData</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">mData</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">mCircleRadius</span><span class="o">;</span>
+
+        <span class="n">mData</span><span class="o">[</span><span class="mi">6</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">mCircleRadius</span><span class="o">;</span>
+        <span class="n">mData</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="c1">// 初始化控制点</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">]+</span><span class="n">mDifference</span><span class="o">;</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">3</span><span class="o">]+</span><span class="n">mDifference</span><span class="o">;</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">3</span><span class="o">]-</span><span class="n">mDifference</span><span class="o">;</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">6</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">4</span><span class="o">]+</span><span class="n">mDifference</span><span class="o">;</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">8</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">4</span><span class="o">]-</span><span class="n">mDifference</span><span class="o">;</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">9</span><span class="o">]</span>  <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">10</span><span class="o">]</span> <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">6</span><span class="o">];</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">11</span><span class="o">]</span> <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">7</span><span class="o">]-</span><span class="n">mDifference</span><span class="o">;</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">12</span><span class="o">]</span> <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">6</span><span class="o">];</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">13</span><span class="o">]</span> <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">7</span><span class="o">]+</span><span class="n">mDifference</span><span class="o">;</span>
+
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">14</span><span class="o">]</span> <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">]-</span><span class="n">mDifference</span><span class="o">;</span>
+        <span class="n">mCtrl</span><span class="o">[</span><span class="mi">15</span><span class="o">]</span> <span class="o">=</span> <span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="o">}</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">w</span><span class="o">,</span> <span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldw</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldh</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onSizeChanged</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">oldw</span><span class="o">,</span> <span class="n">oldh</span><span class="o">);</span>
+        <span class="n">mCenterX</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="n">mCenterY</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+         <span class="n">drawCoordinateSystem</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>       <span class="c1">// 绘制坐标系</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">mCenterX</span><span class="o">,</span> <span class="n">mCenterY</span><span class="o">);</span> <span class="c1">// 将坐标系移动到画布中央</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">scale</span><span class="o">(</span><span class="mi">1</span><span class="o">,-</span><span class="mi">1</span><span class="o">);</span>                 <span class="c1">// 翻转Y轴</span>
+
+        <span class="n">drawAuxiliaryLine</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+
+
+        <span class="c1">// 绘制贝塞尔曲线</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+
+        <span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span><span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+
+        <span class="n">path</span><span class="o">.</span><span class="na">cubicTo</span><span class="o">(</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">1</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">2</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">3</span><span class="o">],</span>     <span class="n">mData</span><span class="o">[</span><span class="mi">2</span><span class="o">],</span> <span class="n">mData</span><span class="o">[</span><span class="mi">3</span><span class="o">]);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">cubicTo</span><span class="o">(</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">4</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">5</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">6</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">7</span><span class="o">],</span>     <span class="n">mData</span><span class="o">[</span><span class="mi">4</span><span class="o">],</span> <span class="n">mData</span><span class="o">[</span><span class="mi">5</span><span class="o">]);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">cubicTo</span><span class="o">(</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">8</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">9</span><span class="o">],</span>  <span class="n">mCtrl</span><span class="o">[</span><span class="mi">10</span><span class="o">],</span> <span class="n">mCtrl</span><span class="o">[</span><span class="mi">11</span><span class="o">],</span>    <span class="n">mData</span><span class="o">[</span><span class="mi">6</span><span class="o">],</span> <span class="n">mData</span><span class="o">[</span><span class="mi">7</span><span class="o">]);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">cubicTo</span><span class="o">(</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">12</span><span class="o">],</span> <span class="n">mCtrl</span><span class="o">[</span><span class="mi">13</span><span class="o">],</span> <span class="n">mCtrl</span><span class="o">[</span><span class="mi">14</span><span class="o">],</span> <span class="n">mCtrl</span><span class="o">[</span><span class="mi">15</span><span class="o">],</span>    <span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+
+        <span class="n">mCurrent</span> <span class="o">+=</span> <span class="n">mPiece</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mCurrent</span> <span class="o">&lt;</span> <span class="n">mDuration</span><span class="o">){</span>
+
+            <span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">-=</span> <span class="mi">120</span><span class="o">/</span><span class="n">mCount</span><span class="o">;</span>
+            <span class="n">mCtrl</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">80</span><span class="o">/</span><span class="n">mCount</span><span class="o">;</span>
+            <span class="n">mCtrl</span><span class="o">[</span><span class="mi">9</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">80</span><span class="o">/</span><span class="n">mCount</span><span class="o">;</span>
+
+            <span class="n">mCtrl</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="o">-=</span> <span class="mi">20</span><span class="o">/</span><span class="n">mCount</span><span class="o">;</span>
+            <span class="n">mCtrl</span><span class="o">[</span><span class="mi">10</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">20</span><span class="o">/</span><span class="n">mCount</span><span class="o">;</span>
+
+            <span class="n">postInvalidateDelayed</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="n">mPiece</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 绘制辅助线</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">drawAuxiliaryLine</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 绘制数据点和控制点</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GRAY</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="o">){</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">mData</span><span class="o">[</span><span class="n">i</span><span class="o">],</span><span class="n">mData</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">],</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">16</span><span class="o">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="o">){</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">mCtrl</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">mCtrl</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">],</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="o">}</span>
+
+
+        <span class="c1">// 绘制辅助线</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="o">,</span> <span class="n">j</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="o">,</span> <span class="n">j</span><span class="o">+=</span><span class="mi">4</span><span class="o">){</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">mData</span><span class="o">[</span><span class="n">i</span><span class="o">],</span><span class="n">mData</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="n">j</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">],</span><span class="n">mPaint</span><span class="o">);</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">mData</span><span class="o">[</span><span class="n">i</span><span class="o">],</span><span class="n">mData</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">3</span><span class="o">],</span><span class="n">mPaint</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span><span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">1</span><span class="o">],</span><span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">mData</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span><span class="n">mData</span><span class="o">[</span><span class="mi">1</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">14</span><span class="o">],</span><span class="n">mCtrl</span><span class="o">[</span><span class="mi">15</span><span class="o">],</span><span class="n">mPaint</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 绘制坐标系</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">drawCoordinateSystem</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>                      <span class="c1">// 绘制做坐标系</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">mCenterX</span><span class="o">,</span> <span class="n">mCenterY</span><span class="o">);</span> <span class="c1">// 将坐标系移动到画布中央</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">scale</span><span class="o">(</span><span class="mi">1</span><span class="o">,-</span><span class="mi">1</span><span class="o">);</span>                 <span class="c1">// 翻转Y轴</span>
+
+        <span class="n">Paint</span> <span class="n">fuzhuPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+        <span class="n">fuzhuPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+        <span class="n">fuzhuPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+        <span class="n">fuzhuPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="o">-</span><span class="mi">2000</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2000</span><span class="o">,</span> <span class="n">fuzhuPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(-</span><span class="mi">2000</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2000</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">fuzhuPaint</span><span class="o">);</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre>
+</div>
+
+<h2 id="三总结">三.总结</h2>
+
+<p>其实关于贝塞尔曲线最重要的是核心理解贝塞尔曲线的生成方式，只有理解了贝塞尔曲线的生成方式，才能更好的运用贝塞尔曲线。在上一篇末尾说本篇可能涉及一点图形渲染问题，不幸的是，本篇没有了，请期待下一篇(可能会在下一篇中出现o(<em>￣︶￣</em>)o)，下一篇依旧Path相关内容，教给大家一些更好玩的东西。</p>
+
+<p>解锁新的境界之<a href="http://www.jianshu.com/p/791d3a791ec2">【绘制一个弹性的圆】</a>：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f72ddc0yh4g308c0et43r.gif" alt="" /></p>
+
+<p>(,,• ₃ •,,)</p>
+
+<h4 id="ps-由于本人水平有限某些地方可能存在误解或不准确如果你对此有疑问可以提交issues进行反馈">PS: 由于本人水平有限，某些地方可能存在误解或不准确，如果你对此有疑问可以提交Issues进行反馈。</h4>
+
+<h2 id="about">About</h2>
+
+<p><a href="http://www.gcssloop.com/customview/CustomViewIndex/">本系列相关文章</a></p>
+
+<p>作者微博: <a href="http://weibo.com/GcsSloop">GcsSloop</a></p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<p><a href="http://developer.android.com/reference/android/graphics/Path.html">Path</a><br />
+<a href="http://developer.android.com/reference/android/graphics/Canvas.html">Canvas</a><br />
+<a href="http://www.html-js.com/article/1628">贝塞尔曲线扫盲</a><br />
+<a href="https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A">贝塞尔曲线-维基百科</a><br />
+<a href="http://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves">How to create circle with Bézier curves?</a><br />
+<a href="http://www.jianshu.com/p/791d3a791ec2">三次贝塞尔曲线练习之弹性的圆</a><br /></p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石，鼓励我继续研究! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师，<a href="/contribute">点击这里查看捐赠者名单。</a>
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/Path_Over" title="link to 安卓自定义View进阶-Path之完结篇">安卓自定义View进阶-Path之完结篇</a></h2>
+    <p class="excerpt">经历过前两篇 Path之基本操作 和 Path之贝塞尔曲线 的讲解，本篇终于进入Path的收尾篇，本篇结束后Path的大部分相关方法都已经讲解完了，但Path还有一些更有意思的玩法，应该会在后续...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-05-02 00:00:00 +0800" class="post-list__meta--date date">2016-05-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/Path_Over>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/course/PublishLibraryByJitPack" title="link to 使用JitPack发布Android开源库">使用JitPack发布Android开源库</a></h2>
+       <p class="excerpt">自从谷歌宣布不支持Eclipse之后，大批Android程序猿情愿或者不情愿的迁移到了AndroidStudio，从此过上了使用Gradle构建程序的”优越”生活。  关于Gradle的坑，就不...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-03-20 00:00:00 +0800" class="post-list__meta--date date">2016-03-20</time> &#8226; <span class="post-list__meta--tags tags">Course</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/course/PublishLibraryByJitPack>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

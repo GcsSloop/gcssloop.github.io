@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View基础-颜色</title>
+  <meta name="description" content="安卓自定义View基础篇，主要讲述安卓中颜色相关内容，包括颜色的定义，创建颜色的方式，以及颜色的混合模式等。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="颜色, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="颜色, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View基础-颜色">
+  <meta name="twitter:description" content="安卓自定义View基础篇，主要讲述安卓中颜色相关内容，包括颜色的定义，创建颜色的方式，以及颜色的混合模式等。">
+  <meta name="twitter:keywords" content="颜色, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View基础-颜色">
+  <meta property="og:description" content="安卓自定义View基础篇，主要讲述安卓中颜色相关内容，包括颜色的定义，创建颜色的方式，以及颜色的混合模式等。">
+  <meta name="og:keywords" content="颜色, 自定义View, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/customview/Color">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex/" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about/" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-01-11 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-01-11</time> &#8226; <span class="post-meta__tags tags">自定义View,颜色</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View基础-颜色</h1>
+  </header>
+
+  <section class="post">
+    <p>简要介绍安卓中的颜色相关内容，包括颜色的定义，创建颜色的几种方式，以及颜色的混合模式等。</p>
+
+<h2 id="一简单介绍颜色">一.简单介绍颜色</h2>
+
+<p>安卓支持的颜色模式：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">颜色模式</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">ARGB8888</td>
+      <td>四通道高精度(32位)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ARGB4444</td>
+      <td>四通道低精度(16位)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">RGB565</td>
+      <td><strong>屏幕默认模式</strong>(16位)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Alpha8</td>
+      <td>仅有透明通道(8位)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>PS：其中字母表示通道类型，数值表示该类型用多少位二进制来描述。如ARGB8888则表示有四个通道(ARGB),每个对应的通道均用8位来描述。</em></p>
+
+<p><em>注意：我们常用的是ARGB8888和ARGB4444，而在所有的安卓设备屏幕上默认的模式都是RGB565,请留意这一点。</em></p>
+
+<p><strong>以ARGB8888为例介绍颜色定义:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">类型</th>
+      <th style="text-align: left">解释</th>
+      <th style="text-align: left">0(0x00)</th>
+      <th style="text-align: left">255(0xff)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A(Alpha)</td>
+      <td style="text-align: left">透明度</td>
+      <td style="text-align: left">透明</td>
+      <td style="text-align: left">不透明</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">R(Red)</td>
+      <td style="text-align: left">红色</td>
+      <td style="text-align: left">无色</td>
+      <td style="text-align: left">红色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">G(Green)</td>
+      <td style="text-align: left">绿色</td>
+      <td style="text-align: left">无色</td>
+      <td style="text-align: left">绿色</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">B(Blue)</td>
+      <td style="text-align: left">蓝色</td>
+      <td style="text-align: left">无色</td>
+      <td style="text-align: left">蓝色</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>其中 A R G B 的取值范围均为0~255(即16进制的0x00~0xff)</em></p>
+
+<p>A 从ox00到oxff表示从透明到不透明。</p>
+
+<p>RGB 从0x00到0xff表示颜色从浅到深。</p>
+
+<p><strong>当RGB全取最小值(0或0x000000)时颜色为黑色，全取最大值(255或0xffffff)时颜色为白色</strong></p>
+
+<h2 id="二几种创建或使用颜色的方式">二.几种创建或使用颜色的方式</h2>
+
+<h3 id="1java中定义颜色">1.java中定义颜色</h3>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="na">GRAY</span><span class="o">;</span>     <span class="c1">//灰色</span>
+</code></pre>
+</div>
+
+<p>由于Color类提供的颜色仅为有限的几个，通常还是用ARGB值进行表示。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="na">argb</span><span class="o">(</span><span class="mi">127</span><span class="o">,</span> <span class="mi">255</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>   <span class="c1">//半透明红色</span>
+
+<span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="mh">0xaaff0000</span><span class="o">;</span>                   <span class="c1">//带有透明度的红色</span>
+</code></pre>
+</div>
+
+<h3 id="2在xml文件中定义颜色">2.在xml文件中定义颜色</h3>
+
+<p>在/res/values/color.xml 文件中如下定义：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+    <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">"red"</span><span class="nt">&gt;</span>#ff0000<span class="nt">&lt;/color&gt;</span>
+    <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">"green"</span><span class="nt">&gt;</span>#00ff00<span class="nt">&lt;/color&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</code></pre>
+</div>
+
+<p>详解： 在以上xml文件中定义了两个颜色，红色和绿色，是没有alpha（透明）通道的。</p>
+
+<p>定义颜色以‘#’开头，后面跟十六进制的值，有如下几种定义方式：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="err">#</span><span class="n">f00</span>            <span class="c1">//低精度 - 不带透明通道红色</span>
+<span class="err">#</span><span class="n">af00</span>           <span class="c1">//低精度 - 带透明通道红色</span>
+
+<span class="err">#</span><span class="n">ff0000</span>         <span class="c1">//高精度 - 不带透明通道红色</span>
+<span class="err">#</span><span class="n">aaff0000</span>       <span class="c1">//高精度 - 带透明通道红色</span>
+</code></pre>
+</div>
+
+<h3 id="3在java文件中引用xml中定义的颜色">3.在java文件中引用xml中定义的颜色：</h3>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getColor</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">mycolor</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="4在xml文件layout或style中引用或者创建颜色">4.在xml文件(layout或style)中引用或者创建颜色</h3>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="c">&lt;!--在style文件中引用--&gt;</span>
+<span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"AppTheme"</span> <span class="na">parent=</span><span class="s">"Theme.AppCompat.Light.DarkActionBar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"colorPrimary"</span><span class="nt">&gt;</span>@color/red<span class="nt">&lt;/item&gt;</span>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre>
+</div>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nl">android:</span><span class="n">background</span><span class="o">=</span><span class="s">"@color/red"</span>     <span class="c1">//引用在/res/values/color.xml 中定义的颜色</span>
+
+<span class="nl">android:</span><span class="n">background</span><span class="o">=</span><span class="s">"#ff0000"</span>        <span class="c1">//创建并使用颜色</span>
+</code></pre>
+</div>
+
+<h2 id="三取色工具">三.取色工具</h2>
+
+<p>颜色都是用RGB值定义的，而我们一般是无法直观的知道自己需要颜色的值，需要借用取色工具直接从图片或者其他地方获取颜色的RGB值。</p>
+
+<h3 id="1colorpixfor-win">1.ColorPix(for Win)</h3>
+
+<p>简单的取色调色工具，可以从屏幕取色，非常小而精简。</p>
+
+<p><strong><a href="http://www.colorschemer.com/ColorPix.exe">点击这里下载ColorPix</a></strong></p>
+
+<h3 id="2picpickfor-win">2.Picpick(for Win)</h3>
+
+<p>功能更加强大的工具：PicPick。</p>
+
+<p>PicPick具备了截取全屏、活动窗口、指定区域、固定区域、手绘区域功能，支持滚动截屏，屏幕取色，支持双显示器，具备白板、屏幕标尺、直角座标或极座标显示与测量，具备强大的图像编辑和标注功能。</p>
+
+<p><strong><a href="http://ngwin.com/picpick">点击这里获取PicPick</a></strong></p>
+
+<h3 id="3sipfor-mac">3.Sip(for Mac)</h3>
+
+<p>Sip作为Mac上的取色工具，也是十分优秀的，除了屏幕取色外还配备了不同类型的调色板，并且支持将颜色格式化为任何常用的格式。</p>
+
+<p><strong><a href="https://itunes.apple.com/us/app/sip/id507257563?mt=12">点击这里获取Sip</a></strong></p>
+
+<h2 id="四颜色混合模式alpha通道相关">四.颜色混合模式(Alpha通道相关)</h2>
+
+<p>通过前面介绍我们知道颜色一般都是四个通道(ARGB)的，其中(RGB)控制的是颜色,而A(Alpha)控制的是透明度。</p>
+
+<p>因为我们的显示屏是没法透明的，因此最终显示在屏幕上的颜色里可以认为没有Alpha通道。Alpha通道主要在两个图像混合的时候生效。</p>
+
+<p>默认情况下，当一个颜色绘制到Canvas上时的混合模式是这样计算的：</p>
+
+<p><strong>(RGB通道) 最终颜色 = 绘制的颜色 + (1 - 绘制颜色的透明度) × Canvas上的原有颜色。</strong></p>
+
+<p><b>注意：</b></p>
+
+<p>1.这里我们一般把每个通道的取值从0(ox00)到255(0xff)映射到0到1的浮点数表示。</p>
+
+<p>2.这里等式右边的“绘制的颜色”、“Canvas上的原有颜色” 都是经过预乘了自己的Alpha通道的值。如绘制颜色：0x88ffffff，那么参与运算时的每个颜色通道的值不是1.0，而是(1.0 * 0.5333 = 0.5333)。  (其中0.5333 = 0x88/0xff)</p>
+
+<p>使用这种方式的混合，就会造成后绘制的内容以半透明的方式叠在上面的视觉效果。</p>
+
+<p>其实还可以有不同的混合模式供我们选择，用Paint.setXfermode，指定不同的PorterDuff.Mode。</p>
+
+<p>下表是各个PorterDuff模式的混合计算公式：（D指原本在Canvas上的内容dst，S指绘制输入的内容src，a指alpha通道，c指RGB各个通道）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>混合模式</th>
+      <th>计算公式</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ADD</td>
+      <td>Saturate(S + D)</td>
+    </tr>
+    <tr>
+      <td>CLEAR</td>
+      <td>[0, 0]</td>
+    </tr>
+    <tr>
+      <td>DARKEN</td>
+      <td>[Sa + Da - Sa<em>Da, Sc</em>(1 - Da) + Dc*(1 - Sa) + min(Sc, Dc)]</td>
+    </tr>
+    <tr>
+      <td>DST</td>
+      <td>[Da, Dc]</td>
+    </tr>
+    <tr>
+      <td>DST_ATOP</td>
+      <td>[Sa, Sa * Dc + Sc * (1 - Da)]</td>
+    </tr>
+    <tr>
+      <td>DST_IN</td>
+      <td>[Sa * Da, Sa * Dc]</td>
+    </tr>
+    <tr>
+      <td>DST_OUT</td>
+      <td>[Da * (1 - Sa), Dc * (1 - Sa)]</td>
+    </tr>
+    <tr>
+      <td>DST_OVER</td>
+      <td>[Sa + (1 - Sa)<em>Da, Rc = Dc + (1 - Da)</em>Sc]</td>
+    </tr>
+    <tr>
+      <td>LIGHTEN</td>
+      <td>[Sa + Da - Sa<em>Da, Sc</em>(1 - Da) + Dc*(1 - Sa) + max(Sc, Dc)]</td>
+    </tr>
+    <tr>
+      <td>MULTIPLY</td>
+      <td>[Sa * Da, Sc * Dc]</td>
+    </tr>
+    <tr>
+      <td>SCREEN</td>
+      <td>[Sa + Da - Sa * Da, Sc + Dc - Sc * Dc]</td>
+    </tr>
+    <tr>
+      <td>SRC</td>
+      <td>[Sa, Sc]</td>
+    </tr>
+    <tr>
+      <td>SRC_ATOP</td>
+      <td>[Da, Sc * Da + (1 - Sa) * Dc]</td>
+    </tr>
+    <tr>
+      <td>SRC_IN</td>
+      <td>[Sa * Da, Sc * Da]</td>
+    </tr>
+    <tr>
+      <td>SRC_OUT</td>
+      <td>[Sa * (1 - Da), Sc * (1 - Da)]</td>
+    </tr>
+    <tr>
+      <td>SRC_OVER</td>
+      <td>[Sa + (1 - Sa)<em>Da, Rc = Sc + (1 - Sa)</em>Dc]</td>
+    </tr>
+    <tr>
+      <td>XOR</td>
+      <td>[Sa + Da - 2 * Sa * Da, Sc * (1 - Da) + (1 - Sa) * Dc]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>用示例图来查看使用不同模式时的混合效果如下（src表示输入的图，dst表示原Canvas上的内容）：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1wa0f0mzjj30hh0fsjt8.jpg" alt="颜色混合表" /></p>
+
+<h2 id="五参考资料">五.参考资料</h2>
+
+<ul>
+  <li><a href="http://www.gcssloop.com/customview/CustomViewIndex/">◎本系列相关文章</a></li>
+  <li><a href="http://www.cnblogs.com/zhucai/p/android-graphics-animation.html">安卓图形动画</a></li>
+</ul>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石，鼓励我继续研究! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师，<a href="/contribute">点击这里查看捐赠者名单。</a>
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/CustomViewProcess" title="link to 安卓自定义View进阶-分类与流程">安卓自定义View进阶-分类与流程</a></h2>
+    <p class="excerpt">本章节为什么要叫进阶篇？(虽然讲的是基础内容)，因为从本篇开始，将会逐渐揭开自定义View的神秘面纱，每一篇都将比上一篇内容更加深入，利用所学的知识能够制作更加炫酷自定义View，就像在台阶上一...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-01-16 00:00:00 +0800" class="post-list__meta--date date">2016-01-16</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/CustomViewProcess>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/AngleAndRadian" title="link to 安卓自定义View基础-角度与弧度">安卓自定义View基础-角度与弧度</a></h2>
+       <p class="excerpt">安卓中角度(angle)与弧度(radian)的有关问题。一.前言1.为什么讲这个？在我们自定义View，尤其是制作一些复杂炫酷的效果的时候，实际上是将一些简单的东西通过数学上精密的计算组合到一...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-01-06 00:00:00 +0800" class="post-list__meta--date date">2016-01-06</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/AngleAndRadian>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View进阶-Canvas之图片文字</title>
+  <meta name="description" content="Canvas之图片文字，讲述自定义控件2D绘图部分的图片和文字处理，包括：绘制图片，位图以及文字。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="图片, 文字, drawBitmap, drawPicture, drawText, drawPosText, drawTextOnPath, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="图片, 文字, drawBitmap, drawPicture, drawText, drawPosText, drawTextOnPath, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View进阶-Canvas之图片文字">
+  <meta name="twitter:description" content="Canvas之图片文字，讲述自定义控件2D绘图部分的图片和文字处理，包括：绘制图片，位图以及文字。">
+  <meta name="twitter:keywords" content="图片, 文字, drawBitmap, drawPicture, drawText, drawPosText, drawTextOnPath, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View进阶-Canvas之图片文字">
+  <meta property="og:description" content="Canvas之图片文字，讲述自定义控件2D绘图部分的图片和文字处理，包括：绘制图片，位图以及文字。">
+  <meta name="og:keywords" content="图片, 文字, drawBitmap, drawPicture, drawText, drawPosText, drawTextOnPath, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/customview/Canvas_PictureText">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex/" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about/" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-02-12 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-02-12</time> &#8226; <span class="post-meta__tags tags">自定义View,Canvas,Picture,Bitmap</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View进阶-Canvas之图片文字</h1>
+  </header>
+
+  <section class="post">
+    <p>在上一篇文章<a href="http://www.gcssloop.com/customview/Canvas_Convert/">Canvas之画布操作</a>中我们了解了画布的一些基本操作方法，本次了解一些绘制图片文字相关的内容。如果你对前几篇文章讲述的内容熟练掌握的话，那么恭喜你，本篇结束之后，大部分的自定义View已经难不倒你了，当然了，这并不是终点，接下来还会有更加炫酷的技能。</p>
+
+<h2 id="一canvas的常用操作速查表">一.Canvas的常用操作速查表</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作类型</th>
+      <th>相关API</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>绘制颜色</td>
+      <td>drawColor, drawRGB, drawARGB</td>
+      <td>使用单一颜色填充整个画布</td>
+    </tr>
+    <tr>
+      <td>绘制基本形状</td>
+      <td>drawPoint, drawPoints, drawLine, drawLines, drawRect, drawRoundRect, drawOval, drawCircle, drawArc</td>
+      <td>依次为 点、线、矩形、圆角矩形、椭圆、圆、圆弧</td>
+    </tr>
+    <tr>
+      <td>绘制图片</td>
+      <td>drawBitmap, drawPicture</td>
+      <td>绘制位图和图片</td>
+    </tr>
+    <tr>
+      <td>绘制文本</td>
+      <td>drawText,    drawPosText, drawTextOnPath</td>
+      <td>依次为 绘制文字、绘制文字时指定每个文字位置、根据路径绘制文字</td>
+    </tr>
+    <tr>
+      <td>绘制路径</td>
+      <td>drawPath</td>
+      <td>绘制路径，绘制贝塞尔曲线时也需要用到该函数</td>
+    </tr>
+    <tr>
+      <td>顶点操作</td>
+      <td>drawVertices, drawBitmapMesh</td>
+      <td>通过对顶点操作可以使图像形变，drawVertices直接对画布作用、 drawBitmapMesh只对绘制的Bitmap作用</td>
+    </tr>
+    <tr>
+      <td>画布剪裁</td>
+      <td>clipPath,    clipRect</td>
+      <td>设置画布的显示区域</td>
+    </tr>
+    <tr>
+      <td>画布快照</td>
+      <td>save, restore, saveLayerXxx, restoreToCount, getSaveCount</td>
+      <td>依次为 保存当前状态、 回滚到上一次保存的状态、 保存图层状态、 回滚到指定状态、 获取保存次数</td>
+    </tr>
+    <tr>
+      <td>画布变换</td>
+      <td>translate, scale, rotate, skew</td>
+      <td>依次为 位移、缩放、 旋转、错切</td>
+    </tr>
+    <tr>
+      <td>Matrix(矩阵)</td>
+      <td>getMatrix, setMatrix, concat</td>
+      <td>实际上画布的位移，缩放等操作的都是图像矩阵Matrix， 只不过Matrix比较难以理解和使用，故封装了一些常用的方法。</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="二canvas基本操作详解">二.Canvas基本操作详解</h2>
+
+<h2 id="1绘制图片">1.绘制图片</h2>
+
+<p>绘制有两种方法，drawPicture(矢量图) 和 drawBitmap(位图),接下来我们一一了解。</p>
+
+<h3 id="1drawpicture">(1)drawPicture</h3>
+
+<p><strong>使用Picture前请关闭硬件加速，以免引起不必要的问题！<br />使用Picture前请关闭硬件加速，以免引起不必要的问题！<br />使用Picture前请关闭硬件加速，以免引起不必要的问题！</strong></p>
+
+<p><strong>在AndroidMenifest文件中application节点下添上 android:hardwareAccelerated=”false”以关闭整个应用的硬件加速。 <br />更多请参考这里：<a href="https://github.com/GcsSloop/AndroidNote/issues/7">Android的硬件加速及可能导致的问题</a></strong></p>
+
+<p>关于drawPicture一开始还是挺让人费解的，不过嘛，我们接下来慢慢研究一下它的用途。</p>
+
+<p>既然是drawPicture就要了解一下什么是Picture。 顾名思义，Picture的意思是图片。</p>
+
+<p>不过嘛，我觉得这么用图片这个名词解释Picture是不合适的，为何这么说？请看其官方文档对<a href="http://developer.android.com/reference/android/graphics/Picture.html">Picture</a>的解释：</p>
+
+<p><i>
+A Picture records drawing calls (via the canvas returned by beginRecording) and can then play them back into Canvas (via draw(Canvas) or drawPicture(Picture)).For most content (e.g. text, lines, rectangles), drawing a sequence from a picture can be faster than the equivalent API calls, since the picture performs its playback without incurring any method-call overhead.
+</i></p>
+
+<p>好吧，我知道很多人对这段鸟语是看不懂的，至于为什么要放在这里，仅仅是为了显得更加专业(偷笑)。</p>
+
+<p><strong>下面我就对这段不明觉厉的鸟语用通俗的话翻译一下:</strong></p>
+
+<p>某一天小萌想在朋友面前显摆一下，于是在单杠上来了一个后空翻,动作姿势请参照下图：</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f6yx1nggy8j308c07y74q.jpg" alt="" /></p>
+
+<p>朋友都说 恩，很不错。 想再看一遍 (〃ω〃)。ヽ(〃∀〃)ﾉ。⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄</p>
+
+<p>于是小萌又来了一遍，如是几次之后，小萌累的吐血三升。</p>
+
+<p>于是小萌机智的想，我何不能用手机将我是飒爽英姿录下来呢，直接保存成为<strong>后空翻.avi</strong> 下次想显摆的时候直接拿出手机，点一下播放就行了，省时省力。</p>
+
+<p>小萌被自己的机智深深的折服了，然后Picture就诞生啦。(╯‵□′)╯︵┻━┻掀桌，坑爹呢，这剧情跳跃也忒大了吧。</p>
+
+<p><strong>好吧，言归正传，这次我们了解的Picture和上文中的录像功能是类似的，只不过我们Picture录的是Canvas中绘制的内容。</strong></p>
+
+<p>我们把Canvas绘制点，线，矩形等诸多操作用Picture录制下来，下次需要的时候拿来就能用，使用Picture相比于再次调用绘图API，开销是比较小的，也就是说对于重复的操作可以更加省时省力。</p>
+
+<p><strong>PS：你可以把Picture看作是一个录制Canvas操作的录像机。</strong></p>
+
+<p>了解了Picture的概念之后，我们再了解一下Picture的相关方法。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>相关方法</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>public int getWidth ()</td>
+      <td>获取宽度</td>
+    </tr>
+    <tr>
+      <td>public int getHeight ()</td>
+      <td>获取高度</td>
+    </tr>
+    <tr>
+      <td>public Canvas beginRecording (int width, int height)</td>
+      <td>开始录制 (返回一个Canvas，在Canvas中所有的绘制都会存储在Picture中)</td>
+    </tr>
+    <tr>
+      <td>public void endRecording ()</td>
+      <td>结束录制</td>
+    </tr>
+    <tr>
+      <td>public void draw (Canvas canvas)</td>
+      <td>将Picture中内容绘制到Canvas中</td>
+    </tr>
+    <tr>
+      <td>public static Picture createFromStream (InputStream stream)</td>
+      <td>(已废弃)通过输入流创建一个Picture</td>
+    </tr>
+    <tr>
+      <td>public void writeToStream (OutputStream stream)</td>
+      <td>(已废弃)将Picture中内容写出到输出流中</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>上面表格中基本上已经列出了Picture的所有方法，其中getWidth和getHeight没什么好说的，最后两个已经废弃也自然就不用关注了，排除了这些方法之后，只剩三个方法了，接下来我们就比较详细的了解一下：</p>
+
+<p><strong>很明显，beginRecording 和 endRecording 是成对使用的，一个开始录制，一个是结束录制，两者之间的操作将会存储在Picture中。</strong></p>
+
+<h4 id="使用示例">使用示例：</h4>
+
+<p><strong>准备工作:</strong></p>
+
+<p>录制内容，即将一些Canvas操作用Picture存储起来，录制的内容是不会直接显示在屏幕上的，只是存储起来了而已。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 1.创建Picture</span>
+<span class="kd">private</span> <span class="n">Picture</span> <span class="n">mPicture</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Picture</span><span class="o">();</span>
+
+<span class="o">---------------------------------------------------------------</span>
+
+<span class="c1">// 2.录制内容方法</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">recording</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 开始录制 (接收返回值Canvas)</span>
+    <span class="n">Canvas</span> <span class="n">canvas</span> <span class="o">=</span> <span class="n">mPicture</span><span class="o">.</span><span class="na">beginRecording</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="mi">500</span><span class="o">);</span>
+    <span class="c1">// 创建一个画笔</span>
+    <span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+    <span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+    <span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL</span><span class="o">);</span>
+
+    <span class="c1">// 在Canvas中具体操作</span>
+    <span class="c1">// 位移</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">250</span><span class="o">,</span><span class="mi">250</span><span class="o">);</span>
+    <span class="c1">// 绘制一个圆</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">100</span><span class="o">,</span><span class="n">paint</span><span class="o">);</span>
+
+    <span class="n">mPicture</span><span class="o">.</span><span class="na">endRecording</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="o">---------------------------------------------------------------</span>
+
+<span class="c1">// 3.在使用前调用(我在构造函数中调用了)</span>
+  <span class="kd">public</span> <span class="nf">Canvas3</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+    
+    <span class="n">recording</span><span class="o">();</span>    <span class="c1">// 调用录制</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>具体使用:</strong></p>
+
+<p>Picture虽然方法就那么几个，但是具体使用起来还是分很多情况的，由于录制的内容不会直接显示，就像存储的视频不点击播放不会自动播放一样，同样，想要将Picture中的内容显示出来就需要手动调用播放(绘制)，将Picture中的内容绘制出来可以有以下几种方法：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>使用Picture提供的draw方法绘制。</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>使用Canvas提供的drawPicture方法绘制。</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>将Picture包装成为PictureDrawable，使用PictureDrawable的draw方法绘制。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以上几种方法主要区别：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>主要区别</th>
+      <th>分类</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>是否对Canvas有影响</td>
+      <td>1有影响<br />2,3不影响</td>
+      <td>此处指绘制完成后是否会影响Canvas的状态(Matrix clip等)</td>
+    </tr>
+    <tr>
+      <td>可操作性强弱</td>
+      <td>1可操作性较弱<br />2,3可操作性较强</td>
+      <td>此处的可操作性可以简单理解为对绘制结果可控程度。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>几种方法简介和主要区别基本就这么多了，接下来对于各种使用方法一一详细介绍：</p>
+
+<p><strong>1.使用Picture提供的draw方法绘制:</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 将Picture中的内容绘制在Canvas上</span>
+<span class="n">mPicture</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>  
+</code></pre>
+</div>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f2kwz9956lj30u01hcdg9.jpg" width="300" /></p>
+
+<p><strong>PS：这种方法在比较低版本的系统上绘制后可能会影响Canvas状态，所以这种方法一般不会使用。</strong></p>
+
+<p><strong>2.使用Canvas提供的drawPicture方法绘制</strong></p>
+
+<p>drawPicture有三种方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawPicture</span> <span class="o">(</span><span class="n">Picture</span> <span class="n">picture</span><span class="o">)</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawPicture</span> <span class="o">(</span><span class="n">Picture</span> <span class="n">picture</span><span class="o">,</span> <span class="n">Rect</span> <span class="n">dst</span><span class="o">)</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawPicture</span> <span class="o">(</span><span class="n">Picture</span> <span class="n">picture</span><span class="o">,</span> <span class="n">RectF</span> <span class="n">dst</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>和使用Picture的draw方法不同，Canvas的drawPicture不会影响Canvas状态。</p>
+
+<p><strong>简单示例:</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">canvas</span><span class="o">.</span><span class="na">drawPicture</span><span class="o">(</span><span class="n">mPicture</span><span class="o">,</span><span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">mPicture</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span><span class="mi">200</span><span class="o">));</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2kwzseqawj30u01hc74o.jpg" width="300" /></p>
+
+<p><strong>PS:对照上一张图片，可以比较明显的看出，绘制的内容根据选区进行了缩放。</strong></p>
+
+<p><strong>3.将Picture包装成为PictureDrawable，使用PictureDrawable的draw方法绘制。</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// 包装成为Drawable
+PictureDrawable drawable = new PictureDrawable(mPicture);
+// 设置绘制区域 -- 注意此处所绘制的实际内容不会缩放
+drawable.setBounds(0,0,250,mPicture.getHeight());
+// 绘制
+drawable.draw(canvas);
+</code></pre>
+</div>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2kx0bquw3j30u01hcdg8.jpg" width="300" /></p>
+
+<p><strong>PS:此处setBounds是设置在画布上的绘制区域，并非根据该区域进行缩放，也不是剪裁Picture，每次都从Picture的左上角开始绘制。</strong></p>
+
+<blockquote>
+  <p><strong>注意：在使用Picture之前请关闭硬件加速，以免引起不必要的问题，如何关闭请参考这里： <a href="https://github.com/GcsSloop/AndroidNote/issues/7">Android的硬件加速及可能导致的问题</a></strong></p>
+</blockquote>
+
+<h3 id="2drawbitmap">(2)drawBitmap</h3>
+
+<blockquote>
+  <p>其实一开始知道要讲Bitmap我是拒绝的，为什么呢？因为Bitmap就是很多问题的根源啊有木有，Bitmap可能导致内存不足，内存泄露，ListView中的复用混乱等诸多问题。想完美的掌控Bitmap还真不是一件容易的事情。限于篇幅<strong>本文对于Bitmap不会过多的展开，只讲解一些常用的功能</strong>。</p>
+</blockquote>
+
+<p>既然要绘制Bitmap，就要先获取一个Bitmap，那么如何获取呢？</p>
+
+<p><strong>获取Bitmap方式:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">序号</th>
+      <th>获取方式</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td>通过Bitmap创建</td>
+      <td>复制一个已有的Bitmap(<em>新Bitmap状态和原有的一致</em>) 或者 创建一个空白的Bitmap(<em>内容可改变</em>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td>通过BitmapDrawable获取</td>
+      <td>从资源文件 内存卡 网络等地方获取一张图片并转换为内容不可变的Bitmap</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td>通过BitmapFactory获取</td>
+      <td>从资源文件 内存卡 网络等地方获取一张图片并转换为内容不可变的Bitmap</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>通常来说，我们绘制Bitmap都是读取已有的图片转换为Bitmap绘制到Canvas上。</strong><br />
+很明显，第1种方式不能满足我们的要求，暂时排除。<br />
+第2种方式虽然也可满足我们的要求，但是我不推荐使用这种方式，至于为什么在后续详细讲解Drawable的时候会说明,暂时排除。<br />
+第3种方法我们会比较详细的说明一下如何从各个位置获取图片。<br /></p>
+
+<h4 id="通过bitmapfactory从不同位置获取bitmap">通过BitmapFactory从不同位置获取Bitmap:</h4>
+
+<p><strong>资源文件(drawable/mipmap/raw):</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">mContext</span><span class="o">.</span><span class="na">getResources</span><span class="o">(),</span><span class="n">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">bitmap</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>资源文件(assets):</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">getAssets</span><span class="o">().</span><span class="na">open</span><span class="o">(</span><span class="s">"bitmap.png"</span><span class="o">);</span>
+    <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeStream</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>内存卡文件:</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="s">"/sdcard/bitmap.png"</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>网络文件:</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 此处省略了获取网络输入流的代码</span>
+<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeStream</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+<span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p>既然已经获得到了Bitmap，那么就开始本文的重点了，将Bitmap绘制到画布上。</p>
+
+<h4 id="绘制bitmap">绘制Bitmap：</h4>
+
+<p>依照惯例先预览一下drawBitmap的常用方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 第一种</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawBitmap</span> <span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">Matrix</span> <span class="n">matrix</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+
+<span class="c1">// 第二种</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawBitmap</span> <span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="kt">float</span> <span class="n">left</span><span class="o">,</span> <span class="kt">float</span> <span class="n">top</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+
+<span class="c1">// 第三种</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawBitmap</span> <span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">Rect</span> <span class="n">src</span><span class="o">,</span> <span class="n">Rect</span> <span class="n">dst</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawBitmap</span> <span class="o">(</span><span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">Rect</span> <span class="n">src</span><span class="o">,</span> <span class="n">RectF</span> <span class="n">dst</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>第一种方法中后两个参数(matrix, paint)是在绘制的时候对图片进行一些改变，如果只是需要将图片内容绘制出来只需要如下操作就可以了：</p>
+
+<p>PS:图片左上角位置默认为坐标原点。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span><span class="k">new</span> <span class="n">Matrix</span><span class="o">(),</span><span class="k">new</span> <span class="n">Paint</span><span class="o">());</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>关于Matrix和Paint暂时略过吧，一展开又是啰啰嗦嗦一大段，反正挖坑已经是常态了，大家应该也习惯了(PAP).</p>
+</blockquote>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f4ixnjrn83j30u01hcabc.jpg" width="300" /></p>
+
+<p>第二种方法就是在绘制时指定了图片左上角的坐标(距离坐标原点的距离)：</p>
+
+<blockquote>
+  <p><strong>注意：此处指定的是与坐标原点的距离，并非是与屏幕顶部和左侧的距离, 虽然默认状态下两者是重合的，但是也请注意分别两者的不同。</strong></p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span><span class="mi">500</span><span class="o">,</span><span class="k">new</span> <span class="n">Paint</span><span class="o">());</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f4ixoug2x8j30u01hcgn4.jpg" width="300" /></p>
+
+<p>第三种方法比较有意思，上面多了两个矩形区域(src,dst),这两个矩形选区是干什么用的？</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rect src</td>
+      <td>指定绘制图片的区域</td>
+    </tr>
+    <tr>
+      <td>Rect dst 或RectF dst</td>
+      <td>指定图片在屏幕上显示(绘制)的区域</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>示例：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 将画布坐标系移动到画布中央</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">mWidth</span><span class="o">/</span><span class="mi">2</span><span class="o">,</span><span class="n">mHeight</span><span class="o">/</span><span class="mi">2</span><span class="o">);</span>
+
+<span class="c1">// 指定图片绘制区域(左上角的四分之一)</span>
+<span class="n">Rect</span> <span class="n">src</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rect</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">bitmap</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()/</span><span class="mi">2</span><span class="o">,</span><span class="n">bitmap</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()/</span><span class="mi">2</span><span class="o">);</span>
+
+<span class="c1">// 指定图片在屏幕上显示的区域</span>
+<span class="n">Rect</span> <span class="n">dst</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rect</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span><span class="mi">400</span><span class="o">);</span>
+
+<span class="c1">// 绘制图片</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span><span class="n">src</span><span class="o">,</span><span class="n">dst</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f4ixqgk8rwj30u01hc756.jpg" width="300" /></p>
+
+<p><strong>详解：</strong></p>
+
+<p>上面是以绘制该图为例，用src指定了图片绘制部分的区域，即下图中红色方框标注的区域。</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f2kx2daw1qj305k05kq39.jpg" alt="" /></p>
+
+<p>然后用dst指定了绘制在屏幕上的绘制，即下图中蓝色方框标注的区域，图片宽高会根据指定的区域自动进行缩放。</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f4ixr3skcjj30u01hc3za.jpg" width="300" /></p>
+
+<p>从上面可知，第三种方法可以绘制图片的一部分到画布上，这有什么用呢？</p>
+
+<p>如果你看过某些游戏的资源文件，你可能会看到如下的图片(图片来自网络)：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2kx3lk1ucj30kg04omz7.jpg" alt="" /></p>
+
+<p>用一张图片包含了大量的素材，在绘制的时候每次只截取一部分进行绘制，这样可以大大的减少素材数量，而且素材管理起来也很方便。</p>
+
+<p>然而这和我们有什么关系呢？我们又不做游戏开发。</p>
+
+<p>确实，我们不做游戏开发，但是在某些时候我们需要制作一些炫酷的效果，这些效果因为太复杂了用代码很难实现或者渲染效率不高。这时候很多人就会想起帧动画，将动画分解成一张一张的图片然后使用帧动画制作出来，这种实现方式的确比较简单，但是一个动画效果的图片有十几到几十张，一个应用里面来几个这样炫酷的动画效果就会导致资源文件出现一大堆，想找其中的某一张资源图片简直就是灾难啊有木有。但是把同一个动画效果的所有资源图片整理到一张图片上，会大大的<strong>减少资源文件数量，方便管理</strong>，妈妈再也不怕我找不到资源文件了，<strong>同时也节省了图片文件头、文件结束块以及调色板等占用的空间。</strong></p>
+
+<p><strong>下面是利用drawBitmap第三种方法制作的一个简单示例：</strong></p>
+
+<p>资源文件如下：</p>
+
+<p><img src="http://www.gcssloop.com/assets/images/canvas_pictutetext/checkmark.png" alt="" /></p>
+
+<p>最终效果如下：</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f2kx67fkkog306g0b43yn.gif" alt="" /></p>
+
+<p>源码如下：</p>
+
+<blockquote>
+  <p>PS:由于是示例代码，做的很粗糙，仅作为学习示例，不建议在任何实际项目中使用。</p>
+</blockquote>
+
+<p><a href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/Code/CheckView.md"><em>点击此处查看源码</em></a></p>
+
+<h2 id="2绘制文字">2.绘制文字</h2>
+
+<p>依旧预览一下相关常用方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 第一类</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawText</span> <span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawText</span> <span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">,</span> <span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawText</span> <span class="o">(</span><span class="n">CharSequence</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">,</span> <span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawText</span> <span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">int</span> <span class="n">count</span><span class="o">,</span> <span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+
+<span class="c1">// 第二类</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawPosText</span> <span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">pos</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawPosText</span> <span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">int</span> <span class="n">count</span><span class="o">,</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">pos</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+
+<span class="c1">// 第三类</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawTextOnPath</span> <span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span> <span class="n">Path</span> <span class="n">path</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hOffset</span><span class="o">,</span> <span class="kt">float</span> <span class="n">vOffset</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawTextOnPath</span> <span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">int</span> <span class="n">count</span><span class="o">,</span> <span class="n">Path</span> <span class="n">path</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hOffset</span><span class="o">,</span> <span class="kt">float</span> <span class="n">vOffset</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>PS 其中的CharSequence和String的区别可以到这里看看. <a href="https://github.com/GcsSloop/AndroidNote/issues/16">-&gt;戳这里&lt;-</a></p>
+</blockquote>
+
+<p>绘制文字部分大致可以分为三类：</p>
+
+<p>第一类只能指定文本基线位置(基线x默认在字符串左侧，基线y默认在字符串下方)。<br />
+第二类可以分别指定每个文字的位置。<br />
+第三类是指定一个路径，根据路径绘制文字。<br /></p>
+
+<p>通过上面常用方法的参数也可看出，绘制文字也是需要画笔的，而且文字的大小,颜色,字体,对齐方式都是由画笔控制的。</p>
+
+<p>不过嘛这里仅简单介绍几种常用方法(反正挖坑多了也不怕)，具体在讲解Paint时再详细讲解。</p>
+
+<p><strong>Paint文本相关常用方法表</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>标题</th>
+      <th>相关方法</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>色彩</td>
+      <td>setColor setARGB setAlpha</td>
+      <td>设置颜色，透明度</td>
+    </tr>
+    <tr>
+      <td>大小</td>
+      <td>setTextSize</td>
+      <td>设置文本字体大小</td>
+    </tr>
+    <tr>
+      <td>字体</td>
+      <td>setTypeface</td>
+      <td>设置或清除字体样式</td>
+    </tr>
+    <tr>
+      <td>样式</td>
+      <td>setStyle</td>
+      <td>填充(FILL),描边(STROKE),填充加描边(FILL_AND_STROKE)</td>
+    </tr>
+    <tr>
+      <td>对齐</td>
+      <td>setTextAlign</td>
+      <td>左对齐(LEFT),居中对齐(CENTER),右对齐(RIGHT)</td>
+    </tr>
+    <tr>
+      <td>测量</td>
+      <td>measureText</td>
+      <td>测量文本大小(注意，请在设置完文本各项参数后调用)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>为了绘制文本，我们先创建一个文本画笔：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Paint</span> <span class="n">textPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>          <span class="c1">// 创建画笔</span>
+<span class="n">textPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span><span class="o">);</span>        <span class="c1">// 设置颜色</span>
+<span class="n">textPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL</span><span class="o">);</span>   <span class="c1">// 设置样式</span>
+<span class="n">textPaint</span><span class="o">.</span><span class="na">setTextSize</span><span class="o">(</span><span class="mi">50</span><span class="o">);</span>              <span class="c1">// 设置字体大小</span>
+</code></pre>
+</div>
+
+<h3 id="第一类drawtext">第一类(drawText)</h3>
+<p>第一类可以指定文本开始的位置，可以截取文本中部分内容进行绘制。</p>
+
+<p>其中x，y两个参数是指定文本绘制两个基线,示例：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 文本(要绘制的内容)</span>
+<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"ABCDEFG"</span><span class="o">;</span>
+
+<span class="c1">// 参数分别为 (文本 基线x 基线y 画笔)</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="n">str</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span><span class="mi">500</span><span class="o">,</span><span class="n">textPaint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f72i979lvfj30dw0nujrt.jpg" width="300" /></p>
+
+<blockquote>
+  <p>PS: 图中字符串下方的红线是基线y，基线x未在图中画出。</p>
+</blockquote>
+
+<p>当然啦，除了能指定绘制文本的起始位置，还能只取出文本中的一部分内容进行绘制。</p>
+
+<p>截取文本中的一部分，对于String和CharSequence来说只指定字符串下标start和end位置(<strong>注意：0&lt;= start &lt; end &lt; str.length()</strong>)</p>
+
+<p>以上一个例子使用的字符串为例，它的下标是这样的(等一下，我为啥要说这个，算了，不管了，就这样吧。</p>
+
+<p>(๑•́ ₃ •̀๑)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">字符</th>
+      <th style="text-align: center">A</th>
+      <th style="text-align: center">B</th>
+      <th style="text-align: center">C</th>
+      <th style="text-align: center">D</th>
+      <th style="text-align: center">E</th>
+      <th style="text-align: center">F</th>
+      <th style="text-align: center">G</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">下标</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>假设我我们指定star为1，end为3，那么最终截取的字符串就是”BC”。</p>
+
+<p>一般来说，<strong>使用start和end指定的区间是前闭后开的，即包含start指定的下标，而不包含end指定的下标</strong>，故[1,3)最后获取到的下标只有 下标1 和 下标2 的字符，就是”BC”.</p>
+
+<p>示例：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 文本(要绘制的内容)</span>
+<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"ABCDEFG"</span><span class="o">;</span>
+
+<span class="c1">// 参数分别为 (字符串 开始截取位置 结束截取位置 基线x 基线y 画笔)</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="n">str</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span><span class="mi">500</span><span class="o">,</span><span class="n">textPaint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f3njh66018j30dw0nuq3b.jpg" width="300" /></p>
+
+<p>另外，对于字符数组char[]我们截取字符串使用起始位置(index)和长度(count)来确定。</p>
+
+<p>同样，我们指定index为1，count为3，那么最终截取到的字符串是”BCD”.</p>
+
+<p>其实就是从下标位置为1处向后数3位就是截取到的字符串，示例：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 字符数组(要绘制的内容)</span>
+<span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span> <span class="o">=</span> <span class="s">"ABCDEFG"</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+
+<span class="c1">// 参数为 (字符数组 起始坐标 截取长度 基线x 基线y 画笔)</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawText</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span><span class="mi">500</span><span class="o">,</span><span class="n">textPaint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f3njhnldb5j30dw0nu74o.jpg" width="300" /></p>
+
+<h3 id="第二类drawpostext">第二类(drawPosText)</h3>
+
+<p>通过和第一类比较，我们可以发现，第二类中没有指定x，y坐标的参数，而是出现了这样一个参数<strong>float[] pos</strong>。</p>
+
+<p>好吧，这个名为pos的浮点型数组就是指定坐标的，至于为啥要用数组嘛，因为这家伙野心比较大，想给每个字符都指定一个位置。</p>
+
+<p>示例：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"SLOOP"</span><span class="o">;</span>
+
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPosText</span><span class="o">(</span><span class="n">str</span><span class="o">,</span><span class="k">new</span> <span class="kt">float</span><span class="o">[]{</span>
+      <span class="mi">100</span><span class="o">,</span><span class="mi">100</span><span class="o">,</span>    <span class="c1">// 第一个字符位置</span>
+      <span class="mi">200</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span>    <span class="c1">// 第二个字符位置</span>
+      <span class="mi">300</span><span class="o">,</span><span class="mi">300</span><span class="o">,</span>    <span class="c1">// ...</span>
+      <span class="mi">400</span><span class="o">,</span><span class="mi">400</span><span class="o">,</span>
+      <span class="mi">500</span><span class="o">,</span><span class="mi">500</span>
+<span class="o">},</span><span class="n">textPaint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f2kx9fl8c8j30u01hcglz.jpg" width="300" /></p>
+
+<p>不过嘛，虽然虽然这个方法也比较容易理解，但是关于这个方法我个人是不推荐使用的，因为坑比较多，主要有一下几点：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">序号</th>
+      <th>反对理由</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td>必须指定所有字符位置，否则直接crash掉，反人类设计</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td>性能不佳，在大量使用的时候可能导致卡顿</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td>不支持emoji等特殊字符，不支持字形组合与分解</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>关于第二类的第二种方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawPosText</span> <span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">,</span> <span class="kt">int</span> <span class="n">count</span><span class="o">,</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">pos</span><span class="o">,</span> <span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>和上面一样，就是从字符数组中切出来一段进行绘制，相信以诸位看官的聪明才智一眼就看出来了，我这里就不多说了，真的不是我偷懒啊(ˉ▽￣～) ~~</p>
+
+<h3 id="第三类drawtextonpath">第三类(drawTextOnPath)</h3>
+
+<p>第三类要用到path这个大杀器，作为一个厉害角色怎么能这么轻易露脸呢，先保持一下神秘感，也就是说，下回再和大家见面喽。</p>
+
+<h1 id="三总结">三.总结</h1>
+
+<p>学会了图片和文字绘制，对于大部分自定义View都能制作了，可以去看看这位大神制作的作品，尝试模仿一下<a href="http://blog.csdn.net/tianjian4592/article/details/44538605">一个绚丽的loading动效分析与实现！</a></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f2kxbki0wtg308c069mzr.gif" alt="" /></p>
+
+<p>(,,• ₃ •,,)</p>
+
+<p><b>PS: 由于本人英文水平有限，某些地方可能存在误解或词语翻译不准确，如果你对此有疑问可以提交Issues进行反馈。</b></p>
+
+<h2 id="about">About</h2>
+
+<p><a href="http://www.gcssloop.com/customview/CustomViewIndex/">本系列相关文章</a></p>
+
+<p>作者微博: <a href="http://weibo.com/GcsSloop">GcsSloop</a></p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<p><a href="http://developer.android.com/reference/android/graphics/Canvas.html">Canvas</a><br />
+<a href="http://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a><br />
+<a href="http://developer.android.com/reference/android/graphics/Paint.html">Paint</a><br />
+<a href="http://blog.csdn.net/wufenglong/article/details/5596402">Android ApiDemo 笔记（一）Content与Graphics</a><br /></p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石，鼓励我继续研究! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师，<a href="/contribute">点击这里查看捐赠者名单。</a>
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/Path_Basic" title="link to 安卓自定义View进阶-Path之基本操作">安卓自定义View进阶-Path之基本操作</a></h2>
+    <p class="excerpt">在上一篇Canvas之图片文字中我们了解了如何使用Canvas中绘制图片文字，结合前几篇文章，Canvas的基本操作已经差不多完结了，然而Canvas不仅仅具有这些基本的操作，还可以更加炫酷，本...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-03-02 00:00:00 +0800" class="post-list__meta--date date">2016-03-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/Path_Basic>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/Canvas_Convert" title="link to 安卓自定义View进阶-Canvas之画布操作">安卓自定义View进阶-Canvas之画布操作</a></h2>
+       <p class="excerpt">上一篇Canvas之绘制基本图形中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。本来想把画布操作放到后面部分的，但是发现很多图形绘制都离不开画布操作，于是先讲解一下画布...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-01-28 00:00:00 +0800" class="post-list__meta--date date">2016-01-28</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/Canvas_Convert>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
