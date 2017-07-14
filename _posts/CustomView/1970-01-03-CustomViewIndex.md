@@ -8,6 +8,7 @@ keywords: CustomView, Android, 安卓, 自定义View详解, 自定义控件, Can
 excerpt: 自定义View目录，包括自定义坐标系，角度弧度，颜色，自定义view流程，Canvas，Path，PathMeasure，贝塞尔曲线，Matrix，2D绘图等相关内容。
 redirect_from:
   - /1970/01/CustomViewIndex/
+  - /customview/CustomViewIndex/
 ---
 
 这是一个从零起步，从入门到懵逼的自定义View教程。本教程从最基础的内容讲解，并且深入到了相关的各个细节，不论你是刚入门的菜鸟，还是有一定经验的工程师相信本系列文章都会对你有所帮助。
