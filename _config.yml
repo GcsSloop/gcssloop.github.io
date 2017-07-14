@@ -27,7 +27,7 @@ nav:
     - {title: 目录,        in_site: true,  description: 博客目录,               url: '/timeline'}
     - {title: 基友,        in_site: true,  description: 好基(姬)友们和他们的网站, url: '/friends'}
     - {title: 自定义控件,   in_site: true,  description: 自定义View教程目录,      url: '/customview/CustomViewIndex'}
-    - {title: 关于,        in_site: true,  description: 关于作者 GcsSloop,       url: '/info/about/'}
+    - {title: 关于,        in_site: true,  description: 关于作者 GcsSloop,       url: '/info/about'}
     
 
 
