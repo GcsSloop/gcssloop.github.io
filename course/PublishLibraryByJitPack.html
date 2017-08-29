@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>使用JitPack发布Android开源库</title>
+  <meta name="description" content="使用JitPack发布开源库。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android, Jitpack, GcsSloop">
+  <meta name="关键字" content="Android, Jitpack, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="使用JitPack发布Android开源库">
+  <meta name="twitter:description" content="使用JitPack发布开源库。">
+  <meta name="twitter:keywords" content="Android, Jitpack, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="使用JitPack发布Android开源库">
+  <meta property="og:description" content="使用JitPack发布开源库。">
+  <meta name="og:keywords" content="Android, Jitpack, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/course/PublishLibraryByJitPack">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-03-20 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-03-20</time> &#8226; <span class="post-meta__tags tags">Android,Jitpack</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">使用JitPack发布Android开源库</h1>
+  </header>
+
+  <section class="post">
+    <p>自从谷歌宣布不支持Eclipse之后，大批Android程序猿情愿或者不情愿的迁移到了AndroidStudio，从此过上了使用Gradle构建程序的”优越”生活。</p>
+
+<blockquote>
+  <p>关于Gradle的坑，就不吐槽了，我怕一会儿控制不住情绪。今天我们就谈一下Gradle的优越性。</p>
+</blockquote>
+
+<p>说到Gradle的优越性，其中有一点比较明显的就是依赖开源库更加方便了，基本上一两行代码就能搞定。免去了还要手动下载自己配置的痛苦。</p>
+
+<p>然而，这也仅仅是对使用者而言，而对于发布这些开源库的人就苦逼了,主要是上传太痛苦。</p>
+
+<p>目前来说，比较常见的 Android 开源库托管地址有以下几类:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>吐槽</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Maven Central</td>
+      <td>发布过程繁杂冗长， 每次发布成功都应该感谢一下上苍的厚爱。</td>
+    </tr>
+    <tr>
+      <td>jCenter</td>
+      <td>jCenter貌似稍微简单一点，但也不是省油的灯。</td>
+    </tr>
+    <tr>
+      <td>自定义仓库</td>
+      <td>一般的猿猿玩不起，企业内部可能会见到。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在这些托管地址上面发布过项目的都应该能理解其中的痛苦，不说了，让我哭会儿(我就是那个每次发布都折腾半天的“bug狂魔”，从未一次发布就成功过)。</p>
+
+<p>然而，现在福音来了，JitPack可以帮助你简单快速的发布开源库。</p>
+
+<h2 id="在正式讲解之前我们先了解一下jitpack">在正式讲解之前我们先了解一下JitPack</h2>
+
+<p><strong>JitPack是什么？</strong></p>
+
+<blockquote>
+  <p><strong>JitPack是一个自定义的Maven仓库。</strong></p>
+</blockquote>
+
+<p><strong>JitPack安全吗？</strong></p>
+
+<blockquote>
+  <p><strong>个人还是比较安全的，毕竟开源库都是给大家用的，源码都能分享出来，如果你是担心它在里面插入恶意代码的话，在AndroidStudio的 External Libraies里面能够看到反编译的依赖库的源码，可以查看一下。</strong></p>
+</blockquote>
+
+<p><strong>JitPack好处都有啥！说对我就给他用(金坷垃，雾)</strong></p>
+
+<blockquote>
+  <p><strong>省时间，省时间，省时间，省下的时间都够你修复好几个bug了。</strong></p>
+</blockquote>
+
+<p>简单的了解了JitPack之后，开始本篇的正文。</p>
+
+<h1 id="如何在jitpack上发布你的library">如何在JitPack上发布你的Library</h1>
+
+<p><strong>首先，假设大家已经具备了以下条件：</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">序号</th>
+      <th>条件</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td>会使用GitHub，能提交项目到GitHub上</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td>使用AndroidStudio，且Gradle版本在2.4以上</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在具备了这些条件之后，正式开始发布一个项目(以我的一个<a href="https://github.com/GcsSloop/SUtil">工具仓库Sutil</a>为例)。</p>
+
+<h2 id="第-1-步-新建一个project">第 1 步: 新建一个Project</h2>
+
+<p>在AndroidStudio中新建一个Project用于发布项目，新建完成之后结果是这样子:</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f239wl5amtj30rs0gon0g.jpg" alt="" /></p>
+
+<h2 id="第-2-步-在这个project中添加一个library">第 2 步: 在这个Project中添加一个Library</h2>
+
+<p>添加的这个Library就是我要发布的仓库，Library的名字无所谓,可以随便起(<em>我这里就叫library</em>)。添加完成之后是这样子：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f239xb835xj30rs0gowiv.jpg" alt="" /></p>
+
+<h3 id="图中的几个标注">图中的几个标注</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">序号</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td>新添加的Library</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td>Library的build.gradle</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td>Library的plugin</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>其中library的plugin是下面这样子：</strong></p>
+
+<div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'com.android.library'</span>
+</code></pre>
+</div>
+
+<h2 id="第-3-步-给你的项目添加配置重点">第 3 步: 给你的项目添加配置(重点)</h2>
+
+<p>你需要对你的项目简单的配置一下:</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f239y5xsj4j30rs0gowit.jpg" alt="" /></p>
+
+<p><strong>在你项目的根节点的 build.gradle(图示1) 中添加如下代码:</strong></p>
+
+<div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span> 
+  <span class="k">dependencies</span> <span class="o">{</span>
+    <span class="c1">// 重点就是下面这一行(上面两行是为了定位这一行的添加位置)</span>
+    <span class="n">classpath</span> <span class="s1">'com.github.dcendents:android-maven-gradle-plugin:1.3'</span> 
+</code></pre>
+</div>
+<p>插件版本可以去官网查看，尽量使用最新版本，在AndroidStudio 2.2 之后插件要使用 1.4.1 以上的版本。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1' 
+</code></pre>
+</div>
+
+<p><strong><a href="https://github.com/GcsSloop/SUtil/blob/master/build.gradle">完整示例</a></strong></p>
+
+<p><strong>在你要发布的library的 build.gradle(图示2) 中添加如下代码：</strong></p>
+
+<div class="language-gradle highlighter-rouge"><pre class="highlight"><code> <span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'com.github.dcendents.android-maven'</span>  
+
+ <span class="n">group</span><span class="o">=</span><span class="s1">'com.github.YourUsername'</span>
+</code></pre>
+</div>
+<p><strong><a href="https://github.com/GcsSloop/SUtil/blob/master/library/build.gradle">完整示例</a></strong></p>
+
+<h2 id="第-4-步-提交项目到github仓库">第 4 步: 提交项目到GitHub仓库</h2>
+
+<p>这一步就不多啰嗦了，不论你是用命令行还是客户端都可以。</p>
+
+<p><strong>为了提交更加快速，你可以删除无用的文件(文件夹),至于需要保留哪些文件你可以参考官方给出的<a href="https://github.com/jitpack/android-example">示例仓库</a></strong></p>
+
+<h2 id="第-5-步-release你的仓库或者给你的仓库打一个tag重点">第 5 步: Release你的仓库或者给你的仓库打一个Tag(重点)</h2>
+
+<h3 id="1点击图示进入release界面">1.点击图示进入Release界面</h3>
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f239yqr44cj30rs0goadk.jpg" alt="" /></p>
+
+<h3 id="2创建一个release或tag">2.创建一个Release或Tag</h3>
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f239z1dnr8j30rs0goaco.jpg" alt="" /></p>
+
+<h3 id="3填写基本信息">3.填写基本信息</h3>
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f239zctc5xj30rs0goq7w.jpg" alt="" /></p>
+
+<h3 id="4完成">4.完成</h3>
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f239zpfkcwj30rs0gogns.jpg" alt="" /></p>
+
+<h2 id="第-6-步-将你的仓库地址提交到jitpack重点">第 6 步: 将你的仓库地址提交到JitPack(重点)</h2>
+
+<h3 id="1将你的仓库地址提交到jitpack">1.将你的仓库地址提交到<a href="https://jitpack.io">JitPack</a></h3>
+<p><strong><a href="https://jitpack.io">JitPack地址戳这里</a></strong></p>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f23a055uoej30rs0godi0.jpg" alt="" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">序号</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td>粘贴你的仓库地址</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td>点击这里查看</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td>版本号</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td>点击这里提交该版本</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td>提交完成后自动生成的日志</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="2jitpack自动生成的配置信息">2.JitPack自动生成的配置信息</h3>
+<p>在上传完成之后，JitPack会自动生成引用该仓库的配置信息，如下：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f23a0fd5iyj30rs0gotb2.jpg" alt="" /></p>
+
+<p><strong>以上就是教程的全部内容，各位小伙伴可以回去愉快的发布自己的开源库了。</strong></p>
+
+<h3 id="jitpack地址"><a href="https://jitpack.io">JitPack地址</a></h3>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/Path_Bezier" title="link to 安卓自定义View进阶-Path之贝塞尔曲线">安卓自定义View进阶-Path之贝塞尔曲线</a></h2>
+    <p class="excerpt">在上一篇文章Path之基本操作中我们了解了Path的基本使用方法，本次了解Path中非常非常非常重要的内容-贝塞尔曲线。一.Path常用方法表  为了兼容性(偷懒) 本表格中去除了在API21(...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-04-29 00:00:00 +0800" class="post-list__meta--date date">2016-04-29</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/Path_Bezier>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/Path_Basic" title="link to 安卓自定义View进阶-Path之基本操作">安卓自定义View进阶-Path之基本操作</a></h2>
+       <p class="excerpt">在上一篇Canvas之图片文字中我们了解了如何使用Canvas中绘制图片文字，结合前几篇文章，Canvas的基本操作已经差不多完结了，然而Canvas不仅仅具有这些基本的操作，还可以更加炫酷，本...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-03-02 00:00:00 +0800" class="post-list__meta--date date">2016-03-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/Path_Basic>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

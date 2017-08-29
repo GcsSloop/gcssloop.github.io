@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View进阶-Matrix Camera</title>
+  <meta name="description" content="本篇依旧属于Matrix，主要讲解Camera，Android下有很多相机应用，其中的美颜相机更是不少，不过今天这个Camera可不是我们平时拍照的那个相机，而是graphic包下的Camera，专业给View拍照的相机，不过既然是相机，作用都是类似的，主要是将3D的内容拍扁变成2D的内容。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Matrix, Matrix原理, Matrix详解, Camera, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="Matrix, Matrix原理, Matrix详解, Camera, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View进阶-Matrix Camera">
+  <meta name="twitter:description" content="本篇依旧属于Matrix，主要讲解Camera，Android下有很多相机应用，其中的美颜相机更是不少，不过今天这个Camera可不是我们平时拍照的那个相机，而是graphic包下的Camera，专业给View拍照的相机，不过既然是相机，作用都是类似的，主要是将3D的内容拍扁变成2D的内容。">
+  <meta name="twitter:keywords" content="Matrix, Matrix原理, Matrix详解, Camera, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View进阶-Matrix Camera">
+  <meta property="og:description" content="本篇依旧属于Matrix，主要讲解Camera，Android下有很多相机应用，其中的美颜相机更是不少，不过今天这个Camera可不是我们平时拍照的那个相机，而是graphic包下的Camera，专业给View拍照的相机，不过既然是相机，作用都是类似的，主要是将3D的内容拍扁变成2D的内容。">
+  <meta name="og:keywords" content="Matrix, Matrix原理, Matrix详解, Camera, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/customview/matrix-3d-camera">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-09-14 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-09-14</time> &#8226; <span class="post-meta__tags tags">Camera,Matrix</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View进阶-Matrix Camera</h1>
+  </header>
+
+  <section class="post">
+    <p>本篇依旧属于Matrix，主要讲解Camera，Android下有很多相机应用，其中的美颜相机更是不少，不过今天这个Camera可不是我们平时拍照的那个相机，而是graphic包下的Camera，专业给View拍照的相机，不过既然是相机，作用都是类似的，主要是将3D的内容拍扁变成2D的内容。</p>
+
+<p>众所周知，我们的手机屏幕是一个2D的平面，所以也没办法直接显示3D的信息，因此我们看到的所有3D效果都是3D在2D平面的投影而已，而本文中的Camera主要作用就是这个，将3D信息转换为2D平面上的投影，实际上这个类更像是一个操作Matrix的工具类，使用Camera和Matrix可以在不使用OpenGL的情况下制作出简单的3D效果。</p>
+
+<blockquote>
+  <h2 id="️-警告测试本文章示例之前请关闭硬件加速">⚠️ 警告：测试本文章示例之前请关闭硬件加速。</h2>
+</blockquote>
+
+<h2 id="camera常用方法表">Camera常用方法表</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法类别</th>
+      <th>相关API</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>基本方法</td>
+      <td>save、restore</td>
+      <td>保存、 回滚</td>
+    </tr>
+    <tr>
+      <td>常用方法</td>
+      <td>getMatrix、applyToCanvas</td>
+      <td>获取Matrix、应用到画布</td>
+    </tr>
+    <tr>
+      <td>平移</td>
+      <td>translate</td>
+      <td>位移</td>
+    </tr>
+    <tr>
+      <td>旋转</td>
+      <td>rotat (API 12)、rotateX、rotateY、rotateZ</td>
+      <td>各种旋转</td>
+    </tr>
+    <tr>
+      <td>相机位置</td>
+      <td>setLocation (API 12)、getLocationX (API 16)、getLocationY (API 16)、getLocationZ  (API 16)</td>
+      <td>设置与获取相机位置</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>Camera的方法并不是特别多，很多内容与之前的讲解的Canvas和Matrix类似，不过又稍有不同，之前的画布操作和Matrix主要是作用于2D空间，而Camera则主要作用于3D空间。</p>
+</blockquote>
+
+<h2 id="基础概念">基础概念</h2>
+
+<p>在具体讲解方法之前，先补充几个基础概念，以便于后面理解。</p>
+
+<h3 id="3d坐标系">3D坐标系</h3>
+
+<p>我们Camera使用的3维坐标系是<strong>左手坐标系，即左手手臂指向x轴正方向，四指弯曲指向y轴正方向，此时展开大拇指指向的方向是z轴正方向</strong>。</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f7mruav2nhj308c05iglp.jpg" alt="" /></p>
+
+<blockquote>
+  <p>至于为什么要用左手坐标系呢？<del>大概是因为赶工的时候右手不方便比划吧，大雾。</del>实际上不同平台上使用的坐标系也有不同，有的是左手，有的是右手，貌似并没有统一的标准，只需要记住 Android 平台上面使用的是左手坐标系即可。</p>
+</blockquote>
+
+<p><strong>2D 和 3D 坐标是通过Matrix关联起来的，所以你可以认为两者是同一个坐标系，但又有差别，重点就是y轴方向不同。</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">坐标系</th>
+      <th style="text-align: center">2D坐标系</th>
+      <th style="text-align: center">3D坐标系</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">原点默认位置</td>
+      <td style="text-align: center">左上角</td>
+      <td style="text-align: center">左上角</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">X 轴默认方向</td>
+      <td style="text-align: center">右</td>
+      <td style="text-align: center">右</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Y 轴默认方向</td>
+      <td style="text-align: center">下</td>
+      <td style="text-align: center">上</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Z 轴默认方向</td>
+      <td style="text-align: center">无</td>
+      <td style="text-align: center">垂直屏幕向内</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>3D坐标系在屏幕中各个坐标轴默认方向展示:</p>
+
+<blockquote>
+  <p>注意y轴默认方向是向上，而2D则是向下，另外本图不代表3D坐标系实际位置。</p>
+</blockquote>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f7nxn8hcqqj308c0ea74a.jpg" alt="" /></p>
+
+<h3 id="三维投影">三维投影</h3>
+
+<blockquote>
+  <p><strong>三维投影</strong>是将三维空间中的点映射到二维平面上的方法。由于目前绝大多数图形数据的显示方式仍是二维的，因此三维投影的应用相当广泛，尤其是在计算机图形学，工程学和工程制图中。</p>
+</blockquote>
+
+<p>三维投影一般有两种，<strong>正交投影</strong> 和 <strong>透视投影</strong>。</p>
+
+<blockquote>
+  <p>正交投影就是我们数学上学过的 “正视图、正视图、侧视图、俯视图” 这些东西。</p>
+
+  <p>透视投影则更像拍照片，符合<strong>近大远小</strong>的关系，有立体感，<strong>我们此处使用的就是透视投影。</strong></p>
+</blockquote>
+
+<h3 id="摄像机">摄像机</h3>
+
+<p>如果你学过Unity，那么你对摄像机这一个概念应该会有比较透彻的理解。在一个虚拟的3D的立体空间中，由于我们无法直接用眼睛去观察这一个空间，所以要借助摄像机采集信息，制成2D影像供我们观察。简单来说，<strong>摄像机就是我们观察虚拟3D空间的眼睛</strong>。</p>
+
+<p><strong>Android 上面观察View的摄像机默认位置在屏幕左上角，而且是距屏幕有一段距离的，假设灰色部分是手机屏幕，白色是上面的一个View，摄像机位置看起来大致就是下面这样子的(为了更好的展示摄像机的位置，做了一个空间转换效果的动图)。</strong></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7q71yek4wg308c058go5.gif" alt="" /></p>
+
+<blockquote>
+  <p>摄像机的位置默认是 (0, 0, -576)。其中 -576＝ -8 x 72，虽然官方文档说距离屏幕的距离是 -8, 但经过测试实际距离是 -576 像素，当距离为 -10 的时候，实际距离为 -720 像素。不过这个数值72我也不明白是什么东西，我使用了3款手机测试，屏幕大小和像素密度均不同，但结果都是一样的，知道的小伙伴可以告诉我一声。</p>
+</blockquote>
+
+<h2 id="基本方法">基本方法</h2>
+
+<p>基本方法就有两个<code class="highlighter-rouge">save</code> 和<code class="highlighter-rouge">restore</code>，主要作用为<code class="highlighter-rouge">保存当前状态和恢复到上一次保存的状态</code>，通常成对使用，常用格式如下:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">camera</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>		<span class="c1">// 保存状态</span>
+<span class="o">...</span> 			<span class="c1">// 具体操作</span>
+<span class="n">camera</span><span class="o">.</span><span class="na">retore</span><span class="o">();</span>	<span class="c1">// 回滚状态</span>
+</code></pre>
+</div>
+
+<h2 id="常用方法">常用方法</h2>
+
+<p>这两个方法是Camera中最基础也是最常用的方法。</p>
+
+<h3 id="getmatrix">getMatrix</h3>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">getMatrix</span> <span class="o">(</span><span class="n">Matrix</span> <span class="n">matrix</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>计算当前状态下矩阵对应的状态，并将计算后的矩阵赋值给参数matrix。</p>
+
+<h3 id="applytocanvas">applyToCanvas</h3>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">applyToCanvas</span> <span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>计算当前状态下单矩阵对应的状态，并将计算后的矩阵应用到指定的canvas上。</p>
+
+<h2 id="平移">平移</h2>
+
+<blockquote>
+  <p><strong>声明：以下示例中 Matrix 的平移均使用 postTranslate 来演示，实际情况中使用set、pre 或 post 需要视情况而定。</strong></p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">translate</span> <span class="o">(</span><span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="kt">float</span> <span class="n">z</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>和2D平移类似，只不过是多出来了一个维度，从只能在2D平面上平移到在3D空间内平移，不过，此处仍有几个要点需要重点对待。</p>
+
+<h3 id="沿x轴平移">沿x轴平移</h3>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">camera</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+
+<span class="n">matrix</span><span class="o">.</span><span class="na">postTranslate</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>两者x轴同向，所以 Camera 和 Matrix 在沿x轴平移上是一致的。</p>
+
+<p><strong>结论:</strong></p>
+
+<p>一致是指平移方向和平移距离一致，在默认情况下，上面两种均可以让坐标系向右移动x个单位。</p>
+
+<h3 id="沿y轴平移">沿y轴平移</h3>
+
+<p>这个就有点意思了，两个坐标系相互关联，但是两者的y轴方向是相反的，很容易把人搞迷糊。你可以这么玩:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Camera</span> <span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">();</span>
+<span class="n">camera</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>    <span class="c1">// camera - 沿y轴正方向平移100像素</span>
+
+<span class="n">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Matrix</span><span class="o">();</span>
+<span class="n">camera</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">(</span><span class="n">matrix</span><span class="o">);</span>
+<span class="n">matrix</span><span class="o">.</span><span class="na">postTranslate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">100</span><span class="o">);</span>    <span class="c1">// matrix - 沿y轴正方向平移100像素</span>
+
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Matrix: "</span><span class="o">+</span><span class="n">matrix</span><span class="o">.</span><span class="na">toShortString</span><span class="o">());</span>
+</code></pre>
+</div>
+
+<p>在上面这种写法，虽然用了5行代码，但是效果却和 <code class="highlighter-rouge">Matrix matrix = new Matrix();</code> 一样，结果都是单位矩阵。而且看起来貌似没有啥问题，毕竟两次平移都是正向100。(<del>如果遇见不懂技术的领导嫌你写代码量少，你可以这样多写几遍，反正一般人是看不出问题的。</del>)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Matrix: [1.0, 0.0, 0.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0]
+</code></pre>
+</div>
+
+<p><strong>结论:</strong></p>
+
+<p>由于两者y轴相反，所以 <code class="highlighter-rouge">camera.translate(0, -y, 0);</code> 与 <code class="highlighter-rouge">matrix.postTranslate(0, y);</code>平移方向和距离一致，在默认情况下，这两种方法均可以让坐标系向下移动y个单位。</p>
+
+<h3 id="沿z轴平移">沿z轴平移</h3>
+
+<p>这个不仅有趣，还容易蒙逼，上面两种情况再怎么闹腾也只是在2D平面上，而z轴的出现则让其有了空间感。</p>
+
+<p><strong>当View和摄像机在同一条直线上时:</strong> 此时沿z轴平移相当于缩放的效果，缩放中心为摄像机所在(x, y)坐标，当View接近摄像机时，看起来会变大，远离摄像机时，看起来会变小，<strong>近大远小</strong>。</p>
+
+<p><strong>当View和摄像机不在同一条直线上时:</strong> 当View远离摄像机的时候，View在缩小的同时也在不断接近摄像机在屏幕投影位置(通常情况下为Z轴，在平面上表现为接近坐标原点)。相反，当View接近摄像机的时候，View在放大的同时会远离摄像机在屏幕投影位置。</p>
+
+<p>我知道，这样说你们肯定是蒙逼的，话说为啥远离摄像机的时候会接近摄像机在屏幕投影位置(´･_･`)，肯定觉得我在逗你们玩，完全是前后矛盾，逻辑都不通，不过这个在这里的确是不矛盾的，因为远离是在3D空间里的情况，而接近只是在2D空间的投影，看下图。</p>
+
+<blockquote>
+  <p>假设大矩形是手机屏幕，白色小矩形是View，摄像机位于屏幕左上角，请注意上面View与摄像机的距离以及下方View的大小以及距离左上角(摄像机在屏幕投影位置)的距离。</p>
+</blockquote>
+
+<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f7qerbksn4g30dc0ct7vt.gif" alt="" /></p>
+
+<p>至于为什么会这样，因为我们人眼视觉就是这样的，当我们看向远方的时候，视线最终都会消失在视平线上，如果你站在两条平行线中间，看起来它们会在远方(视平线上)相交，虽然在3D空间上两者距离不变，但在2D投影上却是越来越接近，如下图(图片来自网络):</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f7qf2vug02j308c08ct9w.jpg" alt="" /></p>
+
+<p><strong>结论:</strong></p>
+
+<p>关于3D效果的平移说起来比较麻烦，但你可以自己实际的体验一下，毕竟我们是生活在3D空间的，拿一张纸片来模拟View，用眼睛当做摄像机，在眼前来回移动纸片，多试几次大致就明白是怎么回事了。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">平移</th>
+      <th>重点内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">x轴</td>
+      <td>2D 和 3D 相同。</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">y轴</td>
+      <td>2D 和 3D 相反。</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">z轴</td>
+      <td>近大远小、视线相交。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="旋转">旋转</h2>
+
+<p>旋转是Camera制作3D效果的核心，不过它制作出来的并不能算是真正的3D，而是伪3D，因为View是没有厚度的。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// (API 12) 可以控制View同时绕x，y，z轴旋转，可以由下面几种方法复合而来。</span>
+<span class="kt">void</span> <span class="nf">rotate</span> <span class="o">(</span><span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="kt">float</span> <span class="n">z</span><span class="o">);</span>
+
+<span class="c1">// 控制View绕单个坐标轴旋转</span>
+<span class="kt">void</span> <span class="nf">rotateX</span> <span class="o">(</span><span class="kt">float</span> <span class="n">deg</span><span class="o">);</span>
+<span class="kt">void</span> <span class="nf">rotateY</span> <span class="o">(</span><span class="kt">float</span> <span class="n">deg</span><span class="o">);</span>
+<span class="kt">void</span> <span class="nf">rotateZ</span> <span class="o">(</span><span class="kt">float</span> <span class="n">deg</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>这个东西瞎扯理论也不好理解，直接上图:</p>
+
+<p align="center">
+<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7sg375gbgg308c0eak4l.gif" width="250" style="display:inline;" />
+<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f7sgtl0nryg308c0eatm8.gif" width="250" style="display:inline;" />
+<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7sgtxp6awg308c0eah5h.gif" width="250" style="display:inline;" />
+</p>
+
+<p><strong>以上三张图分别为，绕x轴，y轴，z轴旋转的情况，至于为什么没有显示z轴，是因为z轴是垂直于手机屏幕的，在屏幕上的投影就是一个点。</strong></p>
+
+<p>关于旋转，有以下几点需要注意:</p>
+
+<h3 id="旋转中心">旋转中心</h3>
+
+<p>旋转中心默认是坐标原点，对于图片来说就是左上角位置。</p>
+
+<p>我们都知道，在2D中，不论是旋转，错切还是缩放都是能够指定操作中心点位置的，但是在3D中却没有默认的方法，如果我们想要让图片围绕中心点旋转怎么办? 这就要使用到我们在<a href="http://www.gcssloop.com/customview/Matrix_Basic">Matrix原理</a>提到过的方法:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Matrix</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Matrix</span><span class="o">();</span>		<span class="c1">// 临时Matrix变量</span>
+<span class="k">this</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">(</span><span class="n">temp</span><span class="o">);</span>			<span class="c1">// 获取Matrix</span>
+<span class="n">temp</span><span class="o">.</span><span class="na">preTranslate</span><span class="o">(-</span><span class="n">centerX</span><span class="o">,</span> <span class="o">-</span><span class="n">centerY</span><span class="o">);</span>	<span class="c1">// 使用pre将旋转中心移动到和Camera位置相同。</span>
+<span class="n">temp</span><span class="o">.</span><span class="na">postTranslate</span><span class="o">(</span><span class="n">centerX</span><span class="o">,</span> <span class="n">centerY</span><span class="o">);</span>	<span class="c1">// 使用post将图片(View)移动到原来的位置</span>
+</code></pre>
+</div>
+
+<h3 id="官方示例-rotate3danimation">官方示例-Rotate3dAnimation</h3>
+
+<p>说到3D旋转，最经典的应该就是ApiDemo里面的 <a href="https://android.googlesource.com/platform/development/+/master/samples/ApiDemos/src/com/example/android/apis/animation/Rotate3dAnimation.java">Rotate3dAnimation</a> 了，见过不少博文都是根据Rotate3dAnimation修改的效果，这是一个非常经典的例子，鉴于代码也不长，就贴在这里和大家一起品鉴一下。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rotate3dAnimation</span> <span class="kd">extends</span> <span class="n">Animation</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mFromDegrees</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mToDegrees</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mCenterX</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mCenterY</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mDepthZ</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">mReverse</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Camera</span> <span class="n">mCamera</span><span class="o">;</span>
+    <span class="cm">/**
+     * 创建一个绕y轴旋转的3D动画效果，旋转过程中具有深度调节，可以指定旋转中心。
+     * 
+     * @param fromDegrees	起始时角度
+     * @param toDegrees 	结束时角度
+     * @param centerX 		旋转中心x坐标
+     * @param centerY 		旋转中心y坐标
+     * @param depthZ		最远到达的z轴坐标
+     * @param reverse 		true 表示由从0到depthZ，false相反
+     */</span>
+    <span class="kd">public</span> <span class="nf">Rotate3dAnimation</span><span class="o">(</span><span class="kt">float</span> <span class="n">fromDegrees</span><span class="o">,</span> <span class="kt">float</span> <span class="n">toDegrees</span><span class="o">,</span>
+            <span class="kt">float</span> <span class="n">centerX</span><span class="o">,</span> <span class="kt">float</span> <span class="n">centerY</span><span class="o">,</span> <span class="kt">float</span> <span class="n">depthZ</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">reverse</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mFromDegrees</span> <span class="o">=</span> <span class="n">fromDegrees</span><span class="o">;</span>
+        <span class="n">mToDegrees</span> <span class="o">=</span> <span class="n">toDegrees</span><span class="o">;</span>
+        <span class="n">mCenterX</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">;</span>
+        <span class="n">mCenterY</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">;</span>
+        <span class="n">mDepthZ</span> <span class="o">=</span> <span class="n">depthZ</span><span class="o">;</span>
+        <span class="n">mReverse</span> <span class="o">=</span> <span class="n">reverse</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">,</span> <span class="kt">int</span> <span class="n">parentWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">parentHeight</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">parentWidth</span><span class="o">,</span> <span class="n">parentHeight</span><span class="o">);</span>
+        <span class="n">mCamera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">applyTransformation</span><span class="o">(</span><span class="kt">float</span> <span class="n">interpolatedTime</span><span class="o">,</span> <span class="n">Transformation</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">fromDegrees</span> <span class="o">=</span> <span class="n">mFromDegrees</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">fromDegrees</span> <span class="o">+</span> <span class="o">((</span><span class="n">mToDegrees</span> <span class="o">-</span> <span class="n">fromDegrees</span><span class="o">)</span> <span class="o">*</span> <span class="n">interpolatedTime</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">mCenterX</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">mCenterY</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="n">Camera</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">mCamera</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="n">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">();</span>
+        <span class="n">camera</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+      
+      	<span class="c1">// 调节深度</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mReverse</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">camera</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span> <span class="n">mDepthZ</span> <span class="o">*</span> <span class="n">interpolatedTime</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">camera</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span> <span class="n">mDepthZ</span> <span class="o">*</span> <span class="o">(</span><span class="mf">1.0f</span> <span class="o">-</span> <span class="n">interpolatedTime</span><span class="o">));</span>
+        <span class="o">}</span>
+      
+      	<span class="c1">// 绕y轴旋转</span>
+        <span class="n">camera</span><span class="o">.</span><span class="na">rotateY</span><span class="o">(</span><span class="n">degrees</span><span class="o">);</span>
+      
+        <span class="n">camera</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">(</span><span class="n">matrix</span><span class="o">);</span>
+        <span class="n">camera</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+      	
+      	<span class="c1">// 调节中心点</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">preTranslate</span><span class="o">(-</span><span class="n">centerX</span><span class="o">,</span> <span class="o">-</span><span class="n">centerY</span><span class="o">);</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">postTranslate</span><span class="o">(</span><span class="n">centerX</span><span class="o">,</span> <span class="n">centerY</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>可以看到，短短的几十行代码就完成了，而核心代码(有注释部分)仅仅几行而已，简洁易懂。不过呢，这一份代码依旧是一份未完成的代码(不然怎么叫ApiDemo呢?)，并且很多人不知道怎么修改。</p>
+
+<p>不知诸位在使用的时候可否发现了一个问题，同一份代码在不同手机上显示效果也是不同的，在像素密度较低的手机上，旋转效果比较正常，但是在像素密度较高的手机上显示效果则会很夸张，具体会怎样的，下面就来看一下具体效果。</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f7sk60825wg308c0ea1kx.gif" alt="" /></p>
+
+<p>可以看到，图片不仅因为形变失真，而且在中间一段因为形变过大导致图片无法显示，当然了，单个手机失真，你可以用<code class="highlighter-rouge">depthZ</code>忽悠过去，当 <code class="highlighter-rouge">depthZ</code> 设置的数值比较大大时候，图像在翻转同时会远离摄像头，距离比较远，失真就不会显得很严重，但这仍掩盖不了在不同手机上显示效果不同。</p>
+
+<p><strong>如何解决这一问题呢？</strong></p>
+
+<p>想要解决其实也不难，只要修改两个数值就可以了，这两个数值就是在Matrix中一直被众多开发者忽略的 <code class="highlighter-rouge">MPERSP_0</code> 和 <code class="highlighter-rouge">MPERSP_1</code></p>
+
+<p><img src="http://latex.codecogs.com/png.latex?$$
+\left [ 
+\begin{matrix} 
+MSCALE\_X &amp; MSKEW\_X &amp; MTRANS\_X \
+\
+MSKEW\_Y &amp; MSCALE\_Y &amp; MTRANS\_Y \
+\
+MPERSP\_0 &amp; MPERSP\_1 &amp; MPERSP\_2 
+\end{1} 
+\right ] 
+$$" alt="" /></p>
+
+<p>下面是修改后的代码(重点部分都已经标注出来了):</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rotate3dAnimation</span> <span class="kd">extends</span> <span class="n">Animation</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mFromDegrees</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mToDegrees</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mCenterX</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mCenterY</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">mDepthZ</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">mReverse</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Camera</span> <span class="n">mCamera</span><span class="o">;</span>
+    <span class="kt">float</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>    <span class="c1">// &lt;------- 像素密度</span>
+
+    <span class="cm">/**
+     * 创建一个绕y轴旋转的3D动画效果，旋转过程中具有深度调节，可以指定旋转中心。
+     * @param context     &lt;------- 添加上下文,为获取像素密度准备
+     * @param fromDegrees 起始时角度
+     * @param toDegrees   结束时角度
+     * @param centerX     旋转中心x坐标
+     * @param centerY     旋转中心y坐标
+     * @param depthZ      最远到达的z轴坐标
+     * @param reverse     true 表示由从0到depthZ，false相反
+     */</span>
+    <span class="kd">public</span> <span class="nf">Rotate3dAnimation</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">float</span> <span class="n">fromDegrees</span><span class="o">,</span> <span class="kt">float</span> <span class="n">toDegrees</span><span class="o">,</span>
+                             <span class="kt">float</span> <span class="n">centerX</span><span class="o">,</span> <span class="kt">float</span> <span class="n">centerY</span><span class="o">,</span> <span class="kt">float</span> <span class="n">depthZ</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">reverse</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mFromDegrees</span> <span class="o">=</span> <span class="n">fromDegrees</span><span class="o">;</span>
+        <span class="n">mToDegrees</span> <span class="o">=</span> <span class="n">toDegrees</span><span class="o">;</span>
+        <span class="n">mCenterX</span> <span class="o">=</span> <span class="n">centerX</span><span class="o">;</span>
+        <span class="n">mCenterY</span> <span class="o">=</span> <span class="n">centerY</span><span class="o">;</span>
+        <span class="n">mDepthZ</span> <span class="o">=</span> <span class="n">depthZ</span><span class="o">;</span>
+        <span class="n">mReverse</span> <span class="o">=</span> <span class="n">reverse</span><span class="o">;</span>
+
+        <span class="c1">// 获取手机像素密度 （即dp与px的比例）</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">().</span><span class="na">density</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">,</span> <span class="kt">int</span> <span class="n">parentWidth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">parentHeight</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">parentWidth</span><span class="o">,</span> <span class="n">parentHeight</span><span class="o">);</span>
+        <span class="n">mCamera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">applyTransformation</span><span class="o">(</span><span class="kt">float</span> <span class="n">interpolatedTime</span><span class="o">,</span> <span class="n">Transformation</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">fromDegrees</span> <span class="o">=</span> <span class="n">mFromDegrees</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">fromDegrees</span> <span class="o">+</span> <span class="o">((</span><span class="n">mToDegrees</span> <span class="o">-</span> <span class="n">fromDegrees</span><span class="o">)</span> <span class="o">*</span> <span class="n">interpolatedTime</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">mCenterX</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">mCenterY</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="n">Camera</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">mCamera</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="n">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">();</span>
+        <span class="n">camera</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+
+        <span class="c1">// 调节深度</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mReverse</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">camera</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span> <span class="n">mDepthZ</span> <span class="o">*</span> <span class="n">interpolatedTime</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">camera</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span> <span class="n">mDepthZ</span> <span class="o">*</span> <span class="o">(</span><span class="mf">1.0f</span> <span class="o">-</span> <span class="n">interpolatedTime</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 绕y轴旋转</span>
+        <span class="n">camera</span><span class="o">.</span><span class="na">rotateY</span><span class="o">(</span><span class="n">degrees</span><span class="o">);</span>
+
+        <span class="n">camera</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">(</span><span class="n">matrix</span><span class="o">);</span>
+        <span class="n">camera</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+
+        <span class="c1">// 修正失真，主要修改 MPERSP_0 和 MPERSP_1</span>
+        <span class="kt">float</span><span class="o">[]</span> <span class="n">mValues</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">9</span><span class="o">];</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">getValues</span><span class="o">(</span><span class="n">mValues</span><span class="o">);</span>			    <span class="c1">//获取数值</span>
+        <span class="n">mValues</span><span class="o">[</span><span class="mi">6</span><span class="o">]</span> <span class="o">=</span> <span class="n">mValues</span><span class="o">[</span><span class="mi">6</span><span class="o">]/</span><span class="n">scale</span><span class="o">;</span>			<span class="c1">//数值修正</span>
+      	<span class="n">mValues</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span> <span class="o">=</span> <span class="n">mValues</span><span class="o">[</span><span class="mi">7</span><span class="o">]/</span><span class="n">scale</span><span class="o">;</span>			<span class="c1">//数值修正</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">setValues</span><span class="o">(</span><span class="n">mValues</span><span class="o">);</span>			    <span class="c1">//重新赋值</span>
+
+        <span class="c1">// 调节中心点</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">preTranslate</span><span class="o">(-</span><span class="n">centerX</span><span class="o">,</span> <span class="o">-</span><span class="n">centerY</span><span class="o">);</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="na">postTranslate</span><span class="o">(</span><span class="n">centerX</span><span class="o">,</span> <span class="n">centerY</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>修改后效果：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7sksrhraog308c0ea4qi.gif" alt="" /></p>
+
+<p>上下对比差别还是很大的，顺便附上测试代码吧，layout文件就不写了，随便放一个ImageView就行了。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_test_camera_rotate2</span><span class="o">);</span>
+<span class="n">ImageView</span> <span class="n">view</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">img</span><span class="o">);</span>
+<span class="k">assert</span> <span class="n">view</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="n">view</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 计算中心点（这里是使用view的中心作为旋转的中心点）</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="kt">float</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="o">;</span>
+
+        <span class="c1">//括号内参数分别为（上下文，开始角度，结束角度，x轴中心点，y轴中心点，深度，是否扭曲）</span>
+        <span class="kd">final</span> <span class="n">Rotate3dAnimation</span> <span class="n">rotation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rotate3dAnimation</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">180</span><span class="o">,</span> <span class="n">centerX</span><span class="o">,</span> <span class="n">centerY</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+
+        <span class="n">rotation</span><span class="o">.</span><span class="na">setDuration</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>                         <span class="c1">//设置动画时长</span>
+        <span class="n">rotation</span><span class="o">.</span><span class="na">setFillAfter</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>                        <span class="c1">//保持旋转后效果</span>
+        <span class="n">rotation</span><span class="o">.</span><span class="na">setInterpolator</span><span class="o">(</span><span class="k">new</span> <span class="n">LinearInterpolator</span><span class="o">());</span>	<span class="c1">//设置插值器</span>
+        <span class="n">v</span><span class="o">.</span><span class="na">startAnimation</span><span class="o">(</span><span class="n">rotation</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+</div>
+
+<h2 id="相机位置">相机位置</h2>
+
+<p>我们可以使用translate和rotate来控制拍摄对象，也可以移动相机自身的位置，不过这些方法并不常用(看添加时间就知道啦)。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setLocation</span> <span class="o">(</span><span class="kt">float</span> <span class="n">x</span><span class="o">,</span> <span class="kt">float</span> <span class="n">y</span><span class="o">,</span> <span class="kt">float</span> <span class="n">z</span><span class="o">);</span> <span class="c1">// (API 12) 设置相机位置，默认位置是(0, 0, -8)</span>
+
+<span class="kt">float</span> <span class="nf">getLocationX</span> <span class="o">();</span>	<span class="c1">// (API 16) 获取相机位置的x坐标，下同</span>
+<span class="kt">float</span> <span class="nf">getLocationY</span> <span class="o">();</span>
+<span class="kt">float</span> <span class="nf">getLocationZ</span> <span class="o">();</span>
+</code></pre>
+</div>
+
+<p>我们知道近大远小，而物体之间的距离是相对的，让物体远离相机和让相机远离物体结果是一样的，实际上设置相机位置基本可以使用<code class="highlighter-rouge">translate</code>替代。</p>
+
+<p>虽然设置相机位置用处并不大，但还是要提几点注意事项:</p>
+
+<h3 id="相机和view的z轴距离不能为0">相机和View的z轴距离不能为0</h3>
+
+<p>这个比较容易理解，当你把一个物体和相机放在同一个位置的时候，相机是拍摄不到这个物体的，正如你拿一张卡片放在手机侧面，摄像头是拍摄不到的。</p>
+
+<h3 id="虚拟相机前后均可以拍摄">虚拟相机前后均可以拍摄</h3>
+
+<p>当View不断接近摄像机并越过摄像机位置时，仍能看到View，并且View大小会随着距离摄像机的位置越来越远而逐渐变小，你可以理解为它有前置摄像头和后置摄像头。</p>
+
+<h3 id="摄像机右移等于view左移">摄像机右移等于View左移</h3>
+
+<p>View的状态只取决于View和摄像机之间的相对位置，不过由于单位不同，摄像机平移一个单位等于View平移72个像素。下面两段代码是等价的:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Camera</span> <span class="n">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">();</span>
+<span class="n">camera</span><span class="o">.</span><span class="na">setLocation</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">0</span><span class="o">,-</span><span class="mi">8</span><span class="o">);</span>		<span class="c1">// 摄像机默认位置是(0, 0, -8)</span>
+<span class="n">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Matrix</span><span class="o">();</span>
+<span class="n">camera</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">(</span><span class="n">matrix</span><span class="o">);</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"location: "</span><span class="o">+</span><span class="n">matrix</span><span class="o">.</span><span class="na">toShortString</span><span class="o">()</span> <span class="o">);</span>
+
+<span class="n">Camera</span> <span class="n">camera2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Camera</span><span class="o">();</span>
+<span class="n">camera2</span><span class="o">.</span><span class="na">translate</span><span class="o">(-</span><span class="mi">72</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">Matrix</span> <span class="n">matrix2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Matrix</span><span class="o">();</span>
+<span class="n">camera2</span><span class="o">.</span><span class="na">getMatrix</span><span class="o">(</span><span class="n">matrix2</span><span class="o">);</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"translate: "</span><span class="o">+</span><span class="n">matrix2</span><span class="o">.</span><span class="na">toShortString</span><span class="o">()</span> <span class="o">);</span>
+</code></pre>
+</div>
+
+<p>结果:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>location: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0]
+translate: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0
+</code></pre>
+</div>
+
+<h3 id="要点">要点</h3>
+
+<ul>
+  <li>View显示状态取决于View和摄像机之间的相对位置</li>
+  <li>View和相机的Z轴距离不能为0</li>
+</ul>
+
+<p><strong>小技巧:关于摄像机和View的位置，你可以打开手机后置摄像头，拿一张卡片来回的转动平移或者移动手机位置，观察卡片在屏幕上的变化，</strong></p>
+
+<h2 id="总结">总结</h2>
+
+<p>本篇主要讲解了关于Camera和Matrix的一些基础知识，Camera运用得当的话是能够制造出很多炫酷的效果的，我这里算是抛砖引玉，推荐一些比较炫酷的控件。</p>
+
+<h4 id="flipshare"><a href="https://github.com/JeasonWong/FlipShare">FlipShare</a></h4>
+
+<h4 id="从零开始打造一个android-3d立体旋转容器"><a href="http://blog.csdn.net/mr_immortalz/article/details/51918560">从零开始打造一个Android 3D立体旋转容器</a></h4>
+
+<p align="center">
+<a href="https://github.com/JeasonWong/FlipShare" target="_blank">
+<img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f7sm7ak62pg308c0et4qp.gif" width="240" style="display:inline;" /></a>
+<a href="http://blog.csdn.net/mr_immortalz/article/details/51918560" target="_blank"><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f7sm4xoh4ig308c0enx3p.gif" width="240" style="display:inline;" /></a>
+</p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<p><a href="https://developer.android.com/reference/android/graphics/Camera.html">Camera</a><br />
+<a href="https://github.com/JeasonWong/FlipShare">FlipShare</a><br />
+<a href="http://blog.csdn.net/mr_immortalz/article/details/51918560">从零开始打造一个Android 3D立体旋转容器</a><br /></p>
+
+<h2 id="about-me">About Me</h2>
+
+<h3 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a></h3>
+
+<p><a href="http://www.gcssloop.com/info/about" target="_blank"><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" style="display:inline;" /></a></p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/tips/choose-license" title="link to 程序员不可不知的版权协议">程序员不可不知的版权协议</a></h2>
+    <p class="excerpt">前一段时间知乎上关于版权问题的讨论有不少，例如这个 新浪微博上的「知乎大神」是谁？涉嫌侵权吗？, 而且最近喜马拉雅FM也因为背景音乐版权问题导致很多栏目被下架和推迟更新，而我作为一个喜欢分享的魔...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-09-20 00:00:00 +0800" class="post-list__meta--date date">2016-09-20</time> &#8226; <span class="post-list__meta--tags tags">Tips</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/tips/choose-license>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/course/jitpack-sources-javadoc" title="link to 用JitPack发布开源库时附加文档和源码">用JitPack发布开源库时附加文档和源码</a></h2>
+       <p class="excerpt">很早之前写过一篇用JitPack发布Android开源库的文章，有小伙伴反馈说发布到JitPack上的开源库没有文档注释，使用起来很不方便，这是我的失误，上一篇文章只是讲解了如何使用JitPac...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-09-09 00:00:00 +0800" class="post-list__meta--date date">2016-09-09</time> &#8226; <span class="post-list__meta--tags tags">Course</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/course/jitpack-sources-javadoc>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

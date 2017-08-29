@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Markdown实用技巧－基础语法</title>
+  <meta name="description" content="本文为 Markdown实用技巧 系列文章的基础内容。为保证语法兼容性，本文只介绍基础语法，扩展语法等其它内容，会在后续的文章中单独介绍。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Markdown,Markdown实用技巧,Markdown语法,GcsSloop, gcssloop">
+  <meta name="关键字" content="Markdown,Markdown实用技巧,Markdown语法,GcsSloop, gcssloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Markdown实用技巧－基础语法">
+  <meta name="twitter:description" content="本文为 Markdown实用技巧 系列文章的基础内容。为保证语法兼容性，本文只介绍基础语法，扩展语法等其它内容，会在后续的文章中单独介绍。">
+  <meta name="twitter:keywords" content="Markdown,Markdown实用技巧,Markdown语法,GcsSloop, gcssloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Markdown实用技巧－基础语法">
+  <meta property="og:description" content="本文为 Markdown实用技巧 系列文章的基础内容。为保证语法兼容性，本文只介绍基础语法，扩展语法等其它内容，会在后续的文章中单独介绍。">
+  <meta name="og:keywords" content="Markdown,Markdown实用技巧,Markdown语法,GcsSloop, gcssloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/markdown/markdown-grammar">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-10-25 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-10-25</time> &#8226; <span class="post-meta__tags tags">Markdown</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">Markdown实用技巧－基础语法</h1>
+  </header>
+
+  <section class="post">
+    <p>本文为 <strong>Markdown实用技巧</strong> 系列的基础文章，并没有不可描述的内容 (⊙ω⊙)</p>
+
+<p>为保证语法兼容性，本文只介绍基础语法，扩展语法等其它内容，会在后续的文章中单独介绍。<br />
+<strong>注意：所有的标记符号均使用英文，中文无效。</strong></p>
+
+<hr />
+
+<h2 id="标题">标题</h2>
+
+<p>Markdown 支持多种标题格式。</p>
+
+<p>利用 <code class="highlighter-rouge">=</code> (等号)和 <code class="highlighter-rouge">-</code>(减号)可以定义一级标题和二级标题，(任何数量的 <code class="highlighter-rouge">=</code> 和 <code class="highlighter-rouge">-</code> 都有效果) ：</p>
+
+<table>
+    <tr>
+      <th>Markdown</th>
+      <th>预览</th>
+    </tr>
+    <tr>
+      <td>一级标题<br />====</td>
+      <td><h1>一级标题</h1></td>
+    </tr>
+    <tr>
+      <td>二级标题<br />----</td>
+      <td><h2>二级标题</h2></td>
+    </tr>
+</table>
+
+<p>通过在行首插入 1 到 6 个 # ，来定义对应的 1 到 6 阶 标题，个人推荐使用这种，例如：</p>
+
+<table>
+    <tr>
+      <th>Markdown</th>
+      <th>预览</th>
+    </tr>
+  <tr>
+    <td># 一级标题</td>
+    <td><h1>一级标题</h1></td>
+  </tr>
+  <tr>
+    <td>## 二级标题</td>
+    <td><h2>二级标题</h2></td>
+  </tr>
+  <tr>
+    <td>### 三级标题</td>
+    <td><h3>三级标题</h3></td>
+  </tr>
+  <tr>
+    <td>#### 四级标题</td>
+    <td><h4>四级标题</h4></td>
+  </tr>
+  <tr>
+    <td>##### 五级标题</td>
+    <td><h5>五级标题</h5></td>
+  </tr>
+  <tr>
+    <td>###### 六级标题</td>
+    <td><h6>六级标题</h6></td>
+  </tr>
+</table>
+
+<hr />
+
+<h2 id="段落和换行">段落和换行</h2>
+
+<p>在 Markdown 中段落由一行或者多行文本组成，相邻的两行文字会被视为同一段落，如果存在空行则被视为不同段落( Markdown 对空行的定义是看起来是空行就是空行，即使空行中存在 <code class="highlighter-rouge">空格</code> <code class="highlighter-rouge">TAB</code> <code class="highlighter-rouge">回车</code> 等不可见字符，同样会被视为空行)。</p>
+
+<p>Markdown支持段内换行，如果你想进行段落内换行可以在上一行结尾插入两个以上的空格后再回车。</p>
+
+<table>
+    <tr>
+      <th>Markdown</th>
+      <th>预览</th>
+    </tr>
+    <tr>
+      <td>
+      第一行<br />
+      相邻被视为同一段落。
+      </td>
+      <td>
+        <p>
+        第一行 相邻被视为同一段落。
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      第一行[空格][空格]<br />
+      上一行结尾存在两个空格，段内换行
+      </td>
+      <td>
+        <p>
+        第一行<br />
+        上一行结尾存在两个空格，段内换行。
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      第一行<br />
+      <br />
+      两行之间存在空行，视为不同段落。
+      </td>
+      <td>
+        <p>
+        第一行
+        </p>
+        <p>
+        两行之间存在空行，视为不同段落。
+        </p>
+      </td>
+    </tr>
+</table>
+
+<hr />
+
+<h2 id="强调">强调</h2>
+
+<p>删除线的 <code class="highlighter-rouge">~</code> 符号一般位于键盘左上角位置。</p>
+
+<table>
+    <tr>
+      <th>Markdown</th>
+      <th>预览</th>
+    </tr>
+    <tr>
+      <td>*倾斜*</td>
+      <td>
+        <i>倾斜</i>
+      </td>
+    </tr>
+    <tr>
+      <td>**粗体**</td>
+      <td><b>粗体</b></td>
+    </tr>
+    <tr>
+      <td>~~删除线~~</td>
+      <td><s>删除线</s></td>
+    </tr>
+    <tr>
+      <td>
+        &gt; 引用
+      </td>
+      <td>
+        <blockquote>引用</blockquote>
+      </td>
+    </tr>
+</table>
+
+<hr />
+
+<h2 id="链接和图片">链接和图片</h2>
+
+<p>为了规避某些平台的防盗链机制，图片推荐使用图床，否则在不同平台上发布需要重新上传很麻烦的，图床最好选大平台的图床，一时半会不会倒闭的那种，个人目前主要用的是微博图床 <a href="https://chrome.google.com/webstore/detail/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E5%9B%BE%E5%BA%8A/fdfdnfpdplfbbnemmmoklbfjbhecpnhf?hl=zh-CN">Chrome插件－微博图床</a> 以及 <a href="https://imciel.com/2016/07/17/weibo-picture-upload-alfred-workflow/">Alfred脚本－微博图床</a></p>
+
+<table style="word-break:break-all;">
+    <tr>
+      <th width="200">Markdown</th>
+      <th width="200">预览</th>
+    </tr>
+  <tr>
+    <td>[GcsSloop](http://www.gcssloop.com)</td>
+    <td><a href="http://www.gcssloop.com" target="_blank">GcsSloop</a></td>
+  </tr>
+  <tr class="alternate">
+    <td>![GcsSloop Blog](http://www.gcssloop.com/assets/siteinfo/friends/gcssloop.jpg)</td>
+    <td><img src="http://www.gcssloop.com/assets/siteinfo/friends/gcssloop.jpg" alt="GcsSloop Blog" /></td>
+  </tr>
+</table>
+
+<hr />
+
+<h2 id="列表">列表</h2>
+
+<p>无序列表前面可以用 <code class="highlighter-rouge">*</code> <code class="highlighter-rouge">+</code> <code class="highlighter-rouge">-</code> 等，结果是相同的。<br />
+有序列表的数字即便不按照顺序排列，结果仍是有序的。</p>
+
+<table>
+
+    <tr>
+      <th>Markdown</th>
+      <th>预览</th>
+    </tr>
+  <tr>
+    <td>
+      * 项目<br />
+      * 项目<br />
+      * 项目<br />
+      &nbsp;&nbsp;* 子项目<br />
+      &nbsp;&nbsp;* 子项目<br />
+      * 项目
+    </td>
+    <td>
+      <ul>
+        <li>项目</li>
+        <li>项目</li>
+        <li>项目
+          <ul>
+            <li>子项目</li>
+            <li>子项目</li>
+          </ul>
+        </li>
+        <li>项目</li>
+      </ul>
+    </td>
+
+  </tr>
+  <tr class="alternate">
+    <td>
+      1. 项目<br />
+      2. 项目<br />
+      3. 项目<br />
+      &nbsp;&nbsp;1. 子项目&lt;/span&gt;<br />
+      &nbsp;&nbsp;2. 子项目<br />
+      4. 项目
+    </td>
+    <td>
+      <ol>
+        <li>项目</li>
+        <li>项目</li>
+        <li>项目
+          <ol>
+            <li>子项目</li>
+            <li>子项目</li>
+          </ol>
+        </li>
+        <li>项目</li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<h2 id="下划线和特殊符号">下划线和特殊符号</h2>
+
+<p>由于 Markdown 使用一些特殊符号进行标记，当我们想要在文档中使用这些特殊符号并防止被 Markdown 转换的时候，可以使用 <code class="highlighter-rouge">\</code> (转义符) 将这些特殊符号进行转义。</p>
+
+<table>
+    <tr>
+      <th>Markdown</th>
+      <th>预览</th>
+    </tr>
+  <tr>
+    <td>
+      在一行中用三个以上的星号、减号、下划线来建立一个分隔线<br />
+      ---
+    </td>
+    <td>
+      <hr />
+    </td>
+  </tr>
+  <tr class="alternate">
+    <td>可以利用反斜杠(转义字符)来插入一些在语法中有特殊意义的符号<br />
+        \*Hi\*
+    </td>
+    <td>*Hi*</td>
+  </tr>
+</table>
+
+<hr />
+
+<h2 id="代码">代码</h2>
+
+<h3 id="1行内代码">1.行内代码</h3>
+
+<p>行内代码可以使用反引号来标记(反引号一般位于键盘左上角，要用英文):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>一句话 `行内代码` 一句话。
+</code></pre>
+</div>
+
+<p><strong>预览:</strong></p>
+
+<p>一句话 <code class="highlighter-rouge">行内代码</code> 一句话。</p>
+
+<h3 id="2多行代码">2.多行代码</h3>
+
+<p>多行代码使用 3 个反引号来标记(反引号一般位于键盘左上角，要用英文) ，在第一个 <code class="highlighter-rouge">｀｀｀</code> 后面可以跟语言类型，没有语言类型可以省略不写:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>​``` java
+// 我是注释
+int a = 5;
+​```
+</code></pre>
+</div>
+
+<p><strong>预览:</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 我是注释</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+</code></pre>
+</div>
+
+<hr />
+
+<h2 id="表格">表格</h2>
+
+<p><strong>扩展的 Markdown 支持手写表格</strong>，格式也非常简单，第二行分割线部分可以使用 <code class="highlighter-rouge">:</code> 来控制内容状态。<br />
+<strong>注意，Markdown 标准(原生)语法中没有表格支持，但现在多数平台已经支持了该语法，如 GitHub，CSDN，简书 等均支持，所以写在这里:</strong></p>
+
+<p><strong>Markdown：</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>| 默认  |   靠右 |  居中  | 靠左   |
+| ---- |  ---: | :--:  | :---  |
+| 内容  |   内容 |  内容  | 内容   |
+| 内容  |   内容 |  条目  | 内容   |
+</code></pre>
+</div>
+
+<p><strong>预览：</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>默认</th>
+      <th style="text-align: right">靠右</th>
+      <th style="text-align: center">居中</th>
+      <th style="text-align: left">靠左</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>内容</td>
+      <td style="text-align: right">内容</td>
+      <td style="text-align: center">内容</td>
+      <td style="text-align: left">内容</td>
+    </tr>
+    <tr>
+      <td>内容</td>
+      <td style="text-align: right">内容</td>
+      <td style="text-align: center">条目</td>
+      <td style="text-align: left">内容</td>
+    </tr>
+  </tbody>
+</table>
+
+<section class="contribute">
+    <script type="text/javascript"> 
+      function bztoggle() {
+        var con = document.getElementById("baozang");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+      <a class="btn-border-small" onclick="bztoggle()">发现宝藏？</a>
+      <br />
+      <div id="baozang" style="display:none; margin-top:20px;">
+        <p align="center">
+        <img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f944xjwi84j31kw0zkqg9.jpg" alt="时崎狂三" />
+        <font color="red">恭喜你偶遇 "时崎狂三"，为了保护世界和平，请好好和她谈恋爱，快安利给其他小伙伴吧!</font>
+        </p>
+      </div>
+</section>
+
+<h2 id="参考资料">参考资料</h2>
+
+<p><a href="http://www.markdown.cn/">Markdown－语法说明</a></p>
+
+<h2 id="about-me">About Me</h2>
+
+<h3 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a></h3>
+
+<p><a href="http://www.gcssloop.com/info/about" target="_blank"><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" style="display:inline;" /></a></p>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/motionevent" title="link to 安卓自定义View进阶-MotionEvent详解">安卓自定义View进阶-MotionEvent详解</a></h2>
+    <p class="excerpt">Android MotionEvent 详解，之前用了两篇文章 事件分发机制原理 和 事件分发机制详解 来讲解事件分发，而作为事件分发主角之一的 MotionEvent 并没有过多的说明，本文就...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-11-02 00:00:00 +0800" class="post-list__meta--date date">2016-11-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/motionevent>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/markdown/markdown-start" title="link to Markdown实用技巧－快速入门">Markdown实用技巧－快速入门</a></h2>
+       <p class="excerpt">本文为 Markdown实用技巧 系列的基础文章，并没有不可描述的内容 (⊙ω⊙)自从接触了 Markdown 之后，就一直用 Markdown 作为自己的主要书写工具，不论是平时做一些简单的纪...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-10-24 00:00:00 +0800" class="post-list__meta--date date">2016-10-24</time> &#8226; <span class="post-list__meta--tags tags">Markdown</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/markdown/markdown-start>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

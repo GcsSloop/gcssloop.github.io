@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Markdown实用技巧－链接和图片</title>
+  <meta name="description" content="本文适用于对 Markdown 有一定了解的魔法师，以帮助他们挖掘更多关于 Markdown 的可能性，例如 链接的不同类型以及使用方式，如何在新标签页打开链接，如何控制图片大小等，对 Markdown 还不了解的魔法师请参考 Markdown快速入门 和 Markdown基础语法。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Markdown,Markdown实用技巧,Markdown语法,Markdown链接,Markdown图片,GcsSloop, gcssloop">
+  <meta name="关键字" content="Markdown,Markdown实用技巧,Markdown语法,Markdown链接,Markdown图片,GcsSloop, gcssloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Markdown实用技巧－链接和图片">
+  <meta name="twitter:description" content="本文适用于对 Markdown 有一定了解的魔法师，以帮助他们挖掘更多关于 Markdown 的可能性，例如 链接的不同类型以及使用方式，如何在新标签页打开链接，如何控制图片大小等，对 Markdown 还不了解的魔法师请参考 Markdown快速入门 和 Markdown基础语法。">
+  <meta name="twitter:keywords" content="Markdown,Markdown实用技巧,Markdown语法,Markdown链接,Markdown图片,GcsSloop, gcssloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Markdown实用技巧－链接和图片">
+  <meta property="og:description" content="本文适用于对 Markdown 有一定了解的魔法师，以帮助他们挖掘更多关于 Markdown 的可能性，例如 链接的不同类型以及使用方式，如何在新标签页打开链接，如何控制图片大小等，对 Markdown 还不了解的魔法师请参考 Markdown快速入门 和 Markdown基础语法。">
+  <meta name="og:keywords" content="Markdown,Markdown实用技巧,Markdown语法,Markdown链接,Markdown图片,GcsSloop, gcssloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/markdown/markdown-links">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-11-08 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-11-08</time> &#8226; <span class="post-meta__tags tags">Markdown</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">Markdown实用技巧－链接和图片</h1>
+  </header>
+
+  <section class="post">
+    <p>Sloop 喝过半杯咖啡，涨红的脸色渐渐复了原，旁人便又问道，“ Sloop，你当真会写文章么？” Sloop 看着问他的人，显出不屑置辩的神气。他们便接着说道，“你怎的连半个赞也捞不到呢？” Sloop 立刻显出颓唐不安模样，脸上笼上了一层灰色，嘴里说些话；这回可是全是技术名词之类，一些不懂了。在这时候，众人也都哄笑起来：办公室内外充满了快活的空气。</p>
+
+<p>在这些时候，我可以附和着笑，老板是决不责备的。而且老板见了 Sloop，也每每这样问他，引人发笑。Sloop 自己知道不能和他们谈天，便只好向实习生说话。有一回对我说道，“你会用 Markdown 么？” 我略略点一点头。他说，“会用 Markdown，……我便考你一考。Markdown 的链接，你是怎样写的？” 我想，码农一样的人，也配考我么？便回过脸去，不再理会。Sloop 等了许久，很恳切的说道，“不能写罢？……我教给你，记着！这些写法应该记着。将来做程序员的时候，写文档要用。”我暗想我和程序员的等级还很远呢，而且我们这里的程序员也从不写文档；又好笑，又不耐烦，懒懒的答他道，“谁要你教，不是一对方括号后面跟一对圆括号么？” Sloop 显出极高兴的样子，将两个指头的长指甲敲着电脑，点头说，“对呀对呀！……链接有4样基本写法，你知道么？” 我愈不耐烦了，努着嘴走远。Sloop 刚想打开编辑器，给我演示，见我毫不热心，便又叹一口气，显出极惋惜的样子。</p>
+
+<hr />
+
+<h2 id="前言">前言</h2>
+
+<p><strong>本文是适用于对 Markdown 有一定了解的魔法师，以帮助他们挖掘更多关于 Markdown 的可能性，例如：链接的不同类型以及使用方式，如何在新标签页打开链接，如何控制图片大小等，对 Markdown 还不了解的魔法师请参考 <a href="http://www.gcssloop.com/markdown/markdown-star" title="Markdown实用技巧－快速入门">Markdown快速入门</a> 和 <a href="http://www.gcssloop.com/markdown/markdown-grammar" title="Markdown实用技巧－基础语法">Markdown基础语法</a> 。</strong></p>
+
+<p><strong>注意：以下的部分语法不属于标准语法，存在不兼容的问题，不能保证所有平台都能够使用。对于非标准语法(拓展语法)我会进行标注说明。</strong></p>
+
+<hr />
+
+<h2 id="行内式链接">行内式链接:</h2>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code>博客地址: <span class="p">[</span><span class="nv">GcsSloop</span><span class="p">](</span><span class="sx">http://www.gcssloop.com</span><span class="p">)</span>  
+博客地址: <span class="p">[</span><span class="nv">GcsSloop</span><span class="p">](</span><span class="sx">http://www.gcssloop.com</span> <span class="nn">"GcsSloop的博客"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>博客地址: <a href="http://www.gcssloop.com">GcsSloop</a><br />
+博客地址: <a href="http://www.gcssloop.com" title="GcsSloop的博客">GcsSloop</a></p>
+
+<hr />
+
+<h2 id="参考式链接">参考式链接:</h2>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="nv">GcsSloop的博客</span><span class="p">][</span><span class="ss">gcssloop</span><span class="p">]</span>
+
+<span class="p">[</span><span class="ss">gcssloop</span><span class="p">]:</span> <span class="sx">http://www.gcssloop.com</span>
+// 或者
+<span class="p">[</span><span class="ss">gcssloop</span><span class="p">]:</span> <span class="sx">http://www.gcssloop.com</span> <span class="nn">"点击访问GcsSloop的博客"</span>
+</code></pre>
+</div>
+
+<p><a href="http://www.gcssloop.com" title="点击访问GcsSloop的博客">GcsSloop的博客</a></p>
+
+<p><strong>为什么要使用参考式呢？</strong> <br />
+在写文章的时候很可能会在文章不同的地方引用同一篇文章，使用参考式可以少写一点字符。<br />
+更重要的是，参考文章的链接可能会改变，如果将参考链接统一写在文末的话，改起来会更容易。</p>
+
+<hr />
+
+<h2 id="自动链接">自动链接:</h2>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="nv">&lt;http://www.gcssloop.com&gt;</span>
+</code></pre>
+</div>
+
+<p><a href="http://www.gcssloop.com">http://www.gcssloop.com</a></p>
+
+<hr />
+
+<h2 id="相对链接">相对链接:</h2>
+
+<p><strong>如果你的内容是发布在 GitHub 或者自己的个人网站上，那么相对链接是一个很好用的东西</strong>，例如引用本站的一张图片可以这样写:</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">![</span><span class="nv">头像</span><span class="p">](</span><span class="sx">/assets/siteinfo/avatar.jpg</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/siteinfo/avatar.jpg" alt="头像" /></p>
+
+<p><strong>相对链接优点:</strong></p>
+
+<ul>
+  <li>线下预览和线上效果相同，不受网络影响。</li>
+  <li>避免了分别上传图片导致的麻烦。</li>
+  <li>GitHub复制仓库更方便，改仓库名字不会导致资源链接失效。</li>
+</ul>
+
+<p><strong>相对链接缺点:</strong></p>
+
+<ul>
+  <li>不适用于需要在多平台发布的文章。</li>
+  <li>某些本地编辑器不支持读取相对链接。</li>
+</ul>
+
+<hr />
+
+<h2 id="图片链接">图片链接:</h2>
+
+<p>图片链接其实就是把图片和链接嵌套在一起:</p>
+
+<blockquote>
+  <p>顺便为 DiyCode 打一个小广告，欢迎更多小伙伴的加入。</p>
+</blockquote>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="nv">![</span><span class="p">](</span><span class="sx">http://ww1.sinaimg.cn/large/005Xtdi2jw1f9e6ii0bsgj30xc04gaau.jpg</span><span class="p">)</span>](http://www.diycode.cc/wiki/encouragement)
+</code></pre>
+</div>
+
+<p><a href="http://www.diycode.cc/wiki/encouragement" target="_blank"><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f9e6ii0bsgj30xc04gaau.jpg" alt="" /></a></p>
+
+<hr />
+
+<p><strong>注意：从这里开始往下的部分，属于拓展语法，可能存在某些平台(编辑器)无法识别的问题，请亲自测试后再使用。</strong></p>
+
+<h2 id="在新标签页打开">在新标签页打开:</h2>
+
+<p>Markdown 的默认链接方式都是在当前标签页打开的，这就会导致打开链接之后原始页面被覆盖掉，如果想要让链接在新标签页打开可以在后面添加上 <code class="highlighter-rouge"><span class="p">{</span><span class="err">:target=</span><span class="nt">"_blank"</span><span class="err">}</span></code> 或者使用 HTML 语法。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[GcsSloop](http://www.gcssloop.com){:target="_blank"}
+
+[GcsSloop的博客][gcssloop]{:target="_blank"}
+
+&lt;http://www.gcssloop.com&gt;{:target="_blank"}
+
+&lt;a href="http://www.gcssloop.com/info/about" target="_blank"&gt;关于GcsSloop&lt;/a&gt;
+</code></pre>
+</div>
+
+<p><a href="http://www.gcssloop.com" target="_blank">GcsSloop</a>  <br />
+<a href="http://www.gcssloop.com" title="点击访问GcsSloop的博客" target="_blank">GcsSloop的博客</a>  <br />
+<a href="http://www.gcssloop.com" target="_blank">http://www.gcssloop.com</a> <br />
+<a href="http://www.gcssloop.com/info/about" target="_blank">关于GcsSloop</a></p>
+
+<p>注意: 部分平台可能不识别 <code class="highlighter-rouge"><span class="p">{</span><span class="err">:target=</span><span class="nt">"_blank"</span><span class="err">}</span></code> 标签。</p>
+
+<hr />
+
+<h2 id="注释脚注">注释(脚注):</h2>
+
+<p>注释一般用于解释一些专业名词或者难以理解的内容，由于注释的解释部分一般放在文末，所以又称为脚注:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>GcsSloop[^1]是一个超级魔法师[^2] 。
+
+[^1]: GcsSloop：非著名程序员。  
+[^2]: 魔法师：会魔法的人类
+</code></pre>
+</div>
+
+<p>GcsSloop<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>是一个超级魔法师<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> 。</p>
+
+<p>注意：脚注不论在何处定义，最终都是显示在文末。部分平台不识别该语法。</p>
+
+<hr />
+
+<h2 id="控制图片大小">控制图片大小</h2>
+
+<p>使用 <code class="highlighter-rouge"><span class="p">{</span><span class="err">:width=</span><span class="nt">"300"</span><span class="w"> </span><span class="err">height=</span><span class="nt">"100"</span><span class="err">}</span></code> 或者 HTML 格式可以控制图片显示大小，图片有宽度(width)和高度(height)两个属性，如果只指定了一个，另一个会按照比例缩放。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>![](http://ww1.sinaimg.cn/large/005Xtdi2jw1f9k7b8a6vmj312w0rg143.jpg){:width="300"}
+
+&lt;img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f9k7b8a6vmj312w0rg143.jpg" width="300"/&gt;
+</code></pre>
+</div>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f9k7b8a6vmj312w0rg143.jpg" alt="" width="300" /></p>
+
+<p>右键，新标签页打开图片，你会发现原图其实挺大的。<br />
+注意: 部分平台可能不识别 <code class="highlighter-rouge"><span class="p">{</span><span class="err">:width=</span><span class="nt">"300"</span><span class="w"> </span><span class="err">height=</span><span class="nt">"100"</span><span class="err">}</span></code> 标签。</p>
+
+<hr />
+
+<h2 id="总结">总结:</h2>
+
+<p>Markdown 存在很多的变种，对其语法进行了不同程度的拓展，使其更加的强大，但是使用拓展语法之前请三思。个人建议如下：</p>
+
+<ul>
+  <li>如果文章(文档)只在单一平台发布，使用任何该平台支持的拓展语法都没问题。</li>
+  <li>如果文章(文档)需要在多个平台发布，尽量使用标准语法，使用拓展语法之前请注意测试平台兼容性。</li>
+  <li>图片尽量使用图床管理，而且要进行本地备份。</li>
+</ul>
+
+<hr />
+
+<h2 id="about-me">About Me</h2>
+
+<h3 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a></h3>
+
+<p><a href="http://www.gcssloop.com/info/about" target="_blank"><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" style="display:inline;" /></a></p>
+
+<h2 id="参考链接">参考链接：</h2>
+
+<p><a href="http://www.markdown.cn/">Markdown－基础语法</a><br />
+<a href="http://yinping4256.github.io/cn/Markdown%E8%AF%AD%E6%B3%95%E5%9C%A8%E6%96%B0%E7%AA%97%E5%8F%A3%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5%E4%B8%AD%E6%89%93%E5%BC%80/">Markdown语法:在新窗口新标签页中打开</a></p>
+
+<h3 id="注释">注释:</h3>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>GcsSloop：非著名程序员。 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>魔法师：会魔法的人类 <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/touch-matrix-region" title="link to 安卓自定义View进阶-特殊控件的事件处理方案">安卓自定义View进阶-特殊控件的事件处理方案</a></h2>
+    <p class="excerpt">本文带大家了解 Android 特殊形状控件的事件处理方式，主要是利用了 Region 和 Matrix 的一些方法，超级实用的事件处理方案，相信看完本篇之后，任何奇葩控件的事件处理都会变得十分...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-11-16 00:00:00 +0800" class="post-list__meta--date date">2016-11-16</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/touch-matrix-region>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/motionevent" title="link to 安卓自定义View进阶-MotionEvent详解">安卓自定义View进阶-MotionEvent详解</a></h2>
+       <p class="excerpt">Android MotionEvent 详解，之前用了两篇文章 事件分发机制原理 和 事件分发机制详解 来讲解事件分发，而作为事件分发主角之一的 MotionEvent 并没有过多的说明，本文就...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-11-02 00:00:00 +0800" class="post-list__meta--date date">2016-11-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/motionevent>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

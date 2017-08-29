@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>GcsSloop</title>
+  <meta name="description" content="嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="">
+  <meta name="关键字" content="">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="GcsSloop">
+  <meta name="twitter:description" content="嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。">
+  <meta name="twitter:keywords" content="">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GcsSloop">
+  <meta property="og:description" content="嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。">
+  <meta name="og:keywords" content="">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/page/2/">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover " style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <div class="main-post-list hidden">
+
+  <ol class="post-list">
+    <!--置顶-->
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+    <!--普通文档流-->
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/python/tinypng-voice" title="访问 让脚本说话"厉害了我的哥"">让脚本说话"厉害了我的哥"</a></h2>
+        <p class="excerpt">前段时间发现 Mac 上一个有趣的方法可以让系统说话。例如在终端输入：say "厉害了我的哥"于是把我自己经常使用的图片压缩脚本升了一下级，人工(智能)语音提示，开启装逼新时代!  本次升级进行了平台安全判断，不会影响其它平台用户的正常使用。在 Mac 上，它说话同时输出信息，在其他平台上只会输出信息。语音提示默认开启，可以关闭语音提示，将源码中voice设置为 False 即关闭语音提示。voice = False 	# 是否语音提示想要调教输出内容的自己进源文件修改吧，代码量不到一百行，短小精悍，纯种 P...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-10-10 00:00:00 +0800" class="post-list__meta--date date">2016-10-10</time> &#8226; <span class="post-list__meta--tags tags">Python</span> <a class="btn-border-small" href=/python/tinypng-voice>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/customview/dispatch-touchevent-theory" title="访问 安卓自定义View进阶-事件分发机制原理">安卓自定义View进阶-事件分发机制原理</a></h2>
+        <p class="excerpt">之前讲解了很多与View绘图相关的知识，你可以在 安卓自定义View教程目录 中查看到这些文章，如果你理解了这些文章，那么至少2D绘图部分不是难题了，大部分的需求都能满足，但是关于View还有很多知识点，例如: 让绘图更加炫酷的Paint，让View动起来的动画，与用户交互的触控事件 等一系列内容。本次就带大家简单的了解一下与交互息息相关的东西－事件分发原理。  本次魔法小火车的终点站是事件分发，请各位魔法师带好装备，准备登车启程。注意：本文中所有源码分析部分均基于 API23(Android 6.0) 版本...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-09-28 00:00:00 +0800" class="post-list__meta--date date">2016-09-28</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span> <a class="btn-border-small" href=/customview/dispatch-touchevent-theory>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/tips/choose-license" title="访问 程序员不可不知的版权协议">程序员不可不知的版权协议</a></h2>
+        <p class="excerpt">前一段时间知乎上关于版权问题的讨论有不少，例如这个 新浪微博上的「知乎大神」是谁？涉嫌侵权吗？, 而且最近喜马拉雅FM也因为背景音乐版权问题导致很多栏目被下架和推迟更新，而我作为一个喜欢分享的魔法师，也遇到过一些版权相关方面的问题，刚好借此机会向大家科普一下开源协议和知识共享协议。开源协议相信很多小伙伴在开发的时候都默认遵循 不重复造轮子(偷懒) 这一原则，只要有了思路就马上在GitHub搜索一下，看看是否有人已经做了，如果已经有做好的，自然就不客气啦，拿过来修改一下就能用，不由得心中暗喜，又省了好多时间能用...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-09-20 00:00:00 +0800" class="post-list__meta--date date">2016-09-20</time> &#8226; <span class="post-list__meta--tags tags">Tips</span> <a class="btn-border-small" href=/tips/choose-license>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/customview/matrix-3d-camera" title="访问 安卓自定义View进阶-Matrix Camera">安卓自定义View进阶-Matrix Camera</a></h2>
+        <p class="excerpt">本篇依旧属于Matrix，主要讲解Camera，Android下有很多相机应用，其中的美颜相机更是不少，不过今天这个Camera可不是我们平时拍照的那个相机，而是graphic包下的Camera，专业给View拍照的相机，不过既然是相机，作用都是类似的，主要是将3D的内容拍扁变成2D的内容。众所周知，我们的手机屏幕是一个2D的平面，所以也没办法直接显示3D的信息，因此我们看到的所有3D效果都是3D在2D平面的投影而已，而本文中的Camera主要作用就是这个，将3D信息转换为2D平面上的投影，实际上这个类更像是...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-09-14 00:00:00 +0800" class="post-list__meta--date date">2016-09-14</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span> <a class="btn-border-small" href=/customview/matrix-3d-camera>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/course/jitpack-sources-javadoc" title="访问 用JitPack发布开源库时附加文档和源码">用JitPack发布开源库时附加文档和源码</a></h2>
+        <p class="excerpt">很早之前写过一篇用JitPack发布Android开源库的文章，有小伙伴反馈说发布到JitPack上的开源库没有文档注释，使用起来很不方便，这是我的失误，上一篇文章只是讲解了如何使用JitPack发布开源库，最终发布的只有arr(即编译好的动态链接库)，不仅没有文档注释(Javadoc)，也没有源码(sources)，本次就教大家如何在发布同时添加上注释和源码。由于JitPack本身就是一个自定义Maven仓库，所以与上传Maven的配置方式基本一样。配置项目的 build.gradle项目的 build.g...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-09-09 00:00:00 +0800" class="post-list__meta--date date">2016-09-09</time> &#8226; <span class="post-list__meta--tags tags">Course</span> <a class="btn-border-small" href=/course/jitpack-sources-javadoc>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/customview/Matrix_Method" title="访问 安卓自定义View进阶-Matrix详解">安卓自定义View进阶-Matrix详解</a></h2>
+        <p class="excerpt">这应该是目前最详细的一篇讲解Matrix的中文文章了，在上一篇文章Matrix原理中，我们对Matrix做了一个简单的了解，偏向理论，在本文中则会详细的讲解Matrix的具体用法，以及与Matrix相关的一些实用技巧。  ⚠️ 警告：测试本文章示例之前请关闭硬件加速。Matrix方法表按照惯例，先放方法表做概览。            方法类别      相关API      摘要                  基本方法      equals hashCode toString toShortStrin...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-08-30 00:00:00 +0800" class="post-list__meta--date date">2016-08-30</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span> <a class="btn-border-small" href=/customview/Matrix_Method>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/tips/arratlist-linkedlist-performance" title="访问 ArrayList与LinkedList遍历性能比较">ArrayList与LinkedList遍历性能比较</a></h2>
+        <p class="excerpt">用实例测试ArrayList与LinkedList遍历性能。结构差别:我们常用的List有两种，ArrayList和LinkedList，虽然两者都是LIst，但由于内部存储结构的不同，使用不同的遍历方法性能却是千差万别的。            List      存储结构      特点                  ArrayList      数组结构      可以根据下标直接取值。              LinkedList      链表结构      如果需要寻找某一个下标的数值必须从...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-08-21 00:00:00 +0800" class="post-list__meta--date date">2016-08-21</time> &#8226; <span class="post-list__meta--tags tags">Tips</span> <a class="btn-border-small" href=/tips/arratlist-linkedlist-performance>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/customview/Matrix_Basic" title="访问 安卓自定义View进阶-Matrix原理">安卓自定义View进阶-Matrix原理</a></h2>
+        <p class="excerpt">本文内容偏向理论，和 画布操作 有重叠的部分，本文会让你更加深入的了解其中的原理。本篇的主角Matrix，是一个一直在后台默默工作的劳动模范，虽然我们所有看到View背后都有着Matrix的功劳，但我们却很少见到它，本篇我们就看看它是何方神圣吧。  由于Google已经对这一部分已经做了很好的封装，所以跳过本部分对实际开发影响并不会太大，不想深究的粗略浏览即可，下一篇中将会详细讲解Matrix的具体用法和技巧。  ⚠️ 警告：测试本文章示例之前请关闭硬件加速。Matrix简介Matrix是一个矩阵，主要功能是...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-08-03 00:00:00 +0800" class="post-list__meta--date date">2016-08-03</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span> <a class="btn-border-small" href=/customview/Matrix_Basic>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/customview/Path_PathMeasure" title="访问 安卓自定义View进阶-PathMeasure">安卓自定义View进阶-PathMeasure</a></h2>
+        <p class="excerpt">可以看到，在经过 Path之基本操作Path之贝塞尔曲线 和 Path之完结篇 后， Path中各类方法基本上都讲完了，表格中还没有讲解到到方法就是矩阵变换了，难道本篇终于要讲矩阵了？非也，矩阵这一部分仍在后面单独讲解，本篇主要讲解 PathMeasure 这个类与 Path 的一些使用技巧。  PS：不要问我为什么不讲 PathEffect，因为这个方法在后面的Paint系列中。先放一个图镇楼，省的下面无聊的内容把你们都吓跑了Σ(￣。￣ﾉ)ﾉPath &amp; PathMeasure顾名思义，PathMe...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-06-02 00:00:00 +0800" class="post-list__meta--date date">2016-06-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span> <a class="btn-border-small" href=/customview/Path_PathMeasure>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/customview/Path_Over" title="访问 安卓自定义View进阶-Path之完结篇">安卓自定义View进阶-Path之完结篇</a></h2>
+        <p class="excerpt">经历过前两篇 Path之基本操作 和 Path之贝塞尔曲线 的讲解，本篇终于进入Path的收尾篇，本篇结束后Path的大部分相关方法都已经讲解完了，但Path还有一些更有意思的玩法，应该会在后续的文章中出现。一.Path常用方法表  为了兼容性(偷懒) 本表格中去除了在API21(即安卓版本5.0)以上才添加的方法。忍不住吐槽一下，为啥看起来有些顺手就能写的重载方法要等到API21才添加上啊。宝宝此刻内心也是崩溃的。            作用      相关方法      备注               ...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2016-05-02 00:00:00 +0800" class="post-list__meta--date date">2016-05-02</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span> <a class="btn-border-small" href=/customview/Path_Over>继续阅读</a></div>
+        <hr class="post-list__divider" />
+      </li>
+    
+    
+  </ol>
+
+  <hr class="post-list__divider " />
+
+<nav class="pagination" role="navigation">
+    
+        <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/#blog">&larr; 最近</a>
+    
+    <span class="pagination__page-number">2 / 4</span>
+    
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/3/#blog">更早 &rarr;</a>
+    
+</nav>
+
+
+</div>
+
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

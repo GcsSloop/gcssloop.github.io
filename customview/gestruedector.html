@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View进阶-手势检测(GestureDecetor)</title>
+  <meta name="description" content="Android 手势检测，主要是 GestureDetector 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，部分内容会涉及到之前文章提及过的知识点，如果你没看过之前的文章，可以到自定义View系列来查看这些内容。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="GestureDecetor, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="GestureDecetor, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View进阶-手势检测(GestureDecetor)">
+  <meta name="twitter:description" content="Android 手势检测，主要是 GestureDetector 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，部分内容会涉及到之前文章提及过的知识点，如果你没看过之前的文章，可以到自定义View系列来查看这些内容。">
+  <meta name="twitter:keywords" content="GestureDecetor, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View进阶-手势检测(GestureDecetor)">
+  <meta property="og:description" content="Android 手势检测，主要是 GestureDetector 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，部分内容会涉及到之前文章提及过的知识点，如果你没看过之前的文章，可以到自定义View系列来查看这些内容。">
+  <meta name="og:keywords" content="GestureDecetor, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/customview/gestruedector">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2017-07-09 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2017-07-09</time> &#8226; <span class="post-meta__tags tags">Android,GestureDecetor</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View进阶-手势检测(GestureDecetor)</h1>
+  </header>
+
+  <section class="post">
+    <p>Android 手势检测，主要是 GestureDetector 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，部分内容会涉及到之前文章提及过的知识点，如果你没看过之前的文章，可以到 <a href="http://www.gcssloop.com/customview/CustomViewIndex">自定义 View 系列</a> 来查看这些内容。</p>
+
+<p>在开发 Android 手机应用过程中，可能需要对一些手势作出响应，如：单击、双击、长按、滑动、缩放等。这些都是很常用的手势。就拿最简单的双击来说吧，假如我们需要判断一个控件是否被双击(即在较短的时间内快速的点击两次)，似乎是一个很容易的任务，但仔细考虑起来，要处理的细节问题也有不少，例如：</p>
+
+<ol>
+  <li><strong>记录点击次数</strong>，为了判断是否被点击超过 1 次，所以必须记录点击次数。</li>
+  <li><strong>记录点击时间</strong>，由于双击事件是较快速的点击两次，像点击一次后，过来几分钟再点击一次肯定不能算是双击事件，所以在记录点击次数的同时也要记录上一次的点击时间，我们可以设置本次点击距离上一次时间超过一定时间(例如：超过100ms)就不识别为双击事件。</li>
+  <li><strong>点击状态重置</strong>，在响应双击事件，或者判断不是双击事件的时候要重置计数器和上一次点击时间。重置既可以在点击的时候判断并进行重新设置，也可以使用定时器等超过一定时间后重置状态。</li>
+</ol>
+
+<p>这样看起来，判断一个双击事件就有这么多麻烦事情，更别其他的手势了，虽然这些看起来都很简单，但设计起来需要考虑的细节情况实在是太多了。</p>
+
+<p>那么有没有一种更好的方法来方便的检测手势呢？当然有啦，因为这些手势很常用，系统早就封装了一些方法给我们用，接下来我们就看看它们是如何使用的。</p>
+
+<h2 id="gesturedetector">GestureDetector</h2>
+
+<blockquote>
+  <p>GestureDetector 可以使用 MotionEvents 检测各种手势和事件。GestureDetector.OnGestureListener 是一个回调方法，在发生特定的事件时会调用 Listener 中对应的方法回调。这个类只能用于检测触摸事件的 MotionEvent，不能用于轨迹球事件。  <br />
+(话说轨迹球已经消失多长时间了，估计很多人都没见过轨迹球这种东西)。</p>
+
+  <p>如何使用：</p>
+
+  <ul>
+    <li>创建一个 GestureDetector 实例。</li>
+    <li>在onTouchEvent（MotionEvent）方法中，确保调用 GestureDetector 实例的 onTouchEvent（MotionEvent）。回调中定义的方法将在事件发生时执行。</li>
+    <li>如果侦听 onContextClick（MotionEvent），则必须在 View 的 onGenericMotionEvent（MotionEvent）中调用 GestureDetector OnGenericMotionEvent（MotionEvent）。</li>
+  </ul>
+</blockquote>
+
+<p>GestureDetector 本身的方法比较少，使用起来也非常简单，下面让我们先看一下它的简单使用示例，分解开来大概需要三个步骤。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 1.创建一个监听回调</span>
+<span class="n">SimpleOnGestureListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleOnGestureListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDoubleTap</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="s">"双击666"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onDoubleTap</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="c1">// 2.创建一个检测器</span>
+<span class="kd">final</span> <span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">listener</span><span class="o">);</span>
+
+<span class="c1">// 3.给监听器设置数据源</span>
+<span class="n">view</span><span class="o">.</span><span class="na">setOnTouchListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnTouchListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouch</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">detector</span><span class="o">.</span><span class="na">onTouchEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+</div>
+
+<p>接下来我们先了解一下 GestureDetector 里面都有哪些内容。</p>
+
+<h3 id="1-构造函数">1. 构造函数</h3>
+
+<p>GestureDetector 一共有 5 种构造函数，但有 2 种被废弃了，1 种是重复的，所以我们只需要关注其中的 2 种构造函数即可，如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>构造函数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GestureDetector(Context context, GestureDetector.OnGestureListener listener)</td>
+    </tr>
+    <tr>
+      <td>GestureDetector(Context context, GestureDetector.OnGestureListener listener, Handler handler)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>第 1 种构造函数里面需要传递两个参数，上下文(Context) 和 手势监听器(OnGestureListener)，这个很容易理解，就不再过多叙述，上面的例子中使用的就是这一种。</p>
+
+<p>第 2 种构造函数则需要多传递一个 Handler 作为参数，这个有什么作用呢？其实作用也非常简单，这个 Handler 主要是为了给 GestureDetector 提供一个 Looper。</p>
+
+<p>在通常情况下是不需这个 Handler 的，因为它会在内部自动创建一个 Handler 用于处理数据，如果你在主线程中创建 GestureDetector，那么它内部创建的 Handler 会自动获得主线程的 Looper，然而如果你在一个没有创建 Looper 的子线程中创建 GestureDetector 则需要传递一个带有 Looper 的 Handler 给它，否则就会因为无法获取到 Looper 导致创建失败。</p>
+
+<p>第 2 种构造函数使用方式如下(下面是两种在子线程中创建 GestureDetector 的方法)：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 方式一、在主线程创建 Handler</span>
+<span class="kd">final</span> <span class="n">Handler</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Handler</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="k">new</span>
+                <span class="n">GestureDetector</span><span class="o">.</span><span class="na">SimpleOnGestureListener</span><span class="o">()</span> <span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+        <span class="c1">// ... 省略其它代码 ...</span>
+    <span class="o">}</span>
+<span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+
+<span class="c1">// 方式二、在子线程创建 Handler，并且指定 Looper</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Handler</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Handler</span><span class="o">(</span><span class="n">Looper</span><span class="o">.</span><span class="na">getMainLooper</span><span class="o">());</span>
+        <span class="kd">final</span> <span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="k">new</span>
+                <span class="n">GestureDetector</span><span class="o">.</span><span class="na">SimpleOnGestureListener</span><span class="o">()</span> <span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+        <span class="c1">// ... 省略其它代码 ...</span>
+    <span class="o">}</span>
+<span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p>当然了，使用其它创建 Handler 的方式也是可以的，重点传递的 Handler 一定要有 Looper，敲黑板，重点是 Handler 中的 Looper。假如子线程准备了 Looper 那么可以直接使用第 1 种构造函数进行创建，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Looper</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span> <span class="c1">// &lt;- 重点在这里</span>
+        <span class="kd">final</span> <span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="k">new</span>
+                <span class="n">GestureDetector</span><span class="o">.</span><span class="na">SimpleOnGestureListener</span><span class="o">());</span>
+        <span class="c1">// ... 省略其它代码 ...</span>
+    <span class="o">}</span>
+<span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<h3 id="2手势监听器">2.手势监听器</h3>
+
+<p>既然是手势检测，自然要在对应的手势出现的时候通知调用者，最合适的自然是事件监听器模式。目前 GestureDetecotr 有四种监听器。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>监听器</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://developer.android.com/reference/android/view/GestureDetector.OnContextClickListener.html">OnContextClickListener</a></td>
+      <td>这个很容易让人联想到ContextMenu，然而它和ContextMenu并没有什么关系，它是在Android6.0(API 23)才添加的一个选项，是用于检测外部设备上的按钮是否按下的，例如蓝牙触控笔上的按钮，一般情况下，忽略即可。</td>
+    </tr>
+    <tr>
+      <td><a href="https://developer.android.com/reference/android/view/GestureDetector.OnDoubleTapListener.html">OnDoubleTapListener</a></td>
+      <td>双击事件，有三个回调类型：双击(DoubleTap)、单击确认(SingleTapConfirmed) 和 双击事件回调(DoubleTapEvent)</td>
+    </tr>
+    <tr>
+      <td><a href="https://developer.android.com/reference/android/view/GestureDetector.OnGestureListener.html">OnGestureListener</a></td>
+      <td>手势检测，主要有以下类型事件：按下(Down)、 一扔(Fling)、长按(LongPress)、滚动(Scroll)、触摸反馈(ShowPress) 和 单击抬起(SingleTapUp)</td>
+    </tr>
+    <tr>
+      <td><a href="https://developer.android.com/reference/android/view/GestureDetector.SimpleOnGestureListener.html">SimpleOnGestureListener</a></td>
+      <td>这个是上述三个接口的空实现，一般情况下使用这个比较多，也比较方便。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="21-oncontextclicklistener">2.1 OnContextClickListener</h4>
+
+<p>由于 OnContextClickListener 主要是用于检测外部设备按钮的，关于它需要注意一点，如果侦听 onContextClick(MotionEvent)，则必须在 View 的 onGenericMotionEvent(MotionEvent)中调用 GestureDetector 的 OnGenericMotionEvent(MotionEvent)。</p>
+
+<p>由于目前我们用到这个监听器的场景并不多，所以也就不展开介绍了，重点关注后面几个监听器。</p>
+
+<h4 id="22-ondoubletaplistener">2.2 OnDoubleTapListener</h4>
+
+<p>这个很明显就是用于检测双击事件的，它有三个回调接口，分别是 onDoubleTap、onDoubleTapEvent 和 onSingleTapConfirmed。</p>
+
+<h5 id="221-ondoubletap-与-onsingletapconfirmed"><strong>2.2.1 onDoubleTap 与 onSingleTapConfirmed</strong></h5>
+
+<p><strong>如果你只想监听双击事件，那么只用关注 onDoubleTap 就行了，如果你同时要监听单击事件则需要关注 onSingleTapConfirmed 这个回调函数</strong>。</p>
+
+<p>有人可能会有疑问，监听单击事件为什么要使用 onSingleTapConfirmed，使用 OnClickListener 不行吗？从理论上是可行的，但是我并不推荐这样使用，主要有两个原因：<br />
+1.它们两个是存在一定冲突的，如果你看过 <a href="http://www.gcssloop.com/customview/dispatch-touchevent-source">事件分发机制详解</a> 就会知道，如果想要两者同时被触发，则 setOnTouchListener 不能消费事件，如果 onTouchListener 消费了事件，就可能导致 OnClick 无法正常触发。<br />
+2.需要同时监听单击和双击，则说明单击和双击后响应逻辑不同，然而使用 OnClickListener 会在双击事件发生时触发两次，这显然不是我们想要的结果。而使用 onSingleTapConfirmed 就不用考虑那么多了，你完全可以把它当成单击事件来看待，而且在双击事件发生时，onSingleTapConfirmed 不会被调用，这样就不会引发冲突。</p>
+
+<p>如果你需要同时监听两种点击事件可以这样写：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="k">new</span> <span class="n">GestureDetector</span>
+        <span class="o">.</span><span class="na">SimpleOnGestureListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onSingleTapConfirmed</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="s">"单击"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDoubleTap</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="s">"双击"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+</div>
+
+<p>关于 onSingleTapConfirmed 原理也非常简单，这一个回调函数在单击事件发生后300ms后触发(注意，不是立即触发的)，只有在确定不会有后续的事件后，既当前事件肯定是单击事件才触发 onSingleTapConfirmed，所以在进行点击操作时，onDoubleTap 和 onSingleTapConfirmed 只会有一个被触发，也就不存在冲突了。</p>
+
+<p>当然，如果你对事件分发机制非常了解的话，随便怎么用都行，条条大路通罗马，我这里只是推荐一种最简单而且不容易出错的实现方案。</p>
+
+<h5 id="222-ondoubletapevent"><strong>2.2.2 onDoubleTapEvent</strong></h5>
+
+<p><strong>有些细心的小伙伴可能注意到还有一个 onDoubleTapEvent 回调函数，它是干什么的呢？它在双击事件确定发生时会对第二次按下产生的 MotionEvent 信息进行回调。</strong></p>
+
+<p>至于为什么要存在这样的回调，就要涉及到另一个比较细致的问题了，那就是  onDoubleTap 的触发时间，如果你在这些函数被调用时打印一条日志，那么你会看到这样的信息：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>GCS-LOG: onDoubleTap
+GCS-LOG: onDoubleTapEvent - down
+GCS-LOG: onDoubleTapEvent - move
+GCS-LOG: onDoubleTapEvent - move
+GCS-LOG: onDoubleTapEvent - up
+</code></pre>
+</div>
+
+<p>通过观察这些信息你会发现它们的调用顺序非常有趣，首先是 onDoubleTap 被触发，之后依次触发 onDoubleTapEvent 的 down、move、up 等信息，为什么说它们有趣呢？是因为这样的调用顺序会引发两种猜想，第一种猜想是 onDoubleTap 是在第二次手指抬起(up)后触发的，而 onDoubleTapEvent 是一种延时回调。第二种猜想则是 onDoubleTap 在第二次手指按下(dowm)时触发，onDoubleTapEvent 是一种实时回调。</p>
+
+<p>通过测试和观察源码发现第二种猜想是正确的，因为第二次按下手指时，即便不抬起也会触发 onDoubleTap 和 onDoubleTapEvent 的 down，而且源码中逻辑也表明 onDoubleTapEvent 是一种实时回调。</p>
+
+<p>这就引发了另一个问题，双击的触发时间，虽然这是一个细微到很难让人注意到的问题，假如说我们想要在第二次按下抬起后才判定这是一个双击操作，触发后续的内容，则不能使用 onDoubleTap 了，需要使用 onDoubleTapEvent 来进行更细微的控制，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">final</span> <span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">.</span><span class="na">SimpleOnGestureListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDoubleTap</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"第二次按下时触发"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onDoubleTap</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDoubleTapEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getActionMasked</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
+                <span class="n">Logger</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"第二次抬起时触发"</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onDoubleTapEvent</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+</div>
+
+<p>如果你不需要控制这么细微的话，忽略即可(Logger 是我自己封装的日志库，忽略即可)。</p>
+
+<h4 id="23-ongesturelistener">2.3 OnGestureListener</h4>
+
+<p>这个是手势检测中较为核心的一个部分了，主要检测以下类型事件：按下(Down)、 一扔(Fling)、长按(LongPress)、滚动(Scroll)、触摸反馈(ShowPress) 和 单击抬起(SingleTapUp)。</p>
+
+<h5 id="231-ondown">2.3.1 onDown</h5>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDown</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>看过前面的文章应该知道，down 在事件分发体系中是一个较为特殊的事件，为了保证事件被唯一的 View 消费，哪个 View 消费了 down 事件，后续的内容就会传递给该 View。如果我们想让一个 View 能够接收到事件，有两种做法：</p>
+
+<p>1、让该 View 可以点击，因为可点击状态会默认消费 down 事件。</p>
+
+<p>2、手动消费掉 down 事件。</p>
+
+<p>由于图片、文本等一些控件默认是不可点击的，所以我们要么声明它们的 clickable 为 true，要么在发生 down 事件是返回 true。所以 onDown 在这里的作用就很明显了，就是为了保证让该控件能拥有消费事件的能力，以接受后续的事件。</p>
+
+<h5 id="232-onfling">2.3.2 onFling</h5>
+
+<p>Failing 中文直接翻译过来就是一扔、抛、甩，最常见的场景就是在 ListView 或者 RecyclerView 上快速滑动时手指抬起后它还会滚动一段时间才会停止。onFling 就是检测这种手势的。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onFling</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e1</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">e2</span><span class="o">,</span> <span class="kt">float</span> <span class="n">velocityX</span><span class="o">,</span> <span class="kt">float</span>
+        <span class="n">velocityY</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onFling</span><span class="o">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">,</span> <span class="n">velocityX</span><span class="o">,</span> <span class="n">velocityY</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>在 onFling 的回调中共有四个参数，分别是：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>e1</td>
+      <td>手指按下时的 Event。</td>
+    </tr>
+    <tr>
+      <td>e2</td>
+      <td>手指抬起时的 Event。</td>
+    </tr>
+    <tr>
+      <td>velocityX</td>
+      <td>在 X 轴上的运动速度(像素／秒)。</td>
+    </tr>
+    <tr>
+      <td>velocityY</td>
+      <td>在 Y 轴上的运动速度(像素／秒)。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>我们可以通过 e1 和 e2 获取到手指按下和抬起时的坐标、时间等相关信息，通过 velocityX 和 velocityY 获取到在这段时间内的运动速度，单位是像素／秒(即 1 秒内滑动的像素距离)。</p>
+
+<p>这个我们自己用到的地方比较少，但是也可以帮助我们简单的做出一些有趣的效果，例如下面的这种弹球效果，会根据滑动的力度和方向产生不同的弹跳效果。</p>
+
+<p><img src="https://ww2.sinaimg.cn/large/006tKfTcgy1fhe10uwa4fg308c0e6wn5.gif" alt="" /></p>
+
+<p>其实这种原理非常简单，简化之后如下：</p>
+
+<ol>
+  <li>记录 velocityX 和 velocityY 作为初始速度，之后不断让速度衰减，直至为零。</li>
+  <li>根据速度和当前小球的位置计算一段时间后的位置，并在该位置重新绘制小球。</li>
+  <li>判断小球边缘是否碰触控件边界，如果碰触了边界则让速度反向。</li>
+</ol>
+
+<p>根据这三条基本的逻辑就可以做出比较像的弹球效果，<a href="https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/FailingBall.zip">具体的Demo可以看这里</a>。</p>
+
+<h5 id="233-onlongpress">2.3.3 onLongPress</h5>
+
+<p>这个是检测长按事件的，即手指按下后不抬起，在一段时间后会触发该事件。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onLongPress</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h5 id="234-onscroll">2.3.4 onScroll</h5>
+
+<p>onScroll 就是监听滚动事件的，它看起来和 onFaling 比较像，不同的是，onSrcoll 后两个参数不是速度，而是滚动的距离。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onScroll</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e1</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">e2</span><span class="o">,</span> <span class="kt">float</span> <span class="n">distanceX</span><span class="o">,</span> <span class="kt">float</span> 
+        <span class="n">distanceY</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onScroll</span><span class="o">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">,</span> <span class="n">distanceX</span><span class="o">,</span> <span class="n">distanceY</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>e1</td>
+      <td>手指按下时的Event</td>
+    </tr>
+    <tr>
+      <td>e2</td>
+      <td>手指抬起时的Event</td>
+    </tr>
+    <tr>
+      <td>distanceX</td>
+      <td>在 X 轴上划过的距离</td>
+    </tr>
+    <tr>
+      <td>distanceY</td>
+      <td>在 Y 轴上划过的距离</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="235-onshowpress">2.3.5 onShowPress</h5>
+
+<p>它是用户按下时的一种回调，主要作用是给用户提供一种视觉反馈，可以在监听到这种事件时可以让控件换一种颜色，或者产生一些变化，告诉用户他的动作已经被识别。</p>
+
+<p>不过这个消息和 onSingleTapConfirmed 类似，也是一种延时回调，延迟时间是 180 ms，假如用户手指按下后立即抬起或者事件立即被拦截，时间没有超过 180 ms的话，这条消息会被 remove 掉，也就不会触发这个回调。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onShowPress</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h5 id="236-onsingletapup">2.3.6 onSingleTapUp</h5>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onSingleTapUp</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onSingleTapUp</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这个也很容易理解，就是用户单击抬起时的回调，但是它和上面的 <code class="highlighter-rouge">onSingleTapConfirmed</code> 之间有何不同呢？和 <code class="highlighter-rouge">onClick</code> 又有何不同呢？</p>
+
+<p>单击事件触发：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nl">GCS:</span> <span class="n">onSingleTapUp</span>
+<span class="nl">GCS:</span> <span class="n">onClick</span>
+<span class="nl">GCS:</span> <span class="n">onSingleTapConfirmed</span>
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>触发次数</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>onSingleTapUp</td>
+      <td>1</td>
+      <td>单击抬起</td>
+    </tr>
+    <tr>
+      <td>onSingleTapConfirmed</td>
+      <td>1</td>
+      <td>单击确认</td>
+    </tr>
+    <tr>
+      <td>onClick</td>
+      <td>1</td>
+      <td>单击事件</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>双击事件触发：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nl">GCS:</span> <span class="n">onSingleTapUp</span>
+<span class="nl">GCS:</span> <span class="n">onClick</span>
+<span class="nl">GCS:</span> <span class="n">onDoubleTap</span> <span class="c1">// &lt;- 双击</span>
+<span class="nl">GCS:</span> <span class="n">onClick</span>
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>触发次数</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>onSingleTapUp</td>
+      <td>1</td>
+      <td>在双击的第一次抬起时触发</td>
+    </tr>
+    <tr>
+      <td>onSingleTapConfirmed</td>
+      <td>0</td>
+      <td>双击发生时不会触发。</td>
+    </tr>
+    <tr>
+      <td>onClick</td>
+      <td>2</td>
+      <td>在双击事件时触发两次。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>可以看出来这三个事件还是有所不同的，根据自己实际需要进行使用即可</p>
+
+<h4 id="24-simpleongesturelistener">2.4 SimpleOnGestureListener</h4>
+
+<p>这个里面并没有什么内容，只是对上面三种 Listener 的空实现，在上面的例子中使用的基本都是这监听器。因为它用起来更方便一点。</p>
+
+<p>这主要是 GestureDetector 构造函数的设计问题，以只监听 OnDoubleTapListener 为例，如果想要使用 OnDoubleTapListener 接口则需要这样进行设置：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">GestureDetector</span> <span class="n">detector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GestureDetector</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="k">new</span> <span class="n">GestureDetector</span>
+        <span class="o">.</span><span class="na">SimpleOnGestureListener</span><span class="o">());</span>
+<span class="n">detector</span><span class="o">.</span><span class="na">setOnDoubleTapListener</span><span class="o">(</span><span class="k">new</span> <span class="n">GestureDetector</span><span class="o">.</span><span class="na">OnDoubleTapListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onSingleTapConfirmed</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="s">"单击确认"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDoubleTap</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="s">"双击"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onDoubleTapEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Toast.makeText(MainActivity.this,"",Toast.LENGTH_SHORT).show();</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre>
+</div>
+
+<p>既然都已经创建 SimpleOnGestureListener 了，再创建一个 OnDoubleTapListener 显然十分浪费，如果构造函数不使用 SimpleOnGestureListener，而是使用 OnGestureListener 的话，会多出几个无用的空实现，显然很浪费，所以在一般情况下，老老实实的使用 SimpleOnGestureListener 就好了。</p>
+
+<h3 id="3-相关方法">3. 相关方法</h3>
+
+<p>除了各类监听器之外，与 GestureDetector 相关的方法其实并不多，只有几个，下面来简单介绍一下。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>setIsLongpressEnabled</td>
+      <td>通过布尔值设置是否允许触发长按事件，true 表示允许，false 表示不允许。</td>
+    </tr>
+    <tr>
+      <td>isLongpressEnabled</td>
+      <td>判断当前是否允许触发长按事件，true 表示允许，false 表示不允许。</td>
+    </tr>
+    <tr>
+      <td>onTouchEvent</td>
+      <td>这个是其中一个重要的方法，在最开始已经演示过使用方式了。</td>
+    </tr>
+    <tr>
+      <td>onGenericMotionEvent</td>
+      <td>这个是在 API 23 之后才添加的内容，主要是为 OnContextClickListener 服务的，暂时不用关注。</td>
+    </tr>
+    <tr>
+      <td>setContextClickListener</td>
+      <td>设置 ContextClickListener 。</td>
+    </tr>
+    <tr>
+      <td>setOnDoubleTapListener</td>
+      <td>设置 OnDoubleTapListener 。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="结语">结语</h3>
+
+<p>关于手势检测部分的 GestureDetector 相关内容基本就这么多了，其实手势检测还有一个 ScaleGestureDetector 也是为手势检测服务的，限于篇幅，本次就讲这么多吧。</p>
+
+<p>其实手势检测辅助类 GestureDetector 本身并不是很复杂，带上注释等内容才不到1000行，感兴趣的可以自己研究一下实现方式。</p>
+
+<h2 id="about-me">About Me</h2>
+
+<h3 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a></h3>
+
+<p><a href="http://www.gcssloop.com/info/about" target="_blank"><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" style="display:inline;" /></a></p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<p><a href="https://developer.android.com/reference/android/view/GestureDetector.html">文档 · GestureDetector </a> <br />
+<a href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/GestureDetector.java">源码 · GestureDetector</a></p>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/multi-touch" title="link to 安卓自定义View进阶-多点触控详解">安卓自定义View进阶-多点触控详解</a></h2>
+       <p class="excerpt">Android 多点触控详解，在前面的几篇文章中我们大致了解了 Android 中的事件处理流程和一些简单的处理方案，本次带大家了解 Android 多点触控相关的一些知识。多点触控 ( Mul...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2017-01-16 00:00:00 +0800" class="post-list__meta--date date">2017-01-16</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/multi-touch>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

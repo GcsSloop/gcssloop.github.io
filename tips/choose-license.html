@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>程序员不可不知的版权协议</title>
+  <meta name="description" content="前一段时间知乎上关于版权问题的讨论有不少，例如这个新浪微博上的「知乎大神」是谁？涉嫌侵权吗？而且最近喜马拉雅FM也因为背景音乐版权问题导致很多栏目被下架和推迟更新，而我作为一个喜欢分享的魔法师，也遇到过一些版权相关方面的问题，刚好借此机会向大家科普一下开源协议和知识共享协议。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="GcsSloop, gcssloop,开源协议,版权协议,知识共享协议">
+  <meta name="关键字" content="GcsSloop, gcssloop,开源协议,版权协议,知识共享协议">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="程序员不可不知的版权协议">
+  <meta name="twitter:description" content="前一段时间知乎上关于版权问题的讨论有不少，例如这个新浪微博上的「知乎大神」是谁？涉嫌侵权吗？而且最近喜马拉雅FM也因为背景音乐版权问题导致很多栏目被下架和推迟更新，而我作为一个喜欢分享的魔法师，也遇到过一些版权相关方面的问题，刚好借此机会向大家科普一下开源协议和知识共享协议。">
+  <meta name="twitter:keywords" content="GcsSloop, gcssloop,开源协议,版权协议,知识共享协议">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="程序员不可不知的版权协议">
+  <meta property="og:description" content="前一段时间知乎上关于版权问题的讨论有不少，例如这个新浪微博上的「知乎大神」是谁？涉嫌侵权吗？而且最近喜马拉雅FM也因为背景音乐版权问题导致很多栏目被下架和推迟更新，而我作为一个喜欢分享的魔法师，也遇到过一些版权相关方面的问题，刚好借此机会向大家科普一下开源协议和知识共享协议。">
+  <meta name="og:keywords" content="GcsSloop, gcssloop,开源协议,版权协议,知识共享协议">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/tips/choose-license">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="好基(姬)友们和他们的网站">基友</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2016-09-20 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2016-09-20</time> &#8226; <span class="post-meta__tags tags">GcsSloop,info</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">程序员不可不知的版权协议</h1>
+  </header>
+
+  <section class="post">
+    <p>前一段时间知乎上关于版权问题的讨论有不少，例如这个 <a href="https://www.zhihu.com/question/29945888">新浪微博上的「知乎大神」是谁？涉嫌侵权吗？</a>, 而且最近喜马拉雅FM也因为背景音乐版权问题导致很多栏目被下架和推迟更新，而我作为一个喜欢分享的魔法师，也遇到过一些版权相关方面的问题，刚好借此机会向大家科普一下<strong>开源协议</strong>和<strong>知识共享协议</strong>。</p>
+
+<hr />
+
+<h2 id="开源协议">开源协议</h2>
+
+<p>相信很多小伙伴在开发的时候都默认遵循 <strong>不重复造轮子(偷懒)</strong> 这一原则，只要有了思路就马上在GitHub搜索一下，看看是否有人已经做了，如果已经有做好的，自然就不客气啦，拿过来修改一下就能用，不由得心中暗喜，又省了好多时间能用来<del>把妹</del>(LOL)。然而你可能没注意到，在诸多的开源代码中存在一些陷阱(约束)，就是开源协议，下面就带大家了解一下开源协议。</p>
+
+<h3 id="为什么要添加开源协议">为什么要添加开源协议?</h3>
+
+<p>首先是对作者的保护，防止知识成果被恶意利用。</p>
+
+<ul>
+  <li>开源协议中一般都包含免责声明(禁止代码的作者承担代码使用后的风险及产生的后果)，比如你开源了一个破解智能锁的代码，如果有人利用这个去盗窃导致他人损失，你是无需承担责任的。</li>
+</ul>
+
+<p>其次是对使用者的保护，方便使用者。</p>
+
+<ul>
+  <li>使用者一看就知道自己允许进行哪些操作，不允许进行哪些操作。</li>
+  <li>未添加协议的代码默认是作者保留所有权利的(<em>对此不同国家的法律可能稍微存在区别</em>)，这就像一颗定时炸弹，如果你在项目中使用了这一份没有协议的代码，原作者只要能证明你未经许可使用了他的代码，是能够起诉你的。</li>
+</ul>
+
+<h3 id="如何选择合适的开源协议">如何选择合适的开源协议?</h3>
+
+<p>由于开源协议种类众多，作为普通人很难搞懂它们之间的区别，即便是常见的协议大家也不完全知道协议的内容，那么如何快速的选择一款适合自己的协议呢？如果你是一个怕麻烦的人，下面的建议或许对你有有帮助。</p>
+
+<p><img src="https://raw.githubusercontent.com/GcsSloop/AndroidNote/magic-world/ChaosCrystal/elements/quick_choose.png" alt="快速选择协议" /></p>
+
+<blockquote>
+  <p><strong>目前使用最多的是MIT协议，而我(GcsSloop)常用的则是 <a href="http://choosealicense.online/licenses/apache-2.0/">Apache License 2.0</a> 协议，因为这样可以帮助我知道有哪些开源项目使用了我的内容，以及进行了何种修改，有利于我改进自己项目。</strong></p>
+
+  <p><strong>之所以采用这个协议，而不使用 <a href="http://choosealicense.online/licenses/gpl-3.0/">GNU GPLv3</a> ，是因为 <a href="http://choosealicense.online/licenses/gpl-3.0/">GNU GPLv3</a>  使用者必须按照相同的协议开源，而 <a href="http://choosealicense.online/licenses/apache-2.0/">Apache License 2.0</a> 相对比较宽松，你可以私用，也可以闭源，但是如果开源项目使用到的时候，只需要放置一下版权声明以及修改声明即可。</strong></p>
+</blockquote>
+
+<h3 id="选择一个开源软件协议"><a href="http://choosealicense.online/">选择一个开源软件协议</a></h3>
+
+<p>上面介绍的三种协议是最常用的几种，如果你想选择更多的开源协议可以到 <strong><a href="http://choosealicense.online/">选择一个开源软件协议</a></strong> 查看，这个网站是GitHub创建的，我做了一些微小的翻译工作，原网址 <a href="http://choosealicense.com/">Choose an open source license</a> 如果你觉得我的那些部分翻译不准确可以到 <a href="https://github.com/ChooseLicense/ChooseLicense.github.io">ChooseLicense.github.io</a> 来给我提建议，如果直接提交 Pull Request 就更好了。</p>
+
+<p><strong>注意：不论你采用何种协议，一旦你在一些平台上发布你的内容，你就默认接受了该平台的协议，这一点尤其需要注意，例如GitHub上，默认允许他人查看和fork你的开源项目。</strong></p>
+
+<hr />
+
+<h2 id="知识共享协议">知识共享协议</h2>
+
+<p>知识共享协议也属于版权协议的一种，常用于数据、多媒体、网站、文章等内容，是作者保障自己权益的一道屏障。</p>
+
+<p>知识共享协议(Creative Commons，也称为CC协议) 有很多版本，不过需要注意的是，知识共享协议不适用于开源软件。</p>
+
+<p><strong>注意：虽然你可以采用知识共享协议来保护你的内容，但是一旦你在某些平台上发布你的内容，你就默认接受了该平台的协议，这一点尤其需要注意。</strong></p>
+
+<p>下面我们来看两个例子，仅看知识产权部分的：</p>
+
+<p><strong><a href="https://www.baidu.com/duty/copyright.html">百度的知识产权声明</a>:</strong></p>
+
+<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f7z6ht0ru6j30lk09qtc8.jpg" alt="" /></p>
+
+<p><strong><a href="https://www.zhihu.com/terms#sec-licence">知乎的知识产权声明:</a></strong></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f7z6jsjxycj30p90bhjwe.jpg" alt="" /></p>
+
+<p><strong>对比一下，你在百度上发表的任何东西，不论是百度知道，百度文库或者是贴吧，百度自动拥有版权，可以随意使用这些内容，而在知乎上的回答，文章等则是作者拥有版权，知乎拥有使用权，当然了，前提是你为原创作者。</strong></p>
+
+<h3 id="选择一个知识共享协议"><a href="https://creativecommons.org/choose/">选择一个知识共享协议</a></h3>
+
+<p>你可以到 <a href="https://creativecommons.org/choose/">creativecommons.org</a> 为自己选择一个合适的知识共享协议。</p>
+
+<p>我的文章、原创图片等其他非代码内容一般会采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a>。你在我的 <a href="https://github.com/GcsSloop/AndroidNote">AndroidNote</a> 和我的 <a href="http://www.gcssloop.com/#blog">个人网站</a> 底部均可以看到声明。</p>
+
+<p>这在知识共享协议里面算是比较严苛的一个协议了，它允许所有人在非商业用途下免费转载我的文章，但必须：</p>
+
+<ul>
+  <li>保持原文，不作修改。</li>
+  <li>明确署名，即至少注明 <code class="highlighter-rouge">作者：GcsSloop</code> 字样以及文章的原始链接，且不得使用 <code class="highlighter-rouge">rel="nofollow"</code> 标记。</li>
+  <li>商业用途可以联系本人，需要征得本人同意。</li>
+</ul>
+
+<p>下面解释一下我为什么要采用这一个协议：</p>
+
+<p><strong>禁止商用</strong></p>
+
+<p>这个毋庸置疑，为了保证自身的利益，写一篇文章需要经过选材，制作图片，书写，排版，排查错误等诸多步骤，其中每一步都凝聚了作者大量的心血，如果被别人一声不吭拿去为自己赚钱了，作者岂不是要哭晕在厕所。</p>
+
+<p><strong>保持原文</strong></p>
+
+<p>之前又一个文章中因为一个公式问题引起了一些混乱，那篇文章中本身公式是正确的，可能是因为书写方式问题，导致一些小伙伴错认为是有误的，而且有小伙伴在fork我的仓库后修改了文章中的公式，之后有小伙伴讨论这个公式的问题，因为担心小伙伴看到的是错误版本，在这个问题上浪费了很多时间。所以我的文章转载均要求保持原文，如果你觉得我的文章中有错误的地方，可以到评论区或者其他地方告诉我。</p>
+
+<p><strong>明确署名</strong></p>
+
+<p>保持署名和原始链接可以保证其他人能找到原文的作者，如果文章出现了问题，能够反馈给原作者，以保证文章内容正确，不误导以后阅读的人。</p>
+
+<h3 id="关于参考链接">关于参考链接</h3>
+
+<p>我们人类之所以发展这么快，是因为有前人的努力，我们都是站在巨人肩膀上的人，书写文章也不例外，有很多需要借鉴他人的地方，如果借鉴了他人的想法或者成果，建议在文末加上参考链接。除了能够帮助读者更好理解知识的来源外，也可以顺便给这些人带来一些名气。</p>
+
+<p>我书写参考链接的规则一般是这样的，我借鉴了他人的想法，成果，或者一部分成果，我都会在文末添加上文章地址。</p>
+
+<p>有时候有小伙伴会反馈说，我的文章和我参考链接里面的文章有些地方存在冲突，这是因为我并没有把原文中这一部分作为参考。如果一些文章的理论本身就是错误的，但思路是正确的，或者部分内容是正确的，我使用了这些内容，同样会将其加入我的参考链接中。</p>
+
+<h3 id="关于抄袭和洗文洗稿">关于抄袭和洗文(洗稿)</h3>
+
+<p><strong>抄袭</strong>（英语：<strong>plagiarism</strong>），亦称作<strong>剽窃</strong>，根据教育部国语辞典定义[<a href="https://zh.wikipedia.org/wiki/%E6%8A%84%E8%A2%AD#cite_note-.E6.95.99.E8.82.B2.E9.83.A8.E5.9C.8B.E8.AA.9E.E8.BE.AD.E5.85.B8-.E5.89.BD.E7.AA.83-1">1]</a>，为抄录他人作品以为己作。对于原著未经或基本未经修改的抄录，这是一种侵犯<a href="https://zh.wikipedia.org/wiki/%E8%91%97%E4%BD%9C%E6%9D%83">著作权</a>的行为。(引用自维基百科)</p>
+
+<p>抄袭属于一种比较低级的方式，更高级一点的一般称为<strong>洗文或者洗稿</strong>，常见洗稿有以下的方式:</p>
+
+<p>第一种是打乱排版排版，然后用近似的语句来表达原文的内容。</p>
+
+<p>第二种是按照原作者类似的风格来书写一件类似的事情，对其中对内容稍作修改。</p>
+
+<p>第三种主要针对不允许转载的文章，先抄袭到某某论坛或者不知名网站然后转载一下标注为某某论坛(网站)，轻松抹去原作者信息。</p>
+
+<p>这类洗稿文章是让原作者很头疼的东西，有些新司机技术不纯熟，一眼就能看出是洗稿，而有些老司机，洗出来的文章很难辨识，也很难维权。但如果你有时间和抄袭者正面刚的话，还是有很大机会能得到正义的支持的，毕竟群众的眼睛都是雪亮的，不过这对自身又有什么意义呢？浪费大量时间而且没有任何回报。</p>
+
+<hr />
+
+<p>正是因为抄袭成本低而维权成本高，才导致了目前存在大量抄袭的内容，百度搜索结果尤其明显，很多排名靠前的技术文章都不是作者原文，而是被一些大平台转载(抄袭)过去的。相比之下Google就好很多了，而且举报抄袭处理速度也很快。</p>
+
+<p>以我之前发过的一篇文章为例:</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7z7o27laej30m40fdn2p.jpg" alt="" />
+<img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7z7nvdzpij30lh0dr78l.jpg" alt="" /></p>
+
+<p>在Google搜索结果中第一条就是我的原文地址，而在百度搜索结果第一条则是转载(抄袭)的文章，我从未在该平台投稿过该文章，这篇转载(抄袭)文章虽然在文末给出了原文地址，但非超链接形式，没有作者署名，该网站也投放有广告，因为本文产生的广告收益不会给作者一分钱，这实际上已经严重违反了我的知识共享协议。</p>
+
+<p><strong>你问我为啥不举报？</strong></p>
+
+<p>主要是因为这篇转载还算良心，至少排版不乱，能够帮助到一些初学者，如果是肆意篡改原文链接，排版混乱，而且插入大量广告，严重影响观看效果的，我一定见一个举报一个。</p>
+
+<hr />
+
+<h2 id="结语">结语</h2>
+
+<p>为自己选择一个合适的 开源协议 或者 知识共享协议， 虽然大部分时间并没有什么用，但至少能在一定程度上保护自身的权益。</p>
+
+<p>最后个人建议多用Google，远离百度。</p>
+
+<hr />
+
+<h2 id="相关网站">相关网站</h2>
+
+<p><a href="http://choosealicense.online/">选择一个开源软件协议</a></p>
+
+<p><a href="https://creativecommons.org/choose/">选择一个知识共享协议</a></p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/customview/dispatch-touchevent-theory" title="link to 安卓自定义View进阶-事件分发机制原理">安卓自定义View进阶-事件分发机制原理</a></h2>
+    <p class="excerpt">之前讲解了很多与View绘图相关的知识，你可以在 安卓自定义View教程目录 中查看到这些文章，如果你理解了这些文章，那么至少2D绘图部分不是难题了，大部分的需求都能满足，但是关于View还有很...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2016-09-28 00:00:00 +0800" class="post-list__meta--date date">2016-09-28</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/dispatch-touchevent-theory>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/matrix-3d-camera" title="link to 安卓自定义View进阶-Matrix Camera">安卓自定义View进阶-Matrix Camera</a></h2>
+       <p class="excerpt">本篇依旧属于Matrix，主要讲解Camera，Android下有很多相机应用，其中的美颜相机更是不少，不过今天这个Camera可不是我们平时拍照的那个相机，而是graphic包下的Camera...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2016-09-14 00:00:00 +0800" class="post-list__meta--date date">2016-09-14</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/matrix-3d-camera>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2017</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
