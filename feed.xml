@@ -3,10 +3,10 @@
   <channel>
     <title>GcsSloop</title>
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 29 Aug 2017 17:32:14 +0800</pubDate>
-    <lastBuildDate>Tue, 29 Aug 2017 17:32:14 +0800</lastBuildDate>
+    <link>http://www.gcssloop.com/</link>
+    <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 06 Sep 2017 21:53:07 +0800</pubDate>
+    <lastBuildDate>Wed, 06 Sep 2017 21:53:07 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -544,8 +544,8 @@ GCS-LOG: onDoubleTapEvent - up
 &lt;a href=&quot;https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/GestureDetector.java&quot;&gt;源码 · GestureDetector&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 09 Jul 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/customview/gestruedector</link>
-        <guid isPermaLink="true">http://localhost:4000/customview/gestruedector</guid>
+        <link>http://www.gcssloop.com/customview/gestruedector</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/customview/gestruedector</guid>
         
         <category>Android,GestureDecetor</category>
         
@@ -1402,8 +1402,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 </description>
         <pubDate>Mon, 16 Jan 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/customview/multi-touch</link>
-        <guid isPermaLink="true">http://localhost:4000/customview/multi-touch</guid>
+        <link>http://www.gcssloop.com/customview/multi-touch</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/customview/multi-touch</guid>
         
         <category>Android,Multitouch</category>
         
@@ -1542,8 +1542,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Wed, 07 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/markdown/markdown-editor</link>
-        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-editor</guid>
+        <link>http://www.gcssloop.com/markdown/markdown-editor</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-editor</guid>
         
         <category>Markdown</category>
         
@@ -1728,8 +1728,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 28 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/lecture/gdg-developer-growth-guide</link>
-        <guid isPermaLink="true">http://localhost:4000/lecture/gdg-developer-growth-guide</guid>
+        <link>http://www.gcssloop.com/lecture/gdg-developer-growth-guide</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/lecture/gdg-developer-growth-guide</guid>
         
         <category>演讲</category>
         
@@ -2321,8 +2321,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 </description>
         <pubDate>Wed, 16 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/customview/touch-matrix-region</link>
-        <guid isPermaLink="true">http://localhost:4000/customview/touch-matrix-region</guid>
+        <link>http://www.gcssloop.com/customview/touch-matrix-region</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/customview/touch-matrix-region</guid>
         
         <category>Android,Region,Matrix</category>
         
@@ -2526,8 +2526,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Tue, 08 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/markdown/markdown-links</link>
-        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-links</guid>
+        <link>http://www.gcssloop.com/markdown/markdown-links</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-links</guid>
         
         <category>Markdown</category>
         
@@ -3176,8 +3176,8 @@ ACTION_POINTER_DOWN 的默认数值为 (0x00000005)&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 02 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/customview/motionevent</link>
-        <guid isPermaLink="true">http://localhost:4000/customview/motionevent</guid>
+        <link>http://www.gcssloop.com/customview/motionevent</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/customview/motionevent</guid>
         
         <category>Android,MotionEvent</category>
         
@@ -3557,8 +3557,8 @@ int a = 5;
 &lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 25 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/markdown/markdown-grammar</link>
-        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-grammar</guid>
+        <link>http://www.gcssloop.com/markdown/markdown-grammar</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-grammar</guid>
         
         <category>Markdown</category>
         
@@ -3788,8 +3788,8 @@ int a = 5;
 
 </description>
         <pubDate>Mon, 24 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/markdown/markdown-start</link>
-        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-start</guid>
+        <link>http://www.gcssloop.com/markdown/markdown-start</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-start</guid>
         
         <category>Markdown</category>
         
@@ -4403,8 +4403,8 @@ int a = 5;
 
 </description>
         <pubDate>Fri, 14 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/customview/dispatch-touchevent-source</link>
-        <guid isPermaLink="true">http://localhost:4000/customview/dispatch-touchevent-source</guid>
+        <link>http://www.gcssloop.com/customview/dispatch-touchevent-source</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/customview/dispatch-touchevent-source</guid>
         
         <category>Camera,</category>
         

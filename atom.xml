@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-08-29T17:32:14+08:00</updated>
+  <updated>2017-09-06T21:53:07+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -14,8 +14,8 @@
 
  
   <entry>
-    <id>http://localhost:4000/customview/gestruedector</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/gestruedector"/>
+    <id>http://www.gcssloop.com/customview/gestruedector</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/gestruedector"/>
     <title>安卓自定义View进阶-手势检测(GestureDecetor)</title>
     <updated>2017-07-09T00:00:00+08:00</updated>
     <author>
@@ -557,8 +557,8 @@ GCS-LOG: onDoubleTapEvent - up
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/multi-touch</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/multi-touch"/>
+    <id>http://www.gcssloop.com/customview/multi-touch</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/multi-touch"/>
     <title>安卓自定义View进阶-多点触控详解</title>
     <updated>2017-01-16T00:00:00+08:00</updated>
     <author>
@@ -1413,8 +1413,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/markdown/markdown-editor</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/markdown/markdown-editor"/>
+    <id>http://www.gcssloop.com/markdown/markdown-editor</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/markdown/markdown-editor"/>
     <title>Markdown实用技巧－编辑器(Typora)</title>
     <updated>2016-12-07T00:00:00+08:00</updated>
     <author>
@@ -1551,8 +1551,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/lecture/gdg-developer-growth-guide</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/lecture/gdg-developer-growth-guide"/>
+    <id>http://www.gcssloop.com/lecture/gdg-developer-growth-guide</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/lecture/gdg-developer-growth-guide"/>
     <title>程序员练级指北</title>
     <updated>2016-11-28T00:00:00+08:00</updated>
     <author>
@@ -1735,8 +1735,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/touch-matrix-region</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/touch-matrix-region"/>
+    <id>http://www.gcssloop.com/customview/touch-matrix-region</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/touch-matrix-region"/>
     <title>安卓自定义View进阶-特殊控件的事件处理方案</title>
     <updated>2016-11-16T00:00:00+08:00</updated>
     <author>
@@ -2326,8 +2326,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/markdown/markdown-links</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/markdown/markdown-links"/>
+    <id>http://www.gcssloop.com/markdown/markdown-links</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/markdown/markdown-links"/>
     <title>Markdown实用技巧－链接和图片</title>
     <updated>2016-11-08T00:00:00+08:00</updated>
     <author>
@@ -2529,8 +2529,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/motionevent</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/motionevent"/>
+    <id>http://www.gcssloop.com/customview/motionevent</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/motionevent"/>
     <title>安卓自定义View进阶-MotionEvent详解</title>
     <updated>2016-11-02T00:00:00+08:00</updated>
     <author>
@@ -3177,8 +3177,8 @@ ACTION_POINTER_DOWN 的默认数值为 (0x00000005)&lt;/p&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/markdown/markdown-grammar</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/markdown/markdown-grammar"/>
+    <id>http://www.gcssloop.com/markdown/markdown-grammar</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/markdown/markdown-grammar"/>
     <title>Markdown实用技巧－基础语法</title>
     <updated>2016-10-25T00:00:00+08:00</updated>
     <author>
@@ -3556,8 +3556,8 @@ int a = 5;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/markdown/markdown-start</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/markdown/markdown-start"/>
+    <id>http://www.gcssloop.com/markdown/markdown-start</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/markdown/markdown-start"/>
     <title>Markdown实用技巧－快速入门</title>
     <updated>2016-10-24T00:00:00+08:00</updated>
     <author>
@@ -3785,8 +3785,8 @@ int a = 5;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/dispatch-touchevent-source</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/dispatch-touchevent-source"/>
+    <id>http://www.gcssloop.com/customview/dispatch-touchevent-source</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/dispatch-touchevent-source"/>
     <title>安卓自定义View进阶-事件分发机制详解</title>
     <updated>2016-10-14T00:00:00+08:00</updated>
     <author>
@@ -4398,8 +4398,8 @@ int a = 5;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/python/tinypng-voice</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/python/tinypng-voice"/>
+    <id>http://www.gcssloop.com/python/tinypng-voice</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/python/tinypng-voice"/>
     <title>让脚本说话&quot;厉害了我的哥&quot;</title>
     <updated>2016-10-10T00:00:00+08:00</updated>
     <author>
@@ -4586,8 +4586,8 @@ tinypng.py －w 300 -f /User/GcsSloop/demo.jpg   // 指定压缩一个文件，�
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/dispatch-touchevent-theory</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/dispatch-touchevent-theory"/>
+    <id>http://www.gcssloop.com/customview/dispatch-touchevent-theory</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/dispatch-touchevent-theory"/>
     <title>安卓自定义View进阶-事件分发机制原理</title>
     <updated>2016-09-28T00:00:00+08:00</updated>
     <author>
@@ -4949,8 +4949,8 @@ ViewGroupA   [组长]: onTouchEvent           正在测试,明天就测试完
   </entry>
  
   <entry>
-    <id>http://localhost:4000/tips/choose-license</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/tips/choose-license"/>
+    <id>http://www.gcssloop.com/tips/choose-license</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/tips/choose-license"/>
     <title>程序员不可不知的版权协议</title>
     <updated>2016-09-20T00:00:00+08:00</updated>
     <author>
@@ -5105,8 +5105,8 @@ ViewGroupA   [组长]: onTouchEvent           正在测试,明天就测试完
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/matrix-3d-camera</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/matrix-3d-camera"/>
+    <id>http://www.gcssloop.com/customview/matrix-3d-camera</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/matrix-3d-camera"/>
     <title>安卓自定义View进阶-Matrix Camera</title>
     <updated>2016-09-14T00:00:00+08:00</updated>
     <author>
@@ -5699,8 +5699,8 @@ translate: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0
   </entry>
  
   <entry>
-    <id>http://localhost:4000/course/jitpack-sources-javadoc</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/course/jitpack-sources-javadoc"/>
+    <id>http://www.gcssloop.com/course/jitpack-sources-javadoc</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/course/jitpack-sources-javadoc"/>
     <title>用JitPack发布开源库时附加文档和源码</title>
     <updated>2016-09-09T00:00:00+08:00</updated>
     <author>
@@ -5804,8 +5804,8 @@ translate: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Matrix_Method</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Matrix_Method"/>
+    <id>http://www.gcssloop.com/customview/Matrix_Method</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Matrix_Method"/>
     <title>安卓自定义View进阶-Matrix详解</title>
     <updated>2016-08-30T00:00:00+08:00</updated>
     <author>
@@ -6855,8 +6855,8 @@ location2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&
   </entry>
  
   <entry>
-    <id>http://localhost:4000/tips/arratlist-linkedlist-performance</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/tips/arratlist-linkedlist-performance"/>
+    <id>http://www.gcssloop.com/tips/arratlist-linkedlist-performance</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/tips/arratlist-linkedlist-performance"/>
     <title>ArrayList与LinkedList遍历性能比较</title>
     <updated>2016-08-21T00:00:00+08:00</updated>
     <author>
@@ -7062,8 +7062,8 @@ com.gcssloop.alltest I/Time: ForEach-LinkedList：5ms
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Matrix_Basic</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Matrix_Basic"/>
+    <id>http://www.gcssloop.com/customview/Matrix_Basic</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Matrix_Basic"/>
     <title>安卓自定义View进阶-Matrix原理</title>
     <updated>2016-08-03T00:00:00+08:00</updated>
     <author>
@@ -7960,8 +7960,8 @@ $$&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Path_PathMeasure</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Path_PathMeasure"/>
+    <id>http://www.gcssloop.com/customview/Path_PathMeasure</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Path_PathMeasure"/>
     <title>安卓自定义View进阶-PathMeasure</title>
     <updated>2016-06-02T00:00:00+08:00</updated>
     <author>
@@ -8755,8 +8755,8 @@ tan[1] = y = 1&lt;/p&gt;
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Path_Over</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Path_Over"/>
+    <id>http://www.gcssloop.com/customview/Path_Over</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Path_Over"/>
     <title>安卓自定义View进阶-Path之完结篇</title>
     <updated>2016-05-02T00:00:00+08:00</updated>
     <author>
@@ -9387,8 +9387,8 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Path_Bezier</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Path_Bezier"/>
+    <id>http://www.gcssloop.com/customview/Path_Bezier</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Path_Bezier"/>
     <title>安卓自定义View进阶-Path之贝塞尔曲线</title>
     <updated>2016-04-29T00:00:00+08:00</updated>
     <author>
@@ -10135,8 +10135,8 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
   </entry>
  
   <entry>
-    <id>http://localhost:4000/course/PublishLibraryByJitPack</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/course/PublishLibraryByJitPack"/>
+    <id>http://www.gcssloop.com/course/PublishLibraryByJitPack</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/course/PublishLibraryByJitPack"/>
     <title>使用JitPack发布Android开源库</title>
     <updated>2016-03-20T00:00:00+08:00</updated>
     <author>
@@ -10374,8 +10374,8 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Path_Basic</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Path_Basic"/>
+    <id>http://www.gcssloop.com/customview/Path_Basic</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Path_Basic"/>
     <title>安卓自定义View进阶-Path之基本操作</title>
     <updated>2016-03-02T00:00:00+08:00</updated>
     <author>
@@ -11226,8 +11226,8 @@ com.sloop.canvas E/2: false
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Canvas_PictureText</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Canvas_PictureText"/>
+    <id>http://www.gcssloop.com/customview/Canvas_PictureText</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Canvas_PictureText"/>
     <title>安卓自定义View进阶-Canvas之图片文字</title>
     <updated>2016-02-12T00:00:00+08:00</updated>
     <author>
@@ -11997,8 +11997,8 @@ drawable.draw(canvas);
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Canvas_Convert</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Canvas_Convert"/>
+    <id>http://www.gcssloop.com/customview/Canvas_Convert</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Canvas_Convert"/>
     <title>安卓自定义View进阶-Canvas之画布操作</title>
     <updated>2016-01-28T00:00:00+08:00</updated>
     <author>
@@ -12630,8 +12630,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Canvas_BasicGraphics</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Canvas_BasicGraphics"/>
+    <id>http://www.gcssloop.com/customview/Canvas_BasicGraphics</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Canvas_BasicGraphics"/>
     <title>安卓自定义View进阶-Canvas之绘制图形</title>
     <updated>2016-01-21T00:00:00+08:00</updated>
     <author>
@@ -13316,8 +13316,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/CustomViewProcess</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/CustomViewProcess"/>
+    <id>http://www.gcssloop.com/customview/CustomViewProcess</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/CustomViewProcess"/>
     <title>安卓自定义View进阶-分类与流程</title>
     <updated>2016-01-16T00:00:00+08:00</updated>
     <author>
@@ -13695,8 +13695,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/Color</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/Color"/>
+    <id>http://www.gcssloop.com/customview/Color</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/Color"/>
     <title>安卓自定义View基础-颜色</title>
     <updated>2016-01-11T00:00:00+08:00</updated>
     <author>
@@ -13988,8 +13988,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/AngleAndRadian</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/AngleAndRadian"/>
+    <id>http://www.gcssloop.com/customview/AngleAndRadian</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/AngleAndRadian"/>
     <title>安卓自定义View基础-角度与弧度</title>
     <updated>2016-01-06T00:00:00+08:00</updated>
     <author>
@@ -14102,8 +14102,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/CoordinateSystem</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/CoordinateSystem"/>
+    <id>http://www.gcssloop.com/customview/CoordinateSystem</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/CoordinateSystem"/>
     <title>安卓自定义View基础-坐标系</title>
     <updated>2016-01-05T00:00:00+08:00</updated>
     <author>
@@ -14197,8 +14197,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/taiji</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/taiji"/>
+    <id>http://www.gcssloop.com/customview/taiji</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/taiji"/>
     <title>二十多行代码画太极</title>
     <updated>2015-12-26T00:00:00+08:00</updated>
     <author>
@@ -14471,8 +14471,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/course/UsePlantUMLInAS(Win)</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/course/UsePlantUMLInAS(Win)"/>
+    <id>http://www.gcssloop.com/course/UsePlantUMLInAS(Win)</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/course/UsePlantUMLInAS(Win)"/>
     <title>在AndroidStudio中使用PlantUML(for Win)</title>
     <updated>2015-11-30T00:00:00+08:00</updated>
     <author>
@@ -14561,8 +14561,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/course/UsePlantUMLInAS(Mac)</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/course/UsePlantUMLInAS(Mac)"/>
+    <id>http://www.gcssloop.com/course/UsePlantUMLInAS(Mac)</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/course/UsePlantUMLInAS(Mac)"/>
     <title>在AndroidStudio中使用PlantUML(for Mac)</title>
     <updated>2015-11-30T00:00:00+08:00</updated>
     <author>
@@ -14660,8 +14660,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/customview/CustomViewIndex</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/customview/CustomViewIndex"/>
+    <id>http://www.gcssloop.com/customview/CustomViewIndex</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/CustomViewIndex"/>
     <title>安卓自定义View教程目录</title>
     <updated>1970-01-03T00:00:00+08:00</updated>
     <author>
@@ -14735,8 +14735,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   </entry>
  
   <entry>
-    <id>http://localhost:4000/info/about</id>
-    <link type="text/html" rel="alternate" href="http://localhost:4000/info/about"/>
+    <id>http://www.gcssloop.com/info/about</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/info/about"/>
     <title>关于</title>
     <updated>1970-01-01T08:00:00+08:00</updated>
     <author>
