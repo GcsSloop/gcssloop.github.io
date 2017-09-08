@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-09-08T09:55:20+08:00</updated>
+  <updated>2017-09-08T10:06:16+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -5812,7 +5812,7 @@ translate: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;这应该是目前最详细的一篇讲解Matrix的中文文章了，在上一篇文章&lt;a href=&quot;http://www.gcssloop.com/customview/Matrix_Basic/&quot;&gt;Matrix原理&lt;/a&gt;中，我们对Matrix做了一个简单的了解，偏向理论，在本文中则会详细的讲解Matrix的具体用法，以及与Matrix相关的一些实用技巧。&lt;/p&gt;
+    <content type="html">&lt;p&gt;这应该是目前最详细的一篇讲解Matrix的中文文章了，在上一篇文章&lt;a href=&quot;http://www.gcssloop.com/customview/Matrix_Basic&quot;&gt;Matrix原理&lt;/a&gt;中，我们对Matrix做了一个简单的了解，偏向理论，在本文中则会详细的讲解Matrix的具体用法，以及与Matrix相关的一些实用技巧。&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;h2 id=&quot;️-警告测试本文章示例之前请关闭硬件加速&quot;&gt;⚠️ 警告：测试本文章示例之前请关闭硬件加速。&lt;/h2&gt;
@@ -6835,13 +6835,13 @@ location2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&
 
 &lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
 
-&lt;p&gt;本篇基本讲解了Matrix相关的所有方法，应该是目前对Matrix讲解最全面的一篇中文文章了，建议配合上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/Matrix_Basic/&quot;&gt;Matrix原理&lt;/a&gt;食用效果更佳。&lt;/p&gt;
+&lt;p&gt;本篇基本讲解了Matrix相关的所有方法，应该是目前对Matrix讲解最全面的一篇中文文章了，建议配合上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/Matrix_Basic&quot;&gt;Matrix原理&lt;/a&gt;食用效果更佳。&lt;/p&gt;
 
 &lt;p&gt;由于本人水平有限，可能出于误解或者笔误难免出错，如果发现有问题或者对文中内容存在疑问欢迎在下面评论区告诉我，请对问题描述尽量详细，以帮助我可以快速找到问题根源。&lt;/p&gt;
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -7070,7 +7070,7 @@ com.gcssloop.alltest I/Time: ForEach-LinkedList：5ms
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;本文内容偏向理论，和 &lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_Convert/&quot;&gt;画布操作&lt;/a&gt; 有重叠的部分，本文会让你更加深入的了解其中的原理。&lt;/p&gt;
+    <content type="html">&lt;p&gt;本文内容偏向理论，和 &lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_Convert&quot;&gt;画布操作&lt;/a&gt; 有重叠的部分，本文会让你更加深入的了解其中的原理。&lt;/p&gt;
 
 &lt;p&gt;本篇的主角Matrix，是一个一直在后台默默工作的劳动模范，虽然我们所有看到View背后都有着Matrix的功劳，但我们却很少见到它，本篇我们就看看它是何方神圣吧。&lt;/p&gt;
 
@@ -7942,7 +7942,7 @@ $$&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -7969,9 +7969,9 @@ $$&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
       <uri>http://luolinjia.com/cn/</uri>
     </author>
     <content type="html">&lt;p&gt;可以看到，在经过 
-&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Basic/&quot;&gt;Path之基本操作&lt;/a&gt;
-&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Bezier/&quot;&gt;Path之贝塞尔曲线&lt;/a&gt; 和 
-&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Over/&quot;&gt;Path之完结篇&lt;/a&gt; 后， Path中各类方法基本上都讲完了，表格中还没有讲解到到方法就是矩阵变换了，难道本篇终于要讲矩阵了？
+&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Basic&quot;&gt;Path之基本操作&lt;/a&gt;
+&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Bezier&quot;&gt;Path之贝塞尔曲线&lt;/a&gt; 和 
+&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Over&quot;&gt;Path之完结篇&lt;/a&gt; 后， Path中各类方法基本上都讲完了，表格中还没有讲解到到方法就是矩阵变换了，难道本篇终于要讲矩阵了？
 非也，矩阵这一部分仍在后面单独讲解，本篇主要讲解 PathMeasure 这个类与 Path 的一些使用技巧。&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -8741,7 +8741,7 @@ tan[1] = y = 1&lt;/p&gt;
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -8763,7 +8763,7 @@ tan[1] = y = 1&lt;/p&gt;
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;经历过前两篇 &lt;a href=&quot;http://www.gcssloop.com/customview/Path_Basic/&quot;&gt;Path之基本操作&lt;/a&gt; 和 &lt;a href=&quot;http://www.gcssloop.com/customview/Path_Bezier/&quot;&gt;Path之贝塞尔曲线&lt;/a&gt; 的讲解，本篇终于进入Path的收尾篇，本篇结束后Path的大部分相关方法都已经讲解完了，但Path还有一些更有意思的玩法，应该会在后续的文章中出现。&lt;/p&gt;
+    <content type="html">&lt;p&gt;经历过前两篇 &lt;a href=&quot;http://www.gcssloop.com/customview/Path_Basic&quot;&gt;Path之基本操作&lt;/a&gt; 和 &lt;a href=&quot;http://www.gcssloop.com/customview/Path_Bezier&quot;&gt;Path之贝塞尔曲线&lt;/a&gt; 的讲解，本篇终于进入Path的收尾篇，本篇结束后Path的大部分相关方法都已经讲解完了，但Path还有一些更有意思的玩法，应该会在后续的文章中出现。&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -9370,7 +9370,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -9395,7 +9395,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;在上一篇文章&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Basic/&quot;&gt;Path之基本操作&lt;/a&gt;中我们了解了Path的基本使用方法，本次了解Path中非常非常非常重要的内容-贝塞尔曲线。&lt;/p&gt;
+    <content type="html">&lt;p&gt;在上一篇文章&lt;a href=&quot;http://www.gcssloop.com/customview/Path_Basic&quot;&gt;Path之基本操作&lt;/a&gt;中我们了解了Path的基本使用方法，本次了解Path中非常非常非常重要的内容-贝塞尔曲线。&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -10118,7 +10118,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -10382,7 +10382,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;在上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_PictureText/&quot;&gt;Canvas之图片文字&lt;/a&gt;中我们了解了如何使用Canvas中绘制图片文字，结合前几篇文章，Canvas的基本操作已经差不多完结了，然而Canvas不仅仅具有这些基本的操作，还可以更加炫酷，本次会了解到path(路径)这个Canvas中的神器，有了这个神器，就能创造出更多&lt;strong&gt;炫(zhuang)酷(B)&lt;/strong&gt;的东东了。&lt;/p&gt;
+    <content type="html">&lt;p&gt;在上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_PictureText&quot;&gt;Canvas之图片文字&lt;/a&gt;中我们了解了如何使用Canvas中绘制图片文字，结合前几篇文章，Canvas的基本操作已经差不多完结了，然而Canvas不仅仅具有这些基本的操作，还可以更加炫酷，本次会了解到path(路径)这个Canvas中的神器，有了这个神器，就能创造出更多&lt;strong&gt;炫(zhuang)酷(B)&lt;/strong&gt;的东东了。&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -11212,7 +11212,7 @@ com.sloop.canvas E/2: false
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/1970/01/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/1970/01/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -11234,7 +11234,7 @@ com.sloop.canvas E/2: false
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;在上一篇文章&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_Convert/&quot;&gt;Canvas之画布操作&lt;/a&gt;中我们了解了画布的一些基本操作方法，本次了解一些绘制图片文字相关的内容。如果你对前几篇文章讲述的内容熟练掌握的话，那么恭喜你，本篇结束之后，大部分的自定义View已经难不倒你了，当然了，这并不是终点，接下来还会有更加炫酷的技能。&lt;/p&gt;
+    <content type="html">&lt;p&gt;在上一篇文章&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_Convert&quot;&gt;Canvas之画布操作&lt;/a&gt;中我们了解了画布的一些基本操作方法，本次了解一些绘制图片文字相关的内容。如果你对前几篇文章讲述的内容熟练掌握的话，那么恭喜你，本篇结束之后，大部分的自定义View已经难不倒你了，当然了，这并不是终点，接下来还会有更加炫酷的技能。&lt;/p&gt;
 
 &lt;h2 id=&quot;一canvas的常用操作速查表&quot;&gt;一.Canvas的常用操作速查表&lt;/h2&gt;
 
@@ -11982,7 +11982,7 @@ drawable.draw(canvas);
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -12005,7 +12005,7 @@ drawable.draw(canvas);
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_BasicGraphics/&quot; title=&quot;Canvas之绘制基本图形&quot;&gt;Canvas之绘制基本图形&lt;/a&gt;中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。&lt;/p&gt;
+    <content type="html">&lt;p&gt;上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_BasicGraphics&quot; title=&quot;Canvas之绘制基本图形&quot;&gt;Canvas之绘制基本图形&lt;/a&gt;中我们了解了如何使用Canvas绘制基本图形，本次了解一些基本的画布操作。&lt;/p&gt;
 
 &lt;p&gt;本来想把画布操作放到后面部分的，但是发现很多图形绘制都离不开画布操作，于是先讲解一下画布的基本操作方法。&lt;/p&gt;
 
@@ -12612,7 +12612,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -12638,7 +12638,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;在上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewProcess/&quot;&gt;自定义View分类与流程&lt;/a&gt;中我们了解自定义View相关的基本知识，不过，这些东西依旧还是理论，并不能&lt;strong&gt;拿来(zhuang)用(B)&lt;/strong&gt;, 这一次我们就了解一些&lt;strong&gt;能(zhaung)用(B)&lt;/strong&gt;的东西。&lt;/p&gt;
+    <content type="html">&lt;p&gt;在上一篇&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewProcess&quot;&gt;自定义View分类与流程&lt;/a&gt;中我们了解自定义View相关的基本知识，不过，这些东西依旧还是理论，并不能&lt;strong&gt;拿来(zhuang)用(B)&lt;/strong&gt;, 这一次我们就了解一些&lt;strong&gt;能(zhaung)用(B)&lt;/strong&gt;的东西。&lt;/p&gt;
 
 &lt;p&gt;在本篇文章中，我们先了解Canvas的基本用法，最后用一个小示例来结束本次教程。&lt;/p&gt;
 
@@ -13302,7 +13302,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -13674,7 +13674,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 &lt;h2 id=&quot;about&quot;&gt;About&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;本系列相关文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;GcsSloop&lt;/a&gt;&lt;/p&gt;
 
@@ -13980,7 +13980,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;h2 id=&quot;五参考资料&quot;&gt;五.参考资料&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;◎本系列相关文章&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;◎本系列相关文章&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/zhucai/p/android-graphics-animation.html&quot;&gt;安卓图形动画&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -14095,7 +14095,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;h2 id=&quot;参考文章&quot;&gt;参考文章&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;◎本系列相关文章&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;◎本系列相关文章&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </content>
@@ -14189,7 +14189,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;h2 id=&quot;五参考文章&quot;&gt;五.参考文章：&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;◎本系列相关文章&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;◎本系列相关文章&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/wangjinyu501/article/details/21827341&quot;&gt;Android 屏幕（View）坐标系统&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
