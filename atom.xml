@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-09-08T10:06:16+08:00</updated>
+  <updated>2017-09-11T23:00:46+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -10743,7 +10743,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;这一类就是在path中添加一个基本形状，基本形状部分和前面所讲的绘制基本形状并无太大差别，详情参考&lt;a href=&quot;https://github.com/GcsSloop/AndroidNote/blob/master/%E9%97%AE%E9%A2%98/Canvas/Canvas(1).md&quot;&gt;Canvas(1)颜色与基本形状&lt;/a&gt;, 本次只将其中不同的部分摘出来详细讲解一下。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这一类就是在path中添加一个基本形状，基本形状部分和前面所讲的绘制基本形状并无太大差别，详情参考&lt;a href=&quot;http://www.gcssloop.com/customview/Canvas_BasicGraphics&quot;&gt;Canvas之绘制图形&lt;/a&gt;, 本次只将其中不同的部分摘出来详细讲解一下。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;仔细观察一下第一类是方法，无一例外，在最后都有一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Path.Direction&lt;/code&gt;，这是一个什么神奇的东东？&lt;/strong&gt;&lt;/p&gt;
 
