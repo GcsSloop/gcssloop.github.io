@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 11 Sep 2017 23:00:46 +0800</pubDate>
-    <lastBuildDate>Mon, 11 Sep 2017 23:00:46 +0800</lastBuildDate>
+    <pubDate>Sun, 17 Sep 2017 02:02:09 +0800</pubDate>
+    <lastBuildDate>Sun, 17 Sep 2017 02:02:09 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -1374,7 +1374,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/006y8lVagw1fbs1vnfni1g307b07ct8m.gif&quot; alt=&quot;-510a02a1a3f8d16d&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;当然了，很多麻烦问题都有简单的解决方案，假如说我们真的要实现一个可以用两个或者多个手指缩放的控件，何必要自己算呢，可以尝试一下 Android 自带的解决方案：&lt;strong&gt;手势检测(GestureDetector)&lt;/strong&gt;，不仅能自动帮你计算好缩放比例和缩放中心，而且还可以检测出 单击、长按、滑屏 等不同的手势，不过这就不是本篇的事情了，以后有时间会写一下有关手势检测的用法(继续挖坑)。&lt;/p&gt;
+&lt;p&gt;当然了，很多麻烦问题都有简单的解决方案，假如说我们真的要实现一个可以用两个或者多个手指缩放的控件，何必要自己算呢，可以尝试一下 Android 自带的解决方案：&lt;strong&gt;手势检测(GestureDetector、ScaleGestureDecetor)&lt;/strong&gt;，不仅能自动帮你计算好缩放比例和缩放中心，而且还可以检测出 单击、长按、滑屏 等不同的手势，不过这就不是本篇的事情了，以后有时间会写一下有关手势检测的用法(继续挖坑)。&lt;/p&gt;
 
 &lt;h2 id=&quot;三总结&quot;&gt;三、总结&lt;/h2&gt;
 
