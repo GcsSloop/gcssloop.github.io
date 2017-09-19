@@ -452,7 +452,7 @@ GCS-LOG: onDoubleTapEvent - up
 
 <h5 id="232-onfling">2.3.2 onFling</h5>
 
-<p>Failing 中文直接翻译过来就是一扔、抛、甩，最常见的场景就是在 ListView 或者 RecyclerView 上快速滑动时手指抬起后它还会滚动一段时间才会停止。onFling 就是检测这种手势的。</p>
+<p>Fling 中文直接翻译过来就是一扔、抛、甩，最常见的场景就是在 ListView 或者 RecyclerView 上快速滑动时手指抬起后它还会滚动一段时间才会停止。onFling 就是检测这种手势的。</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onFling</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e1</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">e2</span><span class="o">,</span> <span class="kt">float</span> <span class="n">velocityX</span><span class="o">,</span> <span class="kt">float</span>
@@ -505,7 +505,7 @@ GCS-LOG: onDoubleTapEvent - up
   <li>判断小球边缘是否碰触控件边界，如果碰触了边界则让速度反向。</li>
 </ol>
 
-<p>根据这三条基本的逻辑就可以做出比较像的弹球效果，<a href="https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/FailingBall.zip">具体的Demo可以看这里</a>。</p>
+<p>根据这三条基本的逻辑就可以做出比较像的弹球效果，<a href="https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/FlingBall.zip">具体的Demo可以看这里</a>。</p>
 
 <h5 id="233-onlongpress">2.3.3 onLongPress</h5>
 
@@ -519,7 +519,7 @@ GCS-LOG: onDoubleTapEvent - up
 
 <h5 id="234-onscroll">2.3.4 onScroll</h5>
 
-<p>onScroll 就是监听滚动事件的，它看起来和 onFaling 比较像，不同的是，onSrcoll 后两个参数不是速度，而是滚动的距离。</p>
+<p>onScroll 就是监听滚动事件的，它看起来和 onFling 比较像，不同的是，onSrcoll 后两个参数不是速度，而是滚动的距离。</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onScroll</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">e1</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">e2</span><span class="o">,</span> <span class="kt">float</span> <span class="n">distanceX</span><span class="o">,</span> <span class="kt">float</span> 

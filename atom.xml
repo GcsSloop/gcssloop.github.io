@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-09-17T02:02:09+08:00</updated>
+  <updated>2017-09-19T15:50:03+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -269,7 +269,7 @@ GCS-LOG: onDoubleTapEvent - up
 
 &lt;h5 id=&quot;232-onfling&quot;&gt;2.3.2 onFling&lt;/h5&gt;
 
-&lt;p&gt;Failing 中文直接翻译过来就是一扔、抛、甩，最常见的场景就是在 ListView 或者 RecyclerView 上快速滑动时手指抬起后它还会滚动一段时间才会停止。onFling 就是检测这种手势的。&lt;/p&gt;
+&lt;p&gt;Fling 中文直接翻译过来就是一扔、抛、甩，最常见的场景就是在 ListView 或者 RecyclerView 上快速滑动时手指抬起后它还会滚动一段时间才会停止。onFling 就是检测这种手势的。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onFling&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;velocityX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt;
@@ -322,7 +322,7 @@ GCS-LOG: onDoubleTapEvent - up
   &lt;li&gt;判断小球边缘是否碰触控件边界，如果碰触了边界则让速度反向。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;根据这三条基本的逻辑就可以做出比较像的弹球效果，&lt;a href=&quot;https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/FailingBall.zip&quot;&gt;具体的Demo可以看这里&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;根据这三条基本的逻辑就可以做出比较像的弹球效果，&lt;a href=&quot;https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/FlingBall.zip&quot;&gt;具体的Demo可以看这里&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h5 id=&quot;233-onlongpress&quot;&gt;2.3.3 onLongPress&lt;/h5&gt;
 
@@ -336,7 +336,7 @@ GCS-LOG: onDoubleTapEvent - up
 
 &lt;h5 id=&quot;234-onscroll&quot;&gt;2.3.4 onScroll&lt;/h5&gt;
 
-&lt;p&gt;onScroll 就是监听滚动事件的，它看起来和 onFaling 比较像，不同的是，onSrcoll 后两个参数不是速度，而是滚动的距离。&lt;/p&gt;
+&lt;p&gt;onScroll 就是监听滚动事件的，它看起来和 onFling 比较像，不同的是，onSrcoll 后两个参数不是速度，而是滚动的距离。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onScroll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distanceX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; 
