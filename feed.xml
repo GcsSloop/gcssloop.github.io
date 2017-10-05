@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Oct 2017 01:41:57 +0800</pubDate>
-    <lastBuildDate>Fri, 06 Oct 2017 01:41:57 +0800</lastBuildDate>
+    <pubDate>Fri, 06 Oct 2017 01:51:36 +0800</pubDate>
+    <lastBuildDate>Fri, 06 Oct 2017 01:51:36 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -14,6 +14,8 @@
         <description>&lt;p&gt;Android 通用圆角布局，快速实现圆角需求。&lt;/p&gt;
 
 &lt;p&gt;之前做项目的时候有圆角相关需求，在网上找了很多方案都不够满意，于是自己做了一个，目前已经使用了一段时间，更新了多个版本，我遇到的问题都进行了修复，并且添加了很多方便的可配置属性，以满足不同需求。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/GcsSloop/rclayout&quot;&gt;【GitHub · 源代码】&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
 

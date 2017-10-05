@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-10-06T01:41:57+08:00</updated>
+  <updated>2017-10-06T01:51:36+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -25,6 +25,8 @@
     <content type="html">&lt;p&gt;Android 通用圆角布局，快速实现圆角需求。&lt;/p&gt;
 
 &lt;p&gt;之前做项目的时候有圆角相关需求，在网上找了很多方案都不够满意，于是自己做了一个，目前已经使用了一段时间，更新了多个版本，我遇到的问题都进行了修复，并且添加了很多方便的可配置属性，以满足不同需求。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/GcsSloop/rclayout&quot;&gt;【GitHub · 源代码】&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
 
