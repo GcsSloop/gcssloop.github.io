@@ -5,9 +5,263 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 02 Oct 2017 23:15:42 +0800</pubDate>
-    <lastBuildDate>Mon, 02 Oct 2017 23:15:42 +0800</lastBuildDate>
+    <pubDate>Fri, 06 Oct 2017 01:41:57 +0800</pubDate>
+    <lastBuildDate>Fri, 06 Oct 2017 01:41:57 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>RCLayout(圆角布局)</title>
+        <description>&lt;p&gt;Android 通用圆角布局，快速实现圆角需求。&lt;/p&gt;
+
+&lt;p&gt;之前做项目的时候有圆角相关需求，在网上找了很多方案都不够满意，于是自己做了一个，目前已经使用了一段时间，更新了多个版本，我遇到的问题都进行了修复，并且添加了很多方便的可配置属性，以满足不同需求。&lt;/p&gt;
+
+&lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tKfTcly1fk7twywj5oj30u01fewka.jpg&quot; width=&quot;300&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;支持的特性&quot;&gt;支持的特性&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[x] 包裹任意组件。&lt;/li&gt;
+  &lt;li&gt;[x] 设置圆角大小。&lt;/li&gt;
+  &lt;li&gt;[x] 分别对每一个角设置圆角大小。&lt;/li&gt;
+  &lt;li&gt;[x] 设置描边宽度。&lt;/li&gt;
+  &lt;li&gt;[x] 设置描边颜色。&lt;/li&gt;
+  &lt;li&gt;[x] 圆形。&lt;/li&gt;
+  &lt;li&gt;[x] 支持Padding。&lt;/li&gt;
+  &lt;li&gt;[x] 圆角抗锯齿。&lt;/li&gt;
+  &lt;li&gt;[x] 内容可点击区域即为显示区域。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;主要文件&quot;&gt;主要文件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名字&lt;/th&gt;
+      &lt;th&gt;摘要&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RCRealtiveLayout&lt;/td&gt;
+      &lt;td&gt;圆角相对布局&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;1-基本用法&quot;&gt;1. 基本用法&lt;/h3&gt;
+
+&lt;p&gt;RCRelativeLayout(Round Corner RelativeLayout)，使用圆角布局包裹需要圆角的内容然后添加自定义属性即可&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;com.gcssloop.widget.RCRelativeLayout&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:padding=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;20dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:round_corner=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;40dp&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+  	&lt;span class=&quot;c&quot;&gt;&amp;lt;!--任意View--&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ImageView&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:scaleType=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;centerCrop&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@drawable/test&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;TextView&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;match_parent&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;50dp&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:background=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#aaffffff&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:gravity=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;center&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_alignParentBottom=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;圆角测试&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/com.gcssloop.widget.RCRelativeLayout&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;2-配置属性&quot;&gt;2. 配置属性&lt;/h3&gt;
+
+&lt;p&gt;可以在布局文件中配置的基本属性有五个：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;属性名称&lt;/th&gt;
+      &lt;th&gt;摘要&lt;/th&gt;
+      &lt;th&gt;是否必须设置&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;round_corner&lt;/td&gt;
+      &lt;td&gt;总体圆角半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;round_corner_top_left&lt;/td&gt;
+      &lt;td&gt;左上角圆角半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;round_corner_top_right&lt;/td&gt;
+      &lt;td&gt;右上角圆角半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;round_corner_bottom_left&lt;/td&gt;
+      &lt;td&gt;左下角圆角半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;round_corner_bottom_right&lt;/td&gt;
+      &lt;td&gt;右下角圆角半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;round_as_circle&lt;/td&gt;
+      &lt;td&gt;是否剪裁为圆形&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;boolean&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;stroke_width&lt;/td&gt;
+      &lt;td&gt;描边半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;stroke_color&lt;/td&gt;
+      &lt;td&gt;描边颜色&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;color&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;3-属性简介&quot;&gt;3. 属性简介&lt;/h3&gt;
+
+&lt;h4 id=&quot;31-圆角属性&quot;&gt;3.1 圆角属性&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;round_as_circle&lt;/code&gt; 的权限最高，在默认情况下它的值为false，如果设置这个属性为 true，则会忽略圆角大小的数值，剪裁结果均为圆形。&lt;/p&gt;
+
+&lt;p&gt;设置圆角大小的一共有5个属性，一个是全局的圆角大小&lt;code class=&quot;highlighter-rouge&quot;&gt;round_corner&lt;/code&gt;，其余四个&lt;code class=&quot;highlighter-rouge&quot;&gt;round_corner_xx_xx&lt;/code&gt;是分别对每一个角进行设置，它们之间存在替代关系。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;仅设置全局，所有的角都跟随全局。&lt;/li&gt;
+  &lt;li&gt;仅对某些角设置，则只有设置过的角会有圆角效果。&lt;/li&gt;
+  &lt;li&gt;全局和部分都有设置，则有具体设置的角跟随具体设置的数值，没有具体设置的角跟随全局设置。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;32-描边属性&quot;&gt;3.2 描边属性&lt;/h4&gt;
+
+&lt;p&gt;描边宽度&lt;code class=&quot;highlighter-rouge&quot;&gt;stroke_width&lt;/code&gt;默认情况下数值为 0，即不存在描边效果。&lt;br /&gt;
+描边高度&lt;code class=&quot;highlighter-rouge&quot;&gt;stroke_color&lt;/code&gt;默认情况下为白色，允许自定义颜色。&lt;/p&gt;
+
+&lt;h3 id=&quot;4添加方法&quot;&gt;4.添加方法&lt;/h3&gt;
+
+&lt;h4 id=&quot;41-添加仓库&quot;&gt;4.1 添加仓库&lt;/h4&gt;
+
+&lt;p&gt;在项目的 &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; 文件中配置仓库地址。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;allprojects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 私有仓库地址&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;maven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://lib.gcssloop.com:8081/repository/gcssloop-central/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;42-添加项目依赖&quot;&gt;4.2 添加项目依赖&lt;/h4&gt;
+
+&lt;p&gt;在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.widget:rclayout:1.4.1@aar'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;作者简介&quot;&gt;作者简介&lt;/h2&gt;
+
+&lt;h4 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;个人网站-httpwwwgcssloopcom&quot;&gt;个人网站: http://www.gcssloop.com&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;更新日志&quot;&gt;更新日志&lt;/h2&gt;
+
+&lt;h4 id=&quot;v141&quot;&gt;v1.4.1&lt;/h4&gt;
+
+&lt;p&gt;修复圆角状态下Padding值问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v140&quot;&gt;v1.4.0&lt;/h4&gt;
+
+&lt;p&gt;限定点击区域为显示区域。&lt;/p&gt;
+
+&lt;h4 id=&quot;v130&quot;&gt;v1.3.0&lt;/h4&gt;
+
+&lt;p&gt;支持描边。&lt;/p&gt;
+
+&lt;p&gt;添加描边宽度，描边颜色两个属性。&lt;/p&gt;
+
+&lt;h4 id=&quot;v120&quot;&gt;v1.2.0&lt;/h4&gt;
+
+&lt;p&gt;支持圆形。&lt;/p&gt;
+
+&lt;h4 id=&quot;v110&quot;&gt;v1.1.0&lt;/h4&gt;
+
+&lt;p&gt;更新圆角实现方式。&lt;/p&gt;
+
+&lt;p&gt;添加抗锯齿。&lt;/p&gt;
+
+&lt;h4 id=&quot;v100&quot;&gt;v1.0.0&lt;/h4&gt;
+
+&lt;p&gt;允许对每一个角分别设置半径。&lt;/p&gt;
+
+&lt;p&gt;支持padding。&lt;/p&gt;
+
+&lt;h4 id=&quot;v100-alpha&quot;&gt;v1.0.0-alpha&lt;/h4&gt;
+
+&lt;p&gt;测试圆角方案是否可行。&lt;/p&gt;
+
+&lt;p&gt;允许统一设置圆角半径。&lt;/p&gt;
+
+&lt;h2 id=&quot;版权信息&quot;&gt;版权信息&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Copyright (c) 2017 GcsSloop
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 05 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/tools/rclayout</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/tools/rclayout</guid>
+        
+        <category>Android,</category>
+        
+        <category>RoundCorner</category>
+        
+        
+        <category>Tools</category>
+        
+      </item>
     
       <item>
         <title>Encrypt(加密工具包)</title>
@@ -3968,237 +4222,6 @@ int a = 5;
         <pubDate>Tue, 25 Oct 2016 00:00:00 +0800</pubDate>
         <link>http://www.gcssloop.com/markdown/markdown-grammar</link>
         <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-grammar</guid>
-        
-        <category>Markdown</category>
-        
-        
-        <category>Markdown</category>
-        
-      </item>
-    
-      <item>
-        <title>Markdown实用技巧－快速入门</title>
-        <description>&lt;p&gt;本文为 &lt;strong&gt;Markdown实用技巧&lt;/strong&gt; 系列的基础文章，并没有不可描述的内容 (⊙ω⊙)&lt;/p&gt;
-
-&lt;p&gt;自从接触了 Markdown 之后，就一直用 Markdown 作为自己的主要书写工具，不论是平时做一些简单的纪录，还是用来写博客，写文档都是非常方便。你现在看到的这篇文章就是用 Markdown 进行书写的。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;我最早因为 GitHub 而了解到 Markdown，当时支持 Markdown 的平台并不多，现在很多平台都已经开始支持 Markdown了，不论是老牌的 CSDN 还是比较新的 简书、掘金、DiyCode 等都支持使用Markdown进行写作，借此趋势，赶紧向还不了解 Markdown 的魔法师强势安利一波。&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;如果你已经开始使用 Markdown了，那么本文作用对你可以能并不大，请看后续文章。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;什么是-markdown-&quot;&gt;什么是 Markdown ?&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Markdown 是一种轻量级标记语言，创始人为約翰·格魯伯（John Gruber）。 它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;相比于 HTML (&lt;del&gt;How To Make Love&lt;/del&gt; 大雾)， &lt;strong&gt;Markdown 更加精简，更加注重内容，其主要宗旨是「易读易写」&lt;/strong&gt; 一般 Markdown 最终都是要转换为 HTML 的，可用于书写博客或者网页，但借助某些工具，可以讲 Markdown 转换为 pdf，word，Latex 等其他常见的文件格式。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;为什么选择-markdown-&quot;&gt;为什么选择 Markdown ?&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;选择 Markdown 但理由只有一个：方便，节省时间!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;至于为什么这样说，请看下面内容：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;语法简洁&lt;/strong&gt;，没有任何编程基础的人十几分钟语言即可入门。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;注重内容&lt;/strong&gt;，专注于内容编写，不再因为格式拍版而苦恼 (word格式刷工具哭晕在厕所)。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;易阅读性&lt;/strong&gt;，即便是没有经过转换的 Markdown 文件，大部分文字内容仍可阅读。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;易编辑性&lt;/strong&gt;，任何文本编辑器都能编辑 Markdown 文件。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;跨平台性&lt;/strong&gt;，任何平台均能打开 Markdown 文件，由于是纯文本文件，不存在格式兼容的问题。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;导出方便&lt;/strong&gt;，支持导出为 HTML，PDF，Word(.docx)，LaTex 等常见格式(需要工具支持)。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在 Windows 上编写的文档，非常方便的就能在 Mac 上继续编辑，方便数据迁移，降低沟通成本。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;markdown-存在的问题&quot;&gt;Markdown 存在的问题&lt;/h2&gt;
-
-&lt;p&gt;前面吹嘘了 Markdown 的那么多优点，下面就说一下其中的不足：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;图片问题&lt;/strong&gt;，很多人都觉得 Markdown 文件插入图片麻烦，还要自己上传找链接。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;语法兼容&lt;/strong&gt;，基础语法是兼容的，但不同工具(平台)的扩展语法不兼容(由于没有统一标准)。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;细节控制&lt;/strong&gt;，Markdown只提供最基础的格式，其显示样式主要由CSS控制，很难针对性的控制部分内容。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以上应该是 Markdown 最常见的一些麻烦，不过不必担心，&lt;strong&gt;后续文章会教大家来如何解决这些问题，取其精华，去其糟粕，让 Markdown 运用得心应手&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;markdown-编辑器推荐&quot;&gt;Markdown 编辑器推荐&lt;/h2&gt;
-
-&lt;p&gt;俗话说，工欲善其事，必先利其器，虽然 Markdown 用任何文本编辑器都能打开编辑，但仍需要专业工具进行转化，常见 Markdown 编辑器我基本上都尝试用过，在此简单推荐几种，大家找适合自己的就行。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;仅推荐本地编辑器，在线编辑器根据需要自己选择，很多平台都已经支持直接用 Markdown 进行编辑了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;编辑器&lt;/th&gt;
-      &lt;th&gt;支持平台&lt;/th&gt;
-      &lt;th&gt;支持导出格式&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;http://www.typora.io/&quot;&gt;&lt;strong&gt;Typora&lt;/strong&gt;&lt;/a&gt; &lt;br /&gt; 正在开发， 界面简洁， 对 HTML 语法支持较弱， 支持导出文件类型较多(个人目前正在使用的编辑器)。&lt;/td&gt;
-      &lt;td&gt;Mac、&lt;br /&gt; Windows、&lt;br /&gt; Linux&lt;/td&gt;
-      &lt;td&gt;HTML、 &lt;br /&gt;Word(.docx)、 &lt;br /&gt;PDF、 &lt;br /&gt;LaTex 等&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://eme.moe/&quot;&gt;&lt;strong&gt;EME&lt;/strong&gt;&lt;/a&gt; &lt;br /&gt; 正在开发， 界面简洁，对 HTML 语法支持友好，支持导出文件类型较少。&lt;/td&gt;
-      &lt;td&gt;Mac、 &lt;br /&gt;Windows、 &lt;br /&gt;Linux&lt;/td&gt;
-      &lt;td&gt;仅 PDF&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;http://25.io/mou/&quot;&gt;&lt;strong&gt;Mou&lt;/strong&gt;&lt;/a&gt; &lt;br /&gt; 停止开发， 界面简洁， 对 HTML 语法支持友好， 但支持导出文件类型较少。&lt;/td&gt;
-      &lt;td&gt;Mac&lt;/td&gt;
-      &lt;td&gt;HTML、 &lt;br /&gt;PDF&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;http://macdown.uranusjr.com/&quot;&gt;&lt;strong&gt;Macdown&lt;/strong&gt;&lt;/a&gt; &lt;br /&gt; 正在开发，相当于Mou的开源增强版， 对 HTML 语法支持友好， 但支持导出文件类型较少。&lt;/td&gt;
-      &lt;td&gt;Mac&lt;/td&gt;
-      &lt;td&gt;HTML、 &lt;br /&gt;PDF&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;http://www.sublimetext.com/3&quot;&gt;&lt;strong&gt;Sublime Text&lt;/strong&gt;&lt;/a&gt; &lt;br /&gt; 神兵利器，需要安装插件才能使用， 相对比较麻烦， 适合高级魔法师。&lt;/td&gt;
-      &lt;td&gt;Mac、 &lt;br /&gt;Windows、 &lt;br /&gt;Linux&lt;/td&gt;
-      &lt;td&gt;多种格式(插件)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://atom.io/&quot;&gt;&lt;strong&gt;Atom&lt;/strong&gt;&lt;/a&gt; &lt;br /&gt; 神兵利器， 支持多种常见的编程语言， 如果仅仅是为了写 Markdown 不推荐安装。&lt;/td&gt;
-      &lt;td&gt;Mac、 &lt;br /&gt;Windows、 &lt;br /&gt;Linux&lt;/td&gt;
-      &lt;td&gt;HTML、 &lt;br /&gt;PDF(插件)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;快速入门&quot;&gt;快速入门&lt;/h2&gt;
-
-&lt;p&gt;本文是为了帮助还不了解 Markdown 的魔法师有一个简单的认知，所以快速入门只说最基本的一些内容。&lt;/p&gt;
-
-&lt;h3 id=&quot;标题&quot;&gt;标题&lt;/h3&gt;
-
-&lt;p&gt;通过在行首插入 1 到 6 个 &lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt; ，来定义对应的 1 到 6 阶 标题：&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;# 一级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h1&gt;一级标题&lt;/h1&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;## 二级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h2&gt;二级标题&lt;/h2&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;### 三级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h3&gt;三级标题&lt;/h3&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;分段&quot;&gt;分段&lt;/h3&gt;
-
-&lt;p&gt;在 Markdown 中段落由一行或者多行文本组成，相邻的两行文字会被视为同一段落，如果存在空行则被视为不同段落( Markdown 对空行的定义是看起来是空行就是空行，即使空行中存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;空格&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;TAB&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;回车&lt;/code&gt; 等不可见字符，同样会被视为空行)。&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-      第一行&lt;br /&gt;
-      相邻被视为同一段落。
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;p&gt;
-        第一行 相邻被视为同一段落。
-        &lt;/p&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-      第一行&lt;br /&gt;
-      &lt;br /&gt;
-      两行之间存在空行，视为不同段落。
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;p&gt;
-        第一行
-        &lt;/p&gt;
-        &lt;p&gt;
-        两行之间存在空行，视为不同段落。
-        &lt;/p&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;链接和图片&quot;&gt;链接和图片&lt;/h3&gt;
-
-&lt;table style=&quot;word-break:break-all;&quot;&gt;
-    &lt;tr&gt;
-      &lt;th width=&quot;200&quot;&gt;Markdown&lt;/th&gt;
-      &lt;th width=&quot;200&quot;&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;[GcsSloop](http://www.gcssloop.com)&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&quot;http://www.gcssloop.com&quot; target=&quot;_blank&quot;&gt;GcsSloop&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr class=&quot;alternate&quot;&gt;
-    &lt;td&gt;![GcsSloop Blog](http://www.gcssloop.com/assets/siteinfo/friends/gcssloop.jpg)&lt;/td&gt;
-    &lt;td&gt;&lt;img src=&quot;http://www.gcssloop.com/assets/siteinfo/friends/gcssloop.jpg&quot; alt=&quot;GcsSloop Blog&quot; /&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;p&gt;知道了上面这些内容就已经算是入门了，可以用 Markdown 进行快乐的写作，如果想了解更多语法相关内容，请看下一篇 &lt;a href=&quot;/markdown/markdown-grammar&quot; title=&quot;Markdown实用技巧－语法&quot;&gt;Markdown实用技巧－基础语法&lt;/a&gt;&lt;/p&gt;
-
-&lt;section class=&quot;contribute&quot;&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt; 
-      function bztoggle() {
-        var con = document.getElementById(&quot;baozang&quot;);
-        if (con.style.display == &quot;none&quot;) {
-          con.style.display = &quot;block&quot;;
-        } else {
-          con.style.display = &quot;none&quot;;
-        }
-      }
-    &lt;/script&gt; 
-      &lt;a class=&quot;btn-border-small&quot; onclick=&quot;bztoggle()&quot;&gt;发现宝藏？&lt;/a&gt;
-      &lt;br /&gt;
-      &lt;div id=&quot;baozang&quot; style=&quot;display:none; margin-top:20px;&quot;&gt;
-        &lt;p align=&quot;center&quot;&gt;
-        &lt;img src=&quot;http://ww3.sinaimg.cn/large/005Xtdi2jw1f944bnm7inj30dc0f6ju9.jpg&quot; alt=&quot;比利王&quot; /&gt;
-        &lt;font color=&quot;red&quot;&gt;恭喜你发现宝藏 &quot;比利王&quot;，收获&quot;王的微笑&quot;一枚，快安利给其他小伙伴吧!&lt;/font&gt;
-        &lt;/p&gt;
-      &lt;/div&gt;
-&lt;/section&gt;
-
-&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.markdown.cn/&quot;&gt;Markdown－基础语法&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;about-me&quot;&gt;About Me&lt;/h2&gt;
-
-&lt;h3 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot; target=&quot;_blank&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 24 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-start</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-start</guid>
         
         <category>Markdown</category>
         
