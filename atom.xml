@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-10-06T01:51:36+08:00</updated>
+  <updated>2017-10-06T07:05:33+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -93,7 +93,7 @@
 
 &lt;h3 id=&quot;2-配置属性&quot;&gt;2. 配置属性&lt;/h3&gt;
 
-&lt;p&gt;可以在布局文件中配置的基本属性有五个：&lt;/p&gt;
+&lt;p&gt;可以在布局文件中配置的属性如下：&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;

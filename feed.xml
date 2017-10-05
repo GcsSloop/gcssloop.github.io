@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Oct 2017 01:51:36 +0800</pubDate>
-    <lastBuildDate>Fri, 06 Oct 2017 01:51:36 +0800</lastBuildDate>
+    <pubDate>Fri, 06 Oct 2017 07:05:33 +0800</pubDate>
+    <lastBuildDate>Fri, 06 Oct 2017 07:05:33 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -82,7 +82,7 @@
 
 &lt;h3 id=&quot;2-配置属性&quot;&gt;2. 配置属性&lt;/h3&gt;
 
-&lt;p&gt;可以在布局文件中配置的基本属性有五个：&lt;/p&gt;
+&lt;p&gt;可以在布局文件中配置的属性如下：&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
