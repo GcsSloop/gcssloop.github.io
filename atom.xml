@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-10-06T07:05:33+08:00</updated>
+  <updated>2017-10-06T15:41:53+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -211,7 +211,7 @@
 
 &lt;h4 id=&quot;v141&quot;&gt;v1.4.1&lt;/h4&gt;
 
-&lt;p&gt;修复圆角状态下Padding值问题。&lt;/p&gt;
+&lt;p&gt;修复圆形状态下Padding值问题。&lt;/p&gt;
 
 &lt;h4 id=&quot;v140&quot;&gt;v1.4.0&lt;/h4&gt;
 

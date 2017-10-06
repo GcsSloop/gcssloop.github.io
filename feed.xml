@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Oct 2017 07:05:33 +0800</pubDate>
-    <lastBuildDate>Fri, 06 Oct 2017 07:05:33 +0800</lastBuildDate>
+    <pubDate>Fri, 06 Oct 2017 15:41:53 +0800</pubDate>
+    <lastBuildDate>Fri, 06 Oct 2017 15:41:53 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -200,7 +200,7 @@
 
 &lt;h4 id=&quot;v141&quot;&gt;v1.4.1&lt;/h4&gt;
 
-&lt;p&gt;修复圆角状态下Padding值问题。&lt;/p&gt;
+&lt;p&gt;修复圆形状态下Padding值问题。&lt;/p&gt;
 
 &lt;h4 id=&quot;v140&quot;&gt;v1.4.0&lt;/h4&gt;
 
