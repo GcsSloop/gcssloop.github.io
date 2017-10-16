@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-10-06T15:41:53+08:00</updated>
+  <updated>2017-10-16T13:03:54+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -173,7 +173,7 @@
 &lt;h4 id=&quot;32-描边属性&quot;&gt;3.2 描边属性&lt;/h4&gt;
 
 &lt;p&gt;描边宽度&lt;code class=&quot;highlighter-rouge&quot;&gt;stroke_width&lt;/code&gt;默认情况下数值为 0，即不存在描边效果。&lt;br /&gt;
-描边高度&lt;code class=&quot;highlighter-rouge&quot;&gt;stroke_color&lt;/code&gt;默认情况下为白色，允许自定义颜色。&lt;/p&gt;
+描边颜色&lt;code class=&quot;highlighter-rouge&quot;&gt;stroke_color&lt;/code&gt;默认情况下为白色，允许自定义颜色。&lt;/p&gt;
 
 &lt;h3 id=&quot;4添加方法&quot;&gt;4.添加方法&lt;/h3&gt;
 
