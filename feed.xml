@@ -5,9 +5,133 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 07 Nov 2017 13:58:52 +0800</pubDate>
-    <lastBuildDate>Tue, 07 Nov 2017 13:58:52 +0800</lastBuildDate>
+    <pubDate>Tue, 07 Nov 2017 14:07:01 +0800</pubDate>
+    <lastBuildDate>Tue, 07 Nov 2017 14:07:01 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>雕虫晓技(一) 组件化</title>
+        <description>&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+
+&lt;p&gt;本文是我工作这段时间的部分经验总结，仅从个人的角度谈一下对工作中编程的看法。&lt;/p&gt;
+
+&lt;p&gt;今年毕业出来工作，前期需要学习和实践的东西有很多，生活的节奏也在进行调节，因此就没有太多的精力去写文章了，从而导致我的“&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;Android自定义View&lt;/a&gt;”系列文章一直处于停更状态。&lt;/p&gt;
+
+&lt;p&gt;其实并非没有时间，而是没有太多的精力投入到这上面，对于技术文章来说，如果想要写的通俗易懂，不误导读者，不仅需要对其中运用到的各个技术细节都进行考证，而且要花费大量的精力去梳理文章的脉络，并不是把所有知识点都罗列一遍就可以了，因此即便是一篇简单的文章，想要做好，也需要耗费不少的精力。&lt;/p&gt;
+
+&lt;p&gt;如果只是单纯的翻译或者总结一些前人的经验，写出来一篇文章是很容易的，但是我认为这样的文章是没有太大价值的，而且容易传播一些错误的观点，如果因为乱写误导了别人，反而不如不写。&lt;/p&gt;
+
+&lt;p&gt;由于出来工作了一段时间，参与的两个项目也都基本结束了，所以特地水一篇文章，来讲一下自己工作的感受，顺便总结一下这段时间收获的经验。&lt;/p&gt;
+
+&lt;p&gt;自己学习编程和工作中编程虽然基本是类似的，但也有很多的不同。&lt;/p&gt;
+
+&lt;p&gt;自己学的时候可以瞎胡搞，看到什么新东西都拿来玩玩，有大量的时间可以浪费，所以大部分的时间处于偏创造性的方向，总喜欢挑战一些自己没做过的东西，以保持新鲜感和对编程的热情。&lt;/p&gt;
+
+&lt;p&gt;但工作就不同了，工作中所需要开发的功能都很确定，因此大部分时间都是在写“比较枯燥”的业务代码，称为搬砖也不为过。因为从本质上来讲，写业务就是把一些现成的代码搬过来，再按照一定的顺序堆叠起来，最终完成这个业务。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;尽管工作中大部分时间是在写业务，但写业务也是有不同的，如何在相同的实力下释放出更高的战斗力，让自己负责的业务更加坚固耐用，还是有些小技巧的。今天就和大家分享一个如何四两拨千金的方法。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;普通开发流程&quot;&gt;普通开发流程&lt;/h2&gt;
+
+&lt;p&gt;下面用一个小故事来引出本文主题(故事纯属虚构)。&lt;/p&gt;
+
+&lt;p&gt;小明参与开发了一个项目A，在项目A中有一个功能需要对视频中的音频进行处理，允许实时设置音频的均衡器，小明于是花了三天时间在项目A中开发出了一个模块A，用于处理音频均衡器。&lt;/p&gt;
+
+&lt;p&gt;项目A开发了一段时间之后，又来了一个项目B，同样有这个需求，于是小明把之前项目A中的模块复制到项目B中继续开发。&lt;/p&gt;
+
+&lt;p&gt;项目B开发了一段时间后发现模块A存在一个Bug，于是在项目B中对这个Bug进行了修复，等项目B告一段落，继续进行项目A开发时，想到了之前模块A中还存在这样一个问题，于是对照着项目B对项目A中对模块进行了修复。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;整个流程像下面这样：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tNc79gy1fl83esqv0rj30l40gg75k.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于两个项目都由小明负责，这个问题还是不大的，但是假如项目是多人合作的呢？小明在开发项目B时，项目A交给小刚负责继续开发，小刚也发现了模块A的Bug，也进行了修复，这样当小明继续回到项目A开发时，想要去修复模块A，发现模块A已经被修改了，经过检查对比后发现，小刚使用的修复方案稍有不同，但也管用，于是决定不对A项目进行修改了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;流程变成了下面这样子：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tNc79gy1fl83f2sbrlj30l40gg75g.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;于是，模块A在两个项目中就产生了一点点的不同，随着开发的继续，这些不同会逐渐的放大，项目A中和项目B中的模块会变的完全不同，发现Bug后，手动修复的成本也会大大的增加。最终，对于项目A中发现的问题，在项目A中进行修复后，无法将同样的方案应用于项目B，项目B中发现的Bug修复方案同样也无法应用于项目A，也就是说虽然两个项目中的模块同样用于处理音频均衡器，却拥有着不同的逻辑，无法兼容，并且逐渐变的难以维护。&lt;/p&gt;
+
+&lt;p&gt;维护两个相似但不兼容的模块是十分痛苦的，尤其是两个项目需要交替进行维护和开发的时候，很容易将两个模块弄混的，一不小心就可能会引发一些不必要的混乱。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;既然如此，那么我们规定一下，谁的模块谁进行负责行吗？由谁进行负责就负责到底，别人不允许随便修改，不就能解决这个问题了吗？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;答案是不行的，首先项目有自己的周期，有些项目可能会停滞非常长的时间才继续开发，谁又能记得住修改了哪些东西，其次，公司人员是流动的，可能会有人加入和离开，靠人员来保证自然是不靠谱的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;那么我们这样规定，修改任何一个模块的时候，需要不同项目中相同的模块都进行修改。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个也是不靠谱的，首先，可能存在新来的同事对以前的项目不熟悉这一情况，其次，可能修改后的模块和之前不兼容，例如修改了某些调用方法，对所有项目都进行更新显然不靠谱，工作量太大了。&lt;/p&gt;
+
+&lt;h2 id=&quot;组件化开发流程&quot;&gt;组件化开发流程&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;那么是否有更好的方案呢？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;当然是有的，如果在开发项目A的时候就意识到该模块可以被复用，那么在开发之初就应当将模块当作一个组件独立出来，单独进行开发，之后在项目A中引用这个库即可，如果之前没有意识到，在开发项目B的时候意识到了，那么应该立即对项目A中该模块进行重构，将其独立出来，之后让两个项目同时引用同一个库，这样就避免了同时维护两个不兼容库的尴尬境地。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;例如下面这样：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNc79gy1fl83ffk13cj30lk0gdq3l.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;其实这个流程相对于之前的流程来说，只不过是将其中的模块独立出来了而已，但是却能带来更多的好处。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 避免了不兼容问题：&lt;/strong&gt; 两个项目同时引用同一个库，自然不会出现分化出两个不兼容版本，难以维护的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 修复Bug方便：&lt;/strong&gt; 如果在其中一个项目中发现了Bug，只需要到库中修复该问题，重新释放一个版本，之后到另一个项目中只需要修改一下版本号即可完成修复，而不是复制代码，手动合并。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 更稳定：&lt;/strong&gt; 假如我想在模块中做一些优化，但是我并不能很确定这些优化不会引发Bug，我可以先释放一个测试版，在项目中进行测试，如果优化导致了一些问题的产生，我只用花几秒钟时间修改版本号就可以退回到稳定版，而不是到版本管理工具中去退回某个提交记录。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 节省时间：&lt;/strong&gt; 相比于手动维护两个版本来说，这样显然更加节省开发时间，例如我因为一个项目的需要，在库中添加了新特性，当另一个项目也需要这些特性时，只需要修改一下版本号即可接入。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. 快速更新：&lt;/strong&gt; 即便是一个搁置了很久旧项目，在需要更新的时候，也可以查询一下组件更新记录，快速更新到最稳定的一个兼容版。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;不仅如此，随着项目发展，这个库将会变的越来越完善，越来越稳定，后续的项目如果需要这些功能，花费几秒钟添加一下依赖，就能使用一个稳定的库。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;组件使用版本号进行控制，通常是分三段 &lt;code class=&quot;highlighter-rouge&quot;&gt;x.y.z&lt;/code&gt; (如：1.0.0)，我一般是这样规定的：&lt;/strong&gt;&lt;br /&gt;
+内容和接口没有变动，只是修复了Bug，或者内部状态，修改最后一位(如：1.0.1)。&lt;br /&gt;
+如果调用接口增加了，或者细微调整，修改中间位(如：1.1.0)。&lt;br /&gt;
+如果进行了大面积重构，接口完全不同了，修改第一位(如：2.0.0)。&lt;/p&gt;
+
+&lt;p&gt;下面是我自己的例子，在项目中引用自己的代码库。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNc79gy1fl83fpkm49j30dn053my3.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;当然了，看到这里有不少小伙伴都会比较疑惑，作为公司的代码，有很多内容都是涉及到机密的，拿来开源总是不行的吧，你这样用不会出问题？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，能拿来独立作为库的代码一般都是一些通用代码，这部分代码通常是不会设计到具体业务逻辑的，自然也就不存在什么涉密了。&lt;br /&gt;
+其次，这些代码并没有在公共的开源库上托管，而是隶属于内部私有服务器，出了公司就无法访问到了，而且它拥有完整的权限管理，如果不给权限，就算公司内部也看不了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;如果想要知道这些是如何做到的，可以Google搜索 “nexus maven 私服 搭建”，当然，百度也可以，限于篇幅和搭建方式比较容易，网上又有很多教程，我这里就不过多叙述了。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果你的团队只有自己一个开发，可以直接将仓库部署到自己的电脑上，如果是多人合作型的，可以部署在内网服务器上。实在没有条件，不喜欢折腾的，也可以将独立仓库打包成aar格式的文件，之后在项目中使用这些文件，尽管用起来稍微麻烦一点，但也是选择之一。&lt;/p&gt;
+
+&lt;p&gt;花费一点时间搭建一个私服，所能节省的开发时间是超乎想象的，当然，如果想将项目中部分模块作为组件进行开发，一定要注意做好文档管理，记录好每次更新的内容，方便后期管理。例如我负责的一些模块，不仅在仓库上对文档源码进行了管理，本地也对每个版本的源码做了备份，例如我前段时间开源的 **&lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;【pager-layoutmanager】&lt;/a&gt; ** ,在本地是这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79ly1fl83fx8isuj30mr0g8wjn.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;如果尝试组件化开发一段时间，积累了大量的基础组件，那么再开始新项目的时候就能更快速的去实现具体的需求，而不用在基础的组件上费功夫了。&lt;/p&gt;
+
+&lt;p&gt;关于组件化暂时就说到这里，当然了具体到现实的业务中，还有很多细节和技巧需要注意，不过这些东西还是自己去体会更好，听别人说的再多，终究不如自己实践一下记忆更深刻。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 06 Nov 2017 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/gebug/componentr</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/gebug/componentr</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>GeBug</category>
+        
+      </item>
     
       <item>
         <title>PagerLayoutManager(分页布局)</title>
@@ -3468,656 +3592,6 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
         
         
         <category>Markdown</category>
-        
-      </item>
-    
-      <item>
-        <title>安卓自定义View进阶-MotionEvent详解</title>
-        <description>&lt;p&gt;Android MotionEvent 详解，之前用了两篇文章 &lt;a href=&quot;http://www.gcssloop.com/customview/dispatch-touchevent-theory&quot; title=&quot;安卓自定义View进阶-事件分发机制原理&quot;&gt;事件分发机制原理&lt;/a&gt; 和 &lt;a href=&quot;http://www.gcssloop.com/customview/dispatch-touchevent-source&quot; title=&quot;安卓自定义View进阶-事件分发机制详解&quot;&gt;事件分发机制详解&lt;/a&gt; 来讲解事件分发，而作为事件分发主角之一的 MotionEvent 并没有过多的说明，本文就带大家了解 MotionEvent 的相关内容，简要介绍触摸事件，主要包括 单点触控、多点触控、鼠标事件 以及 getAction() 和 getActionMasked() 的区别。&lt;/p&gt;
-
-&lt;p&gt;Android 将所有的输入事件都放在了 MotionEvent 中，随着安卓的不断发展壮大，MotionEvent 也开始变得越来越复杂，下面是我自己整理的 MotionEvent 大事记:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;版本号&lt;/th&gt;
-      &lt;th&gt;更新内容&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Android 1.0 (API  1 )&lt;/td&gt;
-      &lt;td&gt;支持单点触控和轨迹球的事件。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Android 1.6 (API  4 )&lt;/td&gt;
-      &lt;td&gt;支持手势。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Android 2.0 (API  5 )&lt;/td&gt;
-      &lt;td&gt;支持多点触控。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Android 3.1 (API 12)&lt;/td&gt;
-      &lt;td&gt;支持触控笔，鼠标，键盘，操纵杆，游戏控制器等输入工具。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;以上仅仅是简要的说明几次比较大的变动，细小的修复和更新不计其数，此处就不一一列出了，反正也没人关心这些东西。&lt;br /&gt;
-MotionEvent 负责集中处理所有类型设备的输入事件，但是由于某些设备使用的几率较小本文会忽略讲解，或者简要讲解，例如：&lt;br /&gt;
-1、轨迹球只出现在最早的设备上，现代的设备上已经见不到了，本文不再叙述。&lt;br /&gt;
-2、触控笔和手指处理流程基本相同，不再多说。&lt;br /&gt;
-3、鼠标在手机上使用概率也比较小，会在文末简要介绍。&lt;/p&gt;
-
-&lt;h2 id=&quot;单点触控&quot;&gt;单点触控&lt;/h2&gt;
-
-&lt;p&gt;单点触控就非常简单啦，入门的工程师都会用，上一篇文章也简要介绍过，主要涉及以下几个事件:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;事件&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_DOWN&lt;/td&gt;
-      &lt;td&gt;手指 &lt;strong&gt;初次接触到屏幕&lt;/strong&gt; 时触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_MOVE&lt;/td&gt;
-      &lt;td&gt;手指 &lt;strong&gt;在屏幕上滑动&lt;/strong&gt; 时触发，会多次触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_UP&lt;/td&gt;
-      &lt;td&gt;手指 &lt;strong&gt;离开屏幕&lt;/strong&gt; 时触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_CANCEL&lt;/td&gt;
-      &lt;td&gt;事件 &lt;strong&gt;被上层拦截&lt;/strong&gt; 时触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_OUTSIDE&lt;/td&gt;
-      &lt;td&gt;手指 &lt;strong&gt;不在控件区域&lt;/strong&gt; 时触发。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;和以下的几个方法:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;方法&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;getAction()&lt;/td&gt;
-      &lt;td&gt;获取事件类型。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;getX()&lt;/td&gt;
-      &lt;td&gt;获得触摸点在当前 View 的 X 轴坐标。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;getY()&lt;/td&gt;
-      &lt;td&gt;获得触摸点在当前 View 的 Y 轴坐标。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;getRawX()&lt;/td&gt;
-      &lt;td&gt;获得触摸点在整个屏幕的 X 轴坐标。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;getRawY()&lt;/td&gt;
-      &lt;td&gt;获得触摸点在整个屏幕的 Y 轴坐标。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;关于 &lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;getRaw&lt;/code&gt;  的区别可以参考这一篇文章 &lt;a href=&quot;http://www.gcssloop.com/customview/CoordinateSystem&quot; title=&quot;安卓自定义View基础-坐标系&quot;&gt;安卓自定义View基础-坐标系&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;单点触控一次简单的交互流程是这样的:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;手指落下(ACTION_DOWN) －&amp;gt; 多次移动(ACTION_MOVE) －&amp;gt; 离开(ACTION_UP)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;本次事例中 ACTION_MOVE 有多次触发。&lt;/li&gt;
-    &lt;li&gt;如果仅仅是单击(手指按下再抬起)，不会触发 ACTION_MOVE。&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1f8oz1704ylg30bo0jqgmx.gif&quot; alt=&quot;单点触摸事件流程&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;针对单点触控的事件处理一般是这样写的:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onTouchEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ▼ 注意这里使用的是 getAction()，先埋一个小尾巴。&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACTION_DOWN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-        	&lt;span class=&quot;c1&quot;&gt;// 手指按下&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACTION_MOVE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// 手指移动&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACTION_UP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// 手指抬起&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACTION_CANCEL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// 事件被拦截 &lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACTION_OUTSIDE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// 超出区域 &lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onTouchEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;相信小伙伴对此已经非常熟悉了，经常使用的东西，我也不啰嗦了。&lt;/p&gt;
-
-&lt;p&gt;但其中有两个比较特殊的事件:  &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; 和  &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_OUTSIDE&lt;/code&gt; 。&lt;br /&gt;
-为什么说特殊呢，因为它们是由程序触发而产生的，而且触发条件也非常特殊，通常情况下即便不处理这两个事件也没有什么问题。接下来我们就扒一扒它们的真面目:&lt;/p&gt;
-
-&lt;h3 id=&quot;action_cancel&quot;&gt;ACTION_CANCEL&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; 的触发条件是事件被上层拦截&lt;/strong&gt;，然而我们在 &lt;a href=&quot;http://www.gcssloop.com/customview/dispatch-touchevent-theory&quot; title=&quot;安卓自定义View进阶-事件分发机制原理&quot;&gt;事件分发机制原理&lt;/a&gt; 一文中了解到当事件被上层 View 拦截的时候，ChildView 是收不到任何事件的，ChildView 收不到任何事件，自然也不会收到 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; 了，所以说这个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; 的正确触发条件并不是这样，那么是什么呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;事实上，只有上层 View 回收事件处理权的时候，ChildView 才会收到一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; 事件。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这样说可能不太容易理解，咱举个例子?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/005Xtdi2jw1f9auctayt4j302s03o744.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;例如：上层 View 是一个 RecyclerView，它收到了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_DOWN&lt;/code&gt; 事件，由于这个可能是点击事件，所以它先传递给对应 ItemView，询问 ItemView 是否需要这个事件，然而接下来又传递过来了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_MOVE&lt;/code&gt; 事件，且移动的方向和 RecyclerView 的可滑动方向一致，所以 RecyclerView 判断这个事件是滚动事件，于是要收回事件处理权，这时候对应的 ItemView 会收到一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; ，并且不会再收到后续事件。&lt;/p&gt;
-
-  &lt;p&gt;&lt;strong&gt;通俗一点？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;RecyclerView：儿砸，这里有一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_DOWN&lt;/code&gt; 你看你要不要。&lt;br /&gt;
-ItemView       ：好嘞，我看看。&lt;br /&gt;
-RecyclerView：噫？居然是移动事件&lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_MOVE&lt;/code&gt;，我要滚起来了，儿砸，我可能要把你送去你姑父家(缓存区)了，在这之前给你一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt;，你要收好啊。&lt;br /&gt;
-ItemView       ：……&lt;/p&gt;
-
-  &lt;p&gt;这是实际开发中最有可能见到 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_CANCEL&lt;/code&gt; 的场景了。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;action_outside&quot;&gt;ACTION_OUTSIDE&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_OUTSIDE&lt;/code&gt;的触发条件更加奇葩，从字面上看，outside 意思不就是超出区域么？然而不论你如何滑动超出控件区域都不会触发 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_OUTSIDE&lt;/code&gt; 这个事件。相信很多魔法师都对此很是疑惑，说好的超出区域呢？&lt;/p&gt;
-
-&lt;p&gt;实际上这个事件根本就不是在这里用的，看官方解释(装一下逼)：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt; A movement has happened outside of the normal bounds of the UI element. This does not provide a full gesture, but only the initial location of the movement/touch.&lt;/p&gt;
-
-  &lt;p&gt;一个触摸事件已经发生了UI元素的正常范围之外。因此不再提供完整的手势，只提供 运动/触摸 的初始位置。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;我们知道，正常情况下，如果初始点击位置在该视图区域之外，该视图根本不可能会收到事件，然而，万事万物都不是绝对的，肯定还有一些特殊情况，你可曾还记得点击 Dialog 区域外关闭吗？Dialog 就是一个特殊的视图(没有占满屏幕大小的窗口)，能够接收到视图区域外的事件(虽然在通常情况下你根本用不到这个事件)，除了 Dialog 之外，你最可能看到这个事件的场景是悬浮窗，当然啦，想要接收到视图之外的事件需要一些特殊的设置。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;设置视图的 WindowManager 布局参数的 flags为&lt;a href=&quot;http://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_WATCH_OUTSIDE_TOUCH&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FLAG_WATCH_OUTSIDE_TOUCH&lt;/code&gt;&lt;/a&gt;，这样点击事件发生在这个视图之外时，该视图就可以接收到一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ACTION_OUTSIDE&lt;/code&gt; 事件。&lt;/p&gt;
-
-  &lt;p&gt;参见StackOverflow：&lt;a href=&quot;http://stackoverflow.com/questions/8384067/how-to-dismiss-the-dialog-with-click-on-outside-of-the-dialog&quot;&gt;How to dismiss the dialog with click on outside of the dialog?&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;由于这个事件用到的几率比较小，此处就不展开叙述了，以后用到的时候再详细讲解。&lt;/p&gt;
-
-&lt;h2 id=&quot;多点触控&quot;&gt;多点触控&lt;/h2&gt;
-
-&lt;p&gt;Android 在 2.0 版本的时候开始支持多点触控，一旦出现了多点触控，很多东西就突然之间变得麻烦起来了，首先要解决的问题就是 &lt;strong&gt;多个手指同时按在屏幕上，会产生很多的事件，这些事件该如何区分呢？&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;为了区分这些事件，工程师们用了一个很简单的办法－－&lt;strong&gt;编号，当手指第一次按下时产生一个唯一的号码，手指抬起或者事件被拦截就回收编号，就这么简单。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;第一次按下的手指特殊处理作为主指针，之后按下的手指作为辅助指针&lt;/strong&gt;，然后随之衍生出来了以下事件(注意增加的事件和事件简介的变化)：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;事件&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_DOWN&lt;/td&gt;
-      &lt;td&gt;&lt;strong&gt;第一个&lt;/strong&gt; 手指 &lt;strong&gt;初次接触到屏幕&lt;/strong&gt; 时触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_MOVE&lt;/td&gt;
-      &lt;td&gt;手指 &lt;strong&gt;在屏幕上滑动&lt;/strong&gt; 时触发，会多次触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_UP&lt;/td&gt;
-      &lt;td&gt;&lt;strong&gt;最后一个&lt;/strong&gt; 手指 &lt;strong&gt;离开屏幕&lt;/strong&gt; 时触发。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;ACTION_POINTER_DOWN&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;有非主要的手指按下(&lt;strong&gt;即按下之前已经有手指在屏幕上&lt;/strong&gt;)。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;ACTION_POINTER_UP&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;有非主要的手指抬起(&lt;strong&gt;即抬起之后仍然有手指在屏幕上&lt;/strong&gt;)。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;以下事件类型不推荐使用&lt;/td&gt;
-      &lt;td&gt;－－－－－－－－－－－－－－－－－－&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;del&gt;ACTION_POINTER_1_DOWN&lt;/del&gt;&lt;/td&gt;
-      &lt;td&gt;第 2 个手指按下，已废弃，不推荐使用。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;del&gt;ACTION_POINTER_2_DOWN&lt;/del&gt;&lt;/td&gt;
-      &lt;td&gt;第 3 个手指按下，已废弃，不推荐使用。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;del&gt;ACTION_POINTER_3_DOWN&lt;/del&gt;&lt;/td&gt;
-      &lt;td&gt;第 4 个手指按下，已废弃，不推荐使用。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;del&gt;ACTION_POINTER_1_UP&lt;/del&gt;&lt;/td&gt;
-      &lt;td&gt;第 2 个手指抬起，已废弃，不推荐使用。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;del&gt;ACTION_POINTER_2_UP&lt;/del&gt;&lt;/td&gt;
-      &lt;td&gt;第 3 个手指抬起，已废弃，不推荐使用。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;del&gt;ACTION_POINTER_3_UP&lt;/del&gt;&lt;/td&gt;
-      &lt;td&gt;第 4 个手指抬起，已废弃，不推荐使用。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;和以下方法：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;方法&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getActionMasked()&lt;/td&gt;
-      &lt;td&gt;与 &lt;code class=&quot;highlighter-rouge&quot;&gt;getAction()&lt;/code&gt; 类似，&lt;strong&gt;多点触控必须使用这个方法获取事件类型&lt;/strong&gt;。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getActionIndex()&lt;/td&gt;
-      &lt;td&gt;获取该事件是哪个指针(手指)产生的。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getPointerCount()&lt;/td&gt;
-      &lt;td&gt;获取在屏幕上手指的个数。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getPointerId(int pointerIndex)&lt;/td&gt;
-      &lt;td&gt;获取一个指针(手指)的唯一标识符ID，在手指按下和抬起之间ID始终不变。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;findPointerIndex(int pointerId)&lt;/td&gt;
-      &lt;td&gt;通过PointerId获取到当前状态下PointIndex，之后通过PointIndex获取其他内容。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getX(int pointerIndex)&lt;/td&gt;
-      &lt;td&gt;获取某一个指针(手指)的X坐标&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getY(int pointerIndex)&lt;/td&gt;
-      &lt;td&gt;获取某一个指针(手指)的Y坐标&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;由于多点触控部分涉及内容比较多，也很复杂，我准备单独用一篇文章进行详细叙述，所以这里只叙述一些基础的内容作为铺垫：&lt;/p&gt;
-
-&lt;h3 id=&quot;getaction-与-getactionmasked&quot;&gt;getAction() 与 getActionMasked()&lt;/h3&gt;
-
-&lt;p&gt;当多个手指在屏幕上按下的时候，会产生大量的事件，如何在获取事件类型的同时区分这些事件就是一个大问题了。&lt;/p&gt;
-
-&lt;p&gt;一般来说我们可以通过为事件添加一个int类型的index属性来区分，但是我们知道谷歌工程师是有洁癖的(在 &lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewProcess&quot; title=&quot;安卓自定义View进阶-分类与流程&quot;&gt;自定义View分类与流程&lt;/a&gt; 的onMeasure中已经见识过了)，为了添加一个通常数值不会超过10的index属性就浪费一个int大小的空间简直是不能忍受的，于是工程师们将这个index属性和事件类型直接合并了。&lt;/p&gt;
-
-&lt;p&gt;int类型共32位(0x00000000)，他们用最低8位(0x000000&lt;strong&gt;ff&lt;/strong&gt;)表示事件类型，再往前的8位(0x0000&lt;strong&gt;ff&lt;/strong&gt;00)表示事件编号，以手指按下为例讲解数值是如何合成的:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;ACTION_DOWN                   的默认数值为 (0x00000000)&lt;br /&gt;
-ACTION_POINTER_DOWN 的默认数值为 (0x00000005)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;手指按下&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;触发事件(数值)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;第1个手指按下&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;ACTION_DOWN                  (0x0000&lt;strong&gt;00&lt;/strong&gt;00)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;第2个手指按下&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;ACTION_POINTER_DOWN (0x0000&lt;strong&gt;01&lt;/strong&gt;05)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;第3个手指按下&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;ACTION_POINTER_DOWN (0x0000&lt;strong&gt;02&lt;/strong&gt;05)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;第4个手指按下&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;ACTION_POINTER_DOWN (0x0000&lt;strong&gt;03&lt;/strong&gt;05)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;br /&gt;
-上面表格中用粗体标示出的数值，可以看到随着按下手指数量的增加，这个数值也是一直变化的，进而导致我们使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;getAction()&lt;/code&gt; 获取到的数值无法与标准的事件类型进行对比，为了解决这个问题，他们创建了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;getActionMasked()&lt;/code&gt; 方法，这个方法可以清除index数值，让其变成一个标准的事件类型。&lt;br /&gt;
-&lt;strong&gt;1、多点触控时必须使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;getActionMasked()&lt;/code&gt; 来获取事件类型。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;2、单点触控时由于事件数值不变，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;getAction()&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;getActionMasked()&lt;/code&gt; 两个方法都可以。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;3、使用 getActionIndex() 可以获取到这个index数值。不过请注意，getActionIndex() 只在 down 和 up 时有效，move 时是无效的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;目前来说获取事件类型使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;getActionMasked()&lt;/code&gt; 就行了，但是如果一定要编译时兼容古董版本的话，可以考虑使用这样的写法:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SDK_INT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;VERSION_CODES&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;FROYO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getActionMasked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACTION_DOWN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// TODO&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;pointid&quot;&gt;PointId&lt;/h3&gt;
-
-&lt;p&gt;虽然前面刚刚说了一个 actionIndex，可以使用 getActionIndex() 获得，但通过 actionIndex 字面意思知道，这个只表示事件的序号，而且根据其说明文档解释，这个 ActionIndex 只有在手指按下(down)和抬起(up)时是有用的，在移动(move)时是没有用的，事件追踪非常重要的一环就是移动(move)，然而它却没卵用，这也太不实在了 (￣Д￣)ﾉ&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;郑重声明：追踪事件流，请认准 PointId，这是唯一官方指定标准，不要相信 ActionIndex 那个小婊砸。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;PointId 在手指按下时产生，手指抬起或者事件被取消后消失，是一个事件流程中唯一不变的标识，可以在手指按下时 通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;getPointerId(int pointerIndex)&lt;/code&gt; 获得。 (参数中的 pointerIndex 就是 actionIndex)&lt;/p&gt;
-
-&lt;p&gt;关于事件流的追踪等问题在讲解多点触控时再详细讲解。&lt;/p&gt;
-
-&lt;h2 id=&quot;历史数据批处理&quot;&gt;历史数据(批处理)&lt;/h2&gt;
-
-&lt;p&gt;由于我们的设备非常灵敏，手指稍微移动一下就会产生一个移动事件，所以移动事件会产生的特别频繁，为了提高效率，系统会将近期的多个移动事件(move)按照事件发生的顺序进行排序打包放在同一个 MotionEvent 中，与之对应的产生了以下方法：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;事件&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistorySize()&lt;/td&gt;
-      &lt;td&gt;获取历史事件集合大小&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalX(int pos)&lt;/td&gt;
-      &lt;td&gt;获取第pos个历史事件x坐标&lt;br /&gt; (pos &amp;lt; getHistorySize())&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalY(int pos)&lt;/td&gt;
-      &lt;td&gt;获取第pos个历史事件y坐标&lt;br /&gt; (pos &amp;lt; getHistorySize())&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalX (int pin, int pos)&lt;/td&gt;
-      &lt;td&gt;获取第pin个手指的第pos个历史事件x坐标&lt;br /&gt; (pin &amp;lt; getPointerCount(), pos &amp;lt; getHistorySize() )&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalY (int pin, int pos)&lt;/td&gt;
-      &lt;td&gt;获取第pin个手指的第pos个历史事件y坐标&lt;br /&gt; (pin &amp;lt; getPointerCount(), pos &amp;lt; getHistorySize() )&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;pin 全称是 pointerIndex，表示第几个手指，此处为了节省空间使用了缩写。&lt;/li&gt;
-  &lt;li&gt;历史数据只有 ACTION_MOVE 事件。&lt;/li&gt;
-  &lt;li&gt;历史数据单点触控和多点触控均可以用。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;下面是官方文档给出的一个简单使用示例：&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printSamples&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MotionEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-     &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;historySize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHistorySize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-     &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pointerCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPointerCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;historySize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;At time %d:&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHistoricalEventTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pointerCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-             &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;  pointer %d: (%f,%f)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                 &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPointerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHistoricalX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHistoricalY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-     &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;At time %d:&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getEventTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pointerCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;  pointer %d: (%f,%f)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-             &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPointerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;获取事件发生的时间&quot;&gt;获取事件发生的时间&lt;/h2&gt;
-
-&lt;p&gt;获取事件发生的时间。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;方法&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getDownTime()&lt;/td&gt;
-      &lt;td&gt;获取手指按下时的时间。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getEventTime()&lt;/td&gt;
-      &lt;td&gt;获取当前事件发生的时间。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalEventTime(int pos)&lt;/td&gt;
-      &lt;td&gt;获取历史事件发生的时间。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;pos 表示历史数据中的第几个数据。( pos &amp;lt; getHistorySize() )&lt;/li&gt;
-    &lt;li&gt;返回值类型为 long，单位是毫秒。&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;获取压力接触面积大小&quot;&gt;获取压力(接触面积大小)&lt;/h2&gt;
-
-&lt;p&gt;MotionEvent支持获取某些输入设备(手指或触控笔)的与屏幕的接触面积和压力大小，主要有以下方法：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;描述中使用了手指，触控笔也是一样的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;方法&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getSize ()&lt;/td&gt;
-      &lt;td&gt;获取第1个手指与屏幕接触面积的大小&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getSize (int pin)&lt;/td&gt;
-      &lt;td&gt;获取第pin个手指与屏幕接触面积的大小&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalSize (int pos)&lt;/td&gt;
-      &lt;td&gt;获取历史数据中第1个手指在第pos次事件中的接触面积&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalSize (int pin, int pos)&lt;/td&gt;
-      &lt;td&gt;获取历史数据中第pin个手指在第pos次事件中的接触面积&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getPressure ()&lt;/td&gt;
-      &lt;td&gt;获取第一个手指的压力大小&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getPressure (int pin)&lt;/td&gt;
-      &lt;td&gt;获取第pin个手指的压力大小&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalPressure (int pos)&lt;/td&gt;
-      &lt;td&gt;获取历史数据中第1个手指在第pos次事件中的压力大小&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;getHistoricalPressure (int pin, int pos)&lt;/td&gt;
-      &lt;td&gt;获取历史数据中第pin个手指在第pos次事件中的压力大小&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;pin 全称是 pointerIndex，表示第几个手指。(pin &amp;lt; getPointerCount() )&lt;/li&gt;
-    &lt;li&gt;pos 表示历史数据中的第几个数据。( pos &amp;lt; getHistorySize() )&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1、获取接触面积大小和获取压力大小是需要硬件支持的。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;2、非常不幸的是大部分设备所使用的电容屏不支持压力检测，但能够大致检测出接触面积。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;3、大部分设备的 &lt;code class=&quot;highlighter-rouge&quot;&gt;getPressure()&lt;/code&gt; 是使用接触面积来模拟的。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;4、由于某些未知的原因(可能系统版本和硬件问题)，某些设备不支持该方法。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;我用不同的设备对这两个方法进行了测试，然而不同设备测试出来的结果不相同，之后经过我多方查证，发现是系统问题，有的设备上只有 &lt;code class=&quot;highlighter-rouge&quot;&gt;getSize()&lt;/code&gt; 能用，有的设备上只有 &lt;code class=&quot;highlighter-rouge&quot;&gt;getPressure()&lt;/code&gt; 能用，而有的则两个都不能用。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;由于获取接触面积和获取压力大小受系统和硬件影响，使用的时候一定要进行数据检测，以防因为设备问题而导致程序出错。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;鼠标事件&quot;&gt;鼠标事件&lt;/h2&gt;
-
-&lt;p&gt;由于触控笔事件和手指事件处理流程大致相同，所以就不讲解了，这里讲解一下与鼠标相关的几个事件：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;事件&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_HOVER_ENTER&lt;/td&gt;
-      &lt;td&gt;指针移入到窗口或者View区域，但没有按下。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_HOVER_MOVE&lt;/td&gt;
-      &lt;td&gt;指针在窗口或者View区域移动，但没有按下。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_HOVER_EXIT&lt;/td&gt;
-      &lt;td&gt;指针移出到窗口或者View区域，但没有按下。&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ACTION_SCROLL&lt;/td&gt;
-      &lt;td&gt;滚轮滚动，可以触发水平滚动(AXIS_HSCROLL)或者垂直滚动(AXIS_VSCROLL)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;注意：&lt;/p&gt;
-
-&lt;p&gt;1、这些事件类型是 安卓4.0 (API 14) 才添加的。&lt;br /&gt;
-2、使用 ` getActionMasked()` 获得这些事件类型。&lt;br /&gt;
-3、这些事件不会传递到 &lt;a href=&quot;https://developer.android.com/reference/android/view/View.html#onTouchEvent(android.view.MotionEvent)&quot;&gt;onTouchEvent(MotionEvent)&lt;/a&gt; 而是传递到 &lt;a href=&quot;https://developer.android.com/reference/android/view/View.html#onGenericMotionEvent(android.view.MotionEvent)&quot;&gt;onGenericMotionEvent(MotionEvent)&lt;/a&gt; 。&lt;/p&gt;
-
-&lt;h2 id=&quot;输入设备类型判断&quot;&gt;输入设备类型判断&lt;/h2&gt;
-
-&lt;p&gt;输入设备类型判断也是安卓4.0 (API 14) 才添加的，主要包括以下几种设备：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;设备类型&lt;/th&gt;
-      &lt;th&gt;简介&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TOOL_TYPE_ERASER&lt;/td&gt;
-      &lt;td&gt;橡皮擦&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TOOL_TYPE_FINGER&lt;/td&gt;
-      &lt;td&gt;手指&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TOOL_TYPE_MOUSE&lt;/td&gt;
-      &lt;td&gt;鼠标&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TOOL_TYPE_STYLUS&lt;/td&gt;
-      &lt;td&gt;手写笔&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TOOL_TYPE_UNKNOWN&lt;/td&gt;
-      &lt;td&gt;未知类型&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;getToolType(int pointerIndex)&lt;/code&gt; 来获取对应的输入设备类型，pointIndex可以为0，但必须小于 &lt;code class=&quot;highlighter-rouge&quot;&gt;getPointerCount()&lt;/code&gt;。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
-
-&lt;p&gt;虽然本文标题是 MotionEvent 详解，但由于 MotionEvent 实在太庞大了，本文只能涉及一些比较常用的内容，某些不太常用的内容就在以后用到的时候再详细介绍吧，像游戏手柄等输入设备由于我暂时不做游戏开发，也没有过多了解，所以就不介绍给大家啦。&lt;/p&gt;
-
-&lt;p&gt;由于个人水平有限，文章中可能会出现错误，如果你觉得哪一部分有错误，或者发现了错别字等内容，欢迎在评论区告诉我，另外，据说关注 &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;作者微博&lt;/a&gt; 不仅能第一时间收到新文章消息，还能变帅哦。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://developer.android.com/reference/android/view/MotionEvent.html&quot;&gt;MotionEvent &lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;http://www.jianshu.com/p/0c863bbde8eb&quot;&gt;Android MotionEvent详解&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;about-me&quot;&gt;About Me&lt;/h2&gt;
-
-&lt;h3 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot; target=&quot;_blank&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 02 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/motionevent</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/motionevent</guid>
-        
-        <category>Android,MotionEvent</category>
-        
-        
-        <category>CustomView</category>
         
       </item>
     

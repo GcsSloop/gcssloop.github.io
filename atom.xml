@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-11-07T13:58:52+08:00</updated>
+  <updated>2017-11-07T14:07:01+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -12,6 +12,128 @@
   </author>
 
 
+ 
+  <entry>
+    <id>http://www.gcssloop.com/gebug/componentr</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/gebug/componentr"/>
+    <title>雕虫晓技(一) 组件化</title>
+    <updated>2017-11-06T00:00:00+08:00</updated>
+    <author>
+      <name>Karl Luo</name>
+      <uri>http://luolinjia.com/cn/</uri>
+    </author>
+    <content type="html">&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+
+&lt;p&gt;本文是我工作这段时间的部分经验总结，仅从个人的角度谈一下对工作中编程的看法。&lt;/p&gt;
+
+&lt;p&gt;今年毕业出来工作，前期需要学习和实践的东西有很多，生活的节奏也在进行调节，因此就没有太多的精力去写文章了，从而导致我的“&lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex/&quot;&gt;Android自定义View&lt;/a&gt;”系列文章一直处于停更状态。&lt;/p&gt;
+
+&lt;p&gt;其实并非没有时间，而是没有太多的精力投入到这上面，对于技术文章来说，如果想要写的通俗易懂，不误导读者，不仅需要对其中运用到的各个技术细节都进行考证，而且要花费大量的精力去梳理文章的脉络，并不是把所有知识点都罗列一遍就可以了，因此即便是一篇简单的文章，想要做好，也需要耗费不少的精力。&lt;/p&gt;
+
+&lt;p&gt;如果只是单纯的翻译或者总结一些前人的经验，写出来一篇文章是很容易的，但是我认为这样的文章是没有太大价值的，而且容易传播一些错误的观点，如果因为乱写误导了别人，反而不如不写。&lt;/p&gt;
+
+&lt;p&gt;由于出来工作了一段时间，参与的两个项目也都基本结束了，所以特地水一篇文章，来讲一下自己工作的感受，顺便总结一下这段时间收获的经验。&lt;/p&gt;
+
+&lt;p&gt;自己学习编程和工作中编程虽然基本是类似的，但也有很多的不同。&lt;/p&gt;
+
+&lt;p&gt;自己学的时候可以瞎胡搞，看到什么新东西都拿来玩玩，有大量的时间可以浪费，所以大部分的时间处于偏创造性的方向，总喜欢挑战一些自己没做过的东西，以保持新鲜感和对编程的热情。&lt;/p&gt;
+
+&lt;p&gt;但工作就不同了，工作中所需要开发的功能都很确定，因此大部分时间都是在写“比较枯燥”的业务代码，称为搬砖也不为过。因为从本质上来讲，写业务就是把一些现成的代码搬过来，再按照一定的顺序堆叠起来，最终完成这个业务。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;尽管工作中大部分时间是在写业务，但写业务也是有不同的，如何在相同的实力下释放出更高的战斗力，让自己负责的业务更加坚固耐用，还是有些小技巧的。今天就和大家分享一个如何四两拨千金的方法。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;普通开发流程&quot;&gt;普通开发流程&lt;/h2&gt;
+
+&lt;p&gt;下面用一个小故事来引出本文主题(故事纯属虚构)。&lt;/p&gt;
+
+&lt;p&gt;小明参与开发了一个项目A，在项目A中有一个功能需要对视频中的音频进行处理，允许实时设置音频的均衡器，小明于是花了三天时间在项目A中开发出了一个模块A，用于处理音频均衡器。&lt;/p&gt;
+
+&lt;p&gt;项目A开发了一段时间之后，又来了一个项目B，同样有这个需求，于是小明把之前项目A中的模块复制到项目B中继续开发。&lt;/p&gt;
+
+&lt;p&gt;项目B开发了一段时间后发现模块A存在一个Bug，于是在项目B中对这个Bug进行了修复，等项目B告一段落，继续进行项目A开发时，想到了之前模块A中还存在这样一个问题，于是对照着项目B对项目A中对模块进行了修复。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;整个流程像下面这样：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tNc79gy1fl83esqv0rj30l40gg75k.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于两个项目都由小明负责，这个问题还是不大的，但是假如项目是多人合作的呢？小明在开发项目B时，项目A交给小刚负责继续开发，小刚也发现了模块A的Bug，也进行了修复，这样当小明继续回到项目A开发时，想要去修复模块A，发现模块A已经被修改了，经过检查对比后发现，小刚使用的修复方案稍有不同，但也管用，于是决定不对A项目进行修改了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;流程变成了下面这样子：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tNc79gy1fl83f2sbrlj30l40gg75g.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;于是，模块A在两个项目中就产生了一点点的不同，随着开发的继续，这些不同会逐渐的放大，项目A中和项目B中的模块会变的完全不同，发现Bug后，手动修复的成本也会大大的增加。最终，对于项目A中发现的问题，在项目A中进行修复后，无法将同样的方案应用于项目B，项目B中发现的Bug修复方案同样也无法应用于项目A，也就是说虽然两个项目中的模块同样用于处理音频均衡器，却拥有着不同的逻辑，无法兼容，并且逐渐变的难以维护。&lt;/p&gt;
+
+&lt;p&gt;维护两个相似但不兼容的模块是十分痛苦的，尤其是两个项目需要交替进行维护和开发的时候，很容易将两个模块弄混的，一不小心就可能会引发一些不必要的混乱。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;既然如此，那么我们规定一下，谁的模块谁进行负责行吗？由谁进行负责就负责到底，别人不允许随便修改，不就能解决这个问题了吗？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;答案是不行的，首先项目有自己的周期，有些项目可能会停滞非常长的时间才继续开发，谁又能记得住修改了哪些东西，其次，公司人员是流动的，可能会有人加入和离开，靠人员来保证自然是不靠谱的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;那么我们这样规定，修改任何一个模块的时候，需要不同项目中相同的模块都进行修改。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个也是不靠谱的，首先，可能存在新来的同事对以前的项目不熟悉这一情况，其次，可能修改后的模块和之前不兼容，例如修改了某些调用方法，对所有项目都进行更新显然不靠谱，工作量太大了。&lt;/p&gt;
+
+&lt;h2 id=&quot;组件化开发流程&quot;&gt;组件化开发流程&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;那么是否有更好的方案呢？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;当然是有的，如果在开发项目A的时候就意识到该模块可以被复用，那么在开发之初就应当将模块当作一个组件独立出来，单独进行开发，之后在项目A中引用这个库即可，如果之前没有意识到，在开发项目B的时候意识到了，那么应该立即对项目A中该模块进行重构，将其独立出来，之后让两个项目同时引用同一个库，这样就避免了同时维护两个不兼容库的尴尬境地。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;例如下面这样：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNc79gy1fl83ffk13cj30lk0gdq3l.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;其实这个流程相对于之前的流程来说，只不过是将其中的模块独立出来了而已，但是却能带来更多的好处。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 避免了不兼容问题：&lt;/strong&gt; 两个项目同时引用同一个库，自然不会出现分化出两个不兼容版本，难以维护的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 修复Bug方便：&lt;/strong&gt; 如果在其中一个项目中发现了Bug，只需要到库中修复该问题，重新释放一个版本，之后到另一个项目中只需要修改一下版本号即可完成修复，而不是复制代码，手动合并。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 更稳定：&lt;/strong&gt; 假如我想在模块中做一些优化，但是我并不能很确定这些优化不会引发Bug，我可以先释放一个测试版，在项目中进行测试，如果优化导致了一些问题的产生，我只用花几秒钟时间修改版本号就可以退回到稳定版，而不是到版本管理工具中去退回某个提交记录。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 节省时间：&lt;/strong&gt; 相比于手动维护两个版本来说，这样显然更加节省开发时间，例如我因为一个项目的需要，在库中添加了新特性，当另一个项目也需要这些特性时，只需要修改一下版本号即可接入。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. 快速更新：&lt;/strong&gt; 即便是一个搁置了很久旧项目，在需要更新的时候，也可以查询一下组件更新记录，快速更新到最稳定的一个兼容版。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;不仅如此，随着项目发展，这个库将会变的越来越完善，越来越稳定，后续的项目如果需要这些功能，花费几秒钟添加一下依赖，就能使用一个稳定的库。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;组件使用版本号进行控制，通常是分三段 &lt;code class=&quot;highlighter-rouge&quot;&gt;x.y.z&lt;/code&gt; (如：1.0.0)，我一般是这样规定的：&lt;/strong&gt;&lt;br /&gt;
+内容和接口没有变动，只是修复了Bug，或者内部状态，修改最后一位(如：1.0.1)。&lt;br /&gt;
+如果调用接口增加了，或者细微调整，修改中间位(如：1.1.0)。&lt;br /&gt;
+如果进行了大面积重构，接口完全不同了，修改第一位(如：2.0.0)。&lt;/p&gt;
+
+&lt;p&gt;下面是我自己的例子，在项目中引用自己的代码库。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww4.sinaimg.cn/large/006tNc79gy1fl83fpkm49j30dn053my3.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;当然了，看到这里有不少小伙伴都会比较疑惑，作为公司的代码，有很多内容都是涉及到机密的，拿来开源总是不行的吧，你这样用不会出问题？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，能拿来独立作为库的代码一般都是一些通用代码，这部分代码通常是不会设计到具体业务逻辑的，自然也就不存在什么涉密了。&lt;br /&gt;
+其次，这些代码并没有在公共的开源库上托管，而是隶属于内部私有服务器，出了公司就无法访问到了，而且它拥有完整的权限管理，如果不给权限，就算公司内部也看不了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;如果想要知道这些是如何做到的，可以Google搜索 “nexus maven 私服 搭建”，当然，百度也可以，限于篇幅和搭建方式比较容易，网上又有很多教程，我这里就不过多叙述了。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果你的团队只有自己一个开发，可以直接将仓库部署到自己的电脑上，如果是多人合作型的，可以部署在内网服务器上。实在没有条件，不喜欢折腾的，也可以将独立仓库打包成aar格式的文件，之后在项目中使用这些文件，尽管用起来稍微麻烦一点，但也是选择之一。&lt;/p&gt;
+
+&lt;p&gt;花费一点时间搭建一个私服，所能节省的开发时间是超乎想象的，当然，如果想将项目中部分模块作为组件进行开发，一定要注意做好文档管理，记录好每次更新的内容，方便后期管理。例如我负责的一些模块，不仅在仓库上对文档源码进行了管理，本地也对每个版本的源码做了备份，例如我前段时间开源的 **&lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;【pager-layoutmanager】&lt;/a&gt; ** ,在本地是这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79ly1fl83fx8isuj30mr0g8wjn.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;如果尝试组件化开发一段时间，积累了大量的基础组件，那么再开始新项目的时候就能更快速的去实现具体的需求，而不用在基础的组件上费功夫了。&lt;/p&gt;
+
+&lt;p&gt;关于组件化暂时就说到这里，当然了具体到现实的业务中，还有很多细节和技巧需要注意，不过这些东西还是自己去体会更好，听别人说的再多，终究不如自己实践一下记忆更深刻。&lt;/p&gt;
+</content>
+  </entry>
  
   <entry>
     <id>http://www.gcssloop.com/tools/pager-grid-layoutmanager</id>
