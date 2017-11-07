@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-11-06T13:32:00+08:00</updated>
+  <updated>2017-11-07T13:58:52+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -12,6 +12,274 @@
   </author>
 
 
+ 
+  <entry>
+    <id>http://www.gcssloop.com/tools/pager-grid-layoutmanager</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/tools/pager-grid-layoutmanager"/>
+    <title>PagerLayoutManager(分页布局)</title>
+    <updated>2017-10-15T00:00:00+08:00</updated>
+    <author>
+      <name>Karl Luo</name>
+      <uri>http://luolinjia.com/cn/</uri>
+    </author>
+    <content type="html">&lt;p&gt;具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，并不能适用于所有场景，请选择性使用。&lt;/p&gt;
+
+&lt;p&gt;另外，该库并不是特别完善，欢迎提交 Issues 或者 PR 来协助我完善。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-效果预览&quot;&gt;1. 效果预览&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcpnh4wzg308c0ep1kz.gif&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcq86gyqg308c0epb2a.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-支持的特性&quot;&gt;2. 支持的特性&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[x] 网格布局，设置合适的行列数可以模拟线性布局或者ViewPager。&lt;/li&gt;
+  &lt;li&gt;[x] 分页效果，支持自动回调页码的变化(总页数和当前页数)。&lt;/li&gt;
+  &lt;li&gt;[x] 布局方向，支持横向滚动和垂直滚动。&lt;/li&gt;
+  &lt;li&gt;[x] 方向切换，支持切换滚动方向。&lt;/li&gt;
+  &lt;li&gt;[x] 支持电视，支持TV上按键翻页。&lt;/li&gt;
+  &lt;li&gt;[x] 内存稳定，不会因为一次性添加大量的数据导致内存飙升或者严重卡顿。&lt;/li&gt;
+  &lt;li&gt;[x] 使用简单，无侵入性，可以快速的将其他布局替换为该布局，也可以快速的移除该布局。&lt;/li&gt;
+  &lt;li&gt;[x] 自动修正，当滚动到第3页，删除数据后内容不足2页，会自动修正当前页面为第2页。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;3-主要文件&quot;&gt;3. 主要文件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名称&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/java/PagerGridLayoutManager.java&lt;/td&gt;
+      &lt;td&gt;水平分页网格布局管理器。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/java/PagerGridSnapHelper.java&lt;/td&gt;
+      &lt;td&gt;滚动辅助工具。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/java/PagerConfig.java&lt;/td&gt;
+      &lt;td&gt;Pager配置，用于开关调试日志。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;4-使用方法&quot;&gt;4. 使用方法&lt;/h2&gt;
+
+&lt;h3 id=&quot;41-基本用法&quot;&gt;4.1 基本用法&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 一定要在先设置 PagerGridLayoutManager， 之后再设置 PagerGridSnapHelper。&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;2. 注意名称 PagerGridSnapHelper 不是 PagerSnapHelper。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 1.水平分页布局管理器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;VERTICAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPageListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// 设置页面变化监听器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;recyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 2.设置滚动辅助工具&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;attachToRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;页面变化监听器&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 当总页数确定时的回调&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onPageSizeChanged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TAG&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;总页数 = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 当页面被选中时的回调（从 0 开始）&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onPageSelect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TAG&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;选中页码 = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pageIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;42-其他设置&quot;&gt;4.2 其他设置&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;是否在滚动过程中回调页码变化。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 如果不想在滚动个过程中回调页码变化，可以这样设置(v1.1.0-beta 以上版本支持)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setChangeSelectInScrolling&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;切换滚动方向&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：滚动过程中不可切换方向，设置无效。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOrientationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;HORIZONTAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;打开调试日志。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 如果需要查看调试日志可以设置为true，一般情况忽略即可&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setShowLog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;5-注意事项&quot;&gt;5. 注意事项：&lt;/h2&gt;
+
+&lt;p&gt;目前存在一个问题，使用的时候请务必给 RecyclerView 设置固定大小或者match_parent，如果不设置默认高度为 0 ，则任何内容都不会显示出来。&lt;/p&gt;
+
+&lt;h2 id=&quot;6-添加方式&quot;&gt;6. 添加方式&lt;/h2&gt;
+
+&lt;h4 id=&quot;61-添加仓库&quot;&gt;6.1 添加仓库&lt;/h4&gt;
+
+&lt;p&gt;在项目的 &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; 文件中配置仓库地址。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;allprojects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 私有仓库地址&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;maven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://lib.gcssloop.com/repository/gcssloop-central/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;62-添加项目依赖&quot;&gt;6.2 添加项目依赖&lt;/h4&gt;
+
+&lt;p&gt;在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.recyclerview:pagerlayoutmanager:2.0.0@aar'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;7-待优化&quot;&gt;7. 待优化&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[ ] 添加 scrollToPosition。&lt;/li&gt;
+  &lt;li&gt;[ ] 添加设置滚动速度。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;作者简介&quot;&gt;作者简介&lt;/h2&gt;
+
+&lt;h4 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;个人网站-httpwwwgcssloopcom&quot;&gt;个人网站: http://www.gcssloop.com&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;更新日志&quot;&gt;更新日志&lt;/h2&gt;
+
+&lt;h4 id=&quot;v210&quot;&gt;v2.1.0&lt;/h4&gt;
+
+&lt;p&gt;修复从后向前滚动时内存占用变大的问题。&lt;/p&gt;
+
+&lt;p&gt;(产生原因时先添加了新的View，最后再回收废弃的View，导致被回收的View一直难以被复用，持续占用内存，正确的应该是先将废弃的View放入回收区，这样新View创建时直接从回收区取View，就避免了回收区堆积大量的废弃View。)&lt;/p&gt;
+
+&lt;h4 id=&quot;v200&quot;&gt;v2.0.0&lt;/h4&gt;
+
+&lt;p&gt;统一包名(功能没有变化)。&lt;/p&gt;
+
+&lt;h4 id=&quot;v131&quot;&gt;v1.3.1&lt;/h4&gt;
+
+&lt;p&gt;修复特殊情况下删除条目导致显示不完整的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v130&quot;&gt;v1.3.0&lt;/h4&gt;
+
+&lt;p&gt;支持动态切换滚动方向。&lt;/p&gt;
+
+&lt;h4 id=&quot;v122&quot;&gt;v1.2.2&lt;/h4&gt;
+
+&lt;p&gt;修复条目Margin问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v121&quot;&gt;v1.2.1&lt;/h4&gt;
+
+&lt;p&gt;修复慢速滚动偶尔会停止在两个页面之间的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v120&quot;&gt;v1.2.0&lt;/h4&gt;
+
+&lt;p&gt;修复页面相关的Bug。&lt;br /&gt;
+慢速滑动超多半个View时自动滚动到下一页。&lt;br /&gt;
+调整布局逻辑和滚动辅助器逻辑。&lt;br /&gt;
+移除部分无效方法。&lt;br /&gt;
+代码结构调整。&lt;br /&gt;
+支持按键翻页(TV)。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;在TV上快速滚动时存在焦点问题：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;前置条件：竖向滚动，当下方有可以获取焦点控件。&lt;br /&gt;
+预期结果：当有内容时向下滚动，当滚动到最后一页时，焦点才能移动到下面控件上。&lt;br /&gt;
+实际结果：当慢速滚动时符合预期，当快速滚动时有可能在移动到最后一页之前就将焦点移动到下面的控件上。&lt;/p&gt;
+
+&lt;h4 id=&quot;v113&quot;&gt;v1.1.3&lt;/h4&gt;
+
+&lt;p&gt;修正页面变化回调位置，将回调修正到布局之后。&lt;br /&gt;
+修正页面数据变化回调逻辑，允许多次回调同一个页面数据。&lt;/p&gt;
+
+&lt;h4 id=&quot;v112&quot;&gt;v1.1.2&lt;/h4&gt;
+
+&lt;p&gt;修复内容删除完毕时没有页面变化回调问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v111&quot;&gt;v1.1.1&lt;/h4&gt;
+
+&lt;p&gt;修复删除完毕最后一页作品，页面显示空白，滑动卡顿的bug。&lt;/p&gt;
+
+&lt;h4 id=&quot;v110&quot;&gt;v1.1.0&lt;/h4&gt;
+
+&lt;p&gt;beta测试通过。&lt;br /&gt;
+整理代码结构。&lt;/p&gt;
+
+&lt;h4 id=&quot;v110-beta&quot;&gt;v1.1.0-beta&lt;/h4&gt;
+
+&lt;p&gt;添加在滚动过程中回调页码变化。&lt;/p&gt;
+
+&lt;h4 id=&quot;v101&quot;&gt;v1.0.1&lt;/h4&gt;
+
+&lt;p&gt;修复数据过少导致的数组越界异常。&lt;/p&gt;
+
+&lt;h4 id=&quot;v100&quot;&gt;v1.0.0&lt;/h4&gt;
+
+&lt;p&gt;移除部分日志。&lt;br /&gt;
+代码结构整理。&lt;/p&gt;
+
+&lt;h4 id=&quot;v100-beta1&quot;&gt;v1.0.0-beta1&lt;/h4&gt;
+
+&lt;p&gt;修复错误回滚问题。&lt;code class=&quot;highlighter-rouge&quot;&gt;例如：本应滚动到第二页，却在滚动结束后回滚到第一页。&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;v100-beta&quot;&gt;v1.0.0-beta&lt;/h4&gt;
+
+&lt;p&gt;完成基本的分页功能。&lt;br /&gt;
+完成分页滚动辅助工具。&lt;br /&gt;
+滑动结束自动锁定到最近页面。&lt;br /&gt;
+每次滚动仅允许滚动一页，防止连续滚动多页。&lt;br /&gt;
+低内存占用。&lt;br /&gt;
+支持水平滚动和垂直分页。&lt;br /&gt;
+允许开关调试日志。&lt;/p&gt;
+
+&lt;h2 id=&quot;版权信息&quot;&gt;版权信息&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Copyright (c) 2017 GcsSloop
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+  </entry>
  
   <entry>
     <id>http://www.gcssloop.com/tools/rclayout</id>

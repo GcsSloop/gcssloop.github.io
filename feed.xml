@@ -5,9 +5,279 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 06 Nov 2017 13:32:00 +0800</pubDate>
-    <lastBuildDate>Mon, 06 Nov 2017 13:32:00 +0800</lastBuildDate>
+    <pubDate>Tue, 07 Nov 2017 13:58:52 +0800</pubDate>
+    <lastBuildDate>Tue, 07 Nov 2017 13:58:52 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>PagerLayoutManager(分页布局)</title>
+        <description>&lt;p&gt;具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，并不能适用于所有场景，请选择性使用。&lt;/p&gt;
+
+&lt;p&gt;另外，该库并不是特别完善，欢迎提交 Issues 或者 PR 来协助我完善。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-效果预览&quot;&gt;1. 效果预览&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcpnh4wzg308c0ep1kz.gif&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcq86gyqg308c0epb2a.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-支持的特性&quot;&gt;2. 支持的特性&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[x] 网格布局，设置合适的行列数可以模拟线性布局或者ViewPager。&lt;/li&gt;
+  &lt;li&gt;[x] 分页效果，支持自动回调页码的变化(总页数和当前页数)。&lt;/li&gt;
+  &lt;li&gt;[x] 布局方向，支持横向滚动和垂直滚动。&lt;/li&gt;
+  &lt;li&gt;[x] 方向切换，支持切换滚动方向。&lt;/li&gt;
+  &lt;li&gt;[x] 支持电视，支持TV上按键翻页。&lt;/li&gt;
+  &lt;li&gt;[x] 内存稳定，不会因为一次性添加大量的数据导致内存飙升或者严重卡顿。&lt;/li&gt;
+  &lt;li&gt;[x] 使用简单，无侵入性，可以快速的将其他布局替换为该布局，也可以快速的移除该布局。&lt;/li&gt;
+  &lt;li&gt;[x] 自动修正，当滚动到第3页，删除数据后内容不足2页，会自动修正当前页面为第2页。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;3-主要文件&quot;&gt;3. 主要文件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名称&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/java/PagerGridLayoutManager.java&lt;/td&gt;
+      &lt;td&gt;水平分页网格布局管理器。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/java/PagerGridSnapHelper.java&lt;/td&gt;
+      &lt;td&gt;滚动辅助工具。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/java/PagerConfig.java&lt;/td&gt;
+      &lt;td&gt;Pager配置，用于开关调试日志。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;4-使用方法&quot;&gt;4. 使用方法&lt;/h2&gt;
+
+&lt;h3 id=&quot;41-基本用法&quot;&gt;4.1 基本用法&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 一定要在先设置 PagerGridLayoutManager， 之后再设置 PagerGridSnapHelper。&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;2. 注意名称 PagerGridSnapHelper 不是 PagerSnapHelper。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 1.水平分页布局管理器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;VERTICAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPageListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// 设置页面变化监听器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;recyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 2.设置滚动辅助工具&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;attachToRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;页面变化监听器&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 当总页数确定时的回调&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onPageSizeChanged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TAG&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;总页数 = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 当页面被选中时的回调（从 0 开始）&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onPageSelect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TAG&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;选中页码 = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pageIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;42-其他设置&quot;&gt;4.2 其他设置&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;是否在滚动过程中回调页码变化。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 如果不想在滚动个过程中回调页码变化，可以这样设置(v1.1.0-beta 以上版本支持)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setChangeSelectInScrolling&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;切换滚动方向&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;注意：滚动过程中不可切换方向，设置无效。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOrientationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;HORIZONTAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;打开调试日志。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 如果需要查看调试日志可以设置为true，一般情况忽略即可&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setShowLog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;5-注意事项&quot;&gt;5. 注意事项：&lt;/h2&gt;
+
+&lt;p&gt;目前存在一个问题，使用的时候请务必给 RecyclerView 设置固定大小或者match_parent，如果不设置默认高度为 0 ，则任何内容都不会显示出来。&lt;/p&gt;
+
+&lt;h2 id=&quot;6-添加方式&quot;&gt;6. 添加方式&lt;/h2&gt;
+
+&lt;h4 id=&quot;61-添加仓库&quot;&gt;6.1 添加仓库&lt;/h4&gt;
+
+&lt;p&gt;在项目的 &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; 文件中配置仓库地址。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;allprojects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 私有仓库地址&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;maven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://lib.gcssloop.com/repository/gcssloop-central/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;62-添加项目依赖&quot;&gt;6.2 添加项目依赖&lt;/h4&gt;
+
+&lt;p&gt;在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.recyclerview:pagerlayoutmanager:2.0.0@aar'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;7-待优化&quot;&gt;7. 待优化&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[ ] 添加 scrollToPosition。&lt;/li&gt;
+  &lt;li&gt;[ ] 添加设置滚动速度。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;作者简介&quot;&gt;作者简介&lt;/h2&gt;
+
+&lt;h4 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;个人网站-httpwwwgcssloopcom&quot;&gt;个人网站: http://www.gcssloop.com&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;更新日志&quot;&gt;更新日志&lt;/h2&gt;
+
+&lt;h4 id=&quot;v210&quot;&gt;v2.1.0&lt;/h4&gt;
+
+&lt;p&gt;修复从后向前滚动时内存占用变大的问题。&lt;/p&gt;
+
+&lt;p&gt;(产生原因时先添加了新的View，最后再回收废弃的View，导致被回收的View一直难以被复用，持续占用内存，正确的应该是先将废弃的View放入回收区，这样新View创建时直接从回收区取View，就避免了回收区堆积大量的废弃View。)&lt;/p&gt;
+
+&lt;h4 id=&quot;v200&quot;&gt;v2.0.0&lt;/h4&gt;
+
+&lt;p&gt;统一包名(功能没有变化)。&lt;/p&gt;
+
+&lt;h4 id=&quot;v131&quot;&gt;v1.3.1&lt;/h4&gt;
+
+&lt;p&gt;修复特殊情况下删除条目导致显示不完整的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v130&quot;&gt;v1.3.0&lt;/h4&gt;
+
+&lt;p&gt;支持动态切换滚动方向。&lt;/p&gt;
+
+&lt;h4 id=&quot;v122&quot;&gt;v1.2.2&lt;/h4&gt;
+
+&lt;p&gt;修复条目Margin问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v121&quot;&gt;v1.2.1&lt;/h4&gt;
+
+&lt;p&gt;修复慢速滚动偶尔会停止在两个页面之间的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v120&quot;&gt;v1.2.0&lt;/h4&gt;
+
+&lt;p&gt;修复页面相关的Bug。&lt;br /&gt;
+慢速滑动超多半个View时自动滚动到下一页。&lt;br /&gt;
+调整布局逻辑和滚动辅助器逻辑。&lt;br /&gt;
+移除部分无效方法。&lt;br /&gt;
+代码结构调整。&lt;br /&gt;
+支持按键翻页(TV)。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;在TV上快速滚动时存在焦点问题：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;前置条件：竖向滚动，当下方有可以获取焦点控件。&lt;br /&gt;
+预期结果：当有内容时向下滚动，当滚动到最后一页时，焦点才能移动到下面控件上。&lt;br /&gt;
+实际结果：当慢速滚动时符合预期，当快速滚动时有可能在移动到最后一页之前就将焦点移动到下面的控件上。&lt;/p&gt;
+
+&lt;h4 id=&quot;v113&quot;&gt;v1.1.3&lt;/h4&gt;
+
+&lt;p&gt;修正页面变化回调位置，将回调修正到布局之后。&lt;br /&gt;
+修正页面数据变化回调逻辑，允许多次回调同一个页面数据。&lt;/p&gt;
+
+&lt;h4 id=&quot;v112&quot;&gt;v1.1.2&lt;/h4&gt;
+
+&lt;p&gt;修复内容删除完毕时没有页面变化回调问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v111&quot;&gt;v1.1.1&lt;/h4&gt;
+
+&lt;p&gt;修复删除完毕最后一页作品，页面显示空白，滑动卡顿的bug。&lt;/p&gt;
+
+&lt;h4 id=&quot;v110&quot;&gt;v1.1.0&lt;/h4&gt;
+
+&lt;p&gt;beta测试通过。&lt;br /&gt;
+整理代码结构。&lt;/p&gt;
+
+&lt;h4 id=&quot;v110-beta&quot;&gt;v1.1.0-beta&lt;/h4&gt;
+
+&lt;p&gt;添加在滚动过程中回调页码变化。&lt;/p&gt;
+
+&lt;h4 id=&quot;v101&quot;&gt;v1.0.1&lt;/h4&gt;
+
+&lt;p&gt;修复数据过少导致的数组越界异常。&lt;/p&gt;
+
+&lt;h4 id=&quot;v100&quot;&gt;v1.0.0&lt;/h4&gt;
+
+&lt;p&gt;移除部分日志。&lt;br /&gt;
+代码结构整理。&lt;/p&gt;
+
+&lt;h4 id=&quot;v100-beta1&quot;&gt;v1.0.0-beta1&lt;/h4&gt;
+
+&lt;p&gt;修复错误回滚问题。&lt;code class=&quot;highlighter-rouge&quot;&gt;例如：本应滚动到第二页，却在滚动结束后回滚到第一页。&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;v100-beta&quot;&gt;v1.0.0-beta&lt;/h4&gt;
+
+&lt;p&gt;完成基本的分页功能。&lt;br /&gt;
+完成分页滚动辅助工具。&lt;br /&gt;
+滑动结束自动锁定到最近页面。&lt;br /&gt;
+每次滚动仅允许滚动一页，防止连续滚动多页。&lt;br /&gt;
+低内存占用。&lt;br /&gt;
+支持水平滚动和垂直分页。&lt;br /&gt;
+允许开关调试日志。&lt;/p&gt;
+
+&lt;h2 id=&quot;版权信息&quot;&gt;版权信息&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Copyright (c) 2017 GcsSloop
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 15 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/tools/pager-grid-layoutmanager</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/tools/pager-grid-layoutmanager</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>Tools</category>
+        
+      </item>
     
       <item>
         <title>RCLayout(圆角布局)</title>
@@ -3848,387 +4118,6 @@ ACTION_POINTER_DOWN 的默认数值为 (0x00000005)&lt;/p&gt;
         
         
         <category>CustomView</category>
-        
-      </item>
-    
-      <item>
-        <title>Markdown实用技巧－基础语法</title>
-        <description>&lt;p&gt;本文为 &lt;strong&gt;Markdown实用技巧&lt;/strong&gt; 系列的基础文章，并没有不可描述的内容 (⊙ω⊙)&lt;/p&gt;
-
-&lt;p&gt;为保证语法兼容性，本文只介绍基础语法，扩展语法等其它内容，会在后续的文章中单独介绍。&lt;br /&gt;
-&lt;strong&gt;注意：所有的标记符号均使用英文，中文无效。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;标题&quot;&gt;标题&lt;/h2&gt;
-
-&lt;p&gt;Markdown 支持多种标题格式。&lt;/p&gt;
-
-&lt;p&gt;利用 &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; (等号)和 &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;(减号)可以定义一级标题和二级标题，(任何数量的 &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; 都有效果) ：&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;一级标题&lt;br /&gt;====&lt;/td&gt;
-      &lt;td&gt;&lt;h1&gt;一级标题&lt;/h1&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;二级标题&lt;br /&gt;----&lt;/td&gt;
-      &lt;td&gt;&lt;h2&gt;二级标题&lt;/h2&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;p&gt;通过在行首插入 1 到 6 个 # ，来定义对应的 1 到 6 阶 标题，个人推荐使用这种，例如：&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;# 一级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h1&gt;一级标题&lt;/h1&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;## 二级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h2&gt;二级标题&lt;/h2&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;### 三级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h3&gt;三级标题&lt;/h3&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;#### 四级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h4&gt;四级标题&lt;/h4&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;##### 五级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h5&gt;五级标题&lt;/h5&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;###### 六级标题&lt;/td&gt;
-    &lt;td&gt;&lt;h6&gt;六级标题&lt;/h6&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;段落和换行&quot;&gt;段落和换行&lt;/h2&gt;
-
-&lt;p&gt;在 Markdown 中段落由一行或者多行文本组成，相邻的两行文字会被视为同一段落，如果存在空行则被视为不同段落( Markdown 对空行的定义是看起来是空行就是空行，即使空行中存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;空格&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;TAB&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;回车&lt;/code&gt; 等不可见字符，同样会被视为空行)。&lt;/p&gt;
-
-&lt;p&gt;Markdown支持段内换行，如果你想进行段落内换行可以在上一行结尾插入两个以上的空格后再回车。&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-      第一行&lt;br /&gt;
-      相邻被视为同一段落。
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;p&gt;
-        第一行 相邻被视为同一段落。
-        &lt;/p&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-      第一行[空格][空格]&lt;br /&gt;
-      上一行结尾存在两个空格，段内换行
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;p&gt;
-        第一行&lt;br /&gt;
-        上一行结尾存在两个空格，段内换行。
-        &lt;/p&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-      第一行&lt;br /&gt;
-      &lt;br /&gt;
-      两行之间存在空行，视为不同段落。
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;p&gt;
-        第一行
-        &lt;/p&gt;
-        &lt;p&gt;
-        两行之间存在空行，视为不同段落。
-        &lt;/p&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;强调&quot;&gt;强调&lt;/h2&gt;
-
-&lt;p&gt;删除线的 &lt;code class=&quot;highlighter-rouge&quot;&gt;~&lt;/code&gt; 符号一般位于键盘左上角位置。&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;*倾斜*&lt;/td&gt;
-      &lt;td&gt;
-        &lt;i&gt;倾斜&lt;/i&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;**粗体**&lt;/td&gt;
-      &lt;td&gt;&lt;b&gt;粗体&lt;/b&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;~~删除线~~&lt;/td&gt;
-      &lt;td&gt;&lt;s&gt;删除线&lt;/s&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-        &amp;gt; 引用
-      &lt;/td&gt;
-      &lt;td&gt;
-        &lt;blockquote&gt;引用&lt;/blockquote&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;链接和图片&quot;&gt;链接和图片&lt;/h2&gt;
-
-&lt;p&gt;为了规避某些平台的防盗链机制，图片推荐使用图床，否则在不同平台上发布需要重新上传很麻烦的，图床最好选大平台的图床，一时半会不会倒闭的那种，个人目前主要用的是微博图床 &lt;a href=&quot;https://chrome.google.com/webstore/detail/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E5%9B%BE%E5%BA%8A/fdfdnfpdplfbbnemmmoklbfjbhecpnhf?hl=zh-CN&quot;&gt;Chrome插件－微博图床&lt;/a&gt; 以及 &lt;a href=&quot;https://imciel.com/2016/07/17/weibo-picture-upload-alfred-workflow/&quot;&gt;Alfred脚本－微博图床&lt;/a&gt;&lt;/p&gt;
-
-&lt;table style=&quot;word-break:break-all;&quot;&gt;
-    &lt;tr&gt;
-      &lt;th width=&quot;200&quot;&gt;Markdown&lt;/th&gt;
-      &lt;th width=&quot;200&quot;&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;[GcsSloop](http://www.gcssloop.com)&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&quot;http://www.gcssloop.com&quot; target=&quot;_blank&quot;&gt;GcsSloop&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr class=&quot;alternate&quot;&gt;
-    &lt;td&gt;![GcsSloop Blog](http://www.gcssloop.com/assets/siteinfo/friends/gcssloop.jpg)&lt;/td&gt;
-    &lt;td&gt;&lt;img src=&quot;http://www.gcssloop.com/assets/siteinfo/friends/gcssloop.jpg&quot; alt=&quot;GcsSloop Blog&quot; /&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;列表&quot;&gt;列表&lt;/h2&gt;
-
-&lt;p&gt;无序列表前面可以用 &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; 等，结果是相同的。&lt;br /&gt;
-有序列表的数字即便不按照顺序排列，结果仍是有序的。&lt;/p&gt;
-
-&lt;table&gt;
-
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;
-      * 项目&lt;br /&gt;
-      * 项目&lt;br /&gt;
-      * 项目&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;* 子项目&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;* 子项目&lt;br /&gt;
-      * 项目
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;ul&gt;
-        &lt;li&gt;项目&lt;/li&gt;
-        &lt;li&gt;项目&lt;/li&gt;
-        &lt;li&gt;项目
-          &lt;ul&gt;
-            &lt;li&gt;子项目&lt;/li&gt;
-            &lt;li&gt;子项目&lt;/li&gt;
-          &lt;/ul&gt;
-        &lt;/li&gt;
-        &lt;li&gt;项目&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/td&gt;
-
-  &lt;/tr&gt;
-  &lt;tr class=&quot;alternate&quot;&gt;
-    &lt;td&gt;
-      1. 项目&lt;br /&gt;
-      2. 项目&lt;br /&gt;
-      3. 项目&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;1. 子项目&amp;lt;/span&amp;gt;&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;2. 子项目&lt;br /&gt;
-      4. 项目
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;ol&gt;
-        &lt;li&gt;项目&lt;/li&gt;
-        &lt;li&gt;项目&lt;/li&gt;
-        &lt;li&gt;项目
-          &lt;ol&gt;
-            &lt;li&gt;子项目&lt;/li&gt;
-            &lt;li&gt;子项目&lt;/li&gt;
-          &lt;/ol&gt;
-        &lt;/li&gt;
-        &lt;li&gt;项目&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;下划线和特殊符号&quot;&gt;下划线和特殊符号&lt;/h2&gt;
-
-&lt;p&gt;由于 Markdown 使用一些特殊符号进行标记，当我们想要在文档中使用这些特殊符号并防止被 Markdown 转换的时候，可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;\&lt;/code&gt; (转义符) 将这些特殊符号进行转义。&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Markdown&lt;/th&gt;
-      &lt;th&gt;预览&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;
-      在一行中用三个以上的星号、减号、下划线来建立一个分隔线&lt;br /&gt;
-      ---
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;hr /&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr class=&quot;alternate&quot;&gt;
-    &lt;td&gt;可以利用反斜杠(转义字符)来插入一些在语法中有特殊意义的符号&lt;br /&gt;
-        \*Hi\*
-    &lt;/td&gt;
-    &lt;td&gt;*Hi*&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;代码&quot;&gt;代码&lt;/h2&gt;
-
-&lt;h3 id=&quot;1行内代码&quot;&gt;1.行内代码&lt;/h3&gt;
-
-&lt;p&gt;行内代码可以使用反引号来标记(反引号一般位于键盘左上角，要用英文):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;一句话 `行内代码` 一句话。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;预览:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;一句话 &lt;code class=&quot;highlighter-rouge&quot;&gt;行内代码&lt;/code&gt; 一句话。&lt;/p&gt;
-
-&lt;h3 id=&quot;2多行代码&quot;&gt;2.多行代码&lt;/h3&gt;
-
-&lt;p&gt;多行代码使用 3 个反引号来标记(反引号一般位于键盘左上角，要用英文) ，在第一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;｀｀｀&lt;/code&gt; 后面可以跟语言类型，没有语言类型可以省略不写:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;​``` java
-// 我是注释
-int a = 5;
-​```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;预览:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 我是注释&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;表格&quot;&gt;表格&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;扩展的 Markdown 支持手写表格&lt;/strong&gt;，格式也非常简单，第二行分割线部分可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt; 来控制内容状态。&lt;br /&gt;
-&lt;strong&gt;注意，Markdown 标准(原生)语法中没有表格支持，但现在多数平台已经支持了该语法，如 GitHub，CSDN，简书 等均支持，所以写在这里:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Markdown：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;| 默认  |   靠右 |  居中  | 靠左   |
-| ---- |  ---: | :--:  | :---  |
-| 内容  |   内容 |  内容  | 内容   |
-| 内容  |   内容 |  条目  | 内容   |
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;预览：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;默认&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;靠右&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;居中&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;靠左&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;内容&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;内容&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;内容&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;内容&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;内容&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;内容&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;条目&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;内容&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;section class=&quot;contribute&quot;&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt; 
-      function bztoggle() {
-        var con = document.getElementById(&quot;baozang&quot;);
-        if (con.style.display == &quot;none&quot;) {
-          con.style.display = &quot;block&quot;;
-        } else {
-          con.style.display = &quot;none&quot;;
-        }
-      }
-    &lt;/script&gt; 
-      &lt;a class=&quot;btn-border-small&quot; onclick=&quot;bztoggle()&quot;&gt;发现宝藏？&lt;/a&gt;
-      &lt;br /&gt;
-      &lt;div id=&quot;baozang&quot; style=&quot;display:none; margin-top:20px;&quot;&gt;
-        &lt;p align=&quot;center&quot;&gt;
-        &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1f944xjwi84j31kw0zkqg9.jpg&quot; alt=&quot;时崎狂三&quot; /&gt;
-        &lt;font color=&quot;red&quot;&gt;恭喜你偶遇 &quot;时崎狂三&quot;，为了保护世界和平，请好好和她谈恋爱，快安利给其他小伙伴吧!&lt;/font&gt;
-        &lt;/p&gt;
-      &lt;/div&gt;
-&lt;/section&gt;
-
-&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.markdown.cn/&quot;&gt;Markdown－语法说明&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;about-me&quot;&gt;About Me&lt;/h2&gt;
-
-&lt;h3 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot; target=&quot;_blank&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 25 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-grammar</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-grammar</guid>
-        
-        <category>Markdown</category>
-        
-        
-        <category>Markdown</category>
         
       </item>
     
