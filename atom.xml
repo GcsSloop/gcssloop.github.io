@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2017-11-07T14:07:01+08:00</updated>
+  <updated>2017-11-12T14:17:12+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -12,6 +12,132 @@
   </author>
 
 
+ 
+  <entry>
+    <id>http://www.gcssloop.com/gebug/coding</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/gebug/coding"/>
+    <title>雕虫晓技(二) 编码</title>
+    <updated>2017-11-10T00:00:00+08:00</updated>
+    <author>
+      <name>Karl Luo</name>
+      <uri>http://luolinjia.com/cn/</uri>
+    </author>
+    <content type="html">&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+
+&lt;p&gt;对于编程，一般需要先设计，再编码，即针对某一项功能进行详细的分析后，得出具体的技术方案，然后编码进行实现，这是最理想的状态，但是现实不可能这么理想。&lt;/p&gt;
+
+&lt;p&gt;在公司的项目中，一般不会有太充裕的时间，专一用来琢磨技术方案，再加上个人能力有限，前期分析很难具体到每一个细节中，那么在这种情况下应该如何编程呢？下面就分享几个自己使用的准则。&lt;/p&gt;
+
+&lt;h3 id=&quot;一功能优先&quot;&gt;一、功能优先&lt;/h3&gt;
+
+&lt;p&gt;程序员主要工作是写代码，最终目标则是产品，而产品的核心是其中的功能，如果功能没有完成，代码写得再漂亮也没用，所以第一点是功能优先。&lt;/p&gt;
+
+&lt;p&gt;由于每个人接触到的知识是非常有限的，不可能像搜索引擎一样什么都知道，所以在面对具体的功能开发时，要优先从自己现有的知识库里面寻找最可靠有效的解决方案，先利用已有的知识设计出大致的框架，然后在不考虑编码复杂度的情况下先完成第一个版本功能的开发，把功能做出来之后，再进行迭代优化，使其逐渐接近完美。&lt;/p&gt;
+
+&lt;p&gt;对于功能开发来说，也要注意偏重，用户需要的是内容，而不是一个应用，在初期阶段要注意将内容展示做好，至于其中的一些动画效果和细节处理，在这一阶段都属于次要内容，具体的细节可以等功能基本完善之后慢慢调整。&lt;/p&gt;
+
+&lt;h3 id=&quot;二适当测试&quot;&gt;二、适当测试&lt;/h3&gt;
+
+&lt;p&gt;测试有黑盒测试和白盒测试，黑盒测试就是把自己当成用户来体验这些功能，看功能是否正常，而白盒测试在Android中通常是指单元测试。&lt;/p&gt;
+
+&lt;p&gt;虽然公司有专业的测试人员，但是自己写的代码还是自己最清楚哪里可能出现问题，所以建议在交付给专业测试之前自己先简单的测试一遍，避免一些常见的漏洞。&lt;/p&gt;
+
+&lt;p&gt;在这里说明一下有关单元测试的问题，大家都知道单元测试是好的，但是据我观察，有很多程序员基本不写单元测试，那么单元测试到底是不是必须的呢？&lt;/p&gt;
+
+&lt;p&gt;个人觉得，是否进行单元测试要依照具体情况而定，不是所有的方法都需要单元测试，例如：读取数据库操作，获取网络数据，这些本身就不包含什么复杂逻辑的内容是不需要测试的，假如数据出现了问题，十有八九是其他地方写入了错误数据，而不是因为读取才出现的，因此这些也就没有必要进行测试了。具体的业务逻辑也不需要单元测试，否则产品一旦修改需求，测试代码也要跟着大动干戈，岂不是自找麻烦。&lt;/p&gt;
+
+&lt;p&gt;真正需要测试的是那些基础函数，尤其是具有分支判断的函数，这些函数才是最容易出现问题的地方，写测试代码的时候，重点要进行边界数值测试，以及特殊情况的测试，当然，如果是一些通用的基础组件，个人更喜欢写一个 Demo，在测试的同时就把用法示例也写出来了。&lt;/p&gt;
+
+&lt;h3 id=&quot;三代码风格&quot;&gt;三、代码风格&lt;/h3&gt;
+
+&lt;p&gt;相信每个人都有自己的编码风格，个人希望在保持自己风格的同时，也能够让别人更容易看懂自己的代码，所以设计了一个固定的结构，即适合编码，又适合阅读。&lt;/p&gt;
+
+&lt;p&gt;个人习惯将常量和变量放在最上面，然后是生命周期和应用的核心方法，依次进行排列，最后是外部调用的接口。这样做主要是为了后期查看方便，什么方法在什么位置很容易就能找到，避免了上下来回滚动去寻找一个方法的麻烦。&lt;/p&gt;
+
+&lt;p&gt;下面是自己使用的规范，一个大致的例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class GcsSloop {    
+    // 对外常量
+    public static final String HAHA = &quot;haha&quot;;    
+    // 对内常量
+    private static final int  mVal = -1;    
+    // 全局变量
+    private int mVar;    
+   
+    //--- 构造函数(生命周期)与核心功能 ---
+    
+    public GcsSloop() {        
+        this(-1);
+    }    
+    public GcsSloop(int var) {        
+        this.mVar = var;
+    }    
+    
+    // 核心方法，一般均为 private
+    private void doSomthing(){
+        System.out.println(&quot;LALA&quot;);
+    }
+    
+    //--- 对外方法或接口 ---
+    
+    // 对外方法，均为 public
+    public void sayHaha(){
+        System.out.println(&quot;HAHA&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这样的编码风格也是我调整了若干次后总结的，规则很简单，也没有太大的束缚，但很实用。&lt;/p&gt;
+
+&lt;p&gt;一个类写完之后它的内部逻辑可能很长时间都不会改变，而调用者也不关心它的内部逻辑，所以就将内部逻辑放在中间位置，公开常量放在开头，接口放在结尾，相比于中间，开头和结尾更容易定位，这样在使用的时候最容易寻找。&lt;/p&gt;
+
+&lt;p&gt;例如：我之前写了一个类，我知道它的具体作用，但很长之前没有使用了，忘了怎么使用，我就可以打开这个类，直接跳到末尾看一下调用接口就知道怎么使用了，而不用再去看它的具体实现逻辑。&lt;/p&gt;
+
+&lt;p&gt;也有人习惯将公开常量和调用接口全部放在最开始的部分，这个就看个人的编码习惯了，&lt;strong&gt;只要不是把公开的方法接口混杂到具体内部逻辑中就好&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;四技术选型&quot;&gt;四、技术选型&lt;/h3&gt;
+
+&lt;p&gt;最后一个话题是技术选型，有句俗话叫”条条大路通罗马”，在技术上尤其如此，对于同一个业务来说，不同的人进行开发可能会选择不同的技术方案，使用不同的思路。那么具体到我们开发时，应该如何选择方案呢？&lt;/p&gt;
+
+&lt;p&gt;个人觉得应该有以下几条原则：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 首选自己实践过的&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果是自己实践过的内容，会对这套流程比较熟悉，能快速上手开发，也踩过里面常见的坑，知道如何规避。所以这套是首选方案，可以快速稳定的实现业务。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 次选官方推荐或者大家都在用的&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果自己本身对这方面不熟悉，则建议选择官方推荐方案，或者用的人比较多的方案。对于官方推荐来说，有后台撑腰，文档清晰明确，使用起来会少走弯路。而使用人数较多的则说明有很多前人帮忙踩坑，很多坑在没遇到的时候就被填平了，即便遇到了，基本也能找到轻松绕过去的方案。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 慎选热门新技术&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;其实这一点有悖程序员文化，程序员都喜欢新潮的，酷酷的技术，而且使用新技术可以为将来的简历添加上浓墨重彩的一笔，所以很多程序员都喜欢使用新技术。&lt;/p&gt;
+
+&lt;p&gt;个人觉得，喜欢新技术没错，任何新技术的兴，必然是因为它拥有着旧技术所没有的特点，才会受到人们的追捧，但也不要盲目的去使用新技术。对于新技术的出现，我们可以去学习，研究分析它的优缺点，但不要立即在商业项目中使用，因为任何技术都需要一定时间的沉淀才能逐渐完善，一项新技术的出现可能会解决某一方面的痛点，但同时也可能引入其他麻烦，如果使用新技术出现了麻烦，将没有任何可以参考的东西，只能去看源码分析，这将会大大的拖慢项目进度。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;对于新技术的出现，个人的观点是，默默学习，持续观望，等沉淀几个月之后再尝试将这项技术应用到实际的项目中。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 不选冷门技术&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果不是迫不得已，不要去选择没什么人用的技术方案，这些方案没人使用一定是因为有更好的替代方案，或者是这项技术本身存在缺陷。当然，对于这些缺陷，作者一般不会明确的告诉我们。这些技术方案可能一开始使用起来没问题，但如果遇到问题，就会让人非常头疼，在某些情况下，修复这个问题所花费的时间甚至会超过自己从头再写一遍。所以使用冷门技术之前请先祈祷一下自己不会踩到坑。&lt;/p&gt;
+
+&lt;h3 id=&quot;结语&quot;&gt;结语&lt;/h3&gt;
+
+&lt;p&gt;以上这些内容都是个人工作这段时间内的感悟，也是根据自身能力，为自己定制的方案，并不适用于所有人，仅供大家参考。如果你有更好的想法，欢迎在公众号给我发消息，共同探讨学习。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;关于作者&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;/p&gt;
+</content>
+  </entry>
  
   <entry>
     <id>http://www.gcssloop.com/gebug/componentr</id>
