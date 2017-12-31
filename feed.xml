@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 01 Jan 2018 01:13:30 +0800</pubDate>
-    <lastBuildDate>Mon, 01 Jan 2018 01:13:30 +0800</lastBuildDate>
+    <pubDate>Mon, 01 Jan 2018 01:16:05 +0800</pubDate>
+    <lastBuildDate>Mon, 01 Jan 2018 01:16:05 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -37,7 +37,7 @@
 
 &lt;p&gt;当我自信的按下运行按钮时，不可思议的事情发生了，我的代码居然出现了异常，居然是空指针，并且发生在几乎是不可能出现的位置。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;04 诡异的空指针/QQ20171230-024711.png&quot; alt=&quot;QQ20171230-024711&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tKfTcgy1fn0gdzt8c6j30gp08rq4i.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这不是我的错，一定是运行时出现了问题，沉思片刻后，我决定再试一次！&lt;/p&gt;
 
@@ -151,7 +151,7 @@ length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
 
 &lt;p&gt;额，再想想，这个和上面的操作有啥区别，由于多线程可能在任意位置切换，所以不论在哪里加 if 条件基本都形同虚设，这个简单的问题难道就无解了？&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;04 诡异的空指针/震惊.jpg&quot; alt=&quot;震惊&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tKfTcgy1fn0gdyaqe5j306y054myk.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
 
