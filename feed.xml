@@ -5,9 +5,204 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 29 Dec 2017 21:51:57 +0800</pubDate>
-    <lastBuildDate>Fri, 29 Dec 2017 21:51:57 +0800</lastBuildDate>
+    <pubDate>Mon, 01 Jan 2018 01:13:30 +0800</pubDate>
+    <lastBuildDate>Mon, 01 Jan 2018 01:13:30 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>雕虫晓技(四) 诡异的空指针</title>
+        <description>&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+
+&lt;p&gt;这件事情呢，要从一段简单的代码说起，还记得那是一个风和日丽的下午，我熟练的打开了陪伴我多年的IDE，看着那熟悉的界面，我开开心心的写下了如下的代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;我有一个全局的变量 mStr，我想要输出它的长度，于是我写了这样一个方法，这种问题对于我这样的老司机来说，自然是很 Easy 的，相信大家从  &lt;code class=&quot;highlighter-rouge&quot;&gt;if (null != mStr)&lt;/code&gt; 就已经看出了我是一个经验丰富的专家，时刻提防着空指针来破坏我的代码运行。&lt;/p&gt;
+
+&lt;p&gt;当我自信的按下运行按钮时，不可思议的事情发生了，我的代码居然出现了异常，居然是空指针，并且发生在几乎是不可能出现的位置。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;04 诡异的空指针/QQ20171230-024711.png&quot; alt=&quot;QQ20171230-024711&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这不是我的错，一定是运行时出现了问题，沉思片刻后，我决定再试一次！&lt;/p&gt;
+
+&lt;p&gt;当相同的错误在此出现的时候，我发觉了，这一定是 IDE 出现了 bug，于是我决定重启一下我的 IntelliJ IEAD。&lt;/p&gt;
+
+&lt;p&gt;当 IDE 重启完毕，我再次运行，发现错误依旧出现，此时我觉得可能是我的电脑太古老了，也许应该换一台试试，当然，也有可能是我的 java 虚拟机坏掉了 …&lt;/p&gt;
+
+&lt;h2 id=&quot;诡异的空指针&quot;&gt;诡异的空指针&lt;/h2&gt;
+
+&lt;p&gt;说到空指针，这应该是 java 语言中最常见，也是最让人头疼的异常之一了，上面和大家开个玩笑，其实这个空指针异常是我精心制造出来的，就是因为他比较有趣，不仅触发方式有趣，解决方式也很有趣。&lt;/p&gt;
+
+&lt;p&gt;下面给大家看一下制造这个空指针异常的完整代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GcsTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;GThreadA&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GThreadA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;GThreadB&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GThreadB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;threadA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;threadB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GThreadA&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Gcs&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GThreadB&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;代码并不复杂，本质上就是两个线程，第一个线程(GThreadA)负责不断修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;mStr&lt;/code&gt; 的状态，第二个线程(GThreadB)则不断调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;printStrLength()&lt;/code&gt; 方法，尝试输出 mStr 的长度。&lt;/p&gt;
+
+&lt;p&gt;如果正常运行的话，输出结果应该是下面这样的：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;但是，你运行的时候就会发现，它几乎是一定会出现空指针异常的，有时可能会正常运行一段时间后再出现，有时刚开始运行就出现了。&lt;/p&gt;
+
+&lt;p&gt;这个问题表面是空指针引起的，但核心是线程并发问题。观察下面这段代码，是没有任何问题的，在单线程上运行时，它是安全的代码，但遇到多线程并发就不一定了。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;由于线程可能在任意位置中断并切换到其它线程，所以就可能出现如下这种情况：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;当 threadB 刚判断完 if(null != mStr) 这句话之后，切换到了 threadA，此时 threadA 也判断 mStr 不为 null，于是将 mStr 置为了 null，之后再切换到 threadB，当 threadB 获取长度的时候就发生了空指针异常。在并发的情况下执行顺序可能是这样的：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//前置条件： mStr 不为 null&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//threadB&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//切换线程到 threadA&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//切换线程到 threadB&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;lt;-- 发生异常&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;现在我们已经知道问题的根源了，就是线程可能再代码执行的任意位置切换，如果在切换之后一些全局状态改变了，那么切换回来之后之前的判断条件其实是无效的。&lt;/p&gt;
+
+&lt;p&gt;既然发现了问题的根源，那就容易解决了，多线程并发问题，要不加个锁试试？但是仔细想想这个锁应该怎么加呢？&lt;/p&gt;
+
+&lt;p&gt;首先两个线程访问的是不同的代码块，不存在访问冲突，那么方法锁和类锁基本可以判断是无效的。&lt;/p&gt;
+
+&lt;p&gt;两个线程唯一共用的对象就是 mStr，所以看起来比较靠谱的方案就是把 mStr 这个对象锁起来，但是 mStr 又可能为 null，如果 mStr 为 null，那么加对象锁的时候就会直接抛出空指针异常！所以加锁之前最好用先判断 mStr 不为 null 再加锁。&lt;/p&gt;
+
+&lt;p&gt;额，再想想，这个和上面的操作有啥区别，由于多线程可能在任意位置切换，所以不论在哪里加 if 条件基本都形同虚设，这个简单的问题难道就无解了？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;04 诡异的空指针/震惊.jpg&quot; alt=&quot;震惊&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
+
+&lt;p&gt;其实在这里加锁并不能解决问题，也不是一种好方案，众所周知，加锁的本质上是资源访问互斥，即当一个线程操作时进行锁定，在锁定期间其它任何线程都不允许访问，所以加锁会影响程序运行的性能，因此在非必要的情况下，能不用锁就尽量不用。&lt;/p&gt;
+
+&lt;p&gt;而且在上面这段代码中，mStr 是不断进行变化的，它的变化不应该受到外界操作的影响。举一个不太恰当的例子：
+天气是不断变化的，我在天气好的时候出门逛街，天气不好的时候呆在家里打游戏，我根据天气状况来决定自己的活动，但是我是不能影响天气的，不能说，现在天气很好，我出门去逛街，为了防止突然下雨把我淋湿，我就把天气状态锁定到当前的好天气状态，当我逛完街回来，再释放天气状态，让天气继续变化。这显然即不符合逻辑也行不通。&lt;/p&gt;
+
+&lt;p&gt;在 Android 中一个比较类似的事情就是事件机制，只要用户在触摸，就不断会有事件产生，不论你是否使用，这些事件都在不断的产生，作为一个程序，并不能因为自己需要当前这一时刻的事件，就把事件锁定，不让其产生新的触摸事件。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;实质上，我们需要的仅仅是当下这一时刻的状态，并根据当下这一时刻的状态来决定我们接下来要做什么。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;分析完问题的本质，问题就已经解决了，我们需要的是当下这一刻的状态，那么把这一刻的状态保存下来不就行了？只用简单的修改一下代码，就能实现这一需求了：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;先使用一个 final 的局部变量指向全局变量，之后再对这个变量进行操作。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 使用 final 关键字保存当前状态&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;我们这里使用 final 关键字将当前状态快照下来并用一个局部变量保存，之后的所有操作都只访问这个局部变量，由于这个局部变量是不会变化的，所以，即便发生上面的那种情况，判断完 if 条件后，线程切换出去改变了全局变量的状态，也不会影响到后续的操作。这也算是 final 关键字取巧的一种用法吧。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;其实你阅读 Android 源码的话，是经常可以见到使用一个 final 局部变量指向全局变量这种写法的，起初看到这种写法甚是不解，感觉这不是多此一举吗？直到我遇见了上面这种诡异的异常，才明白这种写法的精妙之处。&lt;/p&gt;
+
+&lt;p&gt;本文虽然啰嗦了那么多内容，其实本质上总结起来就一句话：&lt;strong&gt;使用 final 关键字快照当前全局变量的状态，可以防止特定情况下的多线程并发问题。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;虽然这是一种好方法，但也只是适用于特定的情况，并非万金油，当遇到问题时还是需要根据具体情况进行分析，从而得到合适的解决方案。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;关于作者&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 01 Jan 2018 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/gebug/nullpointer-exception</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/gebug/nullpointer-exception</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>GeBug</category>
+        
+      </item>
     
       <item>
         <title>雕虫晓技(三) 通用圆角布局全解析</title>
@@ -3004,192 +3199,6 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
         
         
         <category>Markdown</category>
-        
-      </item>
-    
-      <item>
-        <title>程序员练级指北</title>
-        <description>&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7c95aispj30rs07qmyp.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;之前非常有幸收到 &lt;a href=&quot;https://github.com/inferjay&quot;&gt;脉脉不得语&lt;/a&gt; 的邀请参加 郑州GDG&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 举办的 DevFest&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; 活动，并上台分享了一下自己的拙见，回来之后我将自己演讲的内容整理了一下，并分享给大家，希望对一些人有帮助，关于 郑州GDG 更多的活动内容，大家可以到 &lt;a href=&quot;https://github.com/GDGZhengzhou/Events&quot;&gt;GDGZhengzou&lt;/a&gt; 查看。另外，欢迎关注我的 &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; 和  &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;微博&lt;/a&gt; 。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;我在本次活动中的演讲主题是《程序员练级指北》，主要内容如何从零开始，并逐渐成长为一名合格的程序员，里面的内容是基于自身的经历和见解所书写的，并不一定适合所有人，建议选择性采纳。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;为了演讲不那么枯燥乏味，我用了很多口语化的描述，并将程序员分了等级，从零装备的新手到钻石级别套装的大佬，其实各个等级之间并没有严格的分界点，只是大致的划分，大家理解便好。另外本文和现场演讲可能稍有差别，下面开始正文。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Hello，大家好，我是 GcsSloop，今天是我第一次在这么多陌生人面前装逼，啊不，演讲，心里很是忐忑，现在我还能感受到自己的心扑通扑通的跳。&lt;/p&gt;
-
-&lt;p&gt;我呢，主要学习 Android，爱好装逼，喜欢钱，目前正在向段子手的方向上越走越远。&lt;/p&gt;
-
-&lt;p&gt;非常高兴今天能站在这里向大家分享我自己的观点，因为在坐的的技术牛人太多了，作为一个没什么技术实力的新人，不敢在这里班门弄斧讲技术，要不然正讲着哪位大牛突然站起来说我讲的不对，这不就尴尬了么。&lt;/p&gt;
-
-&lt;p&gt;由于本人爱好装逼，自然也研究了一些心得，所以我今天分享一下程序员如何在不同阶段正确的装逼。&lt;/p&gt;
-
-&lt;h2 id=&quot;第一阶段---新手村&quot;&gt;第一阶段 - 新手村&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/005Xtdi2jw1fa7a60w9nqj30m80c0gma.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;作为编程的新手，自然是不能在大佬面前装逼的，否则分分钟被吊打。这一阶段我们要先给自己定一个小目标，什么是小目标呢？例如挣他个一百万？这对于我们来说当然是不现实的，作为编程菜鸟，小目标当然是稍微努力一下就能完成的，例如：看完几个新手教程，时间不要太长，两三天能完成的任务量就够了。当然了，光看还不行的，要发在朋友圈，让大家觉得你是一个非常有上进心的人。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;为什么要发在朋友圈呢？装逼是一方面，除此之外，过了两天你就会发现，这两天光顾着打游戏了，新手教程居然忘记看了，这时候去看看朋友圈，再看看上面的赞，心里想如果这要是不弄完以后还如何在朋友面前装逼，自己装的逼跪着也要学完。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这一阶段注意两点：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;任务周期要短，任务量要小&lt;/strong&gt;，如果周期太长，例如一个月，到月底发现弄不完了，就会想反正也弄不完了，就这样吧，容易破罐子破摔。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;要形成周围的监督机制&lt;/strong&gt;，如果没人看着，反正也没人知道，那就随便学喽，过不了几天自己就放弃了。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;如果按照计划执行了第一阶段的任务，那么经过大约一两个月的时间，新手教程基本上就看完了，相当于集齐了一套新手装备，顺利进入下一阶段。&lt;/p&gt;
-
-&lt;h2 id=&quot;第二阶段---初级套装&quot;&gt;第二阶段 - 初级套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/005Xtdi2jw1fa7abwlqq8j30m80c0dgm.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;初级套装虽然攻击和防御力都很弱，但至少能单挑一些野怪了，有了一定的装逼资本，这时候就要在新手村附近刷一些野怪练级。&lt;/p&gt;
-
-&lt;p&gt;既然是刷怪升级，自然要选一个怪物比较集中的地方，最好还要有不同等级的怪物，这样方便刷经验，这个地方是哪里呢？个人觉得最适合的地方就是学校OJ题库，不一定要是自己学校的，大部分学校的OJ题库都是开放的，这里面的题目比较多，难度也分了很多等级，是非常适合新手练习的场所。不熟悉OJ系统的建议搜索了解一下。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;这一阶段非常容易卡关，经常发现自己有两点不会，就是这也不会，那也不会。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;然而作为编程界的新手，我们遇到的大部分问题肯定已经有大神踩过坑了，在99%的情况下，用百度或者Google搜索题目描述就能得到攻略方式，但不要偷懒直接复制，要自己亲自写一遍代码，这样有助于自己了解不同类型题目的模式。&lt;/p&gt;
-
-&lt;p&gt;如果你发现了一道题的答案搜索不到，但是自己解决了，那么恭喜你捡到宝了，说明你遇到了一个稀有的或者新增的怪物，赶紧整理一下攻略过程发博客吧，又能装逼了。&lt;/p&gt;
-
-&lt;p&gt;这样过了一段时间你就会发现，这些野怪大部分都很弱，只会几种常见的套路而已，除了最基础的题型外，归纳起来就是：堆、栈、树、表、图。&lt;/p&gt;
-
-&lt;p&gt;每一类野怪都有特定的攻略方法，常用的有：枚举，遍历，分治，贪婪，动态，线性，暴力打表 以及 抖机灵。&lt;/p&gt;
-
-&lt;p&gt;我在大一的时候加入了学校的打野攻略组，就是传说中的ACM，在里面待了大约有一年的时间，虽然没拿过大奖项，但好在通过刷题把自己的基础巩固了。&lt;/p&gt;
-
-&lt;p&gt;这一阶段反映自己进步的最好标准就是 做题量 和 排行榜，我最高在校内排到前5，两年没有更新的情况下目前依旧在前50之内，不要问我哪个学校的，是我学校的，看一下OJ排行榜自然能认出我，我在排行榜上也叫GcsSloop。&lt;/p&gt;
-
-&lt;p&gt;装逼完毕，进入下一阶段。&lt;/p&gt;
-
-&lt;h2 id=&quot;第三阶段---青铜套装&quot;&gt;第三阶段 - 青铜套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7afft4xgj30m80c00tc.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;刷野怪时间长了就会发现其实也挺没意思的，不过好在能够练装备，把数据结构知识和一些常见的算法弄明白，熟悉敌人的攻击套路，这样经过一段时间后，装备基本也升级到青铜了，这时候就应该尝试去挑战一下区域小boss了。&lt;/p&gt;
-
-&lt;p&gt;什么是挑战区域小boss呢，就是尝试制作一个完整的项目并发布出去，有人使用即可。&lt;/p&gt;
-
-&lt;p&gt;挑战小boss可以组团或者单挑，个人虽然喜欢组团，但无奈我们学校这个服务器太弱了，基本找不到合适的队友，尝试了几次组队最终都以失败而告终，无奈只能去单挑。&lt;/p&gt;
-
-&lt;p&gt;单挑boss要量力而行，不能找太强的boss，根据我自己的经验，单挑太强的boss会死的很难看，自己曾经有无数个项目胎死腹中或者半路夭折。&lt;/p&gt;
-
-&lt;p&gt;选择一个比较弱的boss，例如：发布一个简单的 app 到应用市场，获取到一定的下载量，或者写一个开源库，获得一点 star。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;这一阶段锻炼的是项目构建能力，能够完整的构建一个项目并发布出去，有人使用就算成功了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这样既能带来成就感，又能装逼，发完之后记得告诉身边的人自己有内容发布了，再次装一波。&lt;/p&gt;
-
-&lt;h2 id=&quot;第四阶段---白银套装&quot;&gt;第四阶段 - 白银套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7ajkrs5aj30m80c0751.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;单挑完一些区域小boss后，将套装升级为白银，有了一定的装逼资本，此时发现总在朋友圈装逼成就感太差了，这时候可以去论坛、贴吧、社区、微博等地方好好的装一把，让那些装备还没有升级起来的小白看看这套锃亮的白银套装是多么耀眼，不过仍要注意不能太过火，在出来帮助新手解决问题的时候顺便展示一下白银套装的威力就行了，装的太狠容易被大佬发现抓起来吊打，这不就尴尬了么。&lt;/p&gt;
-
-&lt;p&gt;顺便说一下，如果从培训机构出来的，正常应该是白银初级，自身有基础加上比较努力可能会达到白银中级，能拿到白银套装说明已经达到了职业程序员最基本的标准。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;很多人打到白银就开始迷茫了，去挑战小boss吧太没成就感，那些看起来就很肥美的中级和高级boss基本已经被大公司瓜分了，自己根本无从插手。所以这时候就要考虑加入公司的问题了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;那些比较好的公司，例如：网易、阿里、腾讯 等肯定有一堆人挤破头都想进，作为一个刚刚拿到白银套装的人想挤进去不能说没有机会，但肯定很难。但作为拥有白银套装的人，想加入一些小公司倒还算比较容易。&lt;/p&gt;
-
-&lt;p&gt;个人建议初期有条件优先选择比较大的公司，因为这些公司资源多，有成熟的体系，可以帮助我们快速的在某一方向上获得长足的发展。&lt;/p&gt;
-
-&lt;p&gt;后期则优先选择发展型的小公司，如果是从大公司跳向一个小公司，一般都会担任不错的职位，这可以帮助我们锻炼技术之外的能力，另外一个原因是随着公司成长可以分得一些红利。&lt;/p&gt;
-
-&lt;p&gt;加入公司自然要考虑自身和公司的关系。&lt;/p&gt;
-
-&lt;p&gt;个人觉得最核心的一点就是不要依附于公司，也不要抱有敌意，最好的办法就是和公司成为&lt;strong&gt;利益共同体&lt;/strong&gt;，在自己为公司创造价值的同时利用公司强大的资源提升自己的能力。&lt;/p&gt;
-
-&lt;p&gt;如果太过于依附公司，认为自己努力工作一定能得到相应回报的，根据经济学的假设，人都是自私而理性的，老板亦是如此，所以这类人大部分情况下都不会得到预期的结果。&lt;/p&gt;
-
-&lt;p&gt;对公司抱有敌意，认为自己就是打工赚钱的，想偷懒干最少的活，拿最多的钱，因为在偷懒的同时错失了很多发展机会，所以这类人大部分会随着技术的升级而被淘汰掉。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;如何与公司成为利益共同体呢？首先要明确自己的目标，自己加入公司是为了提升自己的能力，而不仅仅是来打工赚钱的，想要实现这一目标则是想办法干更多的活，这样老板肯定乐意，而我们通过干更多的活来接触更多的信息，并且把接触到的信息沉淀成为自己的经验积累，对自身发展也是有益的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;当然了，我们也不是傻子，当我们自身产生的价值远远超过公司给我们的薪资并且公司资源已经无法支撑我们继续提升的时候，就该抛弃这家公司跳槽了，这一次跳槽势必能进入一个更好的公司深造，可以利用更庞大的资源来辅助我们发展，接触到更多的信息。在信息时代，信息就是金钱，将信息沉淀成为个人经验并不能第一时间转化为金钱，但是总能在未来的某一时刻爆发出惊人的力量。&lt;/p&gt;
-
-&lt;h2 id=&quot;第五阶段---黄金套装&quot;&gt;第五阶段 - 黄金套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7ar2u1gjj30m80c03zb.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在白银阶段，就具备了职业程序员的基本素养，但是离出任CTO，迎娶白富美，走上人生巅峰还差的很远呢，想要实现这些目标，首先要拿到黄金套装。&lt;/p&gt;
-
-&lt;p&gt;一般来说技术发现有两个方向可走：&lt;strong&gt;深度 和 广度。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;我自己使用的是树形型结构，大树的树，&lt;strong&gt;一到两门追求深度，做树木主干，其余的最求广度，做树木枝叶&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;有些人也称为T型知识结构，不过我觉得树形更佳贴切，因为我的所有周边技能都是围绕主干展开的，并且是可生长(拓展)的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;我的主方向 Android，自学了 C、Java、Python、Web、Photoshop 等相关知识，除了主方向Android之外，其他方向作为辅助方向，仅仅了解了最基础的内容，也就是能够靠着搜索引擎写一些简单小程序的程度。&lt;/p&gt;
-
-&lt;p&gt;树型知识架构有很多好处：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;不被单一语言束缚，在实际场景中可以选择最合适的语言&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;可以跨领域突破，我在研究 Android 2D 绘图逻辑的时候就借鉴了很多 PS 的知识&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;预留发展空间大，假设某一天，Android市场饱和了或者前景变差了，我可以快速的从树枝中选择一支比较擅长的发展成为主干，而不用每次都从零开始&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;其实我们大部分人都是俗人，是不是黄金套装都无所谓，能赚钱才行，很多人来做技术也是为了赚钱，所以接下来我说的是如何想办法用最小的代价产生最大的价值。想要赚钱首先要明白最基本的商业逻辑，如果我们通过正常的方式从别人那里赚到钱了，说明我们为别人提供了价值，这样别人才愿意付费给我们。&lt;/p&gt;
-
-&lt;p&gt;所以我们要想办法用最小的代价为别人提供最大的价值，我写代码之前会多思考，没错，就是学生时代老师经常说的多思考。不过那时候没有人告诉我们该思考什么，因此我自己摸索出来了一套东西。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;思考核心目标&lt;/strong&gt;，我们是为了某一件事情而写程序，并不是因为写程序了所以要完成这件事情。&lt;strong&gt;核心目标是完成这件事情，而不是写程序。&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;思考是否可以偷懒&lt;/strong&gt;，我是否可以用更简单的方式完成目标，例如&lt;strong&gt;不写代码，少写代码&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;如果写代码了，是否可以产生附加价值&lt;/strong&gt;，例如我写这一段代码是否可以抽取成为一个开源库，是否可以将其中的设计思想整理成文共享出去。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;如何产生更大的价值&lt;/strong&gt;，我的开源库或者文章如何才能服务更多人，让更多人了解到我的东西。因为只有服务更多人，才能产生更大的价值，我们也才可能从中拿走一部分利润。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;经历过这几步的思考，基本上就已经能将所写的每一段代码的价值潜力都发掘出来，进而用最小的力气服务最多的人。当然了，为了别人服务，只是产生了价值，在通常情况下，这部分价值是无法直接提现的，也就是说仅仅产生了价值但自身并没有收益。&lt;/p&gt;
-
-&lt;p&gt;不过非常值得庆幸的是，今年很有可能成为内容付费元年，今年已经出来了很多内容变现工具，我知道的就有，微博长文打赏，简书打赏，知乎live，diycode原创打赏 和 掘金原创打赏。&lt;/p&gt;
-
-&lt;p&gt;另外，最重要的是，&lt;strong&gt;随着社会的快速发展，很多人有钱了，开始愿意为自己喜欢的事物打赏，这是一切的基础。所以看到这里你就不想给我打赏一下？让我有动力写出更好的文章！&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;第六阶段---钻石套装&quot;&gt;第六阶段 - 钻石套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7aswevd3j30m80c0gm8.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;能拿到钻石套装的人在全球范围内都是屈指可数的，这一类人通常是某一领域的开拓者，就是我们所说的 XXX之父。这些开拓者已经将自己的影响力渗透进了社会的各行各业，说他们推动了社会的进步也是可以的，我有生之年不说集齐套装，仅仅能拿一件钻石武器便足以令我心满意足了。&lt;/p&gt;
-
-&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
-
-&lt;p&gt;前面啰嗦了这么多，最后告诉大家一个小秘密，如果你想要研究一个人发展的根本，不要直接去问他，因为别人很少会告诉你自己赖以生存的核心技能，他们只会告诉你看起来很光鲜的皮毛，就是所谓的心灵鸡汤，这些听起来很励志，但落实在自己身上通常没什么用，大多数情况下只会给你带来两三天的激情而已。&lt;/p&gt;
-
-&lt;p&gt;正确的方法是观察他在做什么事情，以及分析他做这些事情的背后逻辑。如果你能把这些逻辑想清楚了，就把别人真正的核心技能偷过来了。之后根据自身情况一步一步的学着做就行了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;所以说，你们如果你们想了解我在做什么，为什么不考虑关注一下我的 &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;新浪微博&lt;/a&gt; 呢？关注一下又不会吃亏！&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;GDG 全称 Google Developer Group，中文意思是 &lt;strong&gt;谷歌开发者社区&lt;/strong&gt; 。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;DevFest 开发者节，今年(2016)的举办时间是 9月1日 到 11月30日 之间，全球大部分谷歌开发者社区都会举办该活动，一年一次。 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Mon, 28 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/lecture/gdg-developer-growth-guide</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/lecture/gdg-developer-growth-guide</guid>
-        
-        <category>演讲</category>
-        
-        
-        <category>Lecture</category>
         
       </item>
     
