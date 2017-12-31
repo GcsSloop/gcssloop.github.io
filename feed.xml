@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 01 Jan 2018 01:16:05 +0800</pubDate>
-    <lastBuildDate>Mon, 01 Jan 2018 01:16:05 +0800</lastBuildDate>
+    <pubDate>Mon, 01 Jan 2018 01:25:52 +0800</pubDate>
+    <lastBuildDate>Mon, 01 Jan 2018 01:25:52 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -141,7 +141,7 @@ length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;现在我们已经知道问题的根源了，就是线程可能再代码执行的任意位置切换，如果在切换之后一些全局状态改变了，那么切换回来之后之前的判断条件其实是无效的。&lt;/p&gt;
+&lt;p&gt;现在我们已经知道问题的根源了，就是线程可能在代码执行的任意位置切换，如果在切换之后一些全局状态改变了，那么切换回来之后之前的判断条件其实是无效的。&lt;/p&gt;
 
 &lt;p&gt;既然发现了问题的根源，那就容易解决了，多线程并发问题，要不加个锁试试？但是仔细想想这个锁应该怎么加呢？&lt;/p&gt;
 

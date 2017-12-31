@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-01-01T01:16:05+08:00</updated>
+  <updated>2018-01-01T01:25:52+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -152,7 +152,7 @@ length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;现在我们已经知道问题的根源了，就是线程可能再代码执行的任意位置切换，如果在切换之后一些全局状态改变了，那么切换回来之后之前的判断条件其实是无效的。&lt;/p&gt;
+&lt;p&gt;现在我们已经知道问题的根源了，就是线程可能在代码执行的任意位置切换，如果在切换之后一些全局状态改变了，那么切换回来之后之前的判断条件其实是无效的。&lt;/p&gt;
 
 &lt;p&gt;既然发现了问题的根源，那就容易解决了，多线程并发问题，要不加个锁试试？但是仔细想想这个锁应该怎么加呢？&lt;/p&gt;
 
