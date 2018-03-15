@@ -5,9 +5,515 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 15 Mar 2018 18:04:50 +0800</pubDate>
-    <lastBuildDate>Thu, 15 Mar 2018 18:04:50 +0800</lastBuildDate>
+    <pubDate>Thu, 15 Mar 2018 23:48:39 +0800</pubDate>
+    <lastBuildDate>Thu, 15 Mar 2018 23:48:39 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
+    
+      <item>
+        <title>雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)</title>
+        <description>&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;0-前言&quot;&gt;0. 前言&lt;/h3&gt;
+
+&lt;p&gt;随着 Android 开发的发展，Android 开发也相对越来越简单，很多基础库只用简单的添加一行依赖就可以使用了，不用自己去手动添加，升级也只需要修改一下版本号，简单便捷。那么它是如何实现的呢？事实上，我们所依赖的这些文件，是存放在一些公开仓库中的，当我们添加这些依赖时，Gredle 会自动去仓库中查找是否存在，如果存在，就下载下来放到本地参与编译。&lt;/p&gt;
+
+&lt;p&gt;我们最常用的一些公开库大部分是放在 jcenter 仓库中的，我们在创建项目的时候会默认添加 jcenter 仓库，在项目的 build.gradle 文件中可以看到，如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;allprojects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;但是，当我们自己开发的一些基础组件，也想要这样方面的添加到项目中时，就有点麻烦了，我们可以使用 &lt;a href=&quot;https://bintray.com/&quot;&gt;bintray&lt;/a&gt; 把这些组件上传到 jcenter 上面，但是上传过程非常麻烦，有一定的审核周期，并且一旦通过几乎无法撤销。&lt;/p&gt;
+
+&lt;p&gt;除了 jcenter 这个官方使用的仓库，&lt;a href=&quot;https://jitpack.io/&quot;&gt;jitpack&lt;/a&gt; 也是不错的选择，它借助于 GitHub 进行上传，上传和配置过程都有极大的简化，并且没有审核周期，很多公开项目都转用 jitpack 了。&lt;/p&gt;
+
+&lt;p&gt;但是，&lt;strong&gt;公开仓库仅适合托管一些公开的内容，假若这些库涉及到部分商业机密，或者存在某些私密技术方案，不希望被竞争公司了解，那么托管在公开仓库上无疑是非常不合适的。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为了解决这些需求，自然就会有私有仓库的诞生，相信有不少公司都有自己的私有仓库。&lt;/strong&gt;
+&lt;strong&gt;如何搭建一个私有仓库网络上有大量的教程，也并不困难，但是重点是如何保证私有仓库的安全稳定却是一个大问题。&lt;/strong&gt;
+如果仓库出现问题，则可能会导致所有的项目都无法 build 通过，会浪费大量的开发时间。&lt;/p&gt;
+
+&lt;p&gt;因此，在搭建一个私有仓库时，就必须要考虑到风险问题。下面我们就从头开始搭建一个仓库，并将教大家如何规避一些常见的风险。&lt;/p&gt;
+
+&lt;h3 id=&quot;1-仓库搭建&quot;&gt;1. 仓库搭建&lt;/h3&gt;
+
+&lt;p&gt;我们 Android 使用的是 maven 仓库，关于私有的 maven 仓库，有很多集成好的仓库环境，甚至你可以不借助任何环境自己手动维护一个仓库。当然，手动维护仓库需要耗费非常多的时间和精力，对于普通的开发人员来说，是得不偿失的，毕竟时间就是金钱，因此我们使用集成好的仓库环境，例如本文中会用到 Sonatype 的 Nexus。&lt;/p&gt;
+
+&lt;h4 id=&quot;11-java环境&quot;&gt;1.1 Java环境&lt;/h4&gt;
+
+&lt;p&gt;要运行 Nexus，需要 Java 环境，根据教程进行 &lt;a href=&quot;https://www.java.com/zh_CN/download/help/download_options.xml&quot;&gt;Oracle Java 安装和配置&lt;/a&gt; 即可，配置好环境就可以进行下一步了。&lt;/p&gt;
+
+&lt;h4 id=&quot;12-下载&quot;&gt;1.2 下载&lt;/h4&gt;
+
+&lt;p&gt;到 Sonytype 官网 https://www.sonatype.com/download-oss-sonatype 下载自己所需的平台和版本。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/01-download.png&quot; alt=&quot;01-download&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;直接下载对应平台的版本即可。&lt;/p&gt;
+
+&lt;p&gt;下载后解压到合适的目录，无需安装，可以看到两个文件夹(所有平台的都一样)，如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/02-Sonytype目录.png&quot; alt=&quot;02-Sonytype目录&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;目录&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;nexus-x.x.x-xx&lt;/td&gt;
+      &lt;td&gt;这个文件夹是存放应用程序的。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sonatype-work&lt;/td&gt;
+      &lt;td&gt;这个文件夹是存放仓库和设置等相关内容的，&lt;strong&gt;如果备份数据，只用备份这个文件夹即可&lt;/strong&gt;。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;初次配置，我们只用关注如下几个文件即可：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;文件&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;./nexus-3.8.0-02/bin/nexus&lt;/td&gt;
+      &lt;td&gt;运行程序&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;./nexus-3.8.0-02/bin/nexus.rc&lt;/td&gt;
+      &lt;td&gt;用户配置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;./nexus-3.8.0-02/etc/nexus-default.properties&lt;/td&gt;
+      &lt;td&gt;端口配置&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;初期需要了解的文件就这三个，在 Linux 系统上使用 root 用户直接运行可能会警告，因此可以配置一下nexus.rc文件。至于端口号，默认是 8081，如果对这个没特殊要求，默认即可。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;至于 ./nexus-3.8.0-02/bin/nexus 是主要的运行程序，建议将 bin 目录配置到环境变量中，这样就可以在任意位置启动和停止该程序了，否则只有在 bin 目录下才能调整。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Window 版本是 &lt;strong&gt;./nexus-3.8.0-02/bin/nexus.exe&lt;/strong&gt;  不过用法是一样的。&lt;/p&gt;
+
+&lt;h4 id=&quot;13-运行&quot;&gt;1.3 运行&lt;/h4&gt;
+
+&lt;p&gt;在命令行工具中输入启动命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nexus start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果一切顺利，在等待几十秒到一两分钟之后就可以查看我们的仓库了，如果出错了，可以使用 run 命令来查看具体的出错原因：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# run 命令相当于 debug 模式，会输出所有的日志信息&lt;/span&gt;
+nexus run
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当然，Nexus 还有很多其他命令(例如:停止、重启、查看状态等)：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nexus &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;start|stop|run|run-redirect|status|restart|force-reload&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;14-查看&quot;&gt;1.4 查看&lt;/h4&gt;
+
+&lt;p&gt;在输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;nexus start&lt;/code&gt; 命令后，稍微等待一两分钟，就可以查看仓库了，如果在本机有图形化界面，直接在浏览器中输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8081&lt;/code&gt; 即可查看，如果修改了端口号，后面写对应的端口号即可。如果是运行在服务器上，则在其他电脑上输入&lt;code class=&quot;highlighter-rouge&quot;&gt;http://{服务器ip}:{port}&lt;/code&gt; IP 和对应的端口号。如果运行成功，则会看到类似如下界面：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/03-nexus.png&quot; alt=&quot;03-nexus&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;备注：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在 Linux 和 Mac 上通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;ifconfig&lt;/code&gt; 查看本机 IP。&lt;/li&gt;
+  &lt;li&gt;在 Windows 上通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipconfig&lt;/code&gt; 查看本机 IP。&lt;/li&gt;
+  &lt;li&gt;127.0.0.1(localhost) 是本机回环地址，在其他机器上访问时不要使用这个地址。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-仓库配置&quot;&gt;2. 仓库配置&lt;/h3&gt;
+
+&lt;p&gt;经过上面的步骤，我们就有了一个空仓库，但是这个仓库还还需要进行一些基础的配置。&lt;/p&gt;
+
+&lt;h4 id=&quot;21-账号配置&quot;&gt;2.1 账号配置&lt;/h4&gt;
+
+&lt;h5 id=&quot;211-点击界面右上角的-sign-in-进行登录&quot;&gt;2.1.1 点击界面右上角的 &lt;strong&gt;Sign In&lt;/strong&gt; 进行登录。&lt;/h5&gt;
+
+&lt;p&gt;&lt;strong&gt;初次登陆时使用默认账号：admin，密码：admin123。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/04-signin.png&quot; alt=&quot;04-signin&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;212-登陆后创建一个新用户&quot;&gt;2.1.2 登陆后创建一个新用户&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/05-create-user.png&quot; alt=&quot;05-create-user&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;213-填写用户信息&quot;&gt;2.1.3 填写用户信息&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/06-create-user-info.png&quot; alt=&quot;06-create-user-info&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;填写具体的用户信息，其中比较重要的部分已经用红字标记出来了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;注意用户权限，默认应该是有两个权限，管理员权限和所有用户(包括未登录用户)权限。&lt;/li&gt;
+  &lt;li&gt;Roles 左侧为目前的权限组，右侧为当前用户拥有的权限组，可以通过 [&amp;gt;] 和 [&amp;lt;] 按钮来调整用户权限。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;在创建完新的用户后记得删除最初的管理员账号或者修改管理员账号的密码。&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;用户所拥有的权限，是根据其拥有的权限组决定的，只要拥有 nx-admin 权限组，就拥有所有的管理权限，要注意该权限的分配。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;22-创建仓库&quot;&gt;2.2 创建仓库&lt;/h4&gt;
+
+&lt;p&gt;仓库也是在设置中进行创建的，如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/07-create-repository.png&quot; alt=&quot;07-create-repository&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/08-create-repository2.png&quot; alt=&quot;08-create-repository2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;我们用 maven 仓库即可，可以看到，仓库主要有三种类型：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;**hosted： ** 本地仓库，我们一般使用这种类型的仓库。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;proxy：&lt;/strong&gt; 代理仓库，用于代理其他远程仓库。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;group：&lt;/strong&gt; 仓库组，用来合并多个 hosted / proxy 仓库。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在一般情况下，我们创建 hosted 类型的 maven 仓库。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;填写仓库信息&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/09-create-repository3.png&quot; alt=&quot;09-create-repository3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果没有特殊需求，直接填写一个名称然后点击创建即可。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Version policy(版本模式)&lt;/strong&gt; 有三种模式 Release(发布)、Snapshot(快照)、Mixed(混合)。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Layout policy(布局模式)&lt;/strong&gt; 有两种模式 Strict(严格模式)、Permissive(宽松模式)。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Deployment policy(部署模式)&lt;/strong&gt; 有三种模式 Allow redploy(允许重新部署)、Disable redploy(不允许重新部署)、Read-only(只读)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一般情况下按照默认配置即可，需要注意的是，部署策略一般情况下请使用默认配置 &lt;strong&gt;Disable redploy(不允许重新部署)&lt;/strong&gt;，例如，v1.0.0 版本的组建上传后，修改后再次以 v1.0.0 版本进行上传会上传失败，这样可以保证版本上传后不会被误覆盖掉，如果确定之前 v1.0.0 版本是错误上传的，需要重新上传，可以手动删除后再次上传，这样是最稳妥的。&lt;/p&gt;
+
+&lt;p&gt;在创建完成后就可以在仓库列表中查看到新创建的仓库了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/10-new-repository.png&quot; alt=&quot;10-new-repository&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;23-用户权限配置&quot;&gt;2.3 用户权限配置&lt;/h4&gt;
+
+&lt;p&gt;用户权限配置相对来说稍微复杂一点，如果开发人员较少，又都是老手，不会存在小白删库的情况下，可以给所有人都分配一个管理账号或者共用一个管理员账号即可。&lt;/p&gt;
+
+&lt;p&gt;如果开发人员众多，又比较复杂，则需要仔细的控制每一个用户的权限，&lt;strong&gt;一般来说，给普通用户分配公共仓库的查看、上传、读取的权限，不要给编辑和删除的权限。&lt;/strong&gt; 下面就带大家了解一下权限的详细设置方式：&lt;/p&gt;
+
+&lt;p&gt;Nexus 默认就有一个游客账号(anonymous)，在默认状态下拥有浏览所有仓库的权限，即在不登陆的情况下，可以查看所有仓库。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/11-User-Anonymous.png&quot; alt=&quot;11-User-Anonymous&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;该账号的权限分配十分重要，它意味这赋予所有未登录用户的权限，如果将管理员权限分配给了该账号，就意味着所有未登录用户都可以使用管理员权限，如果没有特殊情况，不要随意修改该账号的默认权限。&lt;/p&gt;
+
+&lt;p&gt;如果你不希望未登录用户查看，可以选择取消启用未登录账号，如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/12-Disable-Anonymous.png&quot; alt=&quot;12-Disable-Anonymous&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然而，&lt;strong&gt;如果我们希望游客可以查看和使用一部分仓库，另外部分仓库又不希望被未登录用户看到，那么就需要详细进行设置了。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;既然要修改权限，就要了解 Nexus 的权限管理方式，首先与权限有关的有如下几种：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/13-Sceurity.png&quot; alt=&quot;13-Sceurity&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;它们的关系如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/14-Nexus权限结构.jpg&quot; alt=&quot;14-Nexus权限结构&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;用户是通过持有不同的角色(权限组)来确定自己的权限管理范围的。&lt;/li&gt;
+    &lt;li&gt;角色(权限组)可以由基础权限和其他基础权限组来构成。&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;上面是 Nexus 支持的权限构成方式，在一般情况下我喜欢按照下面这种方式组织自己的权限。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/15-角色分组.jpg&quot; alt=&quot;15-角色分组&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我把用户分为四类(超级管理员、仓库管理员、普通用户、游客)，并创建了四种类型的角色(权限组)，分别与之对应，这样在添加新用户的时候只需要赋予他对应的角色(权限组)即可。&lt;/p&gt;
+
+&lt;h5 id=&quot;231-游客权限配置&quot;&gt;2.3.1 游客权限配置&lt;/h5&gt;
+
+&lt;p&gt;&lt;strong&gt;创建角色(权限组)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/16-create-role.png&quot; alt=&quot;16-create-role&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;创建游客角色&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;其他的角色(权限组)也按照该方式进行创建即可，假设我们想把 gcssloop-central 这个仓库作为公开仓库，将这个仓库的查看和读取权限给予游客角色。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/17-role-anyone.png&quot; alt=&quot;17-role-anyone&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;赋予游客用户权限&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/18-anyone.png&quot; alt=&quot;18-anyone&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;基础的设置方式就如上所示，只是不同的用户角色，拥有不同的权限而已。&lt;/p&gt;
+
+&lt;h5 id=&quot;231-普通用户权限配置&quot;&gt;2.3.1 普通用户权限配置&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/18-1-normal-user.png&quot; alt=&quot;18-1-normal-user&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;231-管理员权限配置&quot;&gt;2.3.1 管理员权限配置&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/18-2-manager.png&quot; alt=&quot;18-2-manager&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面是一些常见的权限分配，比较粗略，如果有需要的话，可划分的更加细致，在创建完角色(Role)后，把对应的角色分配给对应的用户，该用户便可以获得对应的权限，超级管理员的角色(nx-admin)是默认就有的(拥有所有仓库的管理权限，以及修改设置的权限等)，它无需自己配置权限内容，只用分配给超级管理员用户使用即可。&lt;/p&gt;
+
+&lt;h3 id=&quot;3-仓库备份&quot;&gt;3. 仓库备份&lt;/h3&gt;
+
+&lt;p&gt;为了保证数据的安全，一定要对仓库数据进行备份，这样在出现意外情况的时候可以快速的恢复仓库状态，将影响降到最低。&lt;/p&gt;
+
+&lt;h4 id=&quot;31-单仓库备份方案&quot;&gt;3.1 单仓库备份方案&lt;/h4&gt;
+
+&lt;p&gt;仓库备份其实很简单，&lt;strong&gt;Nexus 的所有信息都存储在 sonatype-work 文件夹中，单一仓库需要定时的备份该文件夹，一天至少备份一次以上，在服务器上运行的可以自己弄一些定时脚本来帮助自动化备份。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;恢复备份需要先关闭 nexux，让备份目录覆盖当前工作目录，之后重新启动 nexus 即可。&lt;/p&gt;
+
+&lt;h4 id=&quot;32-多仓库同步方案&quot;&gt;3.2 多仓库同步方案&lt;/h4&gt;
+
+&lt;p&gt;可以在多个的电脑(服务器)上搭建多个相同版本的仓库，以其中一个为主仓库，定时同步 sonatype-work 文件夹到其他备份仓库。&lt;/p&gt;
+
+&lt;h4 id=&quot;33-多仓库同时上传&quot;&gt;3.3 多仓库同时上传&lt;/h4&gt;
+
+&lt;p&gt;在拥有多个仓库的情况下，可以在上传脚本中配置多个仓库的上传方案，这样在发布的时候，分别发布到不同的仓库中，脚本的详细信息见下文。&lt;/p&gt;
+
+&lt;h4 id=&quot;34-多仓库部署方案&quot;&gt;3.4 多仓库部署方案&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;我自己使用的是多仓库方案，同时部署多个仓库，这样在其中一个仓库出现问题的时候迅速切换到其他仓库，可以在不影响开发的情况下对该仓库进行修复。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;个人建议，直接把三个平台(Windows、Linux、OSX)的对应的同一版本都下载保存下来，这样方便以后部署，防止因为版本不同导致出现问题。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我自己在内网服务器(Winsows Server)上部署了一套系统，公网服务器(Linux)上部署了一套系统，又在自己的个人电脑(OXS)上部署了一套系统，也算是在所有平台上都部署过了，部署过程大致上是相同的，具体可以见上文。&lt;/p&gt;
+
+&lt;p&gt;如果是多仓库部署的话，首先要部署并设置好一个仓库，之后部署时直接将设置完成仓库的 sonatype-work 文件夹复制后后续的部署平台上，这样就可以避免重复的设置，所有仓库的设置就可以保证是一致的。&lt;/p&gt;
+
+&lt;p&gt;我自己使用的是多个仓库，并绑定了域名解析，这样在一个仓库出现问题的时候，只用将域名暂时解析到正常的仓库即可。&lt;/p&gt;
+
+&lt;h3 id=&quot;4-上传脚本&quot;&gt;4. 上传脚本&lt;/h3&gt;
+
+&lt;p&gt;一个基础的上传脚本可以这样写，该上传脚本定义了三种基本行为：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;生成 doc 文档(该文档会上传到仓库上)&lt;/li&gt;
+  &lt;li&gt;上传到本机仓库，上传到公网仓库(如果你有更多仓库，同样可以仿照下面的方式配置上传信息)&lt;/li&gt;
+  &lt;li&gt;本地打包源码(本地的项目源码备份)，本地备份建议配合git使用。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// pack-upload.gradle&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 指定编码&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JavaCompile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;encoding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 打包源码&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sourcesJar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Jar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sourceSets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;srcDirs&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sources'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;javadoc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Javadoc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;failOnError&lt;/span&gt;  &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sourceSets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sourceFiles&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBootClasspath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathSeparator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configurations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compile&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 制作文档(Javadoc)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;javadocJar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Jar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;javadoc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'javadoc'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;javadoc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;destinationDir&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;artifacts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;archives&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sourcesJar&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;archives&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;javadocJar&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'maven'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 对应的仓库地址&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URL_PUCBLIC&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://lib.gcssloop.com:8081/repository/gcssloop-central/&quot;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URL_LOCAL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://localhost:8081/repository/gcssloop-central/&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 上传到公共仓库&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;uploadToPublic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Upload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'upload'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configurations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;archives&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uploadDescriptor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenDeployer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;url:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URL_PUCBLIC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;authentication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;userName:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;password:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VERSION&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;artifactId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ARTIFACT_ID&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;groupId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GROUP_ID&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;  
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 上传到本机仓库&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;uploadToLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Upload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'upload'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configurations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;archives&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uploadDescriptor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenDeployer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;url:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URL_LOCAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;authentication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;userName:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;password:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VERSION&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;artifactId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ARTIFACT_ID&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;groupId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GROUP_ID&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;  
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 压缩生成归档文件&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Zip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pack'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;archiveName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRootDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;_v&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VERSION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.zip&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;destinationDir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRootDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getParentFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRootDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAbsolutePath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**.zip'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**.iml'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**/**.iml'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'build/**'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.idea/**'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.gradle/**'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'gradle/**'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'**/build/**'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;上面脚本文件中所需的仓库地址可以从下面这个地方获得：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/18-0-maven-url.png&quot; alt=&quot;18-0-maven-url&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;你可以把这份文件放置到任何地方，项目中、本地的指定位置、甚至是网络上，这样在使用的时候只需要添加一下引用即可。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;使用的时候如下(我把该文件放置在了自己电脑的桌面上)，在需要上传的 Library 的 build.gradle 中引用该文件并配置：&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 配置上传信息&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;USERNAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;GcsSloop&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;PASSWORD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;xxxxxxx&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;GROUP_ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;com.gcssloop.demo&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ARTIFACT_ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;uploader&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;VERSION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 引用上传脚本&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;from:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/Users/gcssloop/Desktop/pack-upload.gradle&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/19-config.png&quot; alt=&quot;19-config&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在配置完善后同步一下项目，就可以打开 gradle 命令菜单看到多出来了3个命令，双击即可执行对应的命令：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pack：打包项目&lt;/li&gt;
+  &lt;li&gt;uploadToLocal：上传到本机仓库&lt;/li&gt;
+  &lt;li&gt;uploadToPublic：上传到公网仓库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/20-command.png&quot; alt=&quot;20-command&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果一切配置正确的话，等上传成功就可以在对应的仓库中看到上传的文件了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/04-maven-private/21-upload-over-0156932.png&quot; alt=&quot;21-upload-over&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;注意&quot;&gt;注意：&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 如非必要尽量不要去删除已发布的Library，如果发现Library有bug，请修复后更新版本号重新发布。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 仓库默认不允许重新发布，若有更新，请修改版本号后再进行发布。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;5-依赖配置&quot;&gt;5. 依赖配置&lt;/h3&gt;
+
+&lt;h4 id=&quot;51-添加仓库地址&quot;&gt;5.1 添加仓库地址&lt;/h4&gt;
+
+&lt;p&gt;在需要使用该 Library 的项目的根 build.gradle 中配置仓库地址(例如)：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Groovy&quot;&gt;allprojects {
+    repositories {
+        jcenter()
+        maven {
+            // 配置用户名和密码
+            credentials { username 'GcsSloop' password 'xxxxxx' }
+            // 配置仓库地址（获取方式见上文）
+            url &quot;http://localhost:8081/repository/gcssloop-central/&quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;52-添加具体library&quot;&gt;5.2 添加具体Library&lt;/h4&gt;
+
+&lt;p&gt;在需要添加该项目的Module的对应 &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; 下添加依赖。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// &amp;lt;包名&amp;gt;:&amp;lt;项目名&amp;gt;:&amp;lt;版本号&amp;gt;，例如：&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.demo:uploader:1.0.0'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;私有仓库的依赖使用方式和公共仓库远程依赖书写方式相同。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;6-后记&quot;&gt;6. 后记&lt;/h3&gt;
+
+&lt;p&gt;在本系列第一篇文章 &lt;a href=&quot;http://www.gcssloop.com/gebug/componentr&quot;&gt;组件化&lt;/a&gt; 中，我简单的介绍了将业务模块抽取为组件的优点，这里的私有仓库本质上也是为它服务的。&lt;/p&gt;
+
+&lt;p&gt;自己开发一个组件非常简单，但是一定要注意它的源码和文档管理，只有把源码的文档管理做好了，才能方便后续人员接手维护，否则单独抽取一个无法维护的组件是毫无意义的。&lt;/p&gt;
+
+&lt;p&gt;有人可能会注意到，我在上传脚本中添加了一个 pack 方法，这个方法用于打包源码，也可以说是创建当前工程的一个快照，我一般在开发完成一个小版本后就会打包一次，它会自动打包成为这样的格式 &lt;code class=&quot;highlighter-rouge&quot;&gt;项目名_v1.0.0.zip&lt;/code&gt; ，相当于对每一个版本的源码都进行了保存，之后再配合 git 等工具进行源码管理。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;也许有人会有疑问，既然用 git 管理了，何必在自己保存每一个版本的源码呢？&lt;/strong&gt;
+这主要是因为，git 虽然强大，但毕竟还是要自己手动提交的，有时比较懒，就容易漏掉几个小版本，而使用脚本直接双击就自动保存快照了，相比于git会快捷很多，并且，在需要某个特定版本源码的时候，也无需去git找提交记录了，直接把对应版本的zip文件解压一下就可以了。&lt;/p&gt;
+
+&lt;p&gt;最后，私有仓库也并非是必须的，但如果你想自己开发维护一些私有组件库的话，非常推荐一试。&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 15 Mar 2018 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/gebug/maven-private</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/gebug/maven-private</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>GeBug</category>
+        
+      </item>
     
       <item>
         <title>雕虫晓技(三) 通用圆角布局全解析</title>
@@ -3021,192 +3527,6 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
         
         
         <category>Markdown</category>
-        
-      </item>
-    
-      <item>
-        <title>程序员练级指北</title>
-        <description>&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7c95aispj30rs07qmyp.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;之前非常有幸收到 &lt;a href=&quot;https://github.com/inferjay&quot;&gt;脉脉不得语&lt;/a&gt; 的邀请参加 郑州GDG&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 举办的 DevFest&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; 活动，并上台分享了一下自己的拙见，回来之后我将自己演讲的内容整理了一下，并分享给大家，希望对一些人有帮助，关于 郑州GDG 更多的活动内容，大家可以到 &lt;a href=&quot;https://github.com/GDGZhengzhou/Events&quot;&gt;GDGZhengzou&lt;/a&gt; 查看。另外，欢迎关注我的 &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; 和  &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;微博&lt;/a&gt; 。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;我在本次活动中的演讲主题是《程序员练级指北》，主要内容如何从零开始，并逐渐成长为一名合格的程序员，里面的内容是基于自身的经历和见解所书写的，并不一定适合所有人，建议选择性采纳。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;为了演讲不那么枯燥乏味，我用了很多口语化的描述，并将程序员分了等级，从零装备的新手到钻石级别套装的大佬，其实各个等级之间并没有严格的分界点，只是大致的划分，大家理解便好。另外本文和现场演讲可能稍有差别，下面开始正文。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Hello，大家好，我是 GcsSloop，今天是我第一次在这么多陌生人面前装逼，啊不，演讲，心里很是忐忑，现在我还能感受到自己的心扑通扑通的跳。&lt;/p&gt;
-
-&lt;p&gt;我呢，主要学习 Android，爱好装逼，喜欢钱，目前正在向段子手的方向上越走越远。&lt;/p&gt;
-
-&lt;p&gt;非常高兴今天能站在这里向大家分享我自己的观点，因为在坐的的技术牛人太多了，作为一个没什么技术实力的新人，不敢在这里班门弄斧讲技术，要不然正讲着哪位大牛突然站起来说我讲的不对，这不就尴尬了么。&lt;/p&gt;
-
-&lt;p&gt;由于本人爱好装逼，自然也研究了一些心得，所以我今天分享一下程序员如何在不同阶段正确的装逼。&lt;/p&gt;
-
-&lt;h2 id=&quot;第一阶段---新手村&quot;&gt;第一阶段 - 新手村&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/005Xtdi2jw1fa7a60w9nqj30m80c0gma.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;作为编程的新手，自然是不能在大佬面前装逼的，否则分分钟被吊打。这一阶段我们要先给自己定一个小目标，什么是小目标呢？例如挣他个一百万？这对于我们来说当然是不现实的，作为编程菜鸟，小目标当然是稍微努力一下就能完成的，例如：看完几个新手教程，时间不要太长，两三天能完成的任务量就够了。当然了，光看还不行的，要发在朋友圈，让大家觉得你是一个非常有上进心的人。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;为什么要发在朋友圈呢？装逼是一方面，除此之外，过了两天你就会发现，这两天光顾着打游戏了，新手教程居然忘记看了，这时候去看看朋友圈，再看看上面的赞，心里想如果这要是不弄完以后还如何在朋友面前装逼，自己装的逼跪着也要学完。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这一阶段注意两点：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;任务周期要短，任务量要小&lt;/strong&gt;，如果周期太长，例如一个月，到月底发现弄不完了，就会想反正也弄不完了，就这样吧，容易破罐子破摔。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;要形成周围的监督机制&lt;/strong&gt;，如果没人看着，反正也没人知道，那就随便学喽，过不了几天自己就放弃了。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;如果按照计划执行了第一阶段的任务，那么经过大约一两个月的时间，新手教程基本上就看完了，相当于集齐了一套新手装备，顺利进入下一阶段。&lt;/p&gt;
-
-&lt;h2 id=&quot;第二阶段---初级套装&quot;&gt;第二阶段 - 初级套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/005Xtdi2jw1fa7abwlqq8j30m80c0dgm.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;初级套装虽然攻击和防御力都很弱，但至少能单挑一些野怪了，有了一定的装逼资本，这时候就要在新手村附近刷一些野怪练级。&lt;/p&gt;
-
-&lt;p&gt;既然是刷怪升级，自然要选一个怪物比较集中的地方，最好还要有不同等级的怪物，这样方便刷经验，这个地方是哪里呢？个人觉得最适合的地方就是学校OJ题库，不一定要是自己学校的，大部分学校的OJ题库都是开放的，这里面的题目比较多，难度也分了很多等级，是非常适合新手练习的场所。不熟悉OJ系统的建议搜索了解一下。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;这一阶段非常容易卡关，经常发现自己有两点不会，就是这也不会，那也不会。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;然而作为编程界的新手，我们遇到的大部分问题肯定已经有大神踩过坑了，在99%的情况下，用百度或者Google搜索题目描述就能得到攻略方式，但不要偷懒直接复制，要自己亲自写一遍代码，这样有助于自己了解不同类型题目的模式。&lt;/p&gt;
-
-&lt;p&gt;如果你发现了一道题的答案搜索不到，但是自己解决了，那么恭喜你捡到宝了，说明你遇到了一个稀有的或者新增的怪物，赶紧整理一下攻略过程发博客吧，又能装逼了。&lt;/p&gt;
-
-&lt;p&gt;这样过了一段时间你就会发现，这些野怪大部分都很弱，只会几种常见的套路而已，除了最基础的题型外，归纳起来就是：堆、栈、树、表、图。&lt;/p&gt;
-
-&lt;p&gt;每一类野怪都有特定的攻略方法，常用的有：枚举，遍历，分治，贪婪，动态，线性，暴力打表 以及 抖机灵。&lt;/p&gt;
-
-&lt;p&gt;我在大一的时候加入了学校的打野攻略组，就是传说中的ACM，在里面待了大约有一年的时间，虽然没拿过大奖项，但好在通过刷题把自己的基础巩固了。&lt;/p&gt;
-
-&lt;p&gt;这一阶段反映自己进步的最好标准就是 做题量 和 排行榜，我最高在校内排到前5，两年没有更新的情况下目前依旧在前50之内，不要问我哪个学校的，是我学校的，看一下OJ排行榜自然能认出我，我在排行榜上也叫GcsSloop。&lt;/p&gt;
-
-&lt;p&gt;装逼完毕，进入下一阶段。&lt;/p&gt;
-
-&lt;h2 id=&quot;第三阶段---青铜套装&quot;&gt;第三阶段 - 青铜套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7afft4xgj30m80c00tc.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;刷野怪时间长了就会发现其实也挺没意思的，不过好在能够练装备，把数据结构知识和一些常见的算法弄明白，熟悉敌人的攻击套路，这样经过一段时间后，装备基本也升级到青铜了，这时候就应该尝试去挑战一下区域小boss了。&lt;/p&gt;
-
-&lt;p&gt;什么是挑战区域小boss呢，就是尝试制作一个完整的项目并发布出去，有人使用即可。&lt;/p&gt;
-
-&lt;p&gt;挑战小boss可以组团或者单挑，个人虽然喜欢组团，但无奈我们学校这个服务器太弱了，基本找不到合适的队友，尝试了几次组队最终都以失败而告终，无奈只能去单挑。&lt;/p&gt;
-
-&lt;p&gt;单挑boss要量力而行，不能找太强的boss，根据我自己的经验，单挑太强的boss会死的很难看，自己曾经有无数个项目胎死腹中或者半路夭折。&lt;/p&gt;
-
-&lt;p&gt;选择一个比较弱的boss，例如：发布一个简单的 app 到应用市场，获取到一定的下载量，或者写一个开源库，获得一点 star。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;这一阶段锻炼的是项目构建能力，能够完整的构建一个项目并发布出去，有人使用就算成功了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这样既能带来成就感，又能装逼，发完之后记得告诉身边的人自己有内容发布了，再次装一波。&lt;/p&gt;
-
-&lt;h2 id=&quot;第四阶段---白银套装&quot;&gt;第四阶段 - 白银套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7ajkrs5aj30m80c0751.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;单挑完一些区域小boss后，将套装升级为白银，有了一定的装逼资本，此时发现总在朋友圈装逼成就感太差了，这时候可以去论坛、贴吧、社区、微博等地方好好的装一把，让那些装备还没有升级起来的小白看看这套锃亮的白银套装是多么耀眼，不过仍要注意不能太过火，在出来帮助新手解决问题的时候顺便展示一下白银套装的威力就行了，装的太狠容易被大佬发现抓起来吊打，这不就尴尬了么。&lt;/p&gt;
-
-&lt;p&gt;顺便说一下，如果从培训机构出来的，正常应该是白银初级，自身有基础加上比较努力可能会达到白银中级，能拿到白银套装说明已经达到了职业程序员最基本的标准。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;很多人打到白银就开始迷茫了，去挑战小boss吧太没成就感，那些看起来就很肥美的中级和高级boss基本已经被大公司瓜分了，自己根本无从插手。所以这时候就要考虑加入公司的问题了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;那些比较好的公司，例如：网易、阿里、腾讯 等肯定有一堆人挤破头都想进，作为一个刚刚拿到白银套装的人想挤进去不能说没有机会，但肯定很难。但作为拥有白银套装的人，想加入一些小公司倒还算比较容易。&lt;/p&gt;
-
-&lt;p&gt;个人建议初期有条件优先选择比较大的公司，因为这些公司资源多，有成熟的体系，可以帮助我们快速的在某一方向上获得长足的发展。&lt;/p&gt;
-
-&lt;p&gt;后期则优先选择发展型的小公司，如果是从大公司跳向一个小公司，一般都会担任不错的职位，这可以帮助我们锻炼技术之外的能力，另外一个原因是随着公司成长可以分得一些红利。&lt;/p&gt;
-
-&lt;p&gt;加入公司自然要考虑自身和公司的关系。&lt;/p&gt;
-
-&lt;p&gt;个人觉得最核心的一点就是不要依附于公司，也不要抱有敌意，最好的办法就是和公司成为&lt;strong&gt;利益共同体&lt;/strong&gt;，在自己为公司创造价值的同时利用公司强大的资源提升自己的能力。&lt;/p&gt;
-
-&lt;p&gt;如果太过于依附公司，认为自己努力工作一定能得到相应回报的，根据经济学的假设，人都是自私而理性的，老板亦是如此，所以这类人大部分情况下都不会得到预期的结果。&lt;/p&gt;
-
-&lt;p&gt;对公司抱有敌意，认为自己就是打工赚钱的，想偷懒干最少的活，拿最多的钱，因为在偷懒的同时错失了很多发展机会，所以这类人大部分会随着技术的升级而被淘汰掉。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;如何与公司成为利益共同体呢？首先要明确自己的目标，自己加入公司是为了提升自己的能力，而不仅仅是来打工赚钱的，想要实现这一目标则是想办法干更多的活，这样老板肯定乐意，而我们通过干更多的活来接触更多的信息，并且把接触到的信息沉淀成为自己的经验积累，对自身发展也是有益的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;当然了，我们也不是傻子，当我们自身产生的价值远远超过公司给我们的薪资并且公司资源已经无法支撑我们继续提升的时候，就该抛弃这家公司跳槽了，这一次跳槽势必能进入一个更好的公司深造，可以利用更庞大的资源来辅助我们发展，接触到更多的信息。在信息时代，信息就是金钱，将信息沉淀成为个人经验并不能第一时间转化为金钱，但是总能在未来的某一时刻爆发出惊人的力量。&lt;/p&gt;
-
-&lt;h2 id=&quot;第五阶段---黄金套装&quot;&gt;第五阶段 - 黄金套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7ar2u1gjj30m80c03zb.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在白银阶段，就具备了职业程序员的基本素养，但是离出任CTO，迎娶白富美，走上人生巅峰还差的很远呢，想要实现这些目标，首先要拿到黄金套装。&lt;/p&gt;
-
-&lt;p&gt;一般来说技术发现有两个方向可走：&lt;strong&gt;深度 和 广度。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;我自己使用的是树形型结构，大树的树，&lt;strong&gt;一到两门追求深度，做树木主干，其余的最求广度，做树木枝叶&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;有些人也称为T型知识结构，不过我觉得树形更佳贴切，因为我的所有周边技能都是围绕主干展开的，并且是可生长(拓展)的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;我的主方向 Android，自学了 C、Java、Python、Web、Photoshop 等相关知识，除了主方向Android之外，其他方向作为辅助方向，仅仅了解了最基础的内容，也就是能够靠着搜索引擎写一些简单小程序的程度。&lt;/p&gt;
-
-&lt;p&gt;树型知识架构有很多好处：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;不被单一语言束缚，在实际场景中可以选择最合适的语言&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;可以跨领域突破，我在研究 Android 2D 绘图逻辑的时候就借鉴了很多 PS 的知识&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;预留发展空间大，假设某一天，Android市场饱和了或者前景变差了，我可以快速的从树枝中选择一支比较擅长的发展成为主干，而不用每次都从零开始&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;其实我们大部分人都是俗人，是不是黄金套装都无所谓，能赚钱才行，很多人来做技术也是为了赚钱，所以接下来我说的是如何想办法用最小的代价产生最大的价值。想要赚钱首先要明白最基本的商业逻辑，如果我们通过正常的方式从别人那里赚到钱了，说明我们为别人提供了价值，这样别人才愿意付费给我们。&lt;/p&gt;
-
-&lt;p&gt;所以我们要想办法用最小的代价为别人提供最大的价值，我写代码之前会多思考，没错，就是学生时代老师经常说的多思考。不过那时候没有人告诉我们该思考什么，因此我自己摸索出来了一套东西。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;思考核心目标&lt;/strong&gt;，我们是为了某一件事情而写程序，并不是因为写程序了所以要完成这件事情。&lt;strong&gt;核心目标是完成这件事情，而不是写程序。&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;思考是否可以偷懒&lt;/strong&gt;，我是否可以用更简单的方式完成目标，例如&lt;strong&gt;不写代码，少写代码&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;如果写代码了，是否可以产生附加价值&lt;/strong&gt;，例如我写这一段代码是否可以抽取成为一个开源库，是否可以将其中的设计思想整理成文共享出去。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;如何产生更大的价值&lt;/strong&gt;，我的开源库或者文章如何才能服务更多人，让更多人了解到我的东西。因为只有服务更多人，才能产生更大的价值，我们也才可能从中拿走一部分利润。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;经历过这几步的思考，基本上就已经能将所写的每一段代码的价值潜力都发掘出来，进而用最小的力气服务最多的人。当然了，为了别人服务，只是产生了价值，在通常情况下，这部分价值是无法直接提现的，也就是说仅仅产生了价值但自身并没有收益。&lt;/p&gt;
-
-&lt;p&gt;不过非常值得庆幸的是，今年很有可能成为内容付费元年，今年已经出来了很多内容变现工具，我知道的就有，微博长文打赏，简书打赏，知乎live，diycode原创打赏 和 掘金原创打赏。&lt;/p&gt;
-
-&lt;p&gt;另外，最重要的是，&lt;strong&gt;随着社会的快速发展，很多人有钱了，开始愿意为自己喜欢的事物打赏，这是一切的基础。所以看到这里你就不想给我打赏一下？让我有动力写出更好的文章！&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;第六阶段---钻石套装&quot;&gt;第六阶段 - 钻石套装&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7aswevd3j30m80c0gm8.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;能拿到钻石套装的人在全球范围内都是屈指可数的，这一类人通常是某一领域的开拓者，就是我们所说的 XXX之父。这些开拓者已经将自己的影响力渗透进了社会的各行各业，说他们推动了社会的进步也是可以的，我有生之年不说集齐套装，仅仅能拿一件钻石武器便足以令我心满意足了。&lt;/p&gt;
-
-&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
-
-&lt;p&gt;前面啰嗦了这么多，最后告诉大家一个小秘密，如果你想要研究一个人发展的根本，不要直接去问他，因为别人很少会告诉你自己赖以生存的核心技能，他们只会告诉你看起来很光鲜的皮毛，就是所谓的心灵鸡汤，这些听起来很励志，但落实在自己身上通常没什么用，大多数情况下只会给你带来两三天的激情而已。&lt;/p&gt;
-
-&lt;p&gt;正确的方法是观察他在做什么事情，以及分析他做这些事情的背后逻辑。如果你能把这些逻辑想清楚了，就把别人真正的核心技能偷过来了。之后根据自身情况一步一步的学着做就行了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;所以说，你们如果你们想了解我在做什么，为什么不考虑关注一下我的 &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;新浪微博&lt;/a&gt; 呢？关注一下又不会吃亏！&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;GDG 全称 Google Developer Group，中文意思是 &lt;strong&gt;谷歌开发者社区&lt;/strong&gt; 。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;DevFest 开发者节，今年(2016)的举办时间是 9月1日 到 11月30日 之间，全球大部分谷歌开发者社区都会举办该活动，一年一次。 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Mon, 28 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/lecture/gdg-developer-growth-guide</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/lecture/gdg-developer-growth-guide</guid>
-        
-        <category>演讲</category>
-        
-        
-        <category>Lecture</category>
         
       </item>
     
