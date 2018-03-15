@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Encrypt(加密工具包)</title>
+  <meta name="description" content="Android 加密解密工具包，字符串，byte[]，文件等对象的加密和解密工具集合，包含了多种加密方案，例如 编码工具(Base64Util)，信息摘要工具(MD5Util、SHAUtil)，对称加密工具(AESUtil、DESUtil)，非对称加密工具(RSAUtil)">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Base64, MD5, SHA, AES, DES,RSA">
+  <meta name="关键字" content="Base64, MD5, SHA, AES, DES,RSA">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Encrypt(加密工具包)">
+  <meta name="twitter:description" content="Android 加密解密工具包，字符串，byte[]，文件等对象的加密和解密工具集合，包含了多种加密方案，例如 编码工具(Base64Util)，信息摘要工具(MD5Util、SHAUtil)，对称加密工具(AESUtil、DESUtil)，非对称加密工具(RSAUtil)">
+  <meta name="twitter:keywords" content="Base64, MD5, SHA, AES, DES,RSA">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Encrypt(加密工具包)">
+  <meta property="og:description" content="Android 加密解密工具包，字符串，byte[]，文件等对象的加密和解密工具集合，包含了多种加密方案，例如 编码工具(Base64Util)，信息摘要工具(MD5Util、SHAUtil)，对称加密工具(AESUtil、DESUtil)，非对称加密工具(RSAUtil)">
+  <meta name="og:keywords" content="Base64, MD5, SHA, AES, DES,RSA">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/tools/encrypt">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2017-10-01 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2017-10-01</time> &#8226; <span class="post-meta__tags tags">Base64,MD5,SHA,AES,DES,RSA</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">Encrypt(加密工具包)</h1>
+  </header>
+
+  <section class="post">
+    <p>Android 加密解密工具包，字符串，byte[]，文件等对象的加密和解密工具集合，包含了多种加密方案，例如：<br />
+编码工具(Base64Util)，信息摘要工具(MD5Util、SHAUtil)，对称加密工具(AESUtil、DESUtil)，非对称加密工具(RSAUtil)。</p>
+
+<p><strong>其中所有的工具都经过了测试，如果发现有什么问题，可以到 <a href="https://github.com/GcsSloop/encrypt">【GitHub · Encrypt】</a> 提交Issues。</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>加密类型</th>
+      <th>摘要</th>
+      <th>相关方法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>简单加密</td>
+      <td>换一种编码格式</td>
+      <td>Base64Util</td>
+    </tr>
+    <tr>
+      <td>单向加密</td>
+      <td>只能加密，不能解密</td>
+      <td>MD5Util、SHAUtil</td>
+    </tr>
+    <tr>
+      <td>对称加密</td>
+      <td>使用相同的秘钥加密和解密</td>
+      <td>AESUtil、DESUtil</td>
+    </tr>
+    <tr>
+      <td>非对称加密</td>
+      <td>分公钥和私钥，一个加密，另一个解密</td>
+      <td>RSAUtil</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="使用方法">使用方法</h2>
+
+<h3 id="base64util">Base64util</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>String  base64EncodeStr(String str)</td>
+      <td>编码</td>
+    </tr>
+    <tr>
+      <td>String base64DecodedStr(String str)</td>
+      <td>解码</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>单元测试：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"base64"</span><span class="o">);</span>
+<span class="c1">// base64 字符串加密解密测试</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"R2NzU2xvb3DkuK3mloc=\n"</span><span class="o">,</span> <span class="n">Base64Util</span><span class="o">.</span><span class="na">base64EncodeStr</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="n">Base64Util</span><span class="o">.</span><span class="na">base64DecodedStr</span><span class="o">(</span><span class="s">"R2NzU2xvb3DkuK3mloc=\n"</span><span class="o">));</span>
+</code></pre>
+</div>
+
+<h3 id="md5util">MD5Util</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>String md5(String string)</td>
+      <td>加密字符串</td>
+    </tr>
+    <tr>
+      <td>String md5(String string, String slat)</td>
+      <td>加密字符串同时加盐</td>
+    </tr>
+    <tr>
+      <td>String md5(String string, int times)</td>
+      <td>多次加密</td>
+    </tr>
+    <tr>
+      <td>String md5(File file)</td>
+      <td>计算文件的md5数值</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>单元测试：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"md5"</span><span class="o">);</span>
+<span class="c1">// MD5 字符串加密测试</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">""</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">""</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"386d3ff3fa6def1ec307428e885e03a1"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"fd01aa74bb73bbdb094bae28a558c6d1"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="s">"salt"</span><span class="o">));</span>
+
+<span class="c1">// MD5 多次加密测试</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="mi">0</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"386d3ff3fa6def1ec307428e885e03a1"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="mi">1</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"2d9fdd834c5c852fa2f946b670f3731f"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="mi">2</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"211dd7a16d5a01df756278cea9a38d53"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">"GcsSloop中文"</span><span class="o">,</span> <span class="mi">3</span><span class="o">));</span>
+
+<span class="c1">// MD5 文件md5测试</span>
+<span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">"./Encrypt/Test/demo"</span> <span class="o">+</span>
+                             <span class="s">".flv"</span><span class="o">);</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"a4e592e6160e0102e7ecc4ab6117b700"</span><span class="o">,</span> <span class="n">MD5Util</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+</code></pre>
+</div>
+
+<h3 id="shautil">SHAUtil</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>String sha(String string, String type)</td>
+      <td>加密</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>单元测试：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"sha"</span><span class="o">);</span>
+<span class="c1">// des 字符串加密解密测试</span>
+<span class="n">String</span> <span class="n">source</span> <span class="o">=</span> <span class="s">"GcsSloop中文"</span><span class="o">;</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"b9dd1d754ee3ac16dc584b8fd4655ca581a0637eab8ff25128b0a522372e7233"</span><span class="o">,</span>
+             <span class="n">SHAUtil</span><span class="o">.</span><span class="na">sha</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="kc">null</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"34d44835ce4cc4d7ecf66428e49273bf02f748d7213be24c767c5f4f"</span><span class="o">,</span>
+             <span class="n">SHAUtil</span><span class="o">.</span><span class="na">sha</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">SHAUtil</span><span class="o">.</span><span class="na">SHA224</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"b9dd1d754ee3ac16dc584b8fd4655ca581a0637eab8ff25128b0a522372e7233"</span><span class="o">,</span>
+             <span class="n">SHAUtil</span><span class="o">.</span><span class="na">sha</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">SHAUtil</span><span class="o">.</span><span class="na">SHA256</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"2e3c27201c21b06b01289ebef09c9c36e752ca6a5b6425ca7b2501b4baaed29876954ca710b7e75c80b7b542df28fde6"</span><span class="o">,</span>
+             <span class="n">SHAUtil</span><span class="o">.</span><span class="na">sha</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">SHAUtil</span><span class="o">.</span><span class="na">SHA384</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"bc3f55fcb03272ee166d7804ccba348ffba05ddce08bf3fab719fa2c97c8dc71993fc9524e21b8fee9491aafc0b309ebca797163bca45ece7c3dd73dae3698ee"</span><span class="o">,</span>
+             <span class="n">SHAUtil</span><span class="o">.</span><span class="na">sha</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">SHAUtil</span><span class="o">.</span><span class="na">SHA512</span><span class="o">));</span>
+</code></pre>
+</div>
+
+<h3 id="aesutil">AESUtil</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>String aes(String content, String password,  int type)</td>
+      <td>加密／解密</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>单元测试：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"aes"</span><span class="o">);</span>
+<span class="c1">// aes 字符串加密解密测试</span>
+<span class="n">String</span> <span class="n">source</span> <span class="o">=</span> <span class="s">"GcsSloop中文"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="s">"1234567890123456"</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"原数据 = "</span> <span class="o">+</span> <span class="n">source</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">aesStr</span> <span class="o">=</span> <span class="n">AESUtil</span><span class="o">.</span><span class="na">aes</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">ENCRYPT_MODE</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"加密后 = "</span> <span class="o">+</span> <span class="n">aesStr</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">AESUtil</span><span class="o">.</span><span class="na">aes</span><span class="o">(</span><span class="n">aesStr</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"解密后 = "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="desutil">DESUtil</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>String des(String content, String password,  int type)</td>
+      <td>加密／解密</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>单元测试：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"des"</span><span class="o">);</span>
+<span class="c1">// des 字符串加密解密测试</span>
+<span class="n">String</span> <span class="n">source</span> <span class="o">=</span> <span class="s">"GcsSloop中文"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="s">"1234567890123456"</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"原数据 = "</span> <span class="o">+</span> <span class="n">source</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">aesStr</span> <span class="o">=</span> <span class="n">DESUtil</span><span class="o">.</span><span class="na">des</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">ENCRYPT_MODE</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"加密后 = "</span> <span class="o">+</span> <span class="n">aesStr</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">DESUtil</span><span class="o">.</span><span class="na">des</span><span class="o">(</span><span class="n">aesStr</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"解密后 = "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="rsautil">RSAUtil</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Map&lt;String, Object&gt; getKeyPair()</td>
+      <td>随机获取密钥(公钥和私钥), 客户端公钥加密，服务器私钥解密</td>
+    </tr>
+    <tr>
+      <td>String getKey(Map&lt;String, Object&gt; keyMap, boolean isPublicKey)</td>
+      <td>获取公钥/私钥(true：获取公钥，false：获取私钥)</td>
+    </tr>
+    <tr>
+      <td>String sign(byte[] data, String privateKey)</td>
+      <td>获取数字签名</td>
+    </tr>
+    <tr>
+      <td>boolean verify(byte[] data, String publicKey, String sign)</td>
+      <td>数字签名校验</td>
+    </tr>
+    <tr>
+      <td>byte[] rsa(byte[] data, String string,  int type)</td>
+      <td>Rsa加密/解密（一般情况下，公钥加密私钥解密）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>单元测试：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa"</span><span class="o">);</span>
+<span class="c1">// des 字符串加密解密测试</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="s">"GcsSloop中文"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+
+<span class="c1">// 密钥与数字签名获取</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">keyMap</span> <span class="o">=</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">getKeyPair</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">publicKey</span> <span class="o">=</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">getKey</span><span class="o">(</span><span class="n">keyMap</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa获取公钥： "</span> <span class="o">+</span> <span class="n">publicKey</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">privateKey</span> <span class="o">=</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">getKey</span><span class="o">(</span><span class="n">keyMap</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa获取私钥： "</span> <span class="o">+</span> <span class="n">privateKey</span><span class="o">);</span>
+
+<span class="c1">// 公钥加密私钥解密</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">rsaPublic</span> <span class="o">=</span>
+        <span class="n">RSAUtil</span><span class="o">.</span><span class="na">rsa</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">publicKey</span><span class="o">,</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">RSA_PUBLIC_ENCRYPT</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa公钥加密： "</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">rsaPublic</span><span class="o">));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa私钥解密： "</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span>
+        <span class="n">RSAUtil</span><span class="o">.</span><span class="na">rsa</span><span class="o">(</span><span class="n">rsaPublic</span><span class="o">,</span> <span class="n">privateKey</span><span class="o">,</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">RSA_PRIVATE_DECRYPT</span><span class="o">)));</span>
+
+<span class="c1">// 私钥加密公钥解密</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">rsaPrivate</span> <span class="o">=</span>
+        <span class="n">RSAUtil</span><span class="o">.</span><span class="na">rsa</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">privateKey</span><span class="o">,</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">RSA_PRIVATE_ENCRYPT</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa私钥加密： "</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">rsaPrivate</span><span class="o">));</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa公钥解密： "</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span>
+        <span class="n">RSAUtil</span><span class="o">.</span><span class="na">rsa</span><span class="o">(</span><span class="n">rsaPrivate</span><span class="o">,</span> <span class="n">publicKey</span><span class="o">,</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">RSA_PUBLIC_DECRYPT</span><span class="o">)));</span>
+
+<span class="c1">// 私钥签名及公钥签名校验</span>
+<span class="n">String</span> <span class="n">signStr</span> <span class="o">=</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">rsaPrivate</span><span class="o">,</span> <span class="n">privateKey</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa数字签名生成： "</span> <span class="o">+</span> <span class="n">signStr</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"rsa数字签名校验： "</span> <span class="o">+</span> <span class="n">RSAUtil</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">rsaPrivate</span><span class="o">,</span> <span class="n">publicKey</span><span class="o">,</span> <span class="n">signStr</span><span class="o">));</span>
+</code></pre>
+</div>
+
+<h3 id="添加方法">添加方法</h3>
+
+<ol>
+  <li>在你的项目根 <code class="highlighter-rouge">build.gradle</code> 中添加上远程仓库：</li>
+</ol>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">jcenter</span><span class="o">()</span>
+        <span class="c1">// 就是下面这一行</span>
+        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">"http://lib.gcssloop.com/repository/gcssloop-central/"</span> <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<ol>
+  <li>在需要引用的 module 添加具体依赖。</li>
+</ol>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'com.gcssloop.util:encrypt:1.0.0@aar'</span>
+</code></pre>
+</div>
+
+<h3 id="版本信息">版本信息</h3>
+
+<h4 id="v100">v1.0.0</h4>
+
+<p>添加基本的加密解密工具和辅助工具类。</p>
+
+<ul>
+  <li>base
+    <ul>
+      <li><strong>Base64</strong></li>
+      <li><strong>BaseUtils</strong></li>
+      <li><strong>CloseUtils</strong></li>
+      <li><strong>CryptoProvider</strong></li>
+      <li><strong>TextUtils</strong></li>
+    </ul>
+  </li>
+  <li>encode
+    <ul>
+      <li><strong>Base64Util</strong></li>
+    </ul>
+  </li>
+  <li>oneway
+    <ul>
+      <li><strong>MD5Util</strong></li>
+      <li><strong>SHAUtil</strong></li>
+    </ul>
+  </li>
+  <li>symmetric
+    <ul>
+      <li><strong>AESUtil</strong></li>
+      <li><strong>DESUtil</strong></li>
+    </ul>
+  </li>
+  <li>unsymmetric
+    <ul>
+      <li><strong>RSAUtil</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="备注">备注</h2>
+
+<p>本工具库中大部分代码参考自 <a href="http://blog.csdn.net/gzejia/article/details/52755332">一个聚合的加解密工具类</a> 但在测试过程中发现部分方法结果不正确，以及部分方法在Android升级过程中进行了修改，所以改进了一部分，特此制作一个工具库，如果发现有什么不准确的地方欢迎提交 Issues。</p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<p><a href="http://blog.csdn.net/gzejia/article/details/52755332">一个聚合的加解密工具类</a></p>
+
+<p><a href="http://tool.oschina.net/encrypt?type=2">在线加密解密</a></p>
+
+<p><a href="http://www.cnblogs.com/whoislcj/p/5473030.html">Android数据加密之Aes加密</a></p>
+
+<p><a href="https://my.oschina.net/yaly/blog/856362">java.security.NoSuchProviderException: no such provider: Crypto</a></p>
+
+<h2 id="作者简介">作者简介</h2>
+
+<h4 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop">@GcsSloop</a></h4>
+
+<h4 id="个人网站-httpwwwgcssloopcom">个人网站: http://www.gcssloop.com</h4>
+
+<p><a href="http://www.gcssloop.com/info/about/" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" /> </a></p>
+
+<h2 id="版权信息">版权信息</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Copyright (c) 2017 GcsSloop
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+</div>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/tools/rclayout" title="link to RCLayout(圆角布局)">RCLayout(圆角布局)</a></h2>
+    <p class="excerpt">Android 通用圆角布局，快速实现圆角需求。之前做项目的时候有圆角相关需求，在网上找了很多方案都不够满意，于是自己做了一个，目前已经使用了一段时间，更新了多个版本，我遇到的问题都进行了修复，...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2017-10-05 00:00:00 +0800" class="post-list__meta--date date">2017-10-05</time> &#8226; <span class="post-list__meta--tags tags">Tools</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/tools/rclayout>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/customview/gestruedector" title="link to 安卓自定义View进阶-手势检测(GestureDecetor)">安卓自定义View进阶-手势检测(GestureDecetor)</a></h2>
+       <p class="excerpt">Android 手势检测，主要是 GestureDetector 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，部分内容会涉及到之前文章提及过的知识点，如果你没看过之前的文章，可以到 ...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2017-07-09 00:00:00 +0800" class="post-list__meta--date date">2017-07-09</time> &#8226; <span class="post-list__meta--tags tags">CustomView</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/customview/gestruedector>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

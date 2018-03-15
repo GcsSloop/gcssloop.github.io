@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>PagerLayoutManager(分页布局)</title>
+  <meta name="description" content="具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android, PagerLayotManager, PagerGridLayoutManager">
+  <meta name="关键字" content="Android, PagerLayotManager, PagerGridLayoutManager">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PagerLayoutManager(分页布局)">
+  <meta name="twitter:description" content="具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager。">
+  <meta name="twitter:keywords" content="Android, PagerLayotManager, PagerGridLayoutManager">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PagerLayoutManager(分页布局)">
+  <meta property="og:description" content="具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager。">
+  <meta name="og:keywords" content="Android, PagerLayotManager, PagerGridLayoutManager">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/tools/pager-grid-layoutmanager">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2017-10-15 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2017-10-15</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">PagerLayoutManager(分页布局)</h1>
+  </header>
+
+  <section class="post">
+    <p>具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，并不能适用于所有场景，请选择性使用。</p>
+
+<p>另外，该库并不是特别完善，欢迎提交 Issues 或者 PR 来协助我完善。</p>
+
+<h2 id="1-效果预览">1. 效果预览</h2>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcpnh4wzg308c0ep1kz.gif" alt="" />
+<img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcq86gyqg308c0epb2a.gif" alt="" /></p>
+
+<h2 id="2-支持的特性">2. 支持的特性</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />网格布局，设置合适的行列数可以模拟线性布局或者ViewPager。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />分页效果，支持自动回调页码的变化(总页数和当前页数)。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />布局方向，支持横向滚动和垂直滚动。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />方向切换，支持切换滚动方向。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />支持电视，支持TV上按键翻页。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />内存稳定，不会因为一次性添加大量的数据导致内存飙升或者严重卡顿。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />使用简单，无侵入性，可以快速的将其他布局替换为该布局，也可以快速的移除该布局。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />自动修正，当滚动到第3页，删除数据后内容不足2页，会自动修正当前页面为第2页。</li>
+</ul>
+
+<h2 id="3-主要文件">3. 主要文件</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/java/PagerGridLayoutManager.java</td>
+      <td>水平分页网格布局管理器。</td>
+    </tr>
+    <tr>
+      <td>/java/PagerGridSnapHelper.java</td>
+      <td>滚动辅助工具。</td>
+    </tr>
+    <tr>
+      <td>/java/PagerConfig.java</td>
+      <td>Pager配置，用于开关调试日志。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="4-使用方法">4. 使用方法</h2>
+
+<h3 id="41-基本用法">4.1 基本用法</h3>
+
+<p><strong>注意：</strong></p>
+
+<p><strong>1. 一定要在先设置 PagerGridLayoutManager， 之后再设置 PagerGridSnapHelper。</strong><br />
+<strong>2. 注意名称 PagerGridSnapHelper 不是 PagerSnapHelper。</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 1.水平分页布局管理器</span>
+<span class="n">PagerGridLayoutManager</span> <span class="n">layoutManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridLayoutManager</span><span class="o">(</span>
+        <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="n">PagerGridLayoutManager</span><span class="o">.</span><span class="na">VERTICAL</span><span class="o">);</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">setPageListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>    <span class="c1">// 设置页面变化监听器</span>
+<span class="n">recyclerView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="n">layoutManager</span><span class="o">);</span>
+
+<span class="c1">// 2.设置滚动辅助工具</span>
+<span class="n">PagerGridSnapHelper</span> <span class="n">pageSnapHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridSnapHelper</span><span class="o">();</span>
+<span class="n">pageSnapHelper</span><span class="o">.</span><span class="na">attachToRecyclerView</span><span class="o">(</span><span class="n">recyclerView</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>页面变化监听器</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 当总页数确定时的回调</span>
+<span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageSize</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"TAG"</span><span class="o">,</span> <span class="s">"总页数 = "</span> <span class="o">+</span> <span class="n">pageSize</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// 当页面被选中时的回调（从 0 开始）</span>
+<span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageSelect</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageIndex</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"TAG"</span><span class="o">,</span> <span class="s">"选中页码 = "</span> <span class="o">+</span> <span class="o">(</span><span class="n">pageIndex</span><span class="o">+</span><span class="mi">1</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="42-其他设置">4.2 其他设置</h3>
+
+<p><strong>是否在滚动过程中回调页码变化。</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 如果不想在滚动个过程中回调页码变化，可以这样设置(v1.1.0-beta 以上版本支持)</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">setChangeSelectInScrolling</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>切换滚动方向</strong></p>
+
+<p>注意：滚动过程中不可切换方向，设置无效。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mLayoutManager</span><span class="o">.</span><span class="na">setOrientationType</span><span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">.</span><span class="na">HORIZONTAL</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>打开调试日志。</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 如果需要查看调试日志可以设置为true，一般情况忽略即可</span>
+<span class="n">PagerConfig</span><span class="o">.</span><span class="na">setShowLog</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="5-注意事项">5. 注意事项：</h2>
+
+<p>目前存在一个问题，使用的时候请务必给 RecyclerView 设置固定大小或者match_parent，如果不设置默认高度为 0 ，则任何内容都不会显示出来。</p>
+
+<h2 id="6-添加方式">6. 添加方式</h2>
+
+<h4 id="61-添加仓库">6.1 添加仓库</h4>
+
+<p>在项目的 <code class="highlighter-rouge">build.gradle</code> 文件中配置仓库地址。</p>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">jcenter</span><span class="o">()</span>
+        <span class="c1">// 私有仓库地址</span>
+       <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s2">"http://lib.gcssloop.com/repository/gcssloop-central/"</span> <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="62-添加项目依赖">6.2 添加项目依赖</h4>
+
+<p>在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。</p>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'</span>
+
+<span class="n">compile</span> <span class="s1">'com.gcssloop.recyclerview:pagerlayoutmanager:2.0.0@aar'</span>
+</code></pre>
+</div>
+
+<h2 id="7-待优化">7. 待优化</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />添加 scrollToPosition。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />添加设置滚动速度。</li>
+</ul>
+
+<h2 id="作者简介">作者简介</h2>
+
+<h4 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop">@GcsSloop</a></h4>
+
+<h4 id="个人网站-httpwwwgcssloopcom">个人网站: http://www.gcssloop.com</h4>
+
+<p><a href="http://www.gcssloop.com/info/about/" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" /> </a></p>
+
+<h2 id="更新日志">更新日志</h2>
+
+<h4 id="v210">v2.1.0</h4>
+
+<p>修复从后向前滚动时内存占用变大的问题。</p>
+
+<p>(产生原因时先添加了新的View，最后再回收废弃的View，导致被回收的View一直难以被复用，持续占用内存，正确的应该是先将废弃的View放入回收区，这样新View创建时直接从回收区取View，就避免了回收区堆积大量的废弃View。)</p>
+
+<h4 id="v200">v2.0.0</h4>
+
+<p>统一包名(功能没有变化)。</p>
+
+<h4 id="v131">v1.3.1</h4>
+
+<p>修复特殊情况下删除条目导致显示不完整的问题。</p>
+
+<h4 id="v130">v1.3.0</h4>
+
+<p>支持动态切换滚动方向。</p>
+
+<h4 id="v122">v1.2.2</h4>
+
+<p>修复条目Margin问题。</p>
+
+<h4 id="v121">v1.2.1</h4>
+
+<p>修复慢速滚动偶尔会停止在两个页面之间的问题。</p>
+
+<h4 id="v120">v1.2.0</h4>
+
+<p>修复页面相关的Bug。<br />
+慢速滑动超多半个View时自动滚动到下一页。<br />
+调整布局逻辑和滚动辅助器逻辑。<br />
+移除部分无效方法。<br />
+代码结构调整。<br />
+支持按键翻页(TV)。</p>
+
+<p><strong>在TV上快速滚动时存在焦点问题：</strong></p>
+
+<p>前置条件：竖向滚动，当下方有可以获取焦点控件。<br />
+预期结果：当有内容时向下滚动，当滚动到最后一页时，焦点才能移动到下面控件上。<br />
+实际结果：当慢速滚动时符合预期，当快速滚动时有可能在移动到最后一页之前就将焦点移动到下面的控件上。</p>
+
+<h4 id="v113">v1.1.3</h4>
+
+<p>修正页面变化回调位置，将回调修正到布局之后。<br />
+修正页面数据变化回调逻辑，允许多次回调同一个页面数据。</p>
+
+<h4 id="v112">v1.1.2</h4>
+
+<p>修复内容删除完毕时没有页面变化回调问题。</p>
+
+<h4 id="v111">v1.1.1</h4>
+
+<p>修复删除完毕最后一页作品，页面显示空白，滑动卡顿的bug。</p>
+
+<h4 id="v110">v1.1.0</h4>
+
+<p>beta测试通过。<br />
+整理代码结构。</p>
+
+<h4 id="v110-beta">v1.1.0-beta</h4>
+
+<p>添加在滚动过程中回调页码变化。</p>
+
+<h4 id="v101">v1.0.1</h4>
+
+<p>修复数据过少导致的数组越界异常。</p>
+
+<h4 id="v100">v1.0.0</h4>
+
+<p>移除部分日志。<br />
+代码结构整理。</p>
+
+<h4 id="v100-beta1">v1.0.0-beta1</h4>
+
+<p>修复错误回滚问题。<code class="highlighter-rouge">例如：本应滚动到第二页，却在滚动结束后回滚到第一页。</code></p>
+
+<h4 id="v100-beta">v1.0.0-beta</h4>
+
+<p>完成基本的分页功能。<br />
+完成分页滚动辅助工具。<br />
+滑动结束自动锁定到最近页面。<br />
+每次滚动仅允许滚动一页，防止连续滚动多页。<br />
+低内存占用。<br />
+支持水平滚动和垂直分页。<br />
+允许开关调试日志。</p>
+
+<h2 id="版权信息">版权信息</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Copyright (c) 2017 GcsSloop
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+</div>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+  
+  <div class="read-more-item">
+    <span class="read-more-item-dim">最近的文章</span>
+    <h2 class="post-list__post-title post-title"><a href="/gebug/componentr" title="link to 雕虫晓技(一) 组件化">雕虫晓技(一) 组件化</a></h2>
+    <p class="excerpt">关于作者GcsSloop，一名 2.5 次元魔法师。微博 | GitHub | 博客前言本文是我工作这段时间的部分经验总结，仅从个人的角度谈一下对工作中编程的看法。今年毕业出来工作，前期需要学习...&hellip;</p>
+    <div class="post-list__meta">
+      <time datetime="2017-11-06 00:00:00 +0800" class="post-list__meta--date date">2017-11-06</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+      <br/><br/>
+      <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/componentr>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/tools/rclayout" title="link to RCLayout(圆角布局)">RCLayout(圆角布局)</a></h2>
+       <p class="excerpt">Android 通用圆角布局，快速实现圆角需求。之前做项目的时候有圆角相关需求，在网上找了很多方案都不够满意，于是自己做了一个，目前已经使用了一段时间，更新了多个版本，我遇到的问题都进行了修复，...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2017-10-05 00:00:00 +0800" class="post-list__meta--date date">2017-10-05</time> &#8226; <span class="post-list__meta--tags tags">Tools</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/tools/rclayout>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

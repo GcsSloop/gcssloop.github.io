@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>雕虫晓技(三) 通用圆角布局全解析</title>
+  <meta name="description" content="Android通用圆角布局全解析。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android">
+  <meta name="关键字" content="Android">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="雕虫晓技(三) 通用圆角布局全解析">
+  <meta name="twitter:description" content="Android通用圆角布局全解析。">
+  <meta name="twitter:keywords" content="Android">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="雕虫晓技(三) 通用圆角布局全解析">
+  <meta property="og:description" content="Android通用圆角布局全解析。">
+  <meta name="og:keywords" content="Android">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/gebug/rclayout">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/info/about" title="关于作者 GcsSloop">关于</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2017-12-29 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2017-12-29</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">雕虫晓技(三) 通用圆角布局全解析</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="关于作者">关于作者</h3>
+
+<p>GcsSloop，一名 2.5 次元魔法师。<br />
+<a href="http://weibo.com/GcsSloop/home">微博</a> | <a href="https://github.com/GcsSloop">GitHub</a> | <a href="http://www.gcssloop.com/">博客</a></p>
+
+<p><img src="https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg" alt="" /></p>
+
+<h2 id="1-前言">1. 前言</h2>
+
+<p>之前，我在 GitHub 分享了一个开源库：<a href="https://github.com/GcsSloop/rclayout">rclayout</a>，这个库的主要目的是快速实现 Android中 的圆角需求，例如这样的效果。</p>
+
+<p><img src="https://ww4.sinaimg.cn/large/006tKfTcgy1fmxz83ipjcj308c0eaaal.jpg" alt="" /></p>
+
+<p>分享这个库的时候只是觉得可能有用而已，但没有想到居然有了 800 多个 Star，看来有不少人像我一样，对圆角这一需求比较苦恼。</p>
+
+<p>圆角算是一种比较常见的需求了，最常应用于图片，因此可以找到大量的自定义圆角 ImageView，不仅如此，一些比较流行的图片加载框架也都对圆角进行了支持，像 Fresco 和 Glide 很容易就能实现圆角效果。</p>
+
+<p>除了图片之外，另一种比较常见的就是圆角背景了，例如 TextView 的背景或者 Button 的背景，针对于背景的圆角也很容易实现，一般用图片或者写一个 shape 就行了，例如:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>    
+<span class="nt">&lt;shape</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>      
+    <span class="nt">&lt;solid</span> <span class="na">android:color=</span><span class="s">"#66CCFF"</span> <span class="nt">/&gt;</span>      
+    <span class="nt">&lt;corners</span> <span class="na">android:topLeftRadius=</span><span class="s">"6dp"</span>     
+             <span class="na">android:topRightRadius=</span><span class="s">"6dp"</span>      
+             <span class="na">android:bottomRightRadius=</span><span class="s">"6dp"</span>     
+             <span class="na">android:bottomLeftRadius=</span><span class="s">"6dp"</span><span class="nt">/&gt;</span>      
+<span class="nt">&lt;/shape&gt;</span>   
+</code></pre>
+</div>
+
+<p>上面的这些都是很容易实现的常见需求，但也有一种稍微特殊的常见需求，像下面这样：</p>
+
+<blockquote>
+  <p>由多个控件组合而成的条目，包括左上角一个角标、文字、文字背景和图片。</p>
+</blockquote>
+
+<p><img src="https://ww2.sinaimg.cn/large/006tKfTcgy1fmxz8d3lrjj30e80e8djh.jpg" alt="" />
+从上图可以看出啦，图片已经是圆角了，可是角标和文字背景依旧是方的，这显然不是我们想要的效果。</p>
+
+<p>我之前对这种组合控件的处理方案是这样的：</p>
+
+<p><strong>角标：让设计重新切成带圆角的图，或者用支持圆角的ImageView进行展示。</strong></p>
+
+<p><strong>文字背景：做一张带圆角的图，或者写一个底部是圆角的 shape。</strong></p>
+
+<p>这样展示是没有问题的，唯一比较麻烦的是改需求的时候，如果需要调整圆角的大小，需要分别调整三个地方：图片的圆角、角标的圆角、以及文字背景的圆角。如果一个地方忘记了调整，那么就会出现圆角无法对齐的情况。</p>
+
+<p>正因如此，才想到开发一个圆角布局，将它们包裹起来，这样在不仅省去了处理角标和文字背景的麻烦，在修改需求的时候也只用修改一个地方就可以了。</p>
+
+<h2 id="2-圆角布局原理">2. 圆角布局原理</h2>
+
+<p>所谓圆角布局，本质上还是一个方块，只不过是让圆角之外的部分不显示而已，简单来说就是对画布进行裁剪，也可以理解为设置一个遮罩，让目标区域外的内容不显示。</p>
+
+<h3 id="21-clippath">2.1 clipPath</h3>
+
+<p>在最初设计的时候，使用了 canvas 中 clipPath 的方法，该方法实现起来简单快速，原理如下：</p>
+
+<h4 id="211-构造一个带圆角的path">2.1.1 构造一个带圆角的Path</h4>
+
+<p>初始化圆角信息和Path：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 1. 定义圆角信息 和 path</span>
+<span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">radii</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span>   <span class="c1">// top-left, top-right, bottom-right, bottom-left</span>
+<span class="kd">private</span> <span class="n">Path</span> <span class="n">mPath</span><span class="o">;</span>
+
+<span class="c1">// 2. 通过自定义属性获取圆角信息(以左上角为例)</span>
+<span class="n">TypedArray</span> <span class="n">ta</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">obtainStyledAttributes</span><span class="o">(</span><span class="n">attrs</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">styleable</span><span class="o">.</span><span class="na">RCRelativeLayout</span><span class="o">);</span>
+<span class="n">mRoundCorner</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="na">getDimensionPixelSize</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">styleable</span><span class="o">.</span><span class="na">RCRelativeLayout_round_corner</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+<span class="n">radii</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">mRoundCornerTopLeft</span><span class="o">;</span>
+<span class="n">radii</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">mRoundCornerTopLeft</span><span class="o">;</span>
+
+<span class="c1">// 3. 创建空的Path</span>
+<span class="n">mPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p>在 onSizeChanged 方法中根据 View 大小创建圆角 Path，在这里要注意对 padding 值的处理。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">w</span><span class="o">,</span> <span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldw</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldh</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onSizeChanged</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">oldw</span><span class="o">,</span> <span class="n">oldh</span><span class="o">);</span>
+    <span class="n">mRectF</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">getPaddingLeft</span><span class="o">();</span>
+    <span class="n">mRectF</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="n">getPaddingTop</span><span class="o">();</span>
+    <span class="n">mRectF</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">getPaddingRight</span><span class="o">();</span>
+    <span class="n">mRectF</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">getPaddingBottom</span><span class="o">();</span>
+    <span class="n">mPath</span><span class="o">.</span><span class="na">addRoundRect</span><span class="o">(</span><span class="n">mRectF</span><span class="o">,</span> <span class="n">radii</span><span class="o">,</span> <span class="n">Path</span><span class="o">.</span><span class="na">Direction</span><span class="o">.</span><span class="na">CW</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="212-剪裁画布">2.1.2 剪裁画布</h4>
+
+<p>直接使用 canvas 的 clipPath 方法进行剪裁。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">drawChild</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">,</span> <span class="n">View</span> <span class="n">child</span><span class="o">,</span> <span class="kt">long</span> <span class="n">drawingTime</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 绘制圆角</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">clipPath</span><span class="o">(</span><span class="n">mPath</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">drawChild</span><span class="o">(</span><span class="n">canvas</span><span class="o">,</span> <span class="n">child</span><span class="o">,</span> <span class="n">drawingTime</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这样一个圆角布局就实现了。</p>
+
+<h3 id="22-setxfermode">2.2 setXfermode</h3>
+
+<p>由于 clipPath 方法不支持抗锯齿，因此在一些分辨率较低的设备上边缘看起来非常粗糙，所以换了一种实现方案，利用画笔的模式来实现对内容区域的剪裁。</p>
+
+<blockquote>
+  <p>有关于画笔模式可以参考：http://www.gcssloop.com/customview/Color</p>
+</blockquote>
+
+<h4 id="221-paint">2.2.1 Paint</h4>
+
+<p>创建画笔并设置其模式：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Paint</span> <span class="n">mPaint</span><span class="o">;</span>   <span class="c1">// 画笔</span>
+ <span class="n">mPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setAntiAlias</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="c1">// 绘制模式为填充</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL</span><span class="o">);</span>
+<span class="c1">// 混合模式为 DST_IN, 即仅显示当前绘制区域和背景区域交集的部分，并仅显示背景内容。</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setXfermode</span><span class="o">(</span><span class="k">new</span> <span class="n">PorterDuffXfermode</span><span class="o">(</span><span class="n">PorterDuff</span><span class="o">.</span><span class="na">Mode</span><span class="o">.</span><span class="na">DST_IN</span><span class="o">));</span>
+</code></pre>
+</div>
+
+<h4 id="222-绘制">2.2.2 绘制</h4>
+
+<p>创建带有圆角 Path 的内容不变，只不过这次将绘制部分移动到了 dispatchDraw 里面，其实放在 drawChild 里面也是可以的，只要注意一下绘制顺序即可。</p>
+
+<blockquote>
+  <p>由于画笔模式是 SDT_IN，所以会显示原有内容区域和圆角Path区域交集的部分，并仅显示原有内容</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">dispatchDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">saveLayer</span><span class="o">(</span><span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">canvas</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">canvas</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()),</span> <span class="kc">null</span><span class="o">,</span> <span class="n">Canvas</span>
+            <span class="o">.</span><span class="na">ALL_SAVE_FLAG</span><span class="o">);</span>
+  	<span class="c1">// 绘制子控件</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">dispatchDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+  	<span class="c1">// 绘制带有圆角的 Path</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">mPath</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="23-支持圆形">2.3 支持圆形</h3>
+
+<p>知道了绘制原理想要支持圆形就很简单了，其实就是将带有圆角矩形的 Path 更换为带有圆形的 Path 即可。</p>
+
+<p>为了支持圆形，我定义了一个 roundAsCircle 属性，只要检测到这个属性，就在 Path 中添加一个圆形，否则添加一个圆角矩形。</p>
+
+<p><strong>在支持圆形的时候有一个坑需要注意一下，就是控件长宽比不一致的情况下，由于是按照最短的边计算的，所以在长宽比不一致的情况下，直接向 Path 添加圆形， Path 是无法填充满画布的，在绘制的时候可能会出现圆形之外依旧有内容被绘制出来，所以这里使用了两个 moveTo 操作来让 Path 填充满画布(下文代码中注释部分)。</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">w</span><span class="o">,</span> <span class="kt">int</span> <span class="n">h</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldw</span><span class="o">,</span> <span class="kt">int</span> <span class="n">oldh</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onSizeChanged</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">oldw</span><span class="o">,</span> <span class="n">oldh</span><span class="o">);</span>
+    <span class="n">RectF</span> <span class="n">areas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">();</span>
+    <span class="n">areas</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">getPaddingLeft</span><span class="o">();</span>
+    <span class="n">areas</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="n">getPaddingTop</span><span class="o">();</span>
+    <span class="n">areas</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">getPaddingRight</span><span class="o">();</span>
+    <span class="n">areas</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">getPaddingBottom</span><span class="o">();</span>
+    <span class="n">mClipPath</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mRoundAsCircle</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">areas</span><span class="o">.</span><span class="na">width</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="n">areas</span><span class="o">.</span><span class="na">height</span><span class="o">()</span> <span class="o">?</span> <span class="n">areas</span><span class="o">.</span><span class="na">height</span><span class="o">()</span> <span class="o">:</span> <span class="n">areas</span><span class="o">.</span><span class="na">width</span><span class="o">();</span>
+        <span class="kt">float</span> <span class="n">r</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="n">PointF</span> <span class="n">center</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="n">mClipPath</span><span class="o">.</span><span class="na">addCircle</span><span class="o">(</span><span class="n">center</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">center</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">Path</span><span class="o">.</span><span class="na">Direction</span><span class="o">.</span><span class="na">CW</span><span class="o">);</span>
+        <span class="n">mClipPath</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>  <span class="c1">// 通过空操作让Path区域占满画布</span>
+        <span class="n">mClipPath</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">mClipPath</span><span class="o">.</span><span class="na">addRoundRect</span><span class="o">(</span><span class="n">areas</span><span class="o">,</span> <span class="n">radii</span><span class="o">,</span> <span class="n">Path</span><span class="o">.</span><span class="na">Direction</span><span class="o">.</span><span class="na">CW</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">Region</span> <span class="n">clip</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Region</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">top</span><span class="o">,</span>
+                             <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">bottom</span><span class="o">);</span>
+    <span class="n">mAreaRegion</span><span class="o">.</span><span class="na">setPath</span><span class="o">(</span><span class="n">mClipPath</span><span class="o">,</span> <span class="n">clip</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="24-支持描边">2.4 支持描边</h3>
+
+<p>支持描边就更简单了，就是基础的绘制操作，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">dispatchDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">saveLayer</span><span class="o">(</span><span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">canvas</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">canvas</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()),</span> <span class="kc">null</span><span class="o">,</span> <span class="n">Canvas</span>
+            <span class="o">.</span><span class="na">ALL_SAVE_FLAG</span><span class="o">);</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">dispatchDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+    <span class="c1">// 描边</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mStrokeWidth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setXfermode</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="n">mStrokeWidth</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">mStrokeColor</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">mStrokePath</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// 剪裁</span>
+    <span class="n">mPaint</span><span class="o">.</span><span class="na">setXfermode</span><span class="o">(</span><span class="k">new</span> <span class="n">PorterDuffXfermode</span><span class="o">(</span><span class="n">PorterDuff</span><span class="o">.</span><span class="na">Mode</span><span class="o">.</span><span class="na">DST_IN</span><span class="o">));</span>
+    <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL</span><span class="o">);</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">mClipPath</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="25-限定点击区域">2.5 限定点击区域</h3>
+
+<p>上面虽然实现了的圆角、圆形的显示，但是没有被绘制出来的部分依旧是可以被点击的，因此需要限定点击区域，对超出显示区域的部分不进行响应。</p>
+
+<p>这个原理也不复杂，主要是利用事件分发机制和 Region 的 contains 方法。</p>
+
+<h4 id="251-获取可点击区域">2.5.1 获取可点击区域</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 定义 Region，即内容区域</span>
+<span class="kd">private</span> <span class="n">Region</span> <span class="n">mAreaRegion</span><span class="o">;</span>
+<span class="n">mAreaRegion</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Region</span><span class="o">();</span>
+
+<span class="c1">// 根据内容区域 Path 创建 Region，clip 为整个画布大小</span>
+<span class="n">Region</span> <span class="n">clip</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Region</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">top</span><span class="o">,</span>
+                       <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">areas</span><span class="o">.</span><span class="na">bottom</span><span class="o">);</span>
+<span class="n">mAreaRegion</span><span class="o">.</span><span class="na">setPath</span><span class="o">(</span><span class="n">mStrokePath</span><span class="o">,</span> <span class="n">clip</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="252-对超出区域外的事件不处理">2.5.2 对超出区域外的事件不处理</h4>
+
+<p>使用 contains 方法判断事件的位置是否在区域内，如果不在区域内，就直接返回 false，表示不处理。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">mAreaRegion</span><span class="o">.</span><span class="na">contains</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">ev</span><span class="o">.</span><span class="na">getY</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">dispatchTouchEvent</span><span class="o">(</span><span class="n">ev</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>到此为止，有关通用圆角布局的核心内容就结束了。</p>
+
+<h2 id="3-结语">3. 结语</h2>
+
+<p>通用圆角布局的原理并不复杂，而且代码实现起来也非常简单，感兴趣的可以在 Github 上看一下源码，核心代码不过 100 行左右。</p>
+
+<p>RCLayout： https://github.com/GcsSloop/rclayout</p>
+
+<p><strong>关于作者</strong></p>
+
+<p>GcsSloop，一名 2.5 次元魔法师。</p>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/coding" title="link to 雕虫晓技(二) 编码">雕虫晓技(二) 编码</a></h2>
+       <p class="excerpt">关于作者GcsSloop，一名 2.5 次元魔法师。微博 | GitHub | 博客前言对于编程，一般需要先设计，再编码，即针对某一项功能进行详细的分析后，得出具体的技术方案，然后编码进行实现，...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2017-11-10 00:00:00 +0800" class="post-list__meta--date date">2017-11-10</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/coding>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
