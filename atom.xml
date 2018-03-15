@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-01-01T01:25:52+08:00</updated>
+  <updated>2018-03-15T09:57:09+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -12,199 +12,6 @@
   </author>
 
 
- 
-  <entry>
-    <id>http://www.gcssloop.com/gebug/nullpointer-exception</id>
-    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/gebug/nullpointer-exception"/>
-    <title>雕虫晓技(四) 诡异的空指针</title>
-    <updated>2018-01-01T00:00:00+08:00</updated>
-    <author>
-      <name>Karl Luo</name>
-      <uri>http://luolinjia.com/cn/</uri>
-    </author>
-    <content type="html">&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
-
-&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
-&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-
-&lt;p&gt;这件事情呢，要从一段简单的代码说起，还记得那是一个风和日丽的下午，我熟练的打开了陪伴我多年的IDE，看着那熟悉的界面，我开开心心的写下了如下的代码：&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;我有一个全局的变量 mStr，我想要输出它的长度，于是我写了这样一个方法，这种问题对于我这样的老司机来说，自然是很 Easy 的，相信大家从  &lt;code class=&quot;highlighter-rouge&quot;&gt;if (null != mStr)&lt;/code&gt; 就已经看出了我是一个经验丰富的专家，时刻提防着空指针来破坏我的代码运行。&lt;/p&gt;
-
-&lt;p&gt;当我自信的按下运行按钮时，不可思议的事情发生了，我的代码居然出现了异常，居然是空指针，并且发生在几乎是不可能出现的位置。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tKfTcgy1fn0gdzt8c6j30gp08rq4i.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这不是我的错，一定是运行时出现了问题，沉思片刻后，我决定再试一次！&lt;/p&gt;
-
-&lt;p&gt;当相同的错误在此出现的时候，我发觉了，这一定是 IDE 出现了 bug，于是我决定重启一下我的 IntelliJ IEAD。&lt;/p&gt;
-
-&lt;p&gt;当 IDE 重启完毕，我再次运行，发现错误依旧出现，此时我觉得可能是我的电脑太古老了，也许应该换一台试试，当然，也有可能是我的 java 虚拟机坏掉了 …&lt;/p&gt;
-
-&lt;h2 id=&quot;诡异的空指针&quot;&gt;诡异的空指针&lt;/h2&gt;
-
-&lt;p&gt;说到空指针，这应该是 java 语言中最常见，也是最让人头疼的异常之一了，上面和大家开个玩笑，其实这个空指针异常是我精心制造出来的，就是因为他比较有趣，不仅触发方式有趣，解决方式也很有趣。&lt;/p&gt;
-
-&lt;p&gt;下面给大家看一下制造这个空指针异常的完整代码：&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GcsTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;GThreadA&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GThreadA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;GThreadB&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GThreadB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;threadA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;threadB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GThreadA&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Gcs&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GThreadB&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;代码并不复杂，本质上就是两个线程，第一个线程(GThreadA)负责不断修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;mStr&lt;/code&gt; 的状态，第二个线程(GThreadB)则不断调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;printStrLength()&lt;/code&gt; 方法，尝试输出 mStr 的长度。&lt;/p&gt;
-
-&lt;p&gt;如果正常运行的话，输出结果应该是下面这样的：&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
-...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;但是，你运行的时候就会发现，它几乎是一定会出现空指针异常的，有时可能会正常运行一段时间后再出现，有时刚开始运行就出现了。&lt;/p&gt;
-
-&lt;p&gt;这个问题表面是空指针引起的，但核心是线程并发问题。观察下面这段代码，是没有任何问题的，在单线程上运行时，它是安全的代码，但遇到多线程并发就不一定了。&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;由于线程可能在任意位置中断并切换到其它线程，所以就可能出现如下这种情况：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;当 threadB 刚判断完 if(null != mStr) 这句话之后，切换到了 threadA，此时 threadA 也判断 mStr 不为 null，于是将 mStr 置为了 null，之后再切换到 threadB，当 threadB 获取长度的时候就发生了空指针异常。在并发的情况下执行顺序可能是这样的：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//前置条件： mStr 不为 null&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//threadB&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//切换线程到 threadA&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//切换线程到 threadB&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;lt;-- 发生异常&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;现在我们已经知道问题的根源了，就是线程可能在代码执行的任意位置切换，如果在切换之后一些全局状态改变了，那么切换回来之后之前的判断条件其实是无效的。&lt;/p&gt;
-
-&lt;p&gt;既然发现了问题的根源，那就容易解决了，多线程并发问题，要不加个锁试试？但是仔细想想这个锁应该怎么加呢？&lt;/p&gt;
-
-&lt;p&gt;首先两个线程访问的是不同的代码块，不存在访问冲突，那么方法锁和类锁基本可以判断是无效的。&lt;/p&gt;
-
-&lt;p&gt;两个线程唯一共用的对象就是 mStr，所以看起来比较靠谱的方案就是把 mStr 这个对象锁起来，但是 mStr 又可能为 null，如果 mStr 为 null，那么加对象锁的时候就会直接抛出空指针异常！所以加锁之前最好用先判断 mStr 不为 null 再加锁。&lt;/p&gt;
-
-&lt;p&gt;额，再想想，这个和上面的操作有啥区别，由于多线程可能在任意位置切换，所以不论在哪里加 if 条件基本都形同虚设，这个简单的问题难道就无解了？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tKfTcgy1fn0gdyaqe5j306y054myk.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
-
-&lt;p&gt;其实在这里加锁并不能解决问题，也不是一种好方案，众所周知，加锁的本质上是资源访问互斥，即当一个线程操作时进行锁定，在锁定期间其它任何线程都不允许访问，所以加锁会影响程序运行的性能，因此在非必要的情况下，能不用锁就尽量不用。&lt;/p&gt;
-
-&lt;p&gt;而且在上面这段代码中，mStr 是不断进行变化的，它的变化不应该受到外界操作的影响。举一个不太恰当的例子：
-天气是不断变化的，我在天气好的时候出门逛街，天气不好的时候呆在家里打游戏，我根据天气状况来决定自己的活动，但是我是不能影响天气的，不能说，现在天气很好，我出门去逛街，为了防止突然下雨把我淋湿，我就把天气状态锁定到当前的好天气状态，当我逛完街回来，再释放天气状态，让天气继续变化。这显然即不符合逻辑也行不通。&lt;/p&gt;
-
-&lt;p&gt;在 Android 中一个比较类似的事情就是事件机制，只要用户在触摸，就不断会有事件产生，不论你是否使用，这些事件都在不断的产生，作为一个程序，并不能因为自己需要当前这一时刻的事件，就把事件锁定，不让其产生新的触摸事件。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;实质上，我们需要的仅仅是当下这一时刻的状态，并根据当下这一时刻的状态来决定我们接下来要做什么。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;分析完问题的本质，问题就已经解决了，我们需要的是当下这一刻的状态，那么把这一刻的状态保存下来不就行了？只用简单的修改一下代码，就能实现这一需求了：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;先使用一个 final 的局部变量指向全局变量，之后再对这个变量进行操作。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printStrLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 使用 final 关键字保存当前状态&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;length = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;我们这里使用 final 关键字将当前状态快照下来并用一个局部变量保存，之后的所有操作都只访问这个局部变量，由于这个局部变量是不会变化的，所以，即便发生上面的那种情况，判断完 if 条件后，线程切换出去改变了全局变量的状态，也不会影响到后续的操作。这也算是 final 关键字取巧的一种用法吧。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
-
-&lt;p&gt;其实你阅读 Android 源码的话，是经常可以见到使用一个 final 局部变量指向全局变量这种写法的，起初看到这种写法甚是不解，感觉这不是多此一举吗？直到我遇见了上面这种诡异的异常，才明白这种写法的精妙之处。&lt;/p&gt;
-
-&lt;p&gt;本文虽然啰嗦了那么多内容，其实本质上总结起来就一句话：&lt;strong&gt;使用 final 关键字快照当前全局变量的状态，可以防止特定情况下的多线程并发问题。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;虽然这是一种好方法，但也只是适用于特定的情况，并非万金油，当遇到问题时还是需要根据具体情况进行分析，从而得到合适的解决方案。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;关于作者&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;/p&gt;
-</content>
-  </entry>
  
   <entry>
     <id>http://www.gcssloop.com/gebug/rclayout</id>
@@ -740,15 +547,15 @@ length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
 
 &lt;h2 id=&quot;2-支持的特性&quot;&gt;2. 支持的特性&lt;/h2&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;[x] 网格布局，设置合适的行列数可以模拟线性布局或者ViewPager。&lt;/li&gt;
-  &lt;li&gt;[x] 分页效果，支持自动回调页码的变化(总页数和当前页数)。&lt;/li&gt;
-  &lt;li&gt;[x] 布局方向，支持横向滚动和垂直滚动。&lt;/li&gt;
-  &lt;li&gt;[x] 方向切换，支持切换滚动方向。&lt;/li&gt;
-  &lt;li&gt;[x] 支持电视，支持TV上按键翻页。&lt;/li&gt;
-  &lt;li&gt;[x] 内存稳定，不会因为一次性添加大量的数据导致内存飙升或者严重卡顿。&lt;/li&gt;
-  &lt;li&gt;[x] 使用简单，无侵入性，可以快速的将其他布局替换为该布局，也可以快速的移除该布局。&lt;/li&gt;
-  &lt;li&gt;[x] 自动修正，当滚动到第3页，删除数据后内容不足2页，会自动修正当前页面为第2页。&lt;/li&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;网格布局，设置合适的行列数可以模拟线性布局或者ViewPager。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;分页效果，支持自动回调页码的变化(总页数和当前页数)。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;布局方向，支持横向滚动和垂直滚动。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;方向切换，支持切换滚动方向。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;支持电视，支持TV上按键翻页。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;内存稳定，不会因为一次性添加大量的数据导致内存飙升或者严重卡顿。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;使用简单，无侵入性，可以快速的将其他布局替换为该布局，也可以快速的移除该布局。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;自动修正，当滚动到第3页，删除数据后内容不足2页，会自动修正当前页面为第2页。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;3-主要文件&quot;&gt;3. 主要文件&lt;/h2&gt;
@@ -867,9 +674,9 @@ length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
 
 &lt;h2 id=&quot;7-待优化&quot;&gt;7. 待优化&lt;/h2&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;[ ] 添加 scrollToPosition。&lt;/li&gt;
-  &lt;li&gt;[ ] 添加设置滚动速度。&lt;/li&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;添加 scrollToPosition。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;添加设置滚动速度。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;作者简介&quot;&gt;作者简介&lt;/h2&gt;
@@ -1009,16 +816,16 @@ limitations under the License.
 
 &lt;h2 id=&quot;支持的特性&quot;&gt;支持的特性&lt;/h2&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;[x] 包裹任意组件。&lt;/li&gt;
-  &lt;li&gt;[x] 设置圆角大小。&lt;/li&gt;
-  &lt;li&gt;[x] 分别对每一个角设置圆角大小。&lt;/li&gt;
-  &lt;li&gt;[x] 设置描边宽度。&lt;/li&gt;
-  &lt;li&gt;[x] 设置描边颜色。&lt;/li&gt;
-  &lt;li&gt;[x] 圆形。&lt;/li&gt;
-  &lt;li&gt;[x] 支持Padding。&lt;/li&gt;
-  &lt;li&gt;[x] 圆角抗锯齿。&lt;/li&gt;
-  &lt;li&gt;[x] 内容可点击区域即为显示区域。&lt;/li&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;包裹任意组件。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;设置圆角大小。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;分别对每一个角设置圆角大小。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;设置描边宽度。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;设置描边颜色。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;圆形。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;支持Padding。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;圆角抗锯齿。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;内容可点击区域即为显示区域。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;主要文件&quot;&gt;主要文件&lt;/h2&gt;
@@ -3169,7 +2976,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;会长，就是 GcsSloop 我啦，因为创建了一个名为魔法师协会的交流群，所以自称会长，想要加入魔法师协会的魔法师可以加我的微信 &lt;code class=&quot;highlighter-rouge&quot;&gt;GcsSloop&lt;/code&gt;，备注加群或者私信我，我会邀请你加入魔法师的大家庭。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;会长，就是 GcsSloop 我啦，因为创建了一个名为魔法师协会的交流群，所以自称会长，想要加入魔法师协会的魔法师可以加我的微信 &lt;code class=&quot;highlighter-rouge&quot;&gt;GcsSloop&lt;/code&gt;，备注加群或者私信我，我会邀请你加入魔法师的大家庭。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -3350,10 +3157,10 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;GDG 全称 Google Developer Group，中文意思是 &lt;strong&gt;谷歌开发者社区&lt;/strong&gt; 。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;GDG 全称 Google Developer Group，中文意思是 &lt;strong&gt;谷歌开发者社区&lt;/strong&gt; 。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;DevFest 开发者节，今年(2016)的举办时间是 9月1日 到 11月30日 之间，全球大部分谷歌开发者社区都会举办该活动，一年一次。 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;DevFest 开发者节，今年(2016)的举办时间是 9月1日 到 11月30日 之间，全球大部分谷歌开发者社区都会举办该活动，一年一次。 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -4144,10 +3951,10 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;GcsSloop：非著名程序员。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;GcsSloop：非著名程序员。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;魔法师：会魔法的人类 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;魔法师：会魔法的人类 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
