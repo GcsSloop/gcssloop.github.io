@@ -209,6 +209,8 @@
 
 <p>另外，该库并不是特别完善，欢迎提交 Issues 或者 PR 来协助我完善。</p>
 
+<p><a href="https://github.com/GcsSloop/pager-layoutmanager">【GitHub · PagerLayoutmanager】</a></p>
+
 <h2 id="1-效果预览">1. 效果预览</h2>
 
 <p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcpnh4wzg308c0ep1kz.gif" alt="" />
@@ -337,14 +339,14 @@
 
 <div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'</span>
 
-<span class="n">compile</span> <span class="s1">'com.gcssloop.recyclerview:pagerlayoutmanager:2.0.0@aar'</span>
+<span class="n">compile</span> <span class="s1">'com.gcssloop.recyclerview:pagerlayoutmanager:2.2.0@aar'</span>
 </code></pre>
 </div>
 
 <h2 id="7-待优化">7. 待优化</h2>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />添加 scrollToPosition。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />添加 scrollToPosition。</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />添加设置滚动速度。</li>
 </ul>
 
@@ -357,6 +359,21 @@
 <p><a href="http://www.gcssloop.com/info/about/" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" /> </a></p>
 
 <h2 id="更新日志">更新日志</h2>
+
+<h4 id="v220">v2.2.0</h4>
+
+<p>新增方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 滚动到指定条目</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPosition</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">);</span>
+<span class="c1">// 滚动到指定页面</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPage</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageIndex</span><span class="o">);</span>
+<span class="c1">// 上一页</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">prePage</span><span class="o">();</span>
+<span class="c1">// 下一页</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">nextPage</span><span class="o">();</span>
+</code></pre>
+</div>
 
 <h4 id="v210">v2.1.0</h4>
 
