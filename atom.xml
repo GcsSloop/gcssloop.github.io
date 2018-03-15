@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-03-15T23:48:39+08:00</updated>
+  <updated>2018-03-15T23:52:57+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -202,7 +202,7 @@ nexus run
 &lt;p&gt;&lt;strong&gt;我们用 maven 仓库即可，可以看到，仓库主要有三种类型：&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;**hosted： ** 本地仓库，我们一般使用这种类型的仓库。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;hosted：&lt;/strong&gt; 本地仓库，我们一般使用这种类型的仓库。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;proxy：&lt;/strong&gt; 代理仓库，用于代理其他远程仓库。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;group：&lt;/strong&gt; 仓库组，用来合并多个 hosted / proxy 仓库。&lt;/li&gt;
 &lt;/ul&gt;
