@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)</title>
+  <meta name="description" content="搭建供Android组件使用的私有maven仓库。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android">
+  <meta name="关键字" content="Android">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)">
+  <meta name="twitter:description" content="搭建供Android组件使用的私有maven仓库。">
+  <meta name="twitter:keywords" content="Android">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)">
+  <meta property="og:description" content="搭建供Android组件使用的私有maven仓库。">
+  <meta name="og:keywords" content="Android">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/gebug/maven-private">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+  <!-- Google Ad -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2767831356529421",
+      enable_page_level_ads: true
+    });
+  </script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="友链">友链</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2018-03-15 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-03-15</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="关于作者">关于作者</h3>
+
+<p>GcsSloop，一名 2.5 次元魔法师。<br />
+<a href="http://weibo.com/GcsSloop/home">微博</a> | <a href="https://github.com/GcsSloop">GitHub</a> | <a href="http://www.gcssloop.com/">博客</a></p>
+
+<p><img src="https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg" alt="" /></p>
+
+<h3 id="0-前言">0. 前言</h3>
+
+<p>随着 Android 开发的发展，Android 开发也相对越来越简单，很多基础库只用简单的添加一行依赖就可以使用了，不用自己去手动添加，升级也只需要修改一下版本号，简单便捷。那么它是如何实现的呢？事实上，我们所依赖的这些文件，是存放在一些公开仓库中的，当我们添加这些依赖时，Gredle 会自动去仓库中查找是否存在，如果存在，就下载下来放到本地参与编译。</p>
+
+<p>我们最常用的一些公开库大部分是放在 jcenter 仓库中的，我们在创建项目的时候会默认添加 jcenter 仓库，在项目的 build.gradle 文件中可以看到，如下：</p>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">jcenter</span><span class="o">()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>但是，当我们自己开发的一些基础组件，也想要这样方面的添加到项目中时，就有点麻烦了，我们可以使用 <a href="https://bintray.com/">bintray</a> 把这些组件上传到 jcenter 上面，但是上传过程非常麻烦，有一定的审核周期，并且一旦通过几乎无法撤销。</p>
+
+<p>除了 jcenter 这个官方使用的仓库，<a href="https://jitpack.io/">jitpack</a> 也是不错的选择，它借助于 GitHub 进行上传，上传和配置过程都有极大的简化，并且没有审核周期，很多公开项目都转用 jitpack 了。</p>
+
+<p>但是，<strong>公开仓库仅适合托管一些公开的内容，假若这些库涉及到部分商业机密，或者存在某些私密技术方案，不希望被竞争公司了解，那么托管在公开仓库上无疑是非常不合适的。</strong></p>
+
+<p><strong>为了解决这些需求，自然就会有私有仓库的诞生，相信有不少公司都有自己的私有仓库。</strong>
+<strong>如何搭建一个私有仓库网络上有大量的教程，也并不困难，但是重点是如何保证私有仓库的安全稳定却是一个大问题。</strong>
+如果仓库出现问题，则可能会导致所有的项目都无法 build 通过，会浪费大量的开发时间。</p>
+
+<p>因此，在搭建一个私有仓库时，就必须要考虑到风险问题。下面我们就从头开始搭建一个仓库，并将教大家如何规避一些常见的风险。</p>
+
+<h3 id="1-仓库搭建">1. 仓库搭建</h3>
+
+<p>我们 Android 使用的是 maven 仓库，关于私有的 maven 仓库，有很多集成好的仓库环境，甚至你可以不借助任何环境自己手动维护一个仓库。当然，手动维护仓库需要耗费非常多的时间和精力，对于普通的开发人员来说，是得不偿失的，毕竟时间就是金钱，因此我们使用集成好的仓库环境，例如本文中会用到 Sonatype 的 Nexus。</p>
+
+<h4 id="11-java环境">1.1 Java环境</h4>
+
+<p>要运行 Nexus，需要 Java 环境，根据教程进行 <a href="https://www.java.com/zh_CN/download/help/download_options.xml">Oracle Java 安装和配置</a> 即可，配置好环境就可以进行下一步了。</p>
+
+<h4 id="12-下载">1.2 下载</h4>
+
+<p>到 Sonytype 官网 https://www.sonatype.com/download-oss-sonatype 下载自己所需的平台和版本。</p>
+
+<p><img src="/assets/gebug/04-maven-private/01-download.png" alt="01-download" /></p>
+
+<p>直接下载对应平台的版本即可。</p>
+
+<p>下载后解压到合适的目录，无需安装，可以看到两个文件夹(所有平台的都一样)，如下:</p>
+
+<p><img src="/assets/gebug/04-maven-private/02-Sonytype目录.png" alt="02-Sonytype目录" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>目录</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>nexus-x.x.x-xx</td>
+      <td>这个文件夹是存放应用程序的。</td>
+    </tr>
+    <tr>
+      <td>sonatype-work</td>
+      <td>这个文件夹是存放仓库和设置等相关内容的，<strong>如果备份数据，只用备份这个文件夹即可</strong>。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>初次配置，我们只用关注如下几个文件即可：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>文件</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>./nexus-3.8.0-02/bin/nexus</td>
+      <td>运行程序</td>
+    </tr>
+    <tr>
+      <td>./nexus-3.8.0-02/bin/nexus.rc</td>
+      <td>用户配置</td>
+    </tr>
+    <tr>
+      <td>./nexus-3.8.0-02/etc/nexus-default.properties</td>
+      <td>端口配置</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>初期需要了解的文件就这三个，在 Linux 系统上使用 root 用户直接运行可能会警告，因此可以配置一下nexus.rc文件。至于端口号，默认是 8081，如果对这个没特殊要求，默认即可。</p>
+
+<p><strong>至于 ./nexus-3.8.0-02/bin/nexus 是主要的运行程序，建议将 bin 目录配置到环境变量中，这样就可以在任意位置启动和停止该程序了，否则只有在 bin 目录下才能调整。</strong></p>
+
+<p>Window 版本是 <strong>./nexus-3.8.0-02/bin/nexus.exe</strong>  不过用法是一样的。</p>
+
+<h4 id="13-运行">1.3 运行</h4>
+
+<p>在命令行工具中输入启动命令：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>nexus start
+</code></pre>
+</div>
+
+<p>如果一切顺利，在等待几十秒到一两分钟之后就可以查看我们的仓库了，如果出错了，可以使用 run 命令来查看具体的出错原因：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># run 命令相当于 debug 模式，会输出所有的日志信息</span>
+nexus run
+</code></pre>
+</div>
+
+<p>当然，Nexus 还有很多其他命令(例如:停止、重启、查看状态等)：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>nexus <span class="o">{</span>start|stop|run|run-redirect|status|restart|force-reload<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="14-查看">1.4 查看</h4>
+
+<p>在输入 <code class="highlighter-rouge">nexus start</code> 命令后，稍微等待一两分钟，就可以查看仓库了，如果在本机有图形化界面，直接在浏览器中输入 <code class="highlighter-rouge">http://localhost:8081</code> 即可查看，如果修改了端口号，后面写对应的端口号即可。如果是运行在服务器上，则在其他电脑上输入<code class="highlighter-rouge">http://{服务器ip}:{port}</code> IP 和对应的端口号。如果运行成功，则会看到类似如下界面：</p>
+
+<p><img src="/assets/gebug/04-maven-private/03-nexus.png" alt="03-nexus" /></p>
+
+<p><strong>备注：</strong></p>
+
+<ul>
+  <li>在 Linux 和 Mac 上通过 <code class="highlighter-rouge">ifconfig</code> 查看本机 IP。</li>
+  <li>在 Windows 上通过 <code class="highlighter-rouge">ipconfig</code> 查看本机 IP。</li>
+  <li>127.0.0.1(localhost) 是本机回环地址，在其他机器上访问时不要使用这个地址。</li>
+</ul>
+
+<h3 id="2-仓库配置">2. 仓库配置</h3>
+
+<p>经过上面的步骤，我们就有了一个空仓库，但是这个仓库还还需要进行一些基础的配置。</p>
+
+<h4 id="21-账号配置">2.1 账号配置</h4>
+
+<h5 id="211-点击界面右上角的-sign-in-进行登录">2.1.1 点击界面右上角的 <strong>Sign In</strong> 进行登录。</h5>
+
+<p><strong>初次登陆时使用默认账号：admin，密码：admin123。</strong></p>
+
+<p><img src="/assets/gebug/04-maven-private/04-signin.png" alt="04-signin" /></p>
+
+<h5 id="212-登陆后创建一个新用户">2.1.2 登陆后创建一个新用户</h5>
+
+<p><img src="/assets/gebug/04-maven-private/05-create-user.png" alt="05-create-user" /></p>
+
+<h5 id="213-填写用户信息">2.1.3 填写用户信息</h5>
+
+<p><img src="/assets/gebug/04-maven-private/06-create-user-info.png" alt="06-create-user-info" /></p>
+
+<p>填写具体的用户信息，其中比较重要的部分已经用红字标记出来了。</p>
+
+<p><strong>注意：</strong></p>
+
+<ul>
+  <li>注意用户权限，默认应该是有两个权限，管理员权限和所有用户(包括未登录用户)权限。</li>
+  <li>Roles 左侧为目前的权限组，右侧为当前用户拥有的权限组，可以通过 [&gt;] 和 [&lt;] 按钮来调整用户权限。</li>
+  <li><strong>在创建完新的用户后记得删除最初的管理员账号或者修改管理员账号的密码。</strong></li>
+  <li><strong>用户所拥有的权限，是根据其拥有的权限组决定的，只要拥有 nx-admin 权限组，就拥有所有的管理权限，要注意该权限的分配。</strong></li>
+</ul>
+
+<h4 id="22-创建仓库">2.2 创建仓库</h4>
+
+<p>仓库也是在设置中进行创建的，如下：</p>
+
+<p><img src="/assets/gebug/04-maven-private/07-create-repository.png" alt="07-create-repository" /></p>
+
+<p><img src="/assets/gebug/04-maven-private/08-create-repository2.png" alt="08-create-repository2" /></p>
+
+<p><strong>我们用 maven 仓库即可，可以看到，仓库主要有三种类型：</strong></p>
+
+<ul>
+  <li><strong>hosted：</strong> 本地仓库，我们一般使用这种类型的仓库。</li>
+  <li><strong>proxy：</strong> 代理仓库，用于代理其他远程仓库。</li>
+  <li><strong>group：</strong> 仓库组，用来合并多个 hosted / proxy 仓库。</li>
+</ul>
+
+<p>在一般情况下，我们创建 hosted 类型的 maven 仓库。</p>
+
+<p><strong>填写仓库信息</strong></p>
+
+<p><img src="/assets/gebug/04-maven-private/09-create-repository3.png" alt="09-create-repository3" /></p>
+
+<p>如果没有特殊需求，直接填写一个名称然后点击创建即可。</p>
+
+<p><strong>注意：</strong></p>
+
+<ul>
+  <li><strong>Version policy(版本模式)</strong> 有三种模式 Release(发布)、Snapshot(快照)、Mixed(混合)。</li>
+  <li><strong>Layout policy(布局模式)</strong> 有两种模式 Strict(严格模式)、Permissive(宽松模式)。</li>
+  <li><strong>Deployment policy(部署模式)</strong> 有三种模式 Allow redploy(允许重新部署)、Disable redploy(不允许重新部署)、Read-only(只读)。</li>
+</ul>
+
+<p>一般情况下按照默认配置即可，需要注意的是，部署策略一般情况下请使用默认配置 <strong>Disable redploy(不允许重新部署)</strong>，例如，v1.0.0 版本的组建上传后，修改后再次以 v1.0.0 版本进行上传会上传失败，这样可以保证版本上传后不会被误覆盖掉，如果确定之前 v1.0.0 版本是错误上传的，需要重新上传，可以手动删除后再次上传，这样是最稳妥的。</p>
+
+<p>在创建完成后就可以在仓库列表中查看到新创建的仓库了。</p>
+
+<p><img src="/assets/gebug/04-maven-private/10-new-repository.png" alt="10-new-repository" /></p>
+
+<h4 id="23-用户权限配置">2.3 用户权限配置</h4>
+
+<p>用户权限配置相对来说稍微复杂一点，如果开发人员较少，又都是老手，不会存在小白删库的情况下，可以给所有人都分配一个管理账号或者共用一个管理员账号即可。</p>
+
+<p>如果开发人员众多，又比较复杂，则需要仔细的控制每一个用户的权限，<strong>一般来说，给普通用户分配公共仓库的查看、上传、读取的权限，不要给编辑和删除的权限。</strong> 下面就带大家了解一下权限的详细设置方式：</p>
+
+<p>Nexus 默认就有一个游客账号(anonymous)，在默认状态下拥有浏览所有仓库的权限，即在不登陆的情况下，可以查看所有仓库。</p>
+
+<p><img src="/assets/gebug/04-maven-private/11-User-Anonymous.png" alt="11-User-Anonymous" /></p>
+
+<p>该账号的权限分配十分重要，它意味这赋予所有未登录用户的权限，如果将管理员权限分配给了该账号，就意味着所有未登录用户都可以使用管理员权限，如果没有特殊情况，不要随意修改该账号的默认权限。</p>
+
+<p>如果你不希望未登录用户查看，可以选择取消启用未登录账号，如下：</p>
+
+<p><img src="/assets/gebug/04-maven-private/12-Disable-Anonymous.png" alt="12-Disable-Anonymous" /></p>
+
+<p>然而，<strong>如果我们希望游客可以查看和使用一部分仓库，另外部分仓库又不希望被未登录用户看到，那么就需要详细进行设置了。</strong></p>
+
+<p>既然要修改权限，就要了解 Nexus 的权限管理方式，首先与权限有关的有如下几种：</p>
+
+<p><img src="/assets/gebug/04-maven-private/13-Sceurity.png" alt="13-Sceurity" /></p>
+
+<p>它们的关系如下：</p>
+
+<p><img src="/assets/gebug/04-maven-private/14-Nexus权限结构.jpg" alt="14-Nexus权限结构" /></p>
+
+<blockquote>
+  <p><strong>注意：</strong></p>
+
+  <ol>
+    <li>用户是通过持有不同的角色(权限组)来确定自己的权限管理范围的。</li>
+    <li>角色(权限组)可以由基础权限和其他基础权限组来构成。</li>
+  </ol>
+</blockquote>
+
+<p>上面是 Nexus 支持的权限构成方式，在一般情况下我喜欢按照下面这种方式组织自己的权限。</p>
+
+<p><img src="/assets/gebug/04-maven-private/15-角色分组.jpg" alt="15-角色分组" /></p>
+
+<p>我把用户分为四类(超级管理员、仓库管理员、普通用户、游客)，并创建了四种类型的角色(权限组)，分别与之对应，这样在添加新用户的时候只需要赋予他对应的角色(权限组)即可。</p>
+
+<h5 id="231-游客权限配置">2.3.1 游客权限配置</h5>
+
+<p><strong>创建角色(权限组)</strong></p>
+
+<p><img src="/assets/gebug/04-maven-private/16-create-role.png" alt="16-create-role" /></p>
+
+<p><strong>创建游客角色</strong></p>
+
+<p>其他的角色(权限组)也按照该方式进行创建即可，假设我们想把 gcssloop-central 这个仓库作为公开仓库，将这个仓库的查看和读取权限给予游客角色。</p>
+
+<p><img src="/assets/gebug/04-maven-private/17-role-anyone.png" alt="17-role-anyone" /></p>
+
+<p><strong>赋予游客用户权限</strong></p>
+
+<p><img src="/assets/gebug/04-maven-private/18-anyone.png" alt="18-anyone" /></p>
+
+<p>基础的设置方式就如上所示，只是不同的用户角色，拥有不同的权限而已。</p>
+
+<h5 id="231-普通用户权限配置">2.3.1 普通用户权限配置</h5>
+
+<p><img src="/assets/gebug/04-maven-private/18-1-normal-user.png" alt="18-1-normal-user" /></p>
+
+<h5 id="231-管理员权限配置">2.3.1 管理员权限配置</h5>
+
+<p><img src="/assets/gebug/04-maven-private/18-2-manager.png" alt="18-2-manager" /></p>
+
+<p>上面是一些常见的权限分配，比较粗略，如果有需要的话，可划分的更加细致，在创建完角色(Role)后，把对应的角色分配给对应的用户，该用户便可以获得对应的权限，超级管理员的角色(nx-admin)是默认就有的(拥有所有仓库的管理权限，以及修改设置的权限等)，它无需自己配置权限内容，只用分配给超级管理员用户使用即可。</p>
+
+<h3 id="3-仓库备份">3. 仓库备份</h3>
+
+<p>为了保证数据的安全，一定要对仓库数据进行备份，这样在出现意外情况的时候可以快速的恢复仓库状态，将影响降到最低。</p>
+
+<h4 id="31-单仓库备份方案">3.1 单仓库备份方案</h4>
+
+<p>仓库备份其实很简单，<strong>Nexus 的所有信息都存储在 sonatype-work 文件夹中，单一仓库需要定时的备份该文件夹，一天至少备份一次以上，在服务器上运行的可以自己弄一些定时脚本来帮助自动化备份。</strong></p>
+
+<p>恢复备份需要先关闭 nexux，让备份目录覆盖当前工作目录，之后重新启动 nexus 即可。</p>
+
+<h4 id="32-多仓库同步方案">3.2 多仓库同步方案</h4>
+
+<p>可以在多个的电脑(服务器)上搭建多个相同版本的仓库，以其中一个为主仓库，定时同步 sonatype-work 文件夹到其他备份仓库。</p>
+
+<h4 id="33-多仓库同时上传">3.3 多仓库同时上传</h4>
+
+<p>在拥有多个仓库的情况下，可以在上传脚本中配置多个仓库的上传方案，这样在发布的时候，分别发布到不同的仓库中，脚本的详细信息见下文。</p>
+
+<h4 id="34-多仓库部署方案">3.4 多仓库部署方案</h4>
+
+<p><strong>我自己使用的是多仓库方案，同时部署多个仓库，这样在其中一个仓库出现问题的时候迅速切换到其他仓库，可以在不影响开发的情况下对该仓库进行修复。</strong></p>
+
+<p><strong>个人建议，直接把三个平台(Windows、Linux、OSX)的对应的同一版本都下载保存下来，这样方便以后部署，防止因为版本不同导致出现问题。</strong></p>
+
+<p>我自己在内网服务器(Winsows Server)上部署了一套系统，公网服务器(Linux)上部署了一套系统，又在自己的个人电脑(OXS)上部署了一套系统，也算是在所有平台上都部署过了，部署过程大致上是相同的，具体可以见上文。</p>
+
+<p>如果是多仓库部署的话，首先要部署并设置好一个仓库，之后部署时直接将设置完成仓库的 sonatype-work 文件夹复制后后续的部署平台上，这样就可以避免重复的设置，所有仓库的设置就可以保证是一致的。</p>
+
+<p>我自己使用的是多个仓库，并绑定了域名解析，这样在一个仓库出现问题的时候，只用将域名暂时解析到正常的仓库即可。</p>
+
+<h3 id="4-上传脚本">4. 上传脚本</h3>
+
+<p>一个基础的上传脚本可以这样写，该上传脚本定义了三种基本行为：</p>
+
+<ol>
+  <li>生成 doc 文档(该文档会上传到仓库上)</li>
+  <li>上传到本机仓库，上传到公网仓库(如果你有更多仓库，同样可以仿照下面的方式配置上传信息)</li>
+  <li>本地打包源码(本地的项目源码备份)，本地备份建议配合git使用。</li>
+</ol>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="c1">// pack-upload.gradle</span>
+
+<span class="c1">// 指定编码</span>
+<span class="n">tasks</span><span class="o">.</span><span class="na">withType</span><span class="o">(</span><span class="n">JavaCompile</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">options</span><span class="o">.</span><span class="na">encoding</span> <span class="o">=</span> <span class="s2">"UTF-8"</span>
+<span class="o">}</span>
+
+<span class="c1">// 打包源码</span>
+<span class="n">task</span> <span class="nf">sourcesJar</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Jar</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">from</span> <span class="n">android</span><span class="o">.</span><span class="na">sourceSets</span><span class="o">.</span><span class="na">main</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">srcDirs</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="s1">'sources'</span>
+<span class="o">}</span>
+
+<span class="n">task</span> <span class="nf">javadoc</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Javadoc</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">failOnError</span>  <span class="kc">false</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">sourceSets</span><span class="o">.</span><span class="na">main</span><span class="o">.</span><span class="na">java</span><span class="o">.</span><span class="na">sourceFiles</span>
+    <span class="n">classpath</span> <span class="o">+=</span> <span class="n">project</span><span class="o">.</span><span class="na">files</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">getBootClasspath</span><span class="o">().</span><span class="na">join</span><span class="o">(</span><span class="n">File</span><span class="o">.</span><span class="na">pathSeparator</span><span class="o">))</span>
+    <span class="n">classpath</span> <span class="o">+=</span> <span class="n">configurations</span><span class="o">.</span><span class="na">compile</span>
+<span class="o">}</span>
+
+<span class="c1">// 制作文档(Javadoc)</span>
+<span class="n">task</span> <span class="nf">javadocJar</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Jar</span><span class="o">,</span> <span class="nl">dependsOn:</span> <span class="n">javadoc</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">classifier</span> <span class="o">=</span> <span class="s1">'javadoc'</span>
+    <span class="n">from</span> <span class="n">javadoc</span><span class="o">.</span><span class="na">destinationDir</span>
+<span class="o">}</span>
+
+<span class="n">artifacts</span> <span class="o">{</span>
+    <span class="n">archives</span> <span class="n">sourcesJar</span>
+    <span class="n">archives</span> <span class="n">javadocJar</span>
+<span class="o">}</span>
+
+
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'maven'</span>
+
+<span class="c1">// 对应的仓库地址</span>
+<span class="kt">def</span> <span class="n">URL_PUCBLIC</span> <span class="o">=</span> <span class="s2">"http://lib.gcssloop.com:8081/repository/gcssloop-central/"</span>
+<span class="kt">def</span> <span class="n">URL_LOCAL</span> <span class="o">=</span> <span class="s2">"http://localhost:8081/repository/gcssloop-central/"</span>
+
+<span class="c1">// 上传到公共仓库</span>
+<span class="n">task</span> <span class="nf">uploadToPublic</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Upload</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s1">'upload'</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">configurations</span><span class="o">.</span><span class="na">archives</span>
+    <span class="n">uploadDescriptor</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">repositories</span><span class="o">{</span>
+        <span class="n">mavenDeployer</span> <span class="o">{</span>
+            <span class="n">repository</span><span class="o">(</span><span class="nl">url:</span> <span class="n">URL_PUCBLIC</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">authentication</span><span class="o">(</span><span class="nl">userName:</span> <span class="n">USERNAME</span><span class="o">,</span> <span class="nl">password:</span> <span class="n">PASSWORD</span><span class="o">)</span>
+            <span class="o">}</span>
+            <span class="n">pom</span><span class="o">.</span><span class="na">version</span> <span class="o">=</span> <span class="n">VERSION</span>
+            <span class="n">pom</span><span class="o">.</span><span class="na">artifactId</span> <span class="o">=</span> <span class="n">ARTIFACT_ID</span>
+            <span class="n">pom</span><span class="o">.</span><span class="na">groupId</span> <span class="o">=</span> <span class="n">GROUP_ID</span>
+        <span class="o">}</span>
+    <span class="o">}</span>  
+<span class="o">}</span>
+
+<span class="c1">// 上传到本机仓库</span>
+<span class="n">task</span> <span class="nf">uploadToLocal</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Upload</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s1">'upload'</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">configurations</span><span class="o">.</span><span class="na">archives</span>
+    <span class="n">uploadDescriptor</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">repositories</span><span class="o">{</span>
+        <span class="n">mavenDeployer</span> <span class="o">{</span>
+            <span class="n">repository</span><span class="o">(</span><span class="nl">url:</span> <span class="n">URL_LOCAL</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">authentication</span><span class="o">(</span><span class="nl">userName:</span> <span class="n">USERNAME</span><span class="o">,</span> <span class="nl">password:</span> <span class="n">PASSWORD</span><span class="o">)</span>
+            <span class="o">}</span>
+            <span class="n">pom</span><span class="o">.</span><span class="na">version</span> <span class="o">=</span> <span class="n">VERSION</span>
+            <span class="n">pom</span><span class="o">.</span><span class="na">artifactId</span> <span class="o">=</span> <span class="n">ARTIFACT_ID</span>
+            <span class="n">pom</span><span class="o">.</span><span class="na">groupId</span> <span class="o">=</span> <span class="n">GROUP_ID</span>
+        <span class="o">}</span>
+    <span class="o">}</span>  
+<span class="o">}</span>
+
+<span class="c1">// 压缩生成归档文件</span>
+<span class="n">task</span> <span class="nf">pack</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Zip</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s1">'pack'</span>
+    <span class="n">archiveName</span> <span class="o">=</span> <span class="n">rootProject</span><span class="o">.</span><span class="na">getRootDir</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s2">"_v"</span> <span class="o">+</span> <span class="n">VERSION</span> <span class="o">+</span> <span class="s2">".zip"</span><span class="o">;</span>
+    <span class="n">destinationDir</span> <span class="o">=</span> <span class="n">rootProject</span><span class="o">.</span><span class="na">getRootDir</span><span class="o">().</span><span class="na">getParentFile</span><span class="o">();</span>
+    <span class="n">from</span> <span class="n">rootProject</span><span class="o">.</span><span class="na">getRootDir</span><span class="o">().</span><span class="na">getAbsolutePath</span><span class="o">();</span>
+    <span class="n">exclude</span> <span class="s1">'**.zip'</span>
+    <span class="n">exclude</span> <span class="s1">'**.iml'</span>
+    <span class="n">exclude</span> <span class="s1">'**/**.iml'</span>
+    <span class="n">exclude</span> <span class="s1">'build/**'</span>
+    <span class="n">exclude</span> <span class="s1">'.idea/**'</span>
+    <span class="n">exclude</span> <span class="s1">'.gradle/**'</span>
+    <span class="n">exclude</span> <span class="s1">'gradle/**'</span>
+    <span class="n">exclude</span> <span class="s1">'**/build/**'</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>上面脚本文件中所需的仓库地址可以从下面这个地方获得：</strong></p>
+
+<p><img src="/assets/gebug/04-maven-private/18-0-maven-url.png" alt="18-0-maven-url" /></p>
+
+<p><strong>你可以把这份文件放置到任何地方，项目中、本地的指定位置、甚至是网络上，这样在使用的时候只需要添加一下引用即可。</strong></p>
+
+<p>使用的时候如下(我把该文件放置在了自己电脑的桌面上)，在需要上传的 Library 的 build.gradle 中引用该文件并配置：</p>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="c1">// 配置上传信息</span>
+<span class="n">ext</span> <span class="o">{</span>
+    <span class="n">USERNAME</span> <span class="o">=</span> <span class="s2">"GcsSloop"</span>
+    <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s2">"xxxxxxx"</span>
+    <span class="n">GROUP_ID</span> <span class="o">=</span> <span class="s2">"com.gcssloop.demo"</span>
+    <span class="n">ARTIFACT_ID</span> <span class="o">=</span> <span class="s2">"uploader"</span>
+    <span class="n">VERSION</span> <span class="o">=</span> <span class="s2">"1.0.0"</span>
+<span class="o">}</span>
+
+<span class="c1">// 引用上传脚本</span>
+<span class="n">apply</span> <span class="nl">from:</span> <span class="s2">"/Users/gcssloop/Desktop/pack-upload.gradle"</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/gebug/04-maven-private/19-config.png" alt="19-config" /></p>
+
+<p>在配置完善后同步一下项目，就可以打开 gradle 命令菜单看到多出来了3个命令，双击即可执行对应的命令：</p>
+
+<ul>
+  <li>pack：打包项目</li>
+  <li>uploadToLocal：上传到本机仓库</li>
+  <li>uploadToPublic：上传到公网仓库</li>
+</ul>
+
+<p><img src="/assets/gebug/04-maven-private/20-command.png" alt="20-command" /></p>
+
+<p>如果一切配置正确的话，等上传成功就可以在对应的仓库中看到上传的文件了。</p>
+
+<p><img src="/assets/gebug/04-maven-private/21-upload-over-0156932.png" alt="21-upload-over" /></p>
+
+<h4 id="注意">注意：</h4>
+
+<p><strong>1. 如非必要尽量不要去删除已发布的Library，如果发现Library有bug，请修复后更新版本号重新发布。</strong></p>
+
+<p><strong>2. 仓库默认不允许重新发布，若有更新，请修改版本号后再进行发布。</strong></p>
+
+<h3 id="5-依赖配置">5. 依赖配置</h3>
+
+<h4 id="51-添加仓库地址">5.1 添加仓库地址</h4>
+
+<p>在需要使用该 Library 的项目的根 build.gradle 中配置仓库地址(例如)：</p>
+
+<pre><code class="language-Groovy">allprojects {
+    repositories {
+        jcenter()
+        maven {
+            // 配置用户名和密码
+            credentials { username 'GcsSloop' password 'xxxxxx' }
+            // 配置仓库地址（获取方式见上文）
+            url "http://localhost:8081/repository/gcssloop-central/"
+        }
+    }
+}
+</code></pre>
+
+<h4 id="52-添加具体library">5.2 添加具体Library</h4>
+
+<p>在需要添加该项目的Module的对应 <code class="highlighter-rouge">build.gradle</code> 下添加依赖。</p>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="c1">// &lt;包名&gt;:&lt;项目名&gt;:&lt;版本号&gt;，例如：</span>
+<span class="n">compile</span> <span class="s1">'com.gcssloop.demo:uploader:1.0.0'</span>
+</code></pre>
+</div>
+<p><strong>私有仓库的依赖使用方式和公共仓库远程依赖书写方式相同。</strong></p>
+
+<h3 id="6-后记">6. 后记</h3>
+
+<p>在本系列第一篇文章 <a href="http://www.gcssloop.com/gebug/componentr">组件化</a> 中，我简单的介绍了将业务模块抽取为组件的优点，这里的私有仓库本质上也是为它服务的。</p>
+
+<p>自己开发一个组件非常简单，但是一定要注意它的源码和文档管理，只有把源码的文档管理做好了，才能方便后续人员接手维护，否则单独抽取一个无法维护的组件是毫无意义的。</p>
+
+<p>有人可能会注意到，我在上传脚本中添加了一个 pack 方法，这个方法用于打包源码，也可以说是创建当前工程的一个快照，我一般在开发完成一个小版本后就会打包一次，它会自动打包成为这样的格式 <code class="highlighter-rouge">项目名_v1.0.0.zip</code> ，相当于对每一个版本的源码都进行了保存，之后再配合 git 等工具进行源码管理。</p>
+
+<p><strong>也许有人会有疑问，既然用 git 管理了，何必在自己保存每一个版本的源码呢？</strong>
+这主要是因为，git 虽然强大，但毕竟还是要自己手动提交的，有时比较懒，就容易漏掉几个小版本，而使用脚本直接双击就自动保存快照了，相比于git会快捷很多，并且，在需要某个特定版本源码的时候，也无需去git找提交记录了，直接把对应版本的zip文件解压一下就可以了。</p>
+
+<p>最后，私有仓库也并非是必须的，但如果你想自己开发维护一些私有组件库的话，非常推荐一试。</p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/rclayout" title="link to 雕虫晓技(三) 通用圆角布局全解析">雕虫晓技(三) 通用圆角布局全解析</a></h2>
+       <p class="excerpt">关于作者GcsSloop，一名 2.5 次元魔法师。微博 | GitHub | 博客1. 前言之前，我在 GitHub 分享了一个开源库：rclayout，这个库的主要目的是快速实现 Andro...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2017-12-29 00:00:00 +0800" class="post-list__meta--date date">2017-12-29</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/rclayout>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
