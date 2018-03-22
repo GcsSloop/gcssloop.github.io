@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-03-16T17:49:38+08:00</updated>
+  <updated>2018-03-22T16:42:32+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -1107,6 +1107,9 @@ nexus run
 &lt;span class=&quot;c1&quot;&gt;// 2.设置滚动辅助工具&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;attachToRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 可选(如果觉得快速滚动不够灵敏，可以调整该数值，默认为1000，数值越小越灵敏)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pageSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFlingThreshold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -1148,6 +1151,36 @@ nexus run
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&quot;43-滚动到指定条目指定页面&quot;&gt;4.3 滚动到指定条目、指定页面&lt;/h3&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// PagerGridLayoutManager 新增方法&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 滚动到指定条目&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;scrollToPosition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 滚动到指定页面&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;scrollToPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 上一页&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;prePage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 下一页&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;nextPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;其中滚动到指定条目可以调用 RecyclerView 的方法，也可以调用 LayoutManager的方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 下面两个方法是等价的&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scrollToPosition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scrollToPosition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;滚动到指定页面、上一页下一页等操作属于 PagerGridLayoutManager 特有方法，只能通过 PagerGridLayoutManager 调用：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mPagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scrollToPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mPagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;prePage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mPagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&quot;5-注意事项&quot;&gt;5. 注意事项：&lt;/h2&gt;
 
 &lt;p&gt;目前存在一个问题，使用的时候请务必给 RecyclerView 设置固定大小或者match_parent，如果不设置默认高度为 0 ，则任何内容都不会显示出来。&lt;/p&gt;
@@ -1174,7 +1207,7 @@ nexus run
 
 &lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.recyclerview:pagerlayoutmanager:2.2.0@aar'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.recyclerview:pagerlayoutmanager:2.2.1@aar'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -1195,7 +1228,14 @@ nexus run
 
 &lt;h2 id=&quot;更新日志&quot;&gt;更新日志&lt;/h2&gt;
 
-&lt;h4 id=&quot;v220&quot;&gt;v2.2.0&lt;/h4&gt;
+&lt;h4 id=&quot;v221&quot;&gt;v2.2.1&lt;/h4&gt;
+
+&lt;p&gt;修复直接滚动到指定页面的Bug。&lt;br /&gt;
+添加设置快速滚动阀值的方法 &lt;code class=&quot;highlighter-rouge&quot;&gt;snapHelper.setFlingThreshold(1000);&lt;/code&gt;&lt;br /&gt;
+修复不设置页面监听器会导致显示不正常的问题。
+修复行列为1时滚动出现的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;v220该版本不稳定&quot;&gt;v2.2.0(该版本不稳定)&lt;/h4&gt;
 
 &lt;p&gt;新增方法：&lt;/p&gt;
 
