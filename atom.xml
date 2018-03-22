@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-03-22T16:42:32+08:00</updated>
+  <updated>2018-03-22T17:01:50+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -1207,7 +1207,7 @@ nexus run
 
 &lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.recyclerview:pagerlayoutmanager:2.2.1@aar'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.recyclerview:pagerlayoutmanager:2.2.2@aar'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -1227,6 +1227,10 @@ nexus run
 &lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;更新日志&quot;&gt;更新日志&lt;/h2&gt;
+
+&lt;h4 id=&quot;v222&quot;&gt;v2.2.2&lt;/h4&gt;
+
+&lt;p&gt;修复除零异常。&lt;/p&gt;
 
 &lt;h4 id=&quot;v221&quot;&gt;v2.2.1&lt;/h4&gt;
 
