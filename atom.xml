@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-03-22T17:01:50+08:00</updated>
+  <updated>2018-04-02T15:40:02+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -1040,9 +1040,7 @@ nexus run
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，并不能适用于所有场景，请选择性使用。&lt;/p&gt;
-
-&lt;p&gt;另外，该库并不是特别完善，欢迎提交 Issues 或者 PR 来协助我完善。&lt;/p&gt;
+    <content type="html">&lt;p&gt;具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，请选择性使用。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;【GitHub · PagerLayoutmanager】&lt;/a&gt;&lt;/p&gt;
 

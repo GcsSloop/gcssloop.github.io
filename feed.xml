@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 22 Mar 2018 17:01:50 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Mar 2018 17:01:50 +0800</lastBuildDate>
+    <pubDate>Mon, 02 Apr 2018 15:40:02 +0800</pubDate>
+    <lastBuildDate>Mon, 02 Apr 2018 15:40:02 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
       <item>
@@ -1037,9 +1037,7 @@ nexus run
     
       <item>
         <title>PagerLayoutManager(分页布局)</title>
-        <description>&lt;p&gt;具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，并不能适用于所有场景，请选择性使用。&lt;/p&gt;
-
-&lt;p&gt;另外，该库并不是特别完善，欢迎提交 Issues 或者 PR 来协助我完善。&lt;/p&gt;
+        <description>&lt;p&gt;具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，请选择性使用。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;【GitHub · PagerLayoutmanager】&lt;/a&gt;&lt;/p&gt;
 
