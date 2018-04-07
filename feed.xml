@@ -5,9 +5,246 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 02 Apr 2018 15:40:02 +0800</pubDate>
-    <lastBuildDate>Mon, 02 Apr 2018 15:40:02 +0800</lastBuildDate>
+    <pubDate>Sun, 08 Apr 2018 00:36:25 +0800</pubDate>
+    <lastBuildDate>Sun, 08 Apr 2018 00:36:25 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
+    
+      <item>
+        <title>【付费】雕虫晓技(五) 网格分页布局源码解析(上)</title>
+        <description>&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0前言&quot;&gt;0.前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;pager-layoutmanager： &lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;https://github.com/GcsSloop/pager-layoutmanager&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个是我之前公开分享的一个开源库 &lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;【PagerLayoutManager(网格分页布局)】&lt;/a&gt; 的详细解析，在开始讲解之前，先看看它能实现的一些效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo1.gif&quot; alt=&quot;emo&quot; /&gt; &lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo2.gif&quot; alt=&quot;emo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面是它的应用场景之一，再看一下实现这种场景所需的代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 布局管理器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;HORIZONTAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 滚动辅助器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;snapHelper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;snapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;attachToRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;没错，想要实现这样分页滚动的效果，只需要四五行代码就可以了，至于 RecyclerView 和 Adapter 使用官方提供的即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-摘要&quot;&gt;1. 摘要&lt;/h2&gt;
+
+&lt;p&gt;之前项目中有类似的需求，在网上寻找了一些实现方案，结果均不太满意。&lt;/p&gt;
+
+&lt;p&gt;有些方案使用起来过于麻烦，例如 ViewPager + GridView，不用我说，用过的都知道，这种方案数据绑定十分麻烦，并且会多一层View嵌套，相对来说会损耗一些性能。&lt;/p&gt;
+
+&lt;p&gt;有些则是存在重大缺陷，例如内存泄露，性能问题等，像上面那种场景仅展示几个固定条目的情况还不明显，但是当需要动态加载几百个条目的时候缺陷就显现出来了，会造成严重的滑动卡顿，当数据达到一定数量级的时候，可能直接导致ANR。&lt;/p&gt;
+
+&lt;p&gt;在试过诸多方案，踩过很多坑以后，依旧没有找到合适的方案，于是自己动手，丰衣足食，也就有了这个项目。&lt;/p&gt;
+
+&lt;p&gt;这个项目已经在公司多个项目上使用，经过十几个版本的迭代更新，基本上已经没有重大bug了，更新日志可以见这里： &lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;PagerLayoutManager&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;如果你只是需要这样一个组件，那么直接点击上面的链接，看它的说明文档就可以了，本文不是你需要的，但如果你想要知道它的具体实现方案，对它进行改进的话，那么下文的内容可能会对你有所帮助。&lt;/p&gt;
+
+&lt;h2 id=&quot;2-基础网格布局解析&quot;&gt;2. 基础网格布局解析&lt;/h2&gt;
+
+&lt;h3 id=&quot;21-方案选择&quot;&gt;2.1 方案选择&lt;/h3&gt;
+
+&lt;p&gt;首先项目所需要的核心内容主要有以下几点：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;网格效果&lt;/li&gt;
+  &lt;li&gt;分页显示&lt;/li&gt;
+  &lt;li&gt;横向排布&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo3.jpg&quot; alt=&quot;demo3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所需效果大概就如上图所示，为了避免重复造轮子，在一开始我想要使用一些现有的组件来完成。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;最先想到的自然是网格布局，但是呢，项目需要动态加载数百条的数据，网格布局本身不带有条目自动回收创建功能，如果同让上百个View存在于一个页面之中，不卡爆才怪。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;之后想到的是 ViewPager+GridLayout，但是这种方案数据拆分和绑定十分麻烦，遂放弃。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;然后想 RecyclerView + GridLayoutManager 看起来靠谱一点，首先使用 GridLayoutMnager，作出网格效果，然后监听滚动事件来控制滚动距离，一切看起来都是那么美好，但是，事实证明这种方案还是太难使用。&lt;/p&gt;
+
+    &lt;p&gt;首先网格布局同时只能控制行数或者列数其中一个，如果想要如果想要像设定那样2行3列，一页整好现实6条数据，那么View的宽高是需要动态计算的，如果设置了固定大小，必然会导致适配问题，&lt;/p&gt;
+
+    &lt;p&gt;其次，数据不一定是整页，如果是2行3列，一页6条数据，那么使用 GridLayoutManager滑动后可能会出现这样的效果，另外，数据排列顺序也并非我所需要的：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo4.jpg&quot; alt=&quot;demo4&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;这显然不是我想要的效果，在数据不足一页时，我需要的效果是这样的：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo5.jpg&quot; alt=&quot;demo5&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;如果想要在不动 GridLayoutManager 的情况下实现需求，则需要执行如下操作：&lt;/p&gt;
+
+    &lt;p&gt;假设，需要显示2行3列，共8条数据，那么需要执行如下操作：&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;将不足一页部分补足一页&lt;/p&gt;
+
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、2、3、4、5、6、7、8
+1、2、3、4、5、6、7、8、空、空、空、空
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;通过数据变换调整数据次序使其显示符合预期&lt;/p&gt;
+
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、2、3、4、5、6、7、8、空、空、空、空
+1、4、2、5、3、6、7、空、8、空、空、空
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;通过监听滚动控制滚动距离来实现分页显示&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;p&gt;另外，页面数据是分页加载显示的，如果使用上面这种方案，单是数据处理逻辑就能把我绕进去。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;在经过深思熟虑之后，我决定自定义一个 LayoutManager 来实现这个“简单”的需求。&lt;/strong&gt;幸好 RecyclerView 的扩展性非常强，自定义一个 LayoutManager 也不是什么难事，下面我们就一步步的的实现一个分页网格布局。&lt;/p&gt;
+
+&lt;h3 id=&quot;22-创建一个基础的-layoutmanager&quot;&gt;2.2 创建一个基础的 LayoutManager&lt;/h3&gt;
+
+&lt;p&gt;首先我们创建一个 PagerGridLayoutManager 并继承 RecyclerView.LayoutManager，实现其抽象方法，一个LayoutManager 就可以用了，如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PagerGridLayoutManager&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generateDefaultLayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ViewGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;WRAP_CONTENT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ViewGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;WRAP_CONTENT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这是一个符合规范的 LayoutManager，但是目前它不会将任何View显示在界面上，因为它没有对条目进行处理，也就意味着没有条目会添加到界面上。但我们先不着急处理子条目，在真正布局之前，我们先来解决一些简单的基础问题。&lt;/p&gt;
+
+&lt;h3 id=&quot;23-确定行列数数和滚动方向&quot;&gt;2.3 确定行列数数和滚动方向&lt;/h3&gt;
+
+&lt;p&gt;由于行列数会直接关系到一个页面显示条目的个数，进而影响到总共可以滚动的j距离和页数总数，所以它们要在构造方法中设置。&lt;/p&gt;
+
+&lt;p&gt;而滚动方向一般都是确定的，横向或者竖向，并且基本不变，所以，它也可以在构造方法中进行设置，提醒使用者不要忘记滚动方向。&lt;/p&gt;
+
+&lt;p&gt;所以为 PagerGridLayoutManager 添加如下的属性和构造方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;public static final int VERTICAL = 0;           // 垂直滚动
+public static final int HORIZONTAL = 1;         // 水平滚动
+
+@IntDef({VERTICAL, HORIZONTAL})
+public @interface OrientationType {}            // 滚动类型
+
+@OrientationType
+private int mOrientation = HORIZONTAL;          // 默认水平滚动
+
+private int mRows = 0;                          // 行数
+private int mColumns = 0;                       // 列数
+private int mOnePageSize = 0;                   // 一页的条目数量
+
+/**
+ * 构造函数
+ *
+ * @param rows        行数
+ * @param columns     列数
+ * @param orientation 方向
+ */
+public PagerGridLayoutManager(@IntRange(from = 1, to = 100) int rows,
+                              @IntRange(from = 1, to = 100) int columns,
+                              @OrientationType int orientation) {
+    mOrientation = orientation;
+    mRows = rows;
+    mColumns = columns;
+    mOnePageSize = mRows * mColumns;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;上面使用了 @IntDef 注解自定义了一个 OrientationType 注解，用于防治用户随意设置数值。&lt;/li&gt;
+  &lt;li&gt;使用 @IntRange 方法将行列数限制在一个较合理的范围内。&lt;/li&gt;
+  &lt;li&gt;在初始化的时候利用行列数计算出了一页应该有多少个条目，方面后面使用。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;在确定了滚动方向后，顺便就可以实现 LayoutManager 以下两个方法了，这两个方法会真正的决定 RecyclerView 可以滚动的方向。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/** 是否可以水平滚动
+ * @return true 是，false 不是。
+ */&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;canScrollHorizontally&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mOrientation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HORIZONTAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/** 是否可以垂直滚动
+ * @return true 是，false 不是。
+ */&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;canScrollVertically&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mOrientation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VERTICAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;24-计算子条目的宽高&quot;&gt;2.4 计算子条目的宽高&lt;/h3&gt;
+
+&lt;p&gt;由于我们是分页网格显示，目前已经知道了行列数，如果再知道 RecyclerView 的宽高，就能算出单个自条目的所能占用的宽高了。&lt;/p&gt;
+
+&lt;p&gt;因此我们再添加两个方法用于获取 RecyclerView 的可用宽高：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;/** 获取可用的宽度
+ * @return 宽度 - padding
+ */
+private int getUsableWidth() {
+    return getWidth() - getPaddingLeft() - getPaddingRight();
+}
+
+/** 获取可用的高度
+ * @return 高度 - padding
+ */
+private int getUsableHeight() {
+    return getHeight() - getPaddingTop() - getPaddingBottom();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：可用宽高要减去 Padding 数值。&lt;/p&gt;
+
+&lt;p&gt;有了总的可用宽高，在分别处以行列数就可以得到每一个子条目占用的宽高了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private int mItemWidth = 0;  // 条目宽度
+private int mItemHeight = 0; // 条目高度
+mItemWidth = getUsableWidth() / mColumns;
+mItemHeight = getUsableHeight() / mRows;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;-本文剩余部分为付费内容点击此处到小专栏订阅后查看-&quot;&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/5841730926&quot;&gt;== 本文剩余部分为付费内容，点击此处到【小专栏】订阅后查看 ==&lt;/a&gt;&lt;/h2&gt;
+</description>
+        <pubDate>Sun, 08 Apr 2018 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/gebug/pager-grid-layoutmanager-a</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/gebug/pager-grid-layoutmanager-a</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>GeBug</category>
+        
+      </item>
     
       <item>
         <title>雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)</title>
@@ -3429,146 +3666,6 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
         
         
         <category>CustomView</category>
-        
-      </item>
-    
-      <item>
-        <title>Markdown实用技巧－编辑器(Typora)</title>
-        <description>&lt;p&gt;本次的安利对象是一个 Markdown 编辑器，是会长&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;见过的最简单，最优雅的编辑器，先来看一下它的界面吧：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/006y8lVajw1fahmo8d9udj30ph0brgo0.jpg&quot; alt=&quot;QQ20161207-0&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;它的界面非常简单，有多种主题可选，更重要的是&lt;strong&gt;它的预览界面和编辑界面是一体的，而不像其他编辑器那样是左右分开的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/005Xtdi2jw1fahnsrelggg30fp0dwakd.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;从上面的示例中可以看出，其输入模式支持多种，不论是手动输入语法还是使用快捷键，都非常的流畅，实时看到效果变化，除此之外 Typora 还有很多优点。&lt;/p&gt;
-
-&lt;h2 id=&quot;typora-的优点&quot;&gt;Typora 的优点&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;预览和编辑界面一体。&lt;/li&gt;
-  &lt;li&gt;强大的快捷键。&lt;/li&gt;
-  &lt;li&gt;兼容常见扩展语法。&lt;/li&gt;
-  &lt;li&gt;兼容 HTML (新版进行了完善)。&lt;/li&gt;
-  &lt;li&gt;支持 YAML 格式。&lt;/li&gt;
-  &lt;li&gt;支持公式编辑(LaTeX公式)。&lt;/li&gt;
-  &lt;li&gt;表格和代码块编辑起来非常方便。&lt;/li&gt;
-  &lt;li&gt;支持本地图片相对链接。&lt;/li&gt;
-  &lt;li&gt;支持将本地图片拖进编辑页面。&lt;/li&gt;
-  &lt;li&gt;支持多种导出格式(PDF，HTML，Word，LaTeX 等)。&lt;/li&gt;
-  &lt;li&gt;有多种主题可选。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;虽然上面的内容在其他编辑器上也可以见到，但做到这么完善的并不多，想要尝试的小伙伴赶紧来试试吧，相信你也会爱上它的。&lt;/p&gt;
-
-&lt;h4 id=&quot;点击这里进入-typora-官网&quot;&gt;&lt;a href=&quot;http://www.typora.io/&quot; target=&quot;_blank&quot;&gt;点击这里进入 Typora 官网&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;既然 Typora 这么好，为什么不在一开始就推荐呢，这是因为在 Markdown 系列文章第一篇发布的时候，Typora 还有一些小瑕疵(HTML语法兼容部分)让会长不满意，所以只是放在了推荐首位，在最近更新了新版本之后，这一部分已经修复完善了，基本算是完美了，所以会长我才特地写一篇文章来推荐。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Typora 支持在 WIndows，Linux，和 Mac 上使用，如果你正在使用的是 Mac 的话，那么恭喜你，除了上述的优点，你可以用到一些 Mac 系统才有的福利。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;版本回溯功能&quot;&gt;版本回溯功能&lt;/h2&gt;
-
-&lt;p&gt;这是 Mac 系统提供的一个小功能，使用 Mac 的时候你可能会注意到一个小细节，&lt;strong&gt;使用系统文本编辑器进行编辑文本的时候，从来不会提示你保存文本，即便编辑后不点保存立即退出里面的内容也不会丢失。&lt;/strong&gt;你可能会觉得这不就是一个自动保存功能么，有啥稀奇的？&lt;/p&gt;
-
-&lt;p&gt;那么你是否遇到过这一种情况，编辑了半天的内容觉得不太好想放弃保存，继续使用之前的内容，这在Windows上很容易实现，只要编辑的时候没有手动保存，直接点击关闭不保存，再打开的时候就是编辑之前的内容。&lt;/p&gt;
-
-&lt;p&gt;然而在 Mac 上自动保存了，如果关闭后再打开，点 &lt;code class=&quot;highlighter-rouge&quot;&gt;Command + Z&lt;/code&gt; 也没用了，这不就尴尬了，难道说遇到这种情况只能关闭前狂点 &lt;code class=&quot;highlighter-rouge&quot;&gt;Command + Z&lt;/code&gt; 回退？&lt;/p&gt;
-
-&lt;p&gt;作为一个有情怀的操作系统，自然不会意识不到这个问题，它提供了更强大的方法，那就是版本回溯，相当于一个自动的 Git 系统，这就厉害了。&lt;/p&gt;
-
-&lt;p&gt;Trpora 也用到了这一特性，点击 &lt;code class=&quot;highlighter-rouge&quot;&gt;File &amp;gt; Revert To &amp;gt; Browse All Versions&lt;/code&gt; 就能看到了。以我之前发布的一篇文章为例：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/006y8lVajw1facti4okblj31400p0gs8.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;上图中左边为当前版本，右边为选中版本，最右侧是时间线，使用这一功能可以将文章回溯到任意时间点，妈妈再也不怕我的文章内容丢失啦，也成功避免了以下这种情况 ▼&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/005Xtdi2jw1factpcyrfqj30rs0ja40l.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;由于这一功能是 Mac 系统提供的，所以不仅对纯文本有效，对 iWork 也是有效的，iWork 上面也有版本回溯功能，像 key，numbers，pages 都支持版本回溯，中文版点 &lt;code class=&quot;highlighter-rouge&quot;&gt;文件 &amp;gt; 复原 &amp;gt; 浏览所有版本&lt;/code&gt; 即可看到过去保存的数据。&lt;/p&gt;
-
-&lt;p&gt;当然了，这只是福利之一。&lt;/p&gt;
-
-&lt;h2 id=&quot;更便捷的图片插入和上传方式&quot;&gt;更便捷的图片插入和上传方式&lt;/h2&gt;
-
-&lt;p&gt;众所周知，Markdown 插入图片是一个大问题，尤其是在本地编辑的时候，但是这些在遇到 Typora 后就变的越来越简单了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;对于本地图片，我们可以直接拖进来，再也不用记复杂的语法和查图片地址了，没错，只要拖进来就行，Typora 会自动识别图片并进行插入。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;不过还有一个问题，我们的很多文章都是要发布的，直接拖进来这种方式在本地看起来没问题，但上传到网站上是读取不到本地图片的，通常解决方案就是先上传到图床上，之后再将链接插入到 Markdown 中，这样发布就没问题了。&lt;/p&gt;
-
-&lt;p&gt;但是，当一篇文章需要插入很多图片的时候，一次次的上传，一次次的复制链接，一次次的粘贴，也是很麻烦的，虽然有一些脚本可以通过快捷键进行上传，但终归还是多了一些步骤，很不方便，而且对新手很不友好，更何况很多新手根本不知道图床所谓何物。&lt;/p&gt;
-
-&lt;p&gt;这时候就要祭出 Mac 上另一个神器了: iPic &lt;a href=&quot;https://itunes.apple.com/cn/app/ipic-tu-chuang-shen-qi-zhong/id1101244278?mt=12&quot; target=&quot;_blank&quot;&gt;(点击此处进行下载)&lt;/a&gt;，它是一个专业图床管理工具，貌似出来还没多久，目前免费版只能上传到微博图床，专业版支持大部分图床，专业版一年 30RMB，如果经常使用的话，倒也不算贵。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;话说不还是要用图床么？&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;但 Typora 的方便之处就在于可以和 iPic 无缝结合，纯傻瓜式一键操作，能一次性的将文章中所有本地图片上传到图床上。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;首先安装 iPic，运行 iPic，之后点击 &lt;code class=&quot;highlighter-rouge&quot;&gt;Edit &amp;gt; Image Tools &amp;gt; Upload Local Images via iPic&lt;/code&gt; 就像下面这样就行了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/006y8lVajw1facuf1yjjkj30fo0dmq4v.jpg&quot; alt=&quot;![QQ20161207-0](../Downloads/QQ20161207-0.png)QQ20161202-8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;如果你觉得这样还是很麻烦的话，还有另外的选项，可以选择插入本地图片的时候自动上传到服务器，当然了，为了保护个人隐私，这一个选项默认是关闭的，首先你要找到首选项，点击 &lt;code class=&quot;highlighter-rouge&quot;&gt;Typora &amp;gt; Preferences&lt;/code&gt; 或者快捷键 &lt;code class=&quot;highlighter-rouge&quot;&gt;Command + ,&lt;/code&gt; 都行，之后打开以下两个选项，其中一个选项是后面用到的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/006y8lVajw1fahlaeo8pej30by0ddgn8.jpg&quot; alt=&quot;QQ20161202-9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;打开之后继续选择 &lt;code class=&quot;highlighter-rouge&quot;&gt;Edit &amp;gt; Image Tools &amp;gt; When Insert Local Images &amp;gt; Upload Image via iPic&lt;/code&gt; 它的意思是当插入本地图片时自动通过 iPic 上传到服务器上。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/006y8lVajw1fahlajkq1gj30qe0hwtas.jpg&quot; alt=&quot;QQ20161203-0&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这种方案虽然方便，但是会长并不推荐大家这么做，主要还是不安全，误操作的话可能会将一些包含个人隐私的照片上传上去。&lt;/p&gt;
-
-&lt;p&gt;会长推荐另一种方案，就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;Copy Image File to Folder&lt;/code&gt;，操作步骤和上面类似，它的意思是插入本地图片时自动归档到某一个文件夹，在文章编辑完成后在点击上传按钮统一上传，这样有以下几点好处：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;安全，不会因为误操作将涉及隐私照片传到服务器上。&lt;/li&gt;
-  &lt;li&gt;相当于自动建立了一个本地图片档案，方便备份保存。&lt;/li&gt;
-  &lt;li&gt;如果图床上的图片丢失，可以从快速从本地备份中找到并恢复。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;关于 Typora 的推荐内容暂时就到这里结束啦，更多关于 Typora 的多详情请参阅 &lt;a href=&quot;http://support.typora.io/&quot; target=&quot;_blank&quot;&gt;Support&lt;/a&gt;。关于 Markdown 的更多内容请参见之前的文章:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.gcssloop.com/markdown/markdown-start&quot; target=&quot;_blank&quot;&gt;Markdown实用技巧－快速入门&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://www.gcssloop.com/markdown/markdown-grammar&quot; target=&quot;_blank&quot;&gt;Markdown实用技巧－基础语法&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://www.gcssloop.com/markdown/markdown-links&quot; target=&quot;_blank&quot;&gt;Markdown实用技巧－链接和图片&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
-
-&lt;p&gt;最后稍微夹带一点个人建议，个人觉得 Typora 除了界面简洁之外，最大的优点就是快捷键方便了，然而，快捷键那么多，要不要专一去记呢？&lt;/p&gt;
-
-&lt;p&gt;个人的建议是不要专一去记忆这些快捷键，用到的时候打开菜单看一眼快捷键是什么，之后用快捷键按出来，这样用过几次之后自然就会记住常用的快捷键，而且会记得很牢固，不然每个应用都有快捷键，一个一个的记多麻烦。&lt;/p&gt;
-
-&lt;p&gt;本文中涉及到的两个软件下载地址：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.typora.io/&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;Typora&lt;/strong&gt;&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://itunes.apple.com/cn/app/id1101244278?ls=1&amp;amp;mt=12&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;iPic&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;最后留一个课后作业，关注会长的 &lt;a href=&quot;http://weibo.com/GcsSloop&quot; target=&quot;_blank&quot;&gt;新浪微博&lt;/a&gt; 。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;about-me&quot;&gt;About Me&lt;/h2&gt;
-
-&lt;h3 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot; target=&quot;_blank&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;会长，就是 GcsSloop 我啦，因为创建了一个名为魔法师协会的交流群，所以自称会长，想要加入魔法师协会的魔法师可以加我的微信 &lt;code class=&quot;highlighter-rouge&quot;&gt;GcsSloop&lt;/code&gt;，备注加群或者私信我，我会邀请你加入魔法师的大家庭。 &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Wed, 07 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-editor</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-editor</guid>
-        
-        <category>Markdown</category>
-        
-        
-        <category>Markdown</category>
         
       </item>
     

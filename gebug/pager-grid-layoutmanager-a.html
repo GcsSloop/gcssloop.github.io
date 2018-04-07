@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>【付费】雕虫晓技(五) 网格分页布局源码解析(上)</title>
+  <meta name="description" content="搭建供Android组件使用的私有maven仓库。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android">
+  <meta name="关键字" content="Android">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="【付费】雕虫晓技(五) 网格分页布局源码解析(上)">
+  <meta name="twitter:description" content="搭建供Android组件使用的私有maven仓库。">
+  <meta name="twitter:keywords" content="Android">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="【付费】雕虫晓技(五) 网格分页布局源码解析(上)">
+  <meta property="og:description" content="搭建供Android组件使用的私有maven仓库。">
+  <meta name="og:keywords" content="Android">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/gebug/pager-grid-layoutmanager-a">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+  <!-- Google Ad -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2767831356529421",
+      enable_page_level_ads: true
+    });
+  </script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="友链">友链</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2018-04-08 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-04-08</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">【付费】雕虫晓技(五) 网格分页布局源码解析(上)</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="关于作者">关于作者</h3>
+
+<p>GcsSloop，一名 2.5 次元魔法师。<br />
+<a href="http://weibo.com/GcsSloop/home">微博</a> | <a href="https://github.com/GcsSloop">GitHub</a> | <a href="http://www.gcssloop.com/">博客</a></p>
+
+<h2 id="0前言">0.前言</h2>
+
+<p><strong>pager-layoutmanager： <a href="https://github.com/GcsSloop/pager-layoutmanager">https://github.com/GcsSloop/pager-layoutmanager</a></strong></p>
+
+<p>这个是我之前公开分享的一个开源库 <a href="https://github.com/GcsSloop/pager-layoutmanager">【PagerLayoutManager(网格分页布局)】</a> 的详细解析，在开始讲解之前，先看看它能实现的一些效果。</p>
+
+<p><img src="/assets/gebug/05-pager-layoutmanager/demo1.gif" alt="emo" /> <img src="/assets/gebug/05-pager-layoutmanager/demo2.gif" alt="emo" /></p>
+
+<p>上面是它的应用场景之一，再看一下实现这种场景所需的代码：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 布局管理器</span>
+<span class="n">PagerGridLayoutManager</span> <span class="n">layoutManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridLayoutManager</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="n">PagerGridLayoutManager</span><span class="o">.</span><span class="na">HORIZONTAL</span><span class="o">);</span>
+<span class="n">mRecyclerView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="n">layoutManager</span><span class="o">);</span>
+
+<span class="c1">// 滚动辅助器</span>
+<span class="n">PagerGridSnapHelper</span> <span class="n">snapHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridSnapHelper</span><span class="o">();</span>
+<span class="n">snapHelper</span><span class="o">.</span><span class="na">attachToRecyclerView</span><span class="o">(</span><span class="n">mRecyclerView</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>没错，想要实现这样分页滚动的效果，只需要四五行代码就可以了，至于 RecyclerView 和 Adapter 使用官方提供的即可。</p>
+
+<h2 id="1-摘要">1. 摘要</h2>
+
+<p>之前项目中有类似的需求，在网上寻找了一些实现方案，结果均不太满意。</p>
+
+<p>有些方案使用起来过于麻烦，例如 ViewPager + GridView，不用我说，用过的都知道，这种方案数据绑定十分麻烦，并且会多一层View嵌套，相对来说会损耗一些性能。</p>
+
+<p>有些则是存在重大缺陷，例如内存泄露，性能问题等，像上面那种场景仅展示几个固定条目的情况还不明显，但是当需要动态加载几百个条目的时候缺陷就显现出来了，会造成严重的滑动卡顿，当数据达到一定数量级的时候，可能直接导致ANR。</p>
+
+<p>在试过诸多方案，踩过很多坑以后，依旧没有找到合适的方案，于是自己动手，丰衣足食，也就有了这个项目。</p>
+
+<p>这个项目已经在公司多个项目上使用，经过十几个版本的迭代更新，基本上已经没有重大bug了，更新日志可以见这里： <a href="https://github.com/GcsSloop/pager-layoutmanager">PagerLayoutManager</a>。</p>
+
+<p>如果你只是需要这样一个组件，那么直接点击上面的链接，看它的说明文档就可以了，本文不是你需要的，但如果你想要知道它的具体实现方案，对它进行改进的话，那么下文的内容可能会对你有所帮助。</p>
+
+<h2 id="2-基础网格布局解析">2. 基础网格布局解析</h2>
+
+<h3 id="21-方案选择">2.1 方案选择</h3>
+
+<p>首先项目所需要的核心内容主要有以下几点：</p>
+
+<ol>
+  <li>网格效果</li>
+  <li>分页显示</li>
+  <li>横向排布</li>
+</ol>
+
+<p><img src="/assets/gebug/05-pager-layoutmanager/demo3.jpg" alt="demo3" /></p>
+
+<p>所需效果大概就如上图所示，为了避免重复造轮子，在一开始我想要使用一些现有的组件来完成。</p>
+
+<ol>
+  <li>
+    <p>最先想到的自然是网格布局，但是呢，项目需要动态加载数百条的数据，网格布局本身不带有条目自动回收创建功能，如果同让上百个View存在于一个页面之中，不卡爆才怪。</p>
+  </li>
+  <li>
+    <p>之后想到的是 ViewPager+GridLayout，但是这种方案数据拆分和绑定十分麻烦，遂放弃。</p>
+  </li>
+  <li>
+    <p>然后想 RecyclerView + GridLayoutManager 看起来靠谱一点，首先使用 GridLayoutMnager，作出网格效果，然后监听滚动事件来控制滚动距离，一切看起来都是那么美好，但是，事实证明这种方案还是太难使用。</p>
+
+    <p>首先网格布局同时只能控制行数或者列数其中一个，如果想要如果想要像设定那样2行3列，一页整好现实6条数据，那么View的宽高是需要动态计算的，如果设置了固定大小，必然会导致适配问题，</p>
+
+    <p>其次，数据不一定是整页，如果是2行3列，一页6条数据，那么使用 GridLayoutManager滑动后可能会出现这样的效果，另外，数据排列顺序也并非我所需要的：</p>
+
+    <p><img src="/assets/gebug/05-pager-layoutmanager/demo4.jpg" alt="demo4" /></p>
+
+    <p>这显然不是我想要的效果，在数据不足一页时，我需要的效果是这样的：</p>
+
+    <p><img src="/assets/gebug/05-pager-layoutmanager/demo5.jpg" alt="demo5" /></p>
+
+    <p>如果想要在不动 GridLayoutManager 的情况下实现需求，则需要执行如下操作：</p>
+
+    <p>假设，需要显示2行3列，共8条数据，那么需要执行如下操作：</p>
+
+    <ol>
+      <li>
+        <p>将不足一页部分补足一页</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>1、2、3、4、5、6、7、8
+1、2、3、4、5、6、7、8、空、空、空、空
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>通过数据变换调整数据次序使其显示符合预期</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>1、2、3、4、5、6、7、8、空、空、空、空
+1、4、2、5、3、6、7、空、8、空、空、空
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>通过监听滚动控制滚动距离来实现分页显示</p>
+      </li>
+    </ol>
+
+    <p>另外，页面数据是分页加载显示的，如果使用上面这种方案，单是数据处理逻辑就能把我绕进去。</p>
+  </li>
+</ol>
+
+<p><strong>在经过深思熟虑之后，我决定自定义一个 LayoutManager 来实现这个“简单”的需求。</strong>幸好 RecyclerView 的扩展性非常强，自定义一个 LayoutManager 也不是什么难事，下面我们就一步步的的实现一个分页网格布局。</p>
+
+<h3 id="22-创建一个基础的-layoutmanager">2.2 创建一个基础的 LayoutManager</h3>
+
+<p>首先我们创建一个 PagerGridLayoutManager 并继承 RecyclerView.LayoutManager，实现其抽象方法，一个LayoutManager 就可以用了，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PagerGridLayoutManager</span> <span class="kd">extends</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="nf">generateDefaultLayoutParams</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">(</span><span class="n">ViewGroup</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">WRAP_CONTENT</span><span class="o">,</span>
+                <span class="n">ViewGroup</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">WRAP_CONTENT</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这是一个符合规范的 LayoutManager，但是目前它不会将任何View显示在界面上，因为它没有对条目进行处理，也就意味着没有条目会添加到界面上。但我们先不着急处理子条目，在真正布局之前，我们先来解决一些简单的基础问题。</p>
+
+<h3 id="23-确定行列数数和滚动方向">2.3 确定行列数数和滚动方向</h3>
+
+<p>由于行列数会直接关系到一个页面显示条目的个数，进而影响到总共可以滚动的j距离和页数总数，所以它们要在构造方法中设置。</p>
+
+<p>而滚动方向一般都是确定的，横向或者竖向，并且基本不变，所以，它也可以在构造方法中进行设置，提醒使用者不要忘记滚动方向。</p>
+
+<p>所以为 PagerGridLayoutManager 添加如下的属性和构造方法：</p>
+
+<pre><code class="language-Java">public static final int VERTICAL = 0;           // 垂直滚动
+public static final int HORIZONTAL = 1;         // 水平滚动
+
+@IntDef({VERTICAL, HORIZONTAL})
+public @interface OrientationType {}            // 滚动类型
+
+@OrientationType
+private int mOrientation = HORIZONTAL;          // 默认水平滚动
+
+private int mRows = 0;                          // 行数
+private int mColumns = 0;                       // 列数
+private int mOnePageSize = 0;                   // 一页的条目数量
+
+/**
+ * 构造函数
+ *
+ * @param rows        行数
+ * @param columns     列数
+ * @param orientation 方向
+ */
+public PagerGridLayoutManager(@IntRange(from = 1, to = 100) int rows,
+                              @IntRange(from = 1, to = 100) int columns,
+                              @OrientationType int orientation) {
+    mOrientation = orientation;
+    mRows = rows;
+    mColumns = columns;
+    mOnePageSize = mRows * mColumns;
+}
+</code></pre>
+
+<p>注意：</p>
+
+<ol>
+  <li>上面使用了 @IntDef 注解自定义了一个 OrientationType 注解，用于防治用户随意设置数值。</li>
+  <li>使用 @IntRange 方法将行列数限制在一个较合理的范围内。</li>
+  <li>在初始化的时候利用行列数计算出了一页应该有多少个条目，方面后面使用。</li>
+</ol>
+
+<p>在确定了滚动方向后，顺便就可以实现 LayoutManager 以下两个方法了，这两个方法会真正的决定 RecyclerView 可以滚动的方向。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/** 是否可以水平滚动
+ * @return true 是，false 不是。
+ */</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canScrollHorizontally</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">mOrientation</span> <span class="o">==</span> <span class="n">HORIZONTAL</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="cm">/** 是否可以垂直滚动
+ * @return true 是，false 不是。
+ */</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canScrollVertically</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">mOrientation</span> <span class="o">==</span> <span class="n">VERTICAL</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="24-计算子条目的宽高">2.4 计算子条目的宽高</h3>
+
+<p>由于我们是分页网格显示，目前已经知道了行列数，如果再知道 RecyclerView 的宽高，就能算出单个自条目的所能占用的宽高了。</p>
+
+<p>因此我们再添加两个方法用于获取 RecyclerView 的可用宽高：</p>
+
+<pre><code class="language-Java">/** 获取可用的宽度
+ * @return 宽度 - padding
+ */
+private int getUsableWidth() {
+    return getWidth() - getPaddingLeft() - getPaddingRight();
+}
+
+/** 获取可用的高度
+ * @return 高度 - padding
+ */
+private int getUsableHeight() {
+    return getHeight() - getPaddingTop() - getPaddingBottom();
+}
+</code></pre>
+
+<p>注意：可用宽高要减去 Padding 数值。</p>
+
+<p>有了总的可用宽高，在分别处以行列数就可以得到每一个子条目占用的宽高了。</p>
+
+<pre><code class="language-Java">private int mItemWidth = 0;  // 条目宽度
+private int mItemHeight = 0; // 条目高度
+mItemWidth = getUsableWidth() / mColumns;
+mItemHeight = getUsableHeight() / mRows;
+</code></pre>
+
+<h2 id="-本文剩余部分为付费内容点击此处到小专栏订阅后查看-"><a href="https://xiaozhuanlan.com/topic/5841730926">== 本文剩余部分为付费内容，点击此处到【小专栏】订阅后查看 ==</a></h2>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/maven-private" title="link to 雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)">雕虫晓技(四) 搭建私有Maven仓库(带容灾备份)</a></h2>
+       <p class="excerpt">关于作者GcsSloop，一名 2.5 次元魔法师。微博 | GitHub | 博客0. 前言随着 Android 开发的发展，Android 开发也相对越来越简单，很多基础库只用简单的添加一行...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2018-03-15 00:00:00 +0800" class="post-list__meta--date date">2018-03-15</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/maven-private>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>

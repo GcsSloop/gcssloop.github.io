@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-04-02T15:40:02+08:00</updated>
+  <updated>2018-04-08T00:36:25+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -12,6 +12,241 @@
   </author>
 
 
+ 
+  <entry>
+    <id>http://www.gcssloop.com/gebug/pager-grid-layoutmanager-a</id>
+    <link type="text/html" rel="alternate" href="http://www.gcssloop.com/gebug/pager-grid-layoutmanager-a"/>
+    <title>【付费】雕虫晓技(五) 网格分页布局源码解析(上)</title>
+    <updated>2018-04-08T00:00:00+08:00</updated>
+    <author>
+      <name>Karl Luo</name>
+      <uri>http://luolinjia.com/cn/</uri>
+    </author>
+    <content type="html">&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0前言&quot;&gt;0.前言&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;pager-layoutmanager： &lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;https://github.com/GcsSloop/pager-layoutmanager&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个是我之前公开分享的一个开源库 &lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;【PagerLayoutManager(网格分页布局)】&lt;/a&gt; 的详细解析，在开始讲解之前，先看看它能实现的一些效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo1.gif&quot; alt=&quot;emo&quot; /&gt; &lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo2.gif&quot; alt=&quot;emo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面是它的应用场景之一，再看一下实现这种场景所需的代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 布局管理器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;HORIZONTAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setLayoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layoutManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 滚动辅助器&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;snapHelper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagerGridSnapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;snapHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;attachToRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mRecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;没错，想要实现这样分页滚动的效果，只需要四五行代码就可以了，至于 RecyclerView 和 Adapter 使用官方提供的即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-摘要&quot;&gt;1. 摘要&lt;/h2&gt;
+
+&lt;p&gt;之前项目中有类似的需求，在网上寻找了一些实现方案，结果均不太满意。&lt;/p&gt;
+
+&lt;p&gt;有些方案使用起来过于麻烦，例如 ViewPager + GridView，不用我说，用过的都知道，这种方案数据绑定十分麻烦，并且会多一层View嵌套，相对来说会损耗一些性能。&lt;/p&gt;
+
+&lt;p&gt;有些则是存在重大缺陷，例如内存泄露，性能问题等，像上面那种场景仅展示几个固定条目的情况还不明显，但是当需要动态加载几百个条目的时候缺陷就显现出来了，会造成严重的滑动卡顿，当数据达到一定数量级的时候，可能直接导致ANR。&lt;/p&gt;
+
+&lt;p&gt;在试过诸多方案，踩过很多坑以后，依旧没有找到合适的方案，于是自己动手，丰衣足食，也就有了这个项目。&lt;/p&gt;
+
+&lt;p&gt;这个项目已经在公司多个项目上使用，经过十几个版本的迭代更新，基本上已经没有重大bug了，更新日志可以见这里： &lt;a href=&quot;https://github.com/GcsSloop/pager-layoutmanager&quot;&gt;PagerLayoutManager&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;如果你只是需要这样一个组件，那么直接点击上面的链接，看它的说明文档就可以了，本文不是你需要的，但如果你想要知道它的具体实现方案，对它进行改进的话，那么下文的内容可能会对你有所帮助。&lt;/p&gt;
+
+&lt;h2 id=&quot;2-基础网格布局解析&quot;&gt;2. 基础网格布局解析&lt;/h2&gt;
+
+&lt;h3 id=&quot;21-方案选择&quot;&gt;2.1 方案选择&lt;/h3&gt;
+
+&lt;p&gt;首先项目所需要的核心内容主要有以下几点：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;网格效果&lt;/li&gt;
+  &lt;li&gt;分页显示&lt;/li&gt;
+  &lt;li&gt;横向排布&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo3.jpg&quot; alt=&quot;demo3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所需效果大概就如上图所示，为了避免重复造轮子，在一开始我想要使用一些现有的组件来完成。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;最先想到的自然是网格布局，但是呢，项目需要动态加载数百条的数据，网格布局本身不带有条目自动回收创建功能，如果同让上百个View存在于一个页面之中，不卡爆才怪。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;之后想到的是 ViewPager+GridLayout，但是这种方案数据拆分和绑定十分麻烦，遂放弃。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;然后想 RecyclerView + GridLayoutManager 看起来靠谱一点，首先使用 GridLayoutMnager，作出网格效果，然后监听滚动事件来控制滚动距离，一切看起来都是那么美好，但是，事实证明这种方案还是太难使用。&lt;/p&gt;
+
+    &lt;p&gt;首先网格布局同时只能控制行数或者列数其中一个，如果想要如果想要像设定那样2行3列，一页整好现实6条数据，那么View的宽高是需要动态计算的，如果设置了固定大小，必然会导致适配问题，&lt;/p&gt;
+
+    &lt;p&gt;其次，数据不一定是整页，如果是2行3列，一页6条数据，那么使用 GridLayoutManager滑动后可能会出现这样的效果，另外，数据排列顺序也并非我所需要的：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo4.jpg&quot; alt=&quot;demo4&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;这显然不是我想要的效果，在数据不足一页时，我需要的效果是这样的：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/gebug/05-pager-layoutmanager/demo5.jpg&quot; alt=&quot;demo5&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;如果想要在不动 GridLayoutManager 的情况下实现需求，则需要执行如下操作：&lt;/p&gt;
+
+    &lt;p&gt;假设，需要显示2行3列，共8条数据，那么需要执行如下操作：&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;将不足一页部分补足一页&lt;/p&gt;
+
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、2、3、4、5、6、7、8
+1、2、3、4、5、6、7、8、空、空、空、空
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;通过数据变换调整数据次序使其显示符合预期&lt;/p&gt;
+
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、2、3、4、5、6、7、8、空、空、空、空
+1、4、2、5、3、6、7、空、8、空、空、空
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;通过监听滚动控制滚动距离来实现分页显示&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;p&gt;另外，页面数据是分页加载显示的，如果使用上面这种方案，单是数据处理逻辑就能把我绕进去。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;在经过深思熟虑之后，我决定自定义一个 LayoutManager 来实现这个“简单”的需求。&lt;/strong&gt;幸好 RecyclerView 的扩展性非常强，自定义一个 LayoutManager 也不是什么难事，下面我们就一步步的的实现一个分页网格布局。&lt;/p&gt;
+
+&lt;h3 id=&quot;22-创建一个基础的-layoutmanager&quot;&gt;2.2 创建一个基础的 LayoutManager&lt;/h3&gt;
+
+&lt;p&gt;首先我们创建一个 PagerGridLayoutManager 并继承 RecyclerView.LayoutManager，实现其抽象方法，一个LayoutManager 就可以用了，如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PagerGridLayoutManager&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generateDefaultLayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RecyclerView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ViewGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;WRAP_CONTENT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ViewGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LayoutParams&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;WRAP_CONTENT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这是一个符合规范的 LayoutManager，但是目前它不会将任何View显示在界面上，因为它没有对条目进行处理，也就意味着没有条目会添加到界面上。但我们先不着急处理子条目，在真正布局之前，我们先来解决一些简单的基础问题。&lt;/p&gt;
+
+&lt;h3 id=&quot;23-确定行列数数和滚动方向&quot;&gt;2.3 确定行列数数和滚动方向&lt;/h3&gt;
+
+&lt;p&gt;由于行列数会直接关系到一个页面显示条目的个数，进而影响到总共可以滚动的j距离和页数总数，所以它们要在构造方法中设置。&lt;/p&gt;
+
+&lt;p&gt;而滚动方向一般都是确定的，横向或者竖向，并且基本不变，所以，它也可以在构造方法中进行设置，提醒使用者不要忘记滚动方向。&lt;/p&gt;
+
+&lt;p&gt;所以为 PagerGridLayoutManager 添加如下的属性和构造方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;public static final int VERTICAL = 0;           // 垂直滚动
+public static final int HORIZONTAL = 1;         // 水平滚动
+
+@IntDef({VERTICAL, HORIZONTAL})
+public @interface OrientationType {}            // 滚动类型
+
+@OrientationType
+private int mOrientation = HORIZONTAL;          // 默认水平滚动
+
+private int mRows = 0;                          // 行数
+private int mColumns = 0;                       // 列数
+private int mOnePageSize = 0;                   // 一页的条目数量
+
+/**
+ * 构造函数
+ *
+ * @param rows        行数
+ * @param columns     列数
+ * @param orientation 方向
+ */
+public PagerGridLayoutManager(@IntRange(from = 1, to = 100) int rows,
+                              @IntRange(from = 1, to = 100) int columns,
+                              @OrientationType int orientation) {
+    mOrientation = orientation;
+    mRows = rows;
+    mColumns = columns;
+    mOnePageSize = mRows * mColumns;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;上面使用了 @IntDef 注解自定义了一个 OrientationType 注解，用于防治用户随意设置数值。&lt;/li&gt;
+  &lt;li&gt;使用 @IntRange 方法将行列数限制在一个较合理的范围内。&lt;/li&gt;
+  &lt;li&gt;在初始化的时候利用行列数计算出了一页应该有多少个条目，方面后面使用。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;在确定了滚动方向后，顺便就可以实现 LayoutManager 以下两个方法了，这两个方法会真正的决定 RecyclerView 可以滚动的方向。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/** 是否可以水平滚动
+ * @return true 是，false 不是。
+ */&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;canScrollHorizontally&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mOrientation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HORIZONTAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/** 是否可以垂直滚动
+ * @return true 是，false 不是。
+ */&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;canScrollVertically&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mOrientation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VERTICAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;24-计算子条目的宽高&quot;&gt;2.4 计算子条目的宽高&lt;/h3&gt;
+
+&lt;p&gt;由于我们是分页网格显示，目前已经知道了行列数，如果再知道 RecyclerView 的宽高，就能算出单个自条目的所能占用的宽高了。&lt;/p&gt;
+
+&lt;p&gt;因此我们再添加两个方法用于获取 RecyclerView 的可用宽高：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;/** 获取可用的宽度
+ * @return 宽度 - padding
+ */
+private int getUsableWidth() {
+    return getWidth() - getPaddingLeft() - getPaddingRight();
+}
+
+/** 获取可用的高度
+ * @return 高度 - padding
+ */
+private int getUsableHeight() {
+    return getHeight() - getPaddingTop() - getPaddingBottom();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意：可用宽高要减去 Padding 数值。&lt;/p&gt;
+
+&lt;p&gt;有了总的可用宽高，在分别处以行列数就可以得到每一个子条目占用的宽高了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;private int mItemWidth = 0;  // 条目宽度
+private int mItemHeight = 0; // 条目高度
+mItemWidth = getUsableWidth() / mColumns;
+mItemHeight = getUsableHeight() / mRows;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;-本文剩余部分为付费内容点击此处到小专栏订阅后查看-&quot;&gt;&lt;a href=&quot;https://xiaozhuanlan.com/topic/5841730926&quot;&gt;== 本文剩余部分为付费内容，点击此处到【小专栏】订阅后查看 ==&lt;/a&gt;&lt;/h2&gt;
+</content>
+  </entry>
  
   <entry>
     <id>http://www.gcssloop.com/gebug/maven-private</id>
