@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>雕虫晓技(六) 网格分页布局源码解析(下)</title>
+  <meta name="description" content="网格分页布局的实现原理、基础细节和一些实现技巧。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android">
+  <meta name="关键字" content="Android">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="雕虫晓技(六) 网格分页布局源码解析(下)">
+  <meta name="twitter:description" content="网格分页布局的实现原理、基础细节和一些实现技巧。">
+  <meta name="twitter:keywords" content="Android">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="雕虫晓技(六) 网格分页布局源码解析(下)">
+  <meta property="og:description" content="网格分页布局的实现原理、基础细节和一些实现技巧。">
+  <meta name="og:keywords" content="Android">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/gebug/pager-grid-layoutmanager-b">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+  <!-- Google Ad -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2767831356529421",
+      enable_page_level_ads: true
+    });
+  </script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="友链">友链</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2018-04-10 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-04-10</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">雕虫晓技(六) 网格分页布局源码解析(下)</h1>
+  </header>
+
+  <section class="post">
+    <h2 id="0-前言">0. 前言</h2>
+
+<p><strong>pager-layoutmanager： <a href="https://github.com/GcsSloop/pager-layoutmanager">https://github.com/GcsSloop/pager-layoutmanager</a></strong></p>
+
+<p>在<a href="https://xiaozhuanlan.com/topic/5841730926">网格分页布局源码解析(上)</a>中，主要分享了如何定义一个网格布局，正常运行的效果看起来其实和 GridLayoutManager 有些类似。</p>
+
+<p>这是它的下篇，主要讲解如何让它滑动时一页一页的滚动，而不是随意的滚动，除此之外，还包括一些其他相关内容，例如滚动、平滑滚动和超长距离滚动需要注意的一些细节。</p>
+
+<h2 id="1-分页对齐">1. 分页对齐</h2>
+
+<p><strong>在开始讲解前，先看一下启用了分页对齐和未启用分页对齐的效果有何不同：</strong></p>
+
+<p><img src="/assets/gebug/06-pager-layoutmanager/pic_01.gif" alt="pic_01" />  <img src="/assets/gebug/06-pager-layoutmanager/pic_02.gif" alt="pic_02" /></p>
+
+<p><strong>在左侧未启用分页对齐时，滚动到哪里就会停在哪里。在右侧启用了分页对齐后，滚动距离较小时，会回弹到当前页，滚动距离超过阀值时，会自动滚动到下一页。</strong></p>
+
+<p>让其页面对齐的方法有很多种，其核心就是控制滚动距离，在本文中，我们使用 RecyclerView 官方提供的条目对齐方式，借助 SnapHelper 来进行页面对齐。</p>
+
+<h3 id="11-snaphelper">1.1 SnapHelper</h3>
+
+<p>SnapHelper 是官方提供的一个辅助类，主要用于拓展 RecyclerView，让 RecyclerView 在滚动结束时不会停留在任意位置，而是根据一定的规则来约束停留的位置，例如：卡片布局在停止滚动时始终保证一张卡片居中显示，而不是出现两张卡片都显示一半这种情况。</p>
+
+<p><img src="/assets/gebug/06-pager-layoutmanager/pic_03.jpg" alt="pic_03" /></p>
+
+<p>有关 SnapHelper 的更多内容可以参考：<a href="https://www.jianshu.com/p/e54db232df62">让你明明白白的使用RecyclerView——SnapHelper详解</a></p>
+
+<p>官方提供了两个 SnapHelper 的实例，分别是 LinearSnapHelper 和 PagerSnapHelper，不过这两个都不太符合我们的需求，因此我们要自定义一个 SnapHelper 来协助我们完成分页对齐。</p>
+
+<h3 id="12-让-layoutmanager-支持-snaphelper">1.2 让 LayoutManager 支持 SnapHelper</h3>
+
+<p>SnapHelper 会尝试处理 Fling，但为了正常工作，LayoutManager 必须实现RecyclerView.SmoothScroller.ScrollVectorProvider 接口，或者重写 onFling(int，int) 并手动处理 Fling。</p>
+
+<blockquote>
+  <p>Fling: 手指从屏幕上快速划过，手指离开屏幕后，界面由于“惯性”依旧会滚动一段时间，这个过程称为 Fling。Fling 从手指离开屏幕时触发，滚动停止时结束。</p>
+</blockquote>
+
+<p>我们先让 LayoutManager 实现该接口。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PagerGridLayoutManager</span> <span class="kd">extends</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span>
+        <span class="kd">implements</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">SmoothScroller</span><span class="o">.</span><span class="na">ScrollVectorProvider</span> <span class="o">{</span>
+    <span class="cm">/**
+     * 计算到目标位置需要滚动的距离{@link RecyclerView.SmoothScroller.ScrollVectorProvider}
+     * @param targetPosition 目标控件
+     * @return 需要滚动的距离
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">PointF</span> <span class="nf">computeScrollVectorForPosition</span><span class="o">(</span><span class="kt">int</span> <span class="n">targetPosition</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="n">PointF</span> <span class="n">vector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">();</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">getSnapOffset</span><span class="o">(</span><span class="n">targetPosition</span><span class="o">);</span>
+        <span class="n">vector</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">vector</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="k">return</span> <span class="n">vector</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">//--- 下面两个方法是自定义的辅助方法 ------------------------------------------------------</span>
+    
+    <span class="cm">/**
+     * 获取偏移量(为PagerGridSnapHelper准备)
+     * 用于分页滚动，确定需要滚动的距离。
+     * {@link PagerGridSnapHelper}
+     *
+     * @param targetPosition 条目下标
+     */</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="nf">getSnapOffset</span><span class="o">(</span><span class="kt">int</span> <span class="n">targetPosition</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">offset</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">getPageLeftTopByPosition</span><span class="o">(</span><span class="n">targetPosition</span><span class="o">);</span>
+        <span class="n">offset</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">mOffsetX</span><span class="o">;</span>
+        <span class="n">offset</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">mOffsetY</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">offset</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 根据条目下标获取该条目所在页面的左上角位置
+     *
+     * @param pos 条目下标
+     * @return 左上角位置
+     */</span>
+    <span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">getPageLeftTopByPosition</span><span class="o">(</span><span class="kt">int</span> <span class="n">pos</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">leftTop</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">page</span> <span class="o">=</span> <span class="n">getPageIndexByPos</span><span class="o">(</span><span class="n">pos</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">canScrollHorizontally</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">leftTop</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">page</span> <span class="o">*</span> <span class="n">getUsableWidth</span><span class="o">();</span>
+            <span class="n">leftTop</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">leftTop</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="n">leftTop</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">page</span> <span class="o">*</span> <span class="n">getUsableHeight</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">leftTop</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 省略其它部分代码...</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>注意：由于我们是分页对齐，所以，最终滚动停留的位置始终应该以页面为基准，而不是以具体条目为基准，所以，我们要计算出目标条目所在页面的坐标，并以此为基准计算出所需滚动的距离。</p>
+
+<p>当然，除了 Fling 操作，我们在用户普通滑动结束时也要进行一次页面对齐，为了支持这一功能，我们在 PagerGridLayoutManager 再定义一个方法，用于寻找当前应该对齐的 View。</p>
+
+<pre><code class="language-Java">/** 获取需要对齐的View
+ * @return 需要对齐的View
+ */
+public View findSnapView() {
+    // 适配 TV
+    if (null != getFocusedChild()) {
+        return getFocusedChild();
+    }
+    if (getChildCount() &lt;= 0) {
+        return null;
+    }
+    // 以当前页面第一个View为基准
+    int targetPos = getPageIndexByOffset() * mOnePageSize;   // 目标Pos
+    for (int i = 0; i &lt; getChildCount(); i++) {
+        int childPos = getPosition(getChildAt(i));
+        if (childPos == targetPos) {
+            return getChildAt(i);
+        }
+    }
+    // 如果没有找到就返回当前的第一个 View
+    return getChildAt(0);
+}
+
+/** 根据 offset 获取页面 Index
+ *  计算规则是，在当前状态下，哪个页面显示区域最大，就认为该页面是主要的页面，
+ *。最终对齐时也会以该页面为基准。
+ * @return 页面 Index
+ */
+private int getPageIndexByOffset() {
+    int pageIndex;
+    if (canScrollVertically()) {
+        int pageHeight = getUsableHeight();
+        if (mOffsetY &lt;= 0 || pageHeight &lt;= 0) {
+            pageIndex = 0;
+        } else {
+            pageIndex = mOffsetY / pageHeight;
+            if (mOffsetY % pageHeight &gt; pageHeight / 2) {
+                pageIndex++;
+            }
+        }
+    } else {
+        int pageWidth = getUsableWidth();
+        if (mOffsetX &lt;= 0 || pageWidth &lt;= 0) {
+            pageIndex = 0;
+        } else {
+            pageIndex = mOffsetX / pageWidth;
+            if (mOffsetX % pageWidth &gt; pageWidth / 2) {
+                pageIndex++;
+            }
+        }
+    }
+    Logi("getPageIndexByOffset pageIndex = " + pageIndex);
+    return pageIndex;
+}
+</code></pre>
+
+<p>主要方法时 findSnapView，寻找当前应该对齐的 View，需要注意的是临界点的处理方案，例如在横向滚动的状态下，向左翻页未超过左侧页面中心位置，则松手后应该继续回到当前页面，若是超过了左侧页面中心位置，则松手后应该自动滚动到左侧页面。向右翻页同理，应该以当前状态下，显示区域最大的页面作为基准。</p>
+
+<h3 id="13-自定义-pagergridsnaphelper">1.3 自定义 PagerGridSnapHelper</h3>
+
+<p>由于官方已经又了一个 PagerSnapHelper，为了避免混淆，我起名叫做 PagerGridSnapHelper。</p>
+
+<p>由于官方已经实现了一些基础逻辑，所以实现一个 SnapHelper 还是比较简单的，主要是实现一些方法就行了，不过由于 SnapHelper 某些内容没有提供设置途径，因此我们会重载部分方法，所以下面的代码可能会看起来稍长，其实很简单。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PagerGridSnapHelper</span> <span class="kd">extends</span> <span class="n">SnapHelper</span> <span class="o">{</span>
+    <span class="nd">@Nullable</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">calculateDistanceToFinalSnap</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">View</span> <span class="n">targetView</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Nullable</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">View</span> <span class="nf">findSnapView</span><span class="o">(</span><span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findTargetSnapPosition</span><span class="o">(</span><span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">,</span> <span class="kt">int</span> <span class="n">velocityX</span><span class="o">,</span> <span class="kt">int</span> <span class="n">velocityY</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>继承 SnapHelper 后，它会让我们实现 3 个方法。</p>
+
+<h4 id="131-计算到目标控件需要的距离">1.3.1 计算到目标控件需要的距离</h4>
+
+<p>这里直接使用我们之前在 LayoutManager 中定义好的 getSnapOffset  就可以了。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 计算需要滚动的向量，用于页面自动回滚对齐
+ *
+ * @param layoutManager 布局管理器
+ * @param targetView    目标控件
+ * @return 需要滚动的距离
+ */</span>
+<span class="nd">@Nullable</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">calculateDistanceToFinalSnap</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">,</span>
+                                          <span class="nd">@NonNull</span> <span class="n">View</span> <span class="n">targetView</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">layoutManager</span><span class="o">.</span><span class="na">getPosition</span><span class="o">(</span><span class="n">targetView</span><span class="o">);</span>
+    <span class="n">Loge</span><span class="o">(</span><span class="s">"findTargetSnapPosition, pos = "</span> <span class="o">+</span> <span class="n">pos</span><span class="o">);</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">offset</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">layoutManager</span> <span class="k">instanceof</span> <span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">PagerGridLayoutManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="n">layoutManager</span><span class="o">;</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">getSnapOffset</span><span class="o">(</span><span class="n">pos</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">offset</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="132-获得需要对齐的-view">1.3.2 获得需要对齐的 View</h4>
+
+<p>这个主要用于用户普通滚动停止时的对齐，直接使用之前 LayoutManager 中定义好的 findSnapView 就可以了。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 获得需要对齐的View，对于分页布局来说，就是页面第一个
+ *
+ * @param layoutManager 布局管理器
+ * @return 目标控件
+ */</span>
+<span class="nd">@Nullable</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">View</span> <span class="nf">findSnapView</span><span class="o">(</span><span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">layoutManager</span> <span class="k">instanceof</span> <span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">PagerGridLayoutManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="n">layoutManager</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">manager</span><span class="o">.</span><span class="na">findSnapView</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="133-获取目标控件的位置下标">1.3.3 获取目标控件的位置下标</h4>
+
+<p>这个主要用于处理 Fling 事件，因此我们需要判断一下用户的 Fling 的方向，进而来获取需要对齐的条目，对于此处来说，就是上一页或者下一页的第一个条目。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 获取目标控件的位置下标
+ * (获取滚动后第一个View的下标)
+ *
+ * @param layoutManager 布局管理器
+ * @param velocityX     X 轴滚动速率
+ * @param velocityY     Y 轴滚动速率
+ * @return 目标控件的下标
+ */</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">findTargetSnapPosition</span><span class="o">(</span><span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">,</span>
+                                  <span class="kt">int</span> <span class="n">velocityX</span><span class="o">,</span> <span class="kt">int</span> <span class="n">velocityY</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">NO_POSITION</span><span class="o">;</span>
+    <span class="n">Loge</span><span class="o">(</span><span class="s">"findTargetSnapPosition, velocityX = "</span> <span class="o">+</span> <span class="n">velocityX</span> <span class="o">+</span> <span class="s">", velocityY"</span> <span class="o">+</span> <span class="n">velocityY</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">layoutManager</span> <span class="o">&amp;&amp;</span> <span class="n">layoutManager</span> <span class="k">instanceof</span> <span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">PagerGridLayoutManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="n">layoutManager</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">manager</span><span class="o">.</span><span class="na">canScrollHorizontally</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">velocityX</span> <span class="o">&gt;</span> <span class="n">PagerConfig</span><span class="o">.</span><span class="na">getFlingThreshold</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">findNextPageFirstPos</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">velocityX</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">PagerConfig</span><span class="o">.</span><span class="na">getFlingThreshold</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">findPrePageFirstPos</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">manager</span><span class="o">.</span><span class="na">canScrollVertically</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">velocityY</span> <span class="o">&gt;</span> <span class="n">PagerConfig</span><span class="o">.</span><span class="na">getFlingThreshold</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">findNextPageFirstPos</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">velocityY</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">PagerConfig</span><span class="o">.</span><span class="na">getFlingThreshold</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">findPrePageFirstPos</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">Loge</span><span class="o">(</span><span class="s">"findTargetSnapPosition, target = "</span> <span class="o">+</span> <span class="n">target</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">target</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>为此我们需要在 LayoutManager 中再添加两个方法，就是做一些简单的计算，另外防止越界就可以了。</p>
+
+<pre><code class="language-Java">/**
+ * 找到下一页第一个条目的位置
+ *
+ * @return 第一个搞条目的位置
+ */
+int findNextPageFirstPos() {
+    int page = mLastPageIndex;
+    page++;
+    if (page &gt;= getTotalPageCount()) {
+        page = getTotalPageCount() - 1;
+    }
+    Loge("computeScrollVectorForPosition next = " + page);
+    return page * mOnePageSize;
+}
+
+/**
+ * 找到上一页的第一个条目的位置
+ *
+ * @return 第一个条目的位置
+ */
+int findPrePageFirstPos() {
+    // 在获取时由于前一页的View预加载出来了，所以获取到的直接就是前一页
+    int page = mLastPageIndex;
+    page--;
+    Loge("computeScrollVectorForPosition pre = " + page);
+    if (page &lt; 0) {
+        page = 0;
+    }
+    Loge("computeScrollVectorForPosition pre = " + page);
+    return page * mOnePageSize;
+}
+</code></pre>
+
+<h3 id="14-参数控制">1.4 参数控制</h3>
+
+<p>实际上经过上面的步骤，一个简单的分页对齐辅助工具有完成了，但是有时手感可能会不太好，例如说 Fling 的触发速度，是需要用很大力气才能触发翻页操作呢，还是只需轻轻一划就会翻页呢，这个我们需要控制一下。</p>
+
+<p>除此之外，还有就是自动滚动时的滚动速度控制，是很快的就滚动过去呢，还是慢慢的滚动到目标位置，官方提供的一些参数在实际应用时可能并不符合我们的需求，因此我们可以自定义一些参数来控制。</p>
+
+<h4 id="141-控制-fling-触发速度">1.4.1 控制 Fling 触发速度</h4>
+
+<p>官方使用的是 RecyclerView 的最小触发速度，但是这个速度我们无法设置，因此我们对这段代码重载一下，替换成我们自己定义的速度。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 一扔(快速滚动)
+ *
+ * @param velocityX X 轴滚动速率
+ * @param velocityY Y 轴滚动速率
+ * @return 是否消费该事件
+ */</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onFling</span><span class="o">(</span><span class="kt">int</span> <span class="n">velocityX</span><span class="o">,</span> <span class="kt">int</span> <span class="n">velocityY</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span> <span class="o">=</span> <span class="n">mRecyclerView</span><span class="o">.</span><span class="na">getLayoutManager</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">layoutManager</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">RecyclerView</span><span class="o">.</span><span class="na">Adapter</span> <span class="n">adapter</span> <span class="o">=</span> <span class="n">mRecyclerView</span><span class="o">.</span><span class="na">getAdapter</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">adapter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 官方方案</span>
+    <span class="c1">// int minFlingVelocity = mRecyclerView.getMinFlingVelocity();</span>
+    
+    <span class="c1">// 替换成自定义触发速度</span>
+    <span class="kt">int</span> <span class="n">minFlingVelocity</span> <span class="o">=</span> <span class="n">PagerConfig</span><span class="o">.</span><span class="na">getFlingThreshold</span><span class="o">();</span>
+    <span class="n">Loge</span><span class="o">(</span><span class="s">"minFlingVelocity = "</span> <span class="o">+</span> <span class="n">minFlingVelocity</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">velocityY</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">minFlingVelocity</span> <span class="o">||</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">velocityX</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">minFlingVelocity</span><span class="o">)</span>
+            <span class="o">&amp;&amp;</span> <span class="n">snapFromFling</span><span class="o">(</span><span class="n">layoutManager</span><span class="o">,</span> <span class="n">velocityX</span><span class="o">,</span> <span class="n">velocityY</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>由于 snapFromFling 方法不是公开的，不可重载，我们按照官方实现复制过来一份就行了，此处没有贴出。</p>
+
+<h4 id="142-控制滚动速度">1.4.2 控制滚动速度</h4>
+
+<p>自动滚动速度主要是有 SmoothScroller 来控制，此处我们自己进行创建 SmoothScroller 来控制平滑滚动的速度。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 通过自定义 LinearSmoothScroller 来控制速度
+ * @param layoutManager 布局故哪里去
+ * @return 自定义 LinearSmoothScroller
+ */</span>
+<span class="kd">protected</span> <span class="n">LinearSmoothScroller</span> <span class="nf">createSnapScroller</span><span class="o">(</span><span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">layoutManager</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!(</span><span class="n">layoutManager</span> <span class="k">instanceof</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">SmoothScroller</span><span class="o">.</span><span class="na">ScrollVectorProvider</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">PagerGridSmoothScroller</span><span class="o">(</span><span class="n">mRecyclerView</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>此处的 PagerGridSmoothScroller 是我们自己实现的，继承自 LinearSmoothScroller，很简单。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PagerGridSmoothScroller</span> <span class="kd">extends</span> <span class="n">LinearSmoothScroller</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">RecyclerView</span> <span class="n">mRecyclerView</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PagerGridSmoothScroller</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">RecyclerView</span> <span class="n">recyclerView</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">recyclerView</span><span class="o">.</span><span class="na">getContext</span><span class="o">());</span>
+        <span class="n">mRecyclerView</span> <span class="o">=</span> <span class="n">recyclerView</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onTargetFound</span><span class="o">(</span><span class="n">View</span> <span class="n">targetView</span><span class="o">,</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="n">Action</span> <span class="n">action</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">RecyclerView</span><span class="o">.</span><span class="na">LayoutManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">mRecyclerView</span><span class="o">.</span><span class="na">getLayoutManager</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">manager</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">manager</span> <span class="k">instanceof</span> <span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">PagerGridLayoutManager</span> <span class="n">layoutManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">)</span> <span class="n">manager</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">mRecyclerView</span><span class="o">.</span><span class="na">getChildAdapterPosition</span><span class="o">(</span><span class="n">targetView</span><span class="o">);</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">snapDistances</span> <span class="o">=</span> <span class="n">layoutManager</span><span class="o">.</span><span class="na">getSnapOffset</span><span class="o">(</span><span class="n">pos</span><span class="o">);</span>
+            <span class="kd">final</span> <span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">snapDistances</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+            <span class="kd">final</span> <span class="kt">int</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">snapDistances</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+            <span class="n">Logi</span><span class="o">(</span><span class="s">"dx = "</span> <span class="o">+</span> <span class="n">dx</span><span class="o">);</span>
+            <span class="n">Logi</span><span class="o">(</span><span class="s">"dy = "</span> <span class="o">+</span> <span class="n">dy</span><span class="o">);</span>
+            <span class="kd">final</span> <span class="kt">int</span> <span class="n">time</span> <span class="o">=</span> <span class="n">calculateTimeForScrolling</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">dx</span><span class="o">),</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">dy</span><span class="o">)));</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">time</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">action</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">dx</span><span class="o">,</span> <span class="n">dy</span><span class="o">,</span> <span class="n">time</span><span class="o">,</span> <span class="n">mDecelerateInterpolator</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">float</span> <span class="nf">calculateSpeedPerPixel</span><span class="o">(</span><span class="n">DisplayMetrics</span> <span class="n">displayMetrics</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">PagerConfig</span><span class="o">.</span><span class="na">getMillisecondsPreInch</span><span class="o">()</span> <span class="o">/</span> <span class="n">displayMetrics</span><span class="o">.</span><span class="na">densityDpi</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>经过这些步骤之后，一个可调控，简单方便的分页对齐工具就开发完成了，可以像这样使用了。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 设置滚动辅助工具</span>
+<span class="n">PagerGridSnapHelper</span> <span class="n">pageSnapHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridSnapHelper</span><span class="o">();</span>
+<span class="n">pageSnapHelper</span><span class="o">.</span><span class="na">attachToRecyclerView</span><span class="o">(</span><span class="n">mRecyclerView</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="2-处理滚动到指定条目页面">2. 处理滚动到指定条目(页面)</h2>
+
+<p>在上面一篇文章中，只是简单的开发了一个分页网格布局，该网格布局实现了布局和基本的滚动处理，经过本篇的上半篇文章，实现了分页对齐功能。</p>
+
+<p>但是，该分页布局管理器依旧存在问题，例如，你会发现它只能手动的进行滚动，你无法用代码控制它滚动到距离的条目和页面，例如，你调用 <code class="highlighter-rouge">recyclerView.scrollToPosition(0);</code> 它是没有任何响应的。这是因为我们没有处理滚动到指定条目的方案。</p>
+
+<h3 id="21-直接滚动">2.1 直接滚动</h3>
+
+<p>由于我们是页面对齐，所以滚动到指定条目，也就是滚动到指定条目所在到页面，因此我们可以这样写。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPosition</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">pageIndex</span> <span class="o">=</span> <span class="n">getPageIndexByPos</span><span class="o">(</span><span class="n">position</span><span class="o">);</span>
+    <span class="n">scrollToPage</span><span class="o">(</span><span class="n">pageIndex</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>先计算出条目所在页面的下标，然后滚动到该页面。但是 scrollToPage 方法需要我们自己实现一下，逻辑也很简单，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPage</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageIndex</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">pageIndex</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">pageIndex</span> <span class="o">&gt;=</span> <span class="n">mLastPageCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"pageIndex = "</span> <span class="o">+</span> <span class="n">pageIndex</span> <span class="o">+</span> <span class="s">" is out of bounds, mast in [0, "</span> <span class="o">+</span> <span class="n">mLastPageCount</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">mRecyclerView</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"RecyclerView Not Found!"</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="n">mTargetOffsetXBy</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">mTargetOffsetYBy</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">canScrollVertically</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">mTargetOffsetXBy</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">mTargetOffsetYBy</span> <span class="o">=</span> <span class="n">pageIndex</span> <span class="o">*</span> <span class="n">getUsableHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">mOffsetY</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">mTargetOffsetXBy</span> <span class="o">=</span> <span class="n">pageIndex</span> <span class="o">*</span> <span class="n">getUsableWidth</span><span class="o">()</span> <span class="o">-</span> <span class="n">mOffsetX</span><span class="o">;</span>
+        <span class="n">mTargetOffsetYBy</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">Loge</span><span class="o">(</span><span class="s">"mTargetOffsetXBy = "</span> <span class="o">+</span> <span class="n">mTargetOffsetXBy</span><span class="o">);</span>
+    <span class="n">Loge</span><span class="o">(</span><span class="s">"mTargetOffsetYBy = "</span> <span class="o">+</span> <span class="n">mTargetOffsetYBy</span><span class="o">);</span>
+    <span class="n">mRecyclerView</span><span class="o">.</span><span class="na">scrollBy</span><span class="o">(</span><span class="n">mTargetOffsetXBy</span><span class="o">,</span> <span class="n">mTargetOffsetYBy</span><span class="o">);</span>
+    <span class="n">setPageIndex</span><span class="o">(</span><span class="n">pageIndex</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>其实就是先计算出目标页面的坐标，然后计算滚动到该位置需要的距离，最后调用 RecyclerView 的滚动就可以了。</p>
+
+<p>但是，在 LayoutManager 中是无法直接取到 RecyclerView 的，因此我们在 onAttachedToWindow 方法中获得当前 LayoutManager 的 RecyclerView，并记录下来。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">RecyclerView</span> <span class="n">mRecyclerView</span><span class="o">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">(</span><span class="n">RecyclerView</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">(</span><span class="n">view</span><span class="o">);</span>
+    <span class="n">mRecyclerView</span> <span class="o">=</span> <span class="n">view</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>在有了 scrollToPage 方法后，我们还可以定义两个常用的方法，上一页和下一页，来供外部使用。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 上一页
+ */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">prePage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">scrollToPage</span><span class="o">(</span><span class="n">getPageIndexByOffset</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+ * 下一页
+ */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">nextPage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">scrollToPage</span><span class="o">(</span><span class="n">getPageIndexByOffset</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>就这样，直接滚动就处理好了。</p>
+
+<h3 id="22-平滑滚动">2.2 平滑滚动</h3>
+
+<p>和直接滚动一样，我们同样实现平滑滚动到指定条目，平滑滚动到指定页面，上一页，下一页等功能，实现方式页和直接滚动类似，将所有的操作都统一转化为滚动到指定页面，最终有滚动到指定页面来实现具体功能。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 平滑滚动到指定条目</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">smoothScrollToPosition</span><span class="o">(</span><span class="n">RecyclerView</span> <span class="n">recyclerView</span><span class="o">,</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">targetPageIndex</span> <span class="o">=</span> <span class="n">getPageIndexByPos</span><span class="o">(</span><span class="n">position</span><span class="o">);</span>
+    <span class="n">smoothScrollToPage</span><span class="o">(</span><span class="n">targetPageIndex</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// 平滑滚动到上一页</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">smoothPrePage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">smoothScrollToPage</span><span class="o">(</span><span class="n">getPageIndexByOffset</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// 平滑滚动到下一页</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">smoothNextPage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">smoothScrollToPage</span><span class="o">(</span><span class="n">getPageIndexByOffset</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// 平滑滚动到指定页面</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">smoothScrollToPage</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageIndex</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">pageIndex</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">pageIndex</span> <span class="o">&gt;=</span> <span class="n">mLastPageCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"pageIndex is outOfIndex, must in [0, "</span> <span class="o">+</span> <span class="n">mLastPageCount</span> <span class="o">+</span> <span class="s">")."</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">mRecyclerView</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"RecyclerView Not Found!"</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 如果滚动到页面之间距离过大，先直接滚动到目标页面到临近页面，在使用 smoothScroll 最终滚动到目标</span>
+    <span class="c1">// 否则在滚动距离很大时，会导致滚动耗费的时间非常长</span>
+    <span class="kt">int</span> <span class="n">currentPageIndex</span> <span class="o">=</span> <span class="n">getPageIndexByOffset</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">pageIndex</span> <span class="o">-</span> <span class="n">currentPageIndex</span><span class="o">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pageIndex</span> <span class="o">&gt;</span> <span class="n">currentPageIndex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">scrollToPage</span><span class="o">(</span><span class="n">pageIndex</span> <span class="o">-</span> <span class="mi">3</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">pageIndex</span> <span class="o">&lt;</span> <span class="n">currentPageIndex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">scrollToPage</span><span class="o">(</span><span class="n">pageIndex</span> <span class="o">+</span> <span class="mi">3</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 具体执行滚动</span>
+    <span class="n">LinearSmoothScroller</span> <span class="n">smoothScroller</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridSmoothScroller</span><span class="o">(</span><span class="n">mRecyclerView</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">position</span> <span class="o">=</span> <span class="n">pageIndex</span> <span class="o">*</span> <span class="n">mOnePageSize</span><span class="o">;</span>
+    <span class="n">smoothScroller</span><span class="o">.</span><span class="na">setTargetPosition</span><span class="o">(</span><span class="n">position</span><span class="o">);</span>
+    <span class="n">startSmoothScroll</span><span class="o">(</span><span class="n">smoothScroller</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>和直接滚动不同的是，平滑滚动会有一个简单的滚动动画效果，这个动画效果借助 SmoothScroller 来实现，为了保证滑动效果一致，我们使用和 SnapHelper 相同的 PagerGridSmoothScroller。</p>
+
+<p><strong>需要注意的是，在进行超长距离的平滑滚动时，如果不做特殊处理，可能要滚动很长的时间(会花费超过 10s 甚至更长的时间在滚动上)，为了限制平滑滚动花费的时间，这里对滚动距离做了一个简单的限制，即最大可以平滑滚动 3 个页面的长度，如果超过 3 个页面的长度后，则先直接跳转到临近页面，再执行平滑滚动，这样就可以保证很快执行完超长距离的平滑滚动，具体代码逻辑参考上面。</strong></p>
+
+<h2 id="3-结语">3. 结语</h2>
+
+<p>到此为止，一个简单的网格分页布局管理器(PagerGridLayoutManager)和分页辅助工具(PagerGridSnapHelper)就开发完了，当然，这个库还有很多可以完善的地方，事实上，在写本文的同时，我又对它很多的细节又重新打磨了一遍。因此你如果查看就版本的话，代码内容可能会稍有不同，但基本逻辑是相同的。</p>
+
+<p>如果喜欢本文的话，欢迎点赞、分享或者打赏支持。</p>
+
+<h4 id="关于作者"><strong>关于作者</strong></h4>
+
+<p>GcsSloop，一名 2.5 次元魔法师。</p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，捐赠一些晶石! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 捐赠晶石</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="center" >
+          感谢所有支持我的魔法师。
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/pager-grid-layoutmanager-a" title="link to 雕虫晓技(五) 网格分页布局源码解析(上)">雕虫晓技(五) 网格分页布局源码解析(上)</a></h2>
+       <p class="excerpt">关于作者GcsSloop，一名 2.5 次元魔法师。微博 | GitHub | 博客0.前言pager-layoutmanager： https://github.com/GcsSloop/pa...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2018-04-08 00:00:00 +0800" class="post-list__meta--date date">2018-04-08</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/pager-grid-layoutmanager-a>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
