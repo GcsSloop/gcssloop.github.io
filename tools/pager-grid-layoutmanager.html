@@ -216,12 +216,16 @@
   <section class="post">
     <p>具有分页功能的 Recyclerview 布局管理器，主打分页，可以替代部分场景下的网格布局，线性布局，以及一些简单的ViewPager，但也有一定的局限性，请选择性使用。</p>
 
-<p><a href="https://github.com/GcsSloop/pager-layoutmanager">【GitHub · PagerLayoutmanager】</a></p>
+<ul>
+  <li><a href="https://xiaozhuanlan.com/topic/5841730926">网格分页布局源码解析(上)</a></li>
+  <li><a href="https://xiaozhuanlan.com/topic/1456397082">网格分页布局源码解析(下)</a></li>
+</ul>
 
 <h2 id="1-效果预览">1. 效果预览</h2>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcpnh4wzg308c0ep1kz.gif" alt="" />
-<img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcq86gyqg308c0epb2a.gif" alt="" /></p>
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fq3xnpt8fhg308c0e6jwo.gif" alt="" /> <img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fq3xxgvf7lg308c0e6juv.gif" alt="" /></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcpnh4wzg308c0ep1kz.gif" alt="" /> <img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fkjcq86gyqg308c0epb2a.gif" alt="" /></p>
 
 <h2 id="2-支持的特性">2. 支持的特性</h2>
 
@@ -265,29 +269,28 @@
 
 <h3 id="41-基本用法">4.1 基本用法</h3>
 
-<p><strong>注意：</strong></p>
-
-<p><strong>1. 一定要在先设置 PagerGridLayoutManager， 之后再设置 PagerGridSnapHelper。</strong><br />
-<strong>2. 注意名称 PagerGridSnapHelper 不是 PagerSnapHelper。</strong></p>
+<h4 id="411-基本设置">4.1.1 基本设置</h4>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 1.水平分页布局管理器</span>
 <span class="n">PagerGridLayoutManager</span> <span class="n">layoutManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridLayoutManager</span><span class="o">(</span>
         <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="n">PagerGridLayoutManager</span><span class="o">.</span><span class="na">VERTICAL</span><span class="o">);</span>
-<span class="n">layoutManager</span><span class="o">.</span><span class="na">setPageListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>    <span class="c1">// 设置页面变化监听器</span>
 <span class="n">recyclerView</span><span class="o">.</span><span class="na">setLayoutManager</span><span class="o">(</span><span class="n">layoutManager</span><span class="o">);</span>
 
 <span class="c1">// 2.设置滚动辅助工具</span>
 <span class="n">PagerGridSnapHelper</span> <span class="n">pageSnapHelper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerGridSnapHelper</span><span class="o">();</span>
 <span class="n">pageSnapHelper</span><span class="o">.</span><span class="na">attachToRecyclerView</span><span class="o">(</span><span class="n">recyclerView</span><span class="o">);</span>
-
-<span class="c1">// 可选(如果觉得快速滚动不够灵敏，可以调整该数值，默认为1000，数值越小越灵敏)</span>
-<span class="n">pageSnapHelper</span><span class="o">.</span><span class="na">setFlingThreshold</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
 </code></pre>
 </div>
 
-<p><strong>页面变化监听器</strong></p>
+<p><strong>注意：</strong><br />
+<strong>1. 一定要在先设置 PagerGridLayoutManager， 之后再设置 PagerGridSnapHelper。</strong><br />
+<strong>2. 注意名称是 PagerGridSnapHelper 不是 PagerSnapHelper。</strong></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 当总页数确定时的回调</span>
+<h4 id="412-设置页面变化监听器">4.1.2 设置页面变化监听器</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">layoutManager</span><span class="o">.</span><span class="na">setPageListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>    <span class="c1">// 设置页面变化监听器</span>
+
+<span class="c1">// 当总页数确定时的回调</span>
 <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageSizeChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageSize</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"TAG"</span><span class="o">,</span> <span class="s">"总页数 = "</span> <span class="o">+</span> <span class="n">pageSize</span><span class="o">);</span>
 <span class="o">}</span>
@@ -299,57 +302,106 @@
 </code></pre>
 </div>
 
+<h4 id="413-直接滚动">4.1.3 直接滚动</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 滚动到指定条目</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPosition</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">);</span>
+<span class="c1">// 切换页面</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPage</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageIndex</span><span class="o">);</span>	<span class="c1">// 滚动到指定页面</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">prePage</span><span class="o">();</span>						<span class="c1">// 上一页</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">nextPage</span><span class="o">();</span>						<span class="c1">// 下一页</span>
+
+<span class="c1">// 使用示例</span>
+<span class="n">recyclerView</span><span class="o">.</span><span class="na">scrollToPosition</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">scrollToPage</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">prePage</span><span class="o">();</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">nextPage</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<h4 id="414-平滑滚动">4.1.4 平滑滚动</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 平滑滚动到指定条目</span>
+<span class="n">mRecyclerView</span><span class="o">.</span><span class="na">smoothScrollToPosition</span><span class="o">(</span><span class="n">pos</span><span class="o">);</span>
+<span class="c1">// 平滑切换页面</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothScrollToPage</span><span class="o">(</span><span class="n">pageIndex</span><span class="o">);</span>	<span class="c1">// 平滑滚动到指定页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothPrePage</span><span class="o">();</span>					<span class="c1">// 平滑滚动到上一页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothNextPage</span><span class="o">();</span>				<span class="c1">// 平滑滚动到下一页</span>
+
+<span class="c1">// 使用示例</span>
+<span class="n">recyclerView</span><span class="o">.</span><span class="na">smoothScrollToPosition</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">smoothScrollToPage</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">smoothPrePage</span><span class="o">();</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">smoothNextPage</span><span class="o">();</span>
+</code></pre>
+</div>
+
 <h3 id="42-其他设置">4.2 其他设置</h3>
 
-<p><strong>是否在滚动过程中回调页码变化。</strong></p>
+<h4 id="421-是否在滚动过程中回调页码变化">4.2.1 是否在滚动过程中回调页码变化</h4>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 如果不想在滚动个过程中回调页码变化，可以这样设置(v1.1.0-beta 以上版本支持)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 设置是否在滚动过程中回调页码变化</span>
+<span class="kt">void</span> <span class="nf">setChangeSelectInScrolling</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">changeSelectInScrolling</span><span class="o">);</span>
+
+<span class="c1">// 使用示例</span>
 <span class="n">layoutManager</span><span class="o">.</span><span class="na">setChangeSelectInScrolling</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </code></pre>
 </div>
 
-<p><strong>切换滚动方向</strong></p>
+<h4 id="422-是否允许连续滚动">4.2.2 是否允许连续滚动</h4>
+
+<p>默认允许连续滚动。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 是否允许连续滚动</span>
+<span class="kt">boolean</span> <span class="nf">isAllowContinuousScroll</span><span class="o">();</span>
+<span class="c1">// 设置是否允许连续滚动</span>
+<span class="kt">void</span> <span class="nf">setAllowContinuousScroll</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">allowContinuousScroll</span><span class="o">);</span>
+
+<span class="c1">// 使用示例</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">isAllowContinuousScroll</span><span class="o">();</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">setAllowContinuousScroll</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="423-设置滚动方向">4.2.3 设置滚动方向</h4>
 
 <p>注意：滚动过程中不可切换方向，设置无效。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mLayoutManager</span><span class="o">.</span><span class="na">setOrientationType</span><span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">.</span><span class="na">HORIZONTAL</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 设置滚动方向</span>
+<span class="kt">int</span> <span class="nf">setOrientationType</span><span class="o">(</span><span class="nd">@OrientationType</span> <span class="kt">int</span> <span class="n">orientation</span><span class="o">);</span>
+
+<span class="c1">// 使用示例</span>
+<span class="n">layoutManager</span><span class="o">.</span><span class="na">setOrientationType</span><span class="o">(</span><span class="n">PagerGridLayoutManager</span><span class="o">.</span><span class="na">HORIZONTAL</span><span class="o">);</span>
 </code></pre>
 </div>
 
-<p><strong>打开调试日志。</strong></p>
+<h4 id="424-设置-fling-阀值">4.2.4 设置 Fling 阀值</h4>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 如果需要查看调试日志可以设置为true，一般情况忽略即可</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 设置 Fling 阀值</span>
+<span class="kt">void</span> <span class="nf">setFlingThreshold</span><span class="o">(</span><span class="kt">int</span> <span class="n">flingThreshold</span><span class="o">);</span>
+
+<span class="c1">// 使用示例</span>
+<span class="n">PagerConfig</span><span class="o">.</span><span class="na">setFlingThreshold</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="425-设置滚动速度">4.2.5 设置滚动速度</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 设置滚动速度(滚动一英寸所耗费的微秒数，数值越大，速度越慢，默认为 60f)</span>
+<span class="kt">void</span> <span class="nf">setMillisecondsPreInch</span><span class="o">(</span><span class="kt">float</span> <span class="n">millisecondsPreInch</span><span class="o">);</span>
+
+<span class="c1">// 使用示例</span>
+<span class="n">PagerConfig</span><span class="o">.</span><span class="na">setMillisecondsPreInch</span><span class="o">(</span><span class="mi">60</span><span class="n">f</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="426-打开调试日志">4.2.6 打开调试日志</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 打开调试用日志输出，一般情况忽略即可</span>
+<span class="kt">void</span> <span class="nf">setShowLog</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">showLog</span><span class="o">);</span>
+
+<span class="c1">// 使用示例</span>
 <span class="n">PagerConfig</span><span class="o">.</span><span class="na">setShowLog</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-</code></pre>
-</div>
-
-<h3 id="43-滚动到指定条目指定页面">4.3 滚动到指定条目、指定页面</h3>
-
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// PagerGridLayoutManager 新增方法</span>
-<span class="c1">// 滚动到指定条目</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPosition</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">);</span>
-<span class="c1">// 滚动到指定页面</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scrollToPage</span><span class="o">(</span><span class="kt">int</span> <span class="n">pageIndex</span><span class="o">);</span>
-<span class="c1">// 上一页</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">prePage</span><span class="o">();</span>
-<span class="c1">// 下一页</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">nextPage</span><span class="o">();</span>
-</code></pre>
-</div>
-
-<p>其中滚动到指定条目可以调用 RecyclerView 的方法，也可以调用 LayoutManager的方法：</p>
-
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 下面两个方法是等价的</span>
-<span class="n">mRecyclerView</span><span class="o">.</span><span class="na">scrollToPosition</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-<span class="n">mLayoutManager</span><span class="o">.</span><span class="na">scrollToPosition</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-</code></pre>
-</div>
-
-<p>滚动到指定页面、上一页下一页等操作属于 PagerGridLayoutManager 特有方法，只能通过 PagerGridLayoutManager 调用：</p>
-
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mPagerGridLayoutManager</span><span class="o">.</span><span class="na">scrollToPage</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-<span class="n">mPagerGridLayoutManager</span><span class="o">.</span><span class="na">prePage</span><span class="o">();</span>
-<span class="n">mPagerGridLayoutManager</span><span class="o">.</span><span class="na">nextPage</span><span class="o">();</span>
 </code></pre>
 </div>
 
@@ -377,18 +429,9 @@
 
 <p>在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'com.gcssloop.support:pagerlayoutmanager:1.3.1@aar'</span>
-
-<span class="n">compile</span> <span class="s1">'com.gcssloop.recyclerview:pagerlayoutmanager:2.2.2@aar'</span>
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">implementation</span> <span class="s1">'com.gcssloop.recyclerview:pagerlayoutmanager:2.3.7'</span>
 </code></pre>
 </div>
-
-<h2 id="7-待优化">7. 待优化</h2>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />添加 scrollToPosition。</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />添加设置滚动速度。</li>
-</ul>
 
 <h2 id="作者简介">作者简介</h2>
 
@@ -399,6 +442,79 @@
 <p><a href="http://www.gcssloop.com/info/about/" target="_blank"> <img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" /> </a></p>
 
 <h2 id="更新日志">更新日志</h2>
+
+<h4 id="v237">v2.3.7</h4>
+
+<p>完善代码细节，移除冗余逻辑。</p>
+
+<h4 id="v236">v2.3.6</h4>
+
+<p>降低最低版本兼容。<br />
+完善文档注释，精简项目结构。</p>
+
+<h4 id="v235">v2.3.5</h4>
+
+<p>优化代码结构，抽取 PagerGridSmoothScroller。</p>
+
+<h4 id="v234">v2.3.4</h4>
+
+<p>修复 padding 问题。<br />
+优化计算显示区域的代码逻辑。</p>
+
+<h4 id="v233">v2.3.3</h4>
+
+<p>优化代码结构。<br />
+移除冗余代码。</p>
+
+<h4 id="v232">v2.3.2</h4>
+
+<p>调整平滑滚动对外接口。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 平滑滚动到上一页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothPrePage</span><span class="o">();</span>
+<span class="c1">// 平滑滚动到下一页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothNextPage</span><span class="o">();</span>
+<span class="c1">// 平滑滚动到指定页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothScrollToPage</span><span class="o">(</span><span class="n">pageIndex</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="v231">v2.3.1</h4>
+
+<p>优化直接滚动。<br />
+修复更新单个条目导致整个界面刷新的情况。</p>
+
+<h4 id="v230">v2.3.0</h4>
+
+<p>添加平滑滚动，优化超长距离平滑滚动。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 平滑滚动到指定条目，通过 RecyclerView 调用</span>
+<span class="n">mRecyclerView</span><span class="o">.</span><span class="na">smoothScrollToPosition</span><span class="o">(</span><span class="n">pos</span><span class="o">);</span>
+
+<span class="c1">// 平滑滚动到上一页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothPrePage</span><span class="o">(</span><span class="n">recyclerView</span><span class="o">);</span>
+<span class="c1">// 平滑滚动到下一页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothNextPage</span><span class="o">(</span><span class="n">recyclerView</span><span class="o">);</span>
+<span class="c1">// 平滑滚动到指定页</span>
+<span class="n">mPagerLyoutManager</span><span class="o">.</span><span class="na">smoothScrollToPage</span><span class="o">(</span><span class="n">recyclerView</span><span class="o">,</span> <span class="n">pageIndex</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="v224">V2.2.4</h4>
+
+<p>优化滚动体验。<br />
+新增配置选项：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 是否允许连续滚动</span>
+<span class="kt">boolean</span> <span class="nf">isAllowContinuousScroll</span><span class="o">();</span>
+<span class="c1">// 设置是否允许连续滚动</span>
+<span class="kt">void</span> <span class="nf">setAllowContinuousScroll</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">allowContinuousScroll</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="v223">v2.2.3</h4>
+
+<p>优化滚动过程中页面回调逻辑。</p>
 
 <h4 id="v222">v2.2.2</h4>
 
@@ -425,6 +541,12 @@
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">nextPage</span><span class="o">();</span>
 </code></pre>
 </div>
+
+<h4 id="v211">v2.1.1</h4>
+
+<p>修复使用Glide或者Fresco可能导致布局重复刷新的问题。</p>
+
+<p>(判断RecyclerView.State，如果结构状态没有变化则不重新布局)</p>
 
 <h4 id="v210">v2.1.0</h4>
 
