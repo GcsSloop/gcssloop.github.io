@@ -222,7 +222,7 @@
 
 <h2 id="效果预览">效果预览</h2>
 
-<p><img src="https://ww4.sinaimg.cn/large/006tKfTcly1fk7twywj5oj30u01fewka.jpg" width="300" /></p>
+<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gy1fqbgk8pmevg309u0ghwz9.gif" width="300" /> <img src="https://ww4.sinaimg.cn/large/006tKfTcly1fk7twywj5oj30u01fewka.jpg" width="300" /></p>
 
 <h2 id="支持的特性">支持的特性</h2>
 
@@ -236,6 +236,7 @@
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />支持Padding。</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />圆角抗锯齿。</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />内容可点击区域即为显示区域。</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />是否剪裁自身背景。</li>
 </ul>
 
 <h2 id="主要文件">主要文件</h2>
@@ -250,7 +251,15 @@
   <tbody>
     <tr>
       <td>RCRealtiveLayout</td>
-      <td>圆角相对布局</td>
+      <td>圆角相对布局。</td>
+    </tr>
+    <tr>
+      <td>RCImageView</td>
+      <td>圆角图片。</td>
+    </tr>
+    <tr>
+      <td>RCHelper</td>
+      <td>圆角辅助工具。</td>
     </tr>
   </tbody>
 </table>
@@ -285,7 +294,7 @@
 
 <h3 id="2-配置属性">2. 配置属性</h3>
 
-<p>可以在布局文件中配置的属性如下：</p>
+<p>可以在布局文件中配置的基本属性有五个：</p>
 
 <table>
   <thead>
@@ -345,6 +354,12 @@
       <td>否</td>
       <td>color</td>
     </tr>
+    <tr>
+      <td>clip_background</td>
+      <td>剪裁背景</td>
+      <td>否</td>
+      <td>boolean</td>
+    </tr>
   </tbody>
 </table>
 
@@ -365,7 +380,11 @@
 <h4 id="32-描边属性">3.2 描边属性</h4>
 
 <p>描边宽度<code class="highlighter-rouge">stroke_width</code>默认情况下数值为 0，即不存在描边效果。<br />
-描边颜色<code class="highlighter-rouge">stroke_color</code>默认情况下为白色，允许自定义颜色。</p>
+描边高度<code class="highlighter-rouge">stroke_color</code>默认情况下为白色，允许自定义颜色。</p>
+
+<h4 id="33-背景剪裁">3.3 背景剪裁</h4>
+
+<p>RCLayout 默认对自身背景剪裁，但是可以通过设置 clip_background 为 false 让RCLayout 不剪裁自身的背景。</p>
 
 <h3 id="4添加方法">4.添加方法</h3>
 
@@ -387,7 +406,7 @@
 
 <p>在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'com.gcssloop.widget:rclayout:1.4.1@aar'</span>
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">implementation</span> <span class="s1">'com.gcssloop.widget:rclayout:1.5.4'</span>
 </code></pre>
 </div>
 
@@ -401,6 +420,53 @@
 
 <h2 id="更新日志">更新日志</h2>
 
+<h4 id="v154">v1.5.4</h4>
+
+<p>提供在 Java 中动态设置属性的方法。</p>
+
+<h4 id="v153">v1.5.3</h4>
+
+<p>降低兼容最低版本。<br />
+精简项目结构。</p>
+
+<h4 id="v152">v1.5.2</h4>
+
+<p>默认不剪裁背景，即 clip-background 默认为 false。<br />
+修复剪裁不完全的情况。</p>
+
+<h4 id="v151">v1.5.1</h4>
+
+<p>完善布局属性提示。</p>
+
+<h4 id="v150">v1.5.0</h4>
+
+<p>添加 RCImageView (属性和 RCRelativeLayout 相同)。<br />
+抽取 RCHelper。</p>
+
+<h4 id="v147">v1.4.7</h4>
+
+<p>增加 <code class="highlighter-rouge">clip_background</code> 属性，控制对 RCLayout 的背景剪裁默认为 true(剪裁)。</p>
+
+<h4 id="v146">v1.4.6</h4>
+
+<p>对 RCLayout 背景剪裁 (背景剪裁暂不支持抗锯齿)。</p>
+
+<h4 id="v145">v1.4.5</h4>
+
+<p>描边支持半透明。</p>
+
+<h4 id="v144">v1.4.4</h4>
+
+<p>优化性能(回收 TypedArray)。</p>
+
+<h4 id="v143">v1.4.3</h4>
+
+<p>优化性能(移除在dispathcDraw中创建的对象)。</p>
+
+<h4 id="v142">v1.4.2</h4>
+
+<p>尝试修复屏幕像素密度过低时出现边框问题。</p>
+
 <h4 id="v141">v1.4.1</h4>
 
 <p>修复圆形状态下Padding值问题。</p>
@@ -411,9 +477,8 @@
 
 <h4 id="v130">v1.3.0</h4>
 
-<p>支持描边。</p>
-
-<p>添加描边宽度，描边颜色两个属性。</p>
+<p>支持描边。<br />
+添加描边宽度，描边颜色两个属性。</p>
 
 <h4 id="v120">v1.2.0</h4>
 
@@ -421,21 +486,18 @@
 
 <h4 id="v110">v1.1.0</h4>
 
-<p>更新圆角实现方式。</p>
-
-<p>添加抗锯齿。</p>
+<p>更新圆角实现方式。<br />
+添加抗锯齿。</p>
 
 <h4 id="v100">v1.0.0</h4>
 
-<p>允许对每一个角分别设置半径。</p>
-
-<p>支持padding。</p>
+<p>允许对每一个角分别设置半径。<br />
+支持padding。</p>
 
 <h4 id="v100-alpha">v1.0.0-alpha</h4>
 
-<p>测试圆角方案是否可行。</p>
-
-<p>允许统一设置圆角半径。</p>
+<p>测试圆角方案是否可行。<br />
+允许统一设置圆角半径。</p>
 
 <h2 id="版权信息">版权信息</h2>
 
