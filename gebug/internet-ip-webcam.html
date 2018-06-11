@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>雕虫晓技(七) 用旧Android手机做远程摄像头</title>
+  <meta name="description" content="用旧手机做摄像头。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android, ip-webcam, lanproxy, 反向代理, 内网穿透">
+  <meta name="关键字" content="Android, ip-webcam, lanproxy, 反向代理, 内网穿透">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="雕虫晓技(七) 用旧Android手机做远程摄像头">
+  <meta name="twitter:description" content="用旧手机做摄像头。">
+  <meta name="twitter:keywords" content="Android, ip-webcam, lanproxy, 反向代理, 内网穿透">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="雕虫晓技(七) 用旧Android手机做远程摄像头">
+  <meta property="og:description" content="用旧手机做摄像头。">
+  <meta name="og:keywords" content="Android, ip-webcam, lanproxy, 反向代理, 内网穿透">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/gebug/internet-ip-webcam">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+  <!-- Google Ad -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2767831356529421",
+      enable_page_level_ads: true
+    });
+  </script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="友链">友链</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2018-06-12 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-12</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">雕虫晓技(七) 用旧Android手机做远程摄像头</h1>
+  </header>
+
+  <section class="post">
+    <h2 id="0-前言">0. 前言</h2>
+
+<p>科技发展越来越快，手机也换的越来越频繁，有很多旧手机都被淘汰了，这些旧手机一般没什么用，也不能卖，毕竟手机中可能还存在着一些私人数据可能没有清空，因此这些旧手机就只能放在家里落灰了。</p>
+
+<p>对于大多数人来说，这些旧手机都是无法被利用起来的，虽然网上有很多的利用旧手机的教程，但很多要么是很鸡肋，要么是操作难度较高，需要较强的动手能力。</p>
+
+<p>那么今天呢，就教大家如何<strong>低成本的快速将旧 Android 手机变成一个可远程访问的摄像头</strong>。</p>
+
+<p>本文定位是一个比较基础的教程，假设大家对这方面都不熟悉，所以文中啰嗦的内容比较多，有些技术点如果大家已经有所了解，可以跳过内容。</p>
+
+<h2 id="1-搭建局域网摄像头">1. 搭建局域网摄像头</h2>
+
+<p>搭建局域网摄像头需要一个软件，那就是 ip-webcam，能访问谷歌商店的用户可以直接在商店内搜索 “ip-webcam” 下载即可，对于无法访问的用户可以到 https://www.appsapk.com/ip-webcam/ 进行下载。</p>
+
+<blockquote>
+  <p>ip-webcam 是一款免费软件(免费版本存在广告)，它有一个付费的 pro 版本，pro版本功能更强，但只能在谷歌商店购买，如果想买但是没有可用的付款卡，可以使用礼品卡进行充值购买，礼品卡在淘宝有卖。但是对于普通用户来说，免费版已经足够了。</p>
+</blockquote>
+
+<p>ip-webcam 的图标是这样的：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/IP-Webcam.jpg" alt="IP-Webcam" /></p>
+
+<p>打开后里面大概这样子：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/webcam-show.png" alt="webcam-show" /></p>
+
+<p>由于我们后面会把这个摄像头放到公网上，所以需要把设置一个账号密码，不然很不安全。但是如果只是需要在局域网使用的话，账号密码可以留空。</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/webcam-config1.png" alt="webcam-config1" /> <img src="/assets/gebug/07-internet-ip-webcam/webcam-config2.png" alt="webcam-config2" /></p>
+
+<p>在配置完账号密码后，其他内容可以按照自己的需要进行调整，需要注意的是，如果家庭网络的上行带宽比较低的话，可以适当的把视频分辨率和帧率调低一点，否则在外网访问的时候会一直卡顿。</p>
+
+<p>在设置完成后，翻到最后面一条，直接点击开启服务器即可。</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/webcam-start.png" alt="webcam-start" /></p>
+
+<p>在服务开启后，会在界面上显示视频的连接地址，如下：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/webcam-link.png" alt="webcam-link" /></p>
+
+<p>如上图所示，上面的地址就是服务访问地址，在当前网络内任意电脑或者手机上输入该地址即可访问到摄像头，点击浏览器选项就可以看到视频的内容。</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/webcam-watch.png" alt="webcam-watch" /></p>
+
+<p>可以看到，它除了查看视频之外，还有很多功能，例如：动作检测(自动抓拍)，开关闪光灯，循环录制等。</p>
+
+<p>还有更多的高级功能，例如配合 tasker 来开发更多功能，大家可以自行发掘。</p>
+
+<p><strong>注意：</strong></p>
+
+<p>用手机做摄像头，需要注意发热问题，部分手机因为设计问题，长期开启摄像头会导致手机发热严重，如果长时间发热可能会损坏设备，至于自己的设备是否适合做摄像头，可以自己先试验一下，一般来说，常温下运行一两个小时以上没有因为过热导致关机等问题就可以作为一直开启的摄像头来用。但是仍然需要注意不要放置于温度过高或者阳光直射的地方。</p>
+
+<p>如果是一直开启则应该放置在电源附近，或者买一根比较长的数据线来为其充电。</p>
+
+<h2 id="2-连接到公网">2. 连接到公网</h2>
+
+<p>上面开启的摄像头只能在局域网使用，如果需要在公网使用，那么就稍微麻烦一点了。如果自己办理的宽带有静态的公网IP，那么可以在路由器上设置一下端口映射就可以在外网访问了。</p>
+
+<p>但是大部分用户办理的宽带都是动态公网IP或者共享公网IP，那么设置端口映射就不管用了，因此就需要考虑一些其他方案。</p>
+
+<h3 id="21-免费方案">2.1 免费方案</h3>
+
+<p>如果不想花钱，直接搜索动态域名解析、内网穿透就可以找到相关软件，有很多商业的软件可以用，例如：花生壳、nat123 等。这些商业软件都有详细的使用说明，我也就不再赘述了，有需要的可以自行搜索使用方案，对于动手能力不太强或者需求不大的用户来说，直接注册后使用免费套餐即可，相对来说安装更加简单。</p>
+
+<p>但是免费一般会有很多的限制，例如流量限制，映射条数限制，域名限制等。并且一般还需要实名认证。因此个人试用过一段时间这种方案后，觉得用着很不舒服，于是也就放弃了。</p>
+
+<h3 id="22-极客方案">2.2 极客方案</h3>
+
+<p><strong>首先声明，这种方案并非免费，但是所有的内容都可以掌控在自己手里，如果仅仅只是需要一个家庭摄像头的话，又不想花太多钱，直接去淘宝买一个成品带服务或许更便宜一点。</strong></p>
+
+<p>(由于家庭摄像头拍摄位置可能会涉及到隐私区域，因此个人对部分商业摄像头直接把非加密视频数据上传到公司服务器上是十分不信任的，除此之外，很多商业摄像头为了方便远程调试安装，都留有一定的远程控制方案，我相信商业公司员工不会私自查看视频信息，但是这种方式会给一些居心不良的黑客留下可乘之机，因此我自己搭建了一套服务。)</p>
+
+<p>我使用的这种方案需要一个公网服务器作为代理，因为服务器不承载主要的运算服务，只是做流量转发，所以不需要很高的性能，也不需要大量的存储空间，我自己目前使用的是1核1G的乞丐级配置，在阿里云上租用一年300多。当然，部分国外的服务器会更加便宜，例如我在其他平台上租用的美国服务器，一年服务费用大约200多元，赶上促销的话，不到100元就能租用一年的服务，但是由于是做流量转发的，自己又主要在国内活动，国外的服务器延迟稍微有点大，因此就买了比较贵的阿里云服务。需要注意的是，如果不想备案的话，可以买香港服务器，当然国外的cn2也是可以接受的。</p>
+
+<p>最重要的是，一台服务可以做的事情很多，包括但不限于以下事情：私有云盘、个人网站、Git仓库、代理服务、游戏服务器、下载服务、爬虫。</p>
+
+<h4 id="221-实现原理">2.2.1 实现原理</h4>
+
+<p>上面说了一大堆乱七八糟的东西，下面先说一下这种方案的原理：</p>
+
+<p>原理其实非常简单，就是一个反向代理服务，用一台公网的代理服务器(proxy-server)作为跳板，可以从公网上任意位置访问这个服务器，之后这个服务器会把接收到的信息转发给对应的代理客户端(peoxy-client)，由代理客户端去访问处于内网的服务，内网服务响应后，按照相反的路径传递回去，最终就可以实现从任意位置访问到内网的服务啦，原理图如下：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/lanproxy.png" alt="lanproxy" /></p>
+
+<blockquote>
+  <p>图片来自： https://github.com/ffay/lanproxy/blob/master/README_en.md</p>
+</blockquote>
+
+<h4 id="222-实现方案">2.2.2 实现方案</h4>
+
+<p>我在GitHub上找到了一个开源的反向代理工具，这个工具有打包好的版本，并且部署非常简单，它就是 lanproxy。</p>
+
+<p>GitHub 地址： https://github.com/ffay/lanproxy</p>
+
+<blockquote>
+  <p>lanproxy是一个将局域网个人电脑、服务器代理到公网的内网穿透工具，目前仅支持tcp流量转发，可支持任何tcp上层协议（访问内网网站、本地支付接口调试、ssh访问、远程桌面…）。目前市面上提供类似服务的有花生壳、TeamView、GoToMyCloud等等，但要使用第三方的公网服务器就必须为第三方付费，并且这些服务都有各种各样的限制，此外，由于数据包会流经第三方，因此对数据安全也是一大隐患。 <a href="https://lanproxy.io2c.com/">https://lanproxy.io2c.com</a></p>
+</blockquote>
+
+<h4 id="223-下载软件">2.2.3 下载软件</h4>
+
+<p>到 https://seafile.io2c.com/d/3b1b44fee5f74992bb17/ 下载打包好的服务端和客户端。</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/download-server.png" alt="download-server" /></p>
+
+<h4 id="224-上传服务端到自己的服务器">2.2.4 上传服务端到自己的服务器</h4>
+
+<p>我自己使用的是阿里云的服务器，CentOS 7.4 系统，因此就以此系统为基准做介绍，当然，其他的系统也是支持的(包括各类Linux和WIndows)。</p>
+
+<p>这里需要注意的是，此处需要熟悉一些基础的 linux 相关命令，假设大家都会一点基础的 Linux 命令。</p>
+
+<p>如果大家对 vi(vim) 等文本编辑命令熟悉的话，直接上传原始server端压缩包到服务，解压后通过这些命令对配置文件(proxy-server-20171116/conf/config.propertoes)进行编辑即可。</p>
+
+<p>如果不熟悉 linux 上文本编辑相关命令，可以现在自己电脑上解压，找到对应的配置文件(proxy-server-20171116/conf/config.propertoes) 进行编辑，之后再次压缩进行上传到服务器也可以。</p>
+
+<p>默认的配置文件如下：</p>
+
+<div class="language-properties highlighter-rouge"><pre class="highlight"><code><span class="py">server.bind</span><span class="p">=</span><span class="s">0.0.0.0</span>
+<span class="py">server.port</span><span class="p">=</span><span class="s">4900</span>
+
+<span class="py">server.ssl.enable</span><span class="p">=</span><span class="s">true</span>
+<span class="py">server.ssl.bind</span><span class="p">=</span><span class="s">0.0.0.0</span>
+<span class="py">server.ssl.port</span><span class="p">=</span><span class="s">4993</span>
+<span class="py">server.ssl.jksPath</span><span class="p">=</span><span class="s">test.jks</span>
+<span class="py">server.ssl.keyStorePassword</span><span class="p">=</span><span class="s">123456</span>
+<span class="py">server.ssl.keyManagerPassword</span><span class="p">=</span><span class="s">123456</span>
+<span class="py">server.ssl.needsClientAuth</span><span class="p">=</span><span class="s">false</span>
+
+<span class="py">config.server.bind</span><span class="p">=</span><span class="s">0.0.0.0</span>
+<span class="py">config.server.port</span><span class="p">=</span><span class="s">8090</span>
+<span class="py">config.admin.username</span><span class="p">=</span><span class="s">admin</span>
+<span class="py">config.admin.password</span><span class="p">=</span><span class="s">admin</span>
+</code></pre>
+</div>
+
+<p><strong>注意：修改 username 和 password 字段。</strong></p>
+
+<p>之后通过 <code class="highlighter-rouge">scp</code> 命令将服务端上传到服务器：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>scp local_file remote_username@remote_ip:remote_folder
+
+<span class="c"># 例如</span>
+scp lanproxy-server-20171116.zip root@12.34.56.78:/home/lanproxy
+</code></pre>
+</div>
+
+<h4 id="213-安装基础工具">2.1.3 安装基础工具</h4>
+
+<p>使用 ssh 命令登陆服务器，阿里云可以直接在网页登陆，其他服务器使用ssh命令登陆即可。</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># 登陆到服务器</span>
+ssh root@ip
+<span class="c"># 输入密码，密码从购买服务器的平台获取，输入密码时不会显示任何字符，输入完成后直接点击回车键就可以了。</span>
+</code></pre>
+</div>
+
+<p>如果你的服务上没有zip软件解压工具，可以通过下面的命令安装：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>yum install zip unzip
+</code></pre>
+</div>
+
+<p>除了这些工具外，还需要安装 java 运行环境，直接安装 openjdk就可以了，1.7 或者 1.8 版本都可以。</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>yum install java-1.7.0-openjdk.x86_64
+</code></pre>
+</div>
+
+<p>安装完成后解压软件：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>unzip lanproxy-server-20171116.zip
+</code></pre>
+</div>
+
+<h4 id="225-启动服务">2.2.5 启动服务</h4>
+
+<p>到解压后文件夹中的 bin 目录下，执行启动命令：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>./startup.sh
+</code></pre>
+</div>
+
+<p>如果启动成功，它会显示一个 pid，例如：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>./startup.sh 
+Starting the proxy server ...started
+PID: 19875
+</code></pre>
+</div>
+
+<p>到这里，服务就正式启动了，后续的内容可以到网页上进行设置，访问 <code class="highlighter-rouge">http://IP:8090</code> 就能看到管理页面了(IP是服务器的公网IP)。</p>
+
+<blockquote>
+  <p>PS：如果无法访问到，请检查是否可以 ping 通该端口，服务器的防火墙，和阿里云的安全组规则。</p>
+</blockquote>
+
+<p>登陆页面如下：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/lanproxy-login.png" alt="lanproxy-login" /></p>
+
+<p>用之前配置的用户名和密码进行登录，登陆后添加一个客户端，如下，名称随便写，密钥用随机生成的即可。</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/lanproxy-add-client.png" alt="lanproxy-add-client" /></p>
+
+<p>之后你会看到在配置管理里面多了一个条目 G-IPCam, 点击该条目然后点击添加配置进行添加端口映射(添加一条摄像头的映射，后端代理信息就填写之前摄像头上显示的 IP 地址)：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/lanproxy-add-config.png" alt="lanproxy-add-config" /></p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/lanproxy-fill-config.png" alt="lanproxy-fill-config" /></p>
+
+<p>点击提交后，一条映射数据就被添加上去了。</p>
+
+<p><strong>注意：</strong></p>
+
+<p>如果使用的是阿里云服务器，要设置安全组配置来开放 8080 端口，如果是其他平台的服务器，则要设置防火墙来开放端口，具体设置方法需要根据服务器系统类型来设置，可以自己搜索。</p>
+
+<h4 id="226-客户端连接">2.2.6 客户端连接</h4>
+
+<p><strong>使用局域网内的任意一台主机作为跳板连接公网代理服务器。</strong></p>
+
+<p><strong>下面这一段取自 lanproxy 说明文档。</strong></p>
+
+<p>到上面为止，服务端已经搭建完成了，只要客户端连接成功就可以通过互联网进行访问了，在手机所在的局域网内的任意电脑主机上安装客户端(client)，在上面下载的发布包中有基于java的跨平台客户端，配置方式如下：</p>
+
+<blockquote>
+  <p>Java client的配置文件放置在conf目录中，配置 config.properties</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#与在proxy-server配置后台创建客户端时填写的秘钥保持一致；
+client.key=
+ssl.enable=true
+ssl.jksPath=test.jks
+ssl.keyStorePassword=123456
+
+#这里填写实际的proxy-server地址；没有服务器默认即可，自己有服务器的更换为自己的proxy-server（IP）地址
+server.host=lp.thingsglobal.org
+
+#proxy-server ssl默认端口4993，默认普通端口4900
+#ssl.enable=true时这里填写ssl端口，ssl.enable=false时这里填写普通端口
+server.port=4993
+</code></pre>
+</div>
+
+<ul>
+  <li>安装java1.7或以上环境</li>
+  <li>linux（mac）环境中运行bin目录下的 startup.sh</li>
+  <li>windows环境中运行bin目录下的 startup.bat</li>
+</ul>
+
+<p>如果不想安装Java环境，可以直接运行该平台编译好的client。</p>
+
+<h6 id="普通端口连接">普通端口连接</h6>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># mac 64位
+nohup ./client_darwin_amd64 -s SERVER_IP -p SERVER_PORT -k CLIENT_KEY &amp;
+
+# linux 64位
+nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_PORT -k CLIENT_KEY &amp;
+
+# windows 64 位
+./client_windows_amd64.exe -s SERVER_IP -p SERVER_PORT -k CLIENT_KEY
+</code></pre>
+</div>
+
+<h6 id="ssl端口连接">SSL端口连接</h6>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># mac 64位
+nohup ./client_darwin_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl true &amp;
+
+# linux 64位
+nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl true &amp;
+
+# windows 64 位
+./client_windows_amd64.exe -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl true
+</code></pre>
+</div>
+
+<p>如果没有错误出现的话，连接成功后，在网页上可以看到客户端的连接状态变成了在线，如下：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/lanproxy-status.png" alt="lanproxy-status" /></p>
+
+<p>可以看到，上面的客户端有一个是连接状态，另一个是离线状态。</p>
+
+<h4 id="227-在公网查看">2.2.7 在公网查看</h4>
+
+<p>如果上述步骤均正常，最后客户端显示在线状态就可以到网页上查看摄像头了，访问 http://proxy-server-ip:8080 (例如:http://12.34.56.78:8080) 看是否显示正常。</p>
+
+<p>正常的话就会显示如下界面：</p>
+
+<p><img src="/assets/gebug/07-internet-ip-webcam/webcam-watch.png" alt="webcam-watch" /></p>
+
+<p>如果无法正常显示，请依次检查如下问题：</p>
+
+<ol>
+  <li>检查服务器是否可以 ping 通。</li>
+  <li>检查 lanproxy</li>
+</ol>
+
+<h4 id="228-独立摄像头">2.2.8 独立摄像头</h4>
+
+<p>在上面摄像头和公网服务器之间通信使用了一台局域网内的主机作为跳板，需要一只处于开启状态才能保证摄像头的连接正常，但是这样会引起一些其他问题，例如主机风扇噪音过大，比较耗电等，我们毕竟只是需要一个小小的中转服务，这样就会显得比较浪费了。之前为了解决这个问题，准备买一个树莓派来作为局域网内流量中转设备，毕竟树莓派功耗相对于个人PC来说要小很多，并且更加安静。</p>
+
+<p>后来发现meefik大神开发了相关的应用，可以直接在 Android 设备上部署 Linux 系统，于是想，既然可以部署 Linux 系统，那么岂不是可以在摄像头所在手机上直接进行流量中转了？于是又折腾了一下，最终证实方案可行，但是过程却是比较麻烦，下面分享一下主要的过程。</p>
+
+<ol>
+  <li>获取 root 权限。</li>
+  <li>安装 busybox</li>
+  <li>安装 linux deploy</li>
+</ol>
+
+<p>虽然步骤看似简单，但是坑确实超多，随着 Android 系统越来越完善，在大部分情况下已经不需要 root 了，导致很多 root 工具都无法使用了，在试用了几乎所有的root工具后，最后还是靠刷机获取的 root 权限，我用的设备是华为旧手机，先去官网申请解锁 bootloader，然后刷入第三方的 Recovery，最后在网上找到一个自带root权限的系统刷入进去，需要注意的是，如果是主力机，目前还是不要刷机了，因为现在在网络上可以找到的刷机包，基本都捆绑了一些垃圾应用，哪些搞纯净包的因为没法盈利，大部分早就不更新了，所以刷机需谨慎。</p>
+
+<p>当然，如果是手机已经基本不用了，那随便折腾都行，不过刷机后记得第一时间卸载掉所有的垃圾应用，我使用的是Es文件浏览器，借助它的root工具箱卸载掉位于系统中的垃圾应用，卸载完成后重启一下设备。</p>
+
+<p>如果正常获取了 root 权限，后续就比较简单了。到 <a href="https://github.com/meefik/busybox/releases">Github·Busybox</a> 下载apk文件，之后安装到手机中，如果 bubsybox 申请 root 权限，点击允许即可。</p>
+
+<p>之后到 <a href="https://github.com/meefik/linuxdeploy/releases">Github · linuxdeploy</a> 下载文件，同样安装到手机中，如果需要安装对应版本 的系统，可以在网络上搜索相关的教程，例如 “linux deploy 安装 CentOS”，由于教程过长，这里就不过多叙述了。</p>
+
+<p>系统安装完成后，同样利用 scp 命令把对应的 client 长传到系统中，例如我安装了一个 kail 系统，架构师 armv71，需要上传 <code class="highlighter-rouge">client_linux_arm7</code> 这个文件，完成之后使用 ssh 登陆进系统，按照上一步的方式启动服务，如果在网页上可以看到状态为在线，那么就说明可以正常使用了，后续的操作步骤和前面两步的一致。</p>
+
+<p>使用这种方式可以省掉一个中转用的PC，在同一台手机上开启摄像头，并且直接在这台手机上可服务器连接，更加省电，也避免了主机噪音。</p>
+
+<h2 id="3-其它">3. 其它</h2>
+
+<p>如果你有自己的域名的话，可以把服务器IP绑定到自己的域名上，方便记忆地址。</p>
+
+<p>有部分服务器只允许开启80端口，对于这种情况，可以使用nginx或者配合lanproxy作者的另一款软件<a href="https://github.com/ffay/proxygateway">proxygateway</a> 把其他端口的服务转发到80端口。例如：远程摄像头服务被代理到了 8080 端口，我们访问需要通过这个链接来访问： gcssloop.com:8080，但是8080端口被封闭了，导致无法访问，此时通过nginx进行端口转发，配置cat.gcssloop.com转发到8080端口。</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="err">server</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">listen</span><span class="w"> </span><span class="err">80;</span><span class="w">
+    </span><span class="err">server_name</span><span class="w"> </span><span class="err">cat.gcssloop.com;</span><span class="w">
+    </span><span class="err">location</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="err">{</span><span class="w">
+        </span><span class="err">proxy_pass</span><span class="w"> </span><span class="err">http://localhost:8080;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>我们可以通过访问 cat.gcssloop.com，来查看摄像头了。</p>
+
+<p>如果你有多个摄像头，按照上面这种方式配置就可以通过不同的域名来访问不同的摄像头了，例如：room.gcssloop.com(室内)，door.gcssloop.com(门口)，而不用去记哪些烦人的端口地址。</p>
+
+<blockquote>
+  <p>PS：上面所有的包含gcssloop.com二级域名都是无法访问的，不用去访问尝试了，如果想试试的话，可以访问这个地址。</p>
+</blockquote>
+
+<h2 id="4-后记">4. 后记</h2>
+
+<p>使用这种方案部署摄像头基本上不用写代码，只用按照固定的格式来填一些配置文件就可以了，因此并不需要对编程方面有多么深入的了解，唯一比较麻烦的可能就是服务器的选取，和一些linux相关指令了，相信看这篇文章的人都对linux有所了解，即便没有多少了解，学习起来也是很容易的，毕竟此处能用到的指令就那么几个常用的，即便不会，花一两个小时学一下也是不亏的。</p>
+
+<p><strong>如果喜欢的话，欢迎打赏赞助一些服务器费用。</strong></p>
+
+<h4 id="关于作者"><strong>关于作者</strong></h4>
+
+<p>GcsSloop，一名 2.5 次元魔法师。</p>
+
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，欢迎赞助一些服务器费用! </h4>
+      <p></p>
+      <a class="btn-contribute" onclick="toggle()" >¥ 点击赞助</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="left" >
+          &nbsp;&nbsp;因为自己喜欢折腾，所以每年在域名和服务器上也会支出不少钱，用于搭建私人maven服务购买coding会员服务等用途，例如我发布在GitHub上的部分开源库就是托管在自己搭建的仓库中，你现在查看的这篇文章就托管在Coding上面。<br/>
+          &nbsp;&nbsp;如果你感觉我写的内容对你有帮助的话，可以赞助一些服务器费用，也可以通过订阅我的小专栏来支持我。当然，不赞助也没关系，我依旧会提供免费的内容给大家。<br/>
+          &nbsp;&nbsp;我发布在小专栏的内容虽然是收费的，但是大部分依旧可以在我的博客上免费看到原始文章，只是象征性的关闭了几篇不重要的文章阅读权限，如果你细心一点的话，甚至可以在我的博客上找到查看这些收费文章的方法。<br/>
+          <b>最后，感谢所有支持我的魔法师！</b>
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/pager-grid-layoutmanager-b" title="link to 雕虫晓技(六) 网格分页布局源码解析(下)">雕虫晓技(六) 网格分页布局源码解析(下)</a></h2>
+       <p class="excerpt">0. 前言pager-layoutmanager： https://github.com/GcsSloop/pager-layoutmanager在网格分页布局源码解析(上)中，主要分享了如何定...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2018-04-10 00:00:00 +0800" class="post-list__meta--date date">2018-04-10</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/pager-grid-layoutmanager-b>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
+        <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
