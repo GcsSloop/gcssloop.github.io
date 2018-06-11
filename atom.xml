@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-06-12T00:29:19+08:00</updated>
+  <updated>2018-06-12T00:43:03+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -362,10 +362,6 @@ nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl tr
 &lt;p&gt;我们可以通过访问 cat.gcssloop.com，来查看摄像头了。&lt;/p&gt;
 
 &lt;p&gt;如果你有多个摄像头，按照上面这种方式配置就可以通过不同的域名来访问不同的摄像头了，例如：room.gcssloop.com(室内)，door.gcssloop.com(门口)，而不用去记哪些烦人的端口地址。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;PS：上面所有的包含gcssloop.com二级域名都是无法访问的，不用去访问尝试了，如果想试试的话，可以访问这个地址。&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;4-后记&quot;&gt;4. 后记&lt;/h2&gt;
 
