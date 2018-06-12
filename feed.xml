@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 12 Jun 2018 00:58:04 +0800</pubDate>
-    <lastBuildDate>Tue, 12 Jun 2018 00:58:04 +0800</lastBuildDate>
+    <pubDate>Tue, 12 Jun 2018 11:02:28 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Jun 2018 11:02:28 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -329,7 +329,7 @@ nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl tr
 
 &lt;p&gt;之后到 &lt;a href=&quot;https://github.com/meefik/linuxdeploy/releases&quot;&gt;Github · linuxdeploy&lt;/a&gt; 下载文件，同样安装到手机中，如果需要安装对应版本 的系统，可以在网络上搜索相关的教程，例如 “linux deploy 安装 CentOS”，由于教程过长，这里就不过多叙述了。&lt;/p&gt;
 
-&lt;p&gt;系统安装完成后，同样利用 scp 命令把对应的 client 长传到系统中，例如我安装了一个 kail 系统，架构师 armv71，需要上传 &lt;code class=&quot;highlighter-rouge&quot;&gt;client_linux_arm7&lt;/code&gt; 这个文件，完成之后使用 ssh 登陆进系统，按照上一步的方式启动服务，如果在网页上可以看到状态为在线，那么就说明可以正常使用了，后续的操作步骤和前面两步的一致。&lt;/p&gt;
+&lt;p&gt;系统安装完成后，同样利用 scp 命令把对应的 client 长传到系统中，例如我安装了一个 kail 系统，架构是 armv71，需要上传 &lt;code class=&quot;highlighter-rouge&quot;&gt;client_linux_arm7&lt;/code&gt; 这个文件，完成之后使用 ssh 登陆进系统，按照上一步的方式启动服务，如果在网页上可以看到状态为在线，那么就说明可以正常使用了，后续的操作步骤和前面两步的一致。&lt;/p&gt;
 
 &lt;p&gt;使用这种方式可以省掉一个中转用的PC，在同一台手机上开启摄像头，并且直接在这台手机上可服务器连接，更加省电，也避免了主机噪音。&lt;/p&gt;
 
