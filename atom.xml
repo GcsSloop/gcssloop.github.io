@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-06-14T10:21:30+08:00</updated>
+  <updated>2018-06-21T10:23:09+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -107,7 +107,7 @@
 &lt;p&gt;&lt;img src=&quot;/assets/gebug/07-internet-ip-webcam/lanproxy.png&quot; alt=&quot;lanproxy&quot; /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;图片来自： https://github.com/ffay/lanproxy/blob/master/README_en.md&lt;/p&gt;
+  &lt;p&gt;图片来自： &lt;a href=&quot;https://github.com/ffay/lanproxy/blob/master/README_en.md&quot;&gt;lanproxy&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h4 id=&quot;222-实现方案&quot;&gt;2.2.2 实现方案&lt;/h4&gt;
@@ -122,7 +122,7 @@
 
 &lt;h4 id=&quot;223-下载软件&quot;&gt;2.2.3 下载软件&lt;/h4&gt;
 
-&lt;p&gt;到 https://seafile.io2c.com/d/3b1b44fee5f74992bb17/ 下载打包好的服务端和客户端。&lt;/p&gt;
+&lt;p&gt;到 &lt;a href=&quot;https://seafile.io2c.com/d/3b1b44fee5f74992bb17/&quot;&gt;lanproxy-releases&lt;/a&gt; 下载打包好的服务端和客户端。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/gebug/07-internet-ip-webcam/download-server.png&quot; alt=&quot;download-server&quot; /&gt;&lt;/p&gt;
 
