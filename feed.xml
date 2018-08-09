@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 09 Aug 2018 23:59:18 +0800</pubDate>
-    <lastBuildDate>Thu, 09 Aug 2018 23:59:18 +0800</lastBuildDate>
+    <pubDate>Fri, 10 Aug 2018 00:16:26 +0800</pubDate>
+    <lastBuildDate>Fri, 10 Aug 2018 00:16:26 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -14,7 +14,7 @@
         <title>安卓自定义View进阶-缩放手势检测(ScaleGestureDecetor)</title>
         <description>&lt;h2 id=&quot;0-前言&quot;&gt;0. 前言&lt;/h2&gt;
 
-&lt;p&gt;Android 缩放手势检测，ScaleGestureDecetor 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，在大多数的情况下，缩放手势都不是单独存在的，需要配合其它的手势来使用，所以推荐配合 &lt;a href=&quot;http://www.gcssloop.com/customview/gestruedector&quot;&gt;手势检测(GestureDetector)&lt;/a&gt; 一起观看。如果是用在自定义的控件上，则需要配合 Matrix 相关内容使用起来可能会更加方便，如果对 Matrix 不太熟悉也可以看本系列文章之前的内容来补充一下相关知识。如果你没看过之前的文章，可以到 &lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;自定义 View 系列&lt;/a&gt; 来查看这些内容。&lt;/p&gt;
+&lt;p&gt;Android 缩放手势检测，ScaleGestureDetector 相关内容的用法和注意事项，本文依旧属于事件处理这一体系，在大多数的情况下，缩放手势都不是单独存在的，需要配合其它的手势来使用，所以推荐配合 &lt;a href=&quot;http://www.gcssloop.com/customview/gestruedector&quot;&gt;手势检测(GestureDetector)&lt;/a&gt; 一起观看。如果是用在自定义的控件上，则需要配合 Matrix 相关内容使用起来可能会更加方便，如果对 Matrix 不太熟悉也可以看本系列文章之前的内容来补充一下相关知识。如果你没看过之前的文章，可以到 &lt;a href=&quot;http://www.gcssloop.com/customview/CustomViewIndex&quot;&gt;自定义 View 系列&lt;/a&gt; 来查看这些内容。&lt;/p&gt;
 
 &lt;p&gt;缩放手势对于大部分 Android 工程师来说，需要用到的机会比较少，它最常见于以下的一些应用场景中，例如：图片浏览，图片编辑(贴图效果)、网页缩放、地图、文本阅读(通过缩放手势调整文字大小)等。应用场景相对比较狭窄，不过肯定也会有一些用武之地，它可以实现如下的效果：&lt;/p&gt;
 
@@ -26,7 +26,7 @@
 
 &lt;h3 id=&quot;21-构造方法&quot;&gt;2.1 构造方法&lt;/h3&gt;
 
-&lt;p&gt;它有两个构造方法，和 GentureDecetor 类似，如下所示：&lt;/p&gt;
+&lt;p&gt;它有两个构造方法，和 GestureDetector 类似，如下所示：&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ScaleGestureDetector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ScaleGestureDetector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OnScaleGestureListener&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
