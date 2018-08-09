@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-08-09T23:42:04+08:00</updated>
+  <updated>2018-08-09T23:45:01+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -3930,7 +3930,7 @@ limitations under the License.
   <entry>
     <id>http://www.gcssloop.com/customview/gestruedector</id>
     <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/gestruedector"/>
-    <title>安卓自定义View进阶-手势检测(GestureDecetor)</title>
+    <title>安卓自定义View进阶-手势检测(GestureDetector)</title>
     <updated>2017-07-09T00:00:00+08:00</updated>
     <author>
       <name>Karl Luo</name>
