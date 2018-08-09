@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 09 Aug 2018 23:57:11 +0800</pubDate>
-    <lastBuildDate>Thu, 09 Aug 2018 23:57:11 +0800</lastBuildDate>
+    <pubDate>Thu, 09 Aug 2018 23:59:18 +0800</pubDate>
+    <lastBuildDate>Thu, 09 Aug 2018 23:59:18 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -18850,6 +18850,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   &lt;li&gt;&lt;a href=&quot;/customview/touch-matrix-region&quot;&gt;安卓自定义View进阶 - 特殊控件的事件处理方案&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;/customview/multi-touch&quot;&gt;安卓自定义View进阶 - 多点触控详解&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;/customview/gestruedector&quot;&gt;安卓自定义View进阶 - 手势检测(GestureDecetor)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/customview/scalegesturedetector&quot;&gt;安卓自定义View进阶 - 缩放手势检测(GestureDecetor)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr /&gt;
