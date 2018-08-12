@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-08-12T18:06:49+08:00</updated>
+  <updated>2018-08-12T18:08:57+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -421,7 +421,14 @@ Rx 核心之一就是数据流，包括 Java8 中也有引入类似的流式思�
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;h2 id=&quot;0-前言&quot;&gt;0. 前言&lt;/h2&gt;
+    <content type="html">&lt;h3 id=&quot;关于作者&quot;&gt;关于作者&lt;/h3&gt;
+
+&lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;br /&gt;
+&lt;a href=&quot;http://weibo.com/GcsSloop/home&quot;&gt;微博&lt;/a&gt; | &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; | &lt;a href=&quot;http://www.gcssloop.com/&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0-前言&quot;&gt;0. 前言&lt;/h2&gt;
 
 &lt;p&gt;科技发展越来越快，手机也换的越来越频繁，有很多旧手机都被淘汰了，这些旧手机一般没什么用，也不能卖，毕竟手机中可能还存在着一些私人数据可能没有清空，因此这些旧手机就只能放在家里落灰了。&lt;/p&gt;
 
@@ -768,7 +775,7 @@ nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl tr
 
 &lt;p&gt;&lt;strong&gt;如果喜欢的话，欢迎打赏赞助一些服务器费用。&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;关于作者&quot;&gt;&lt;strong&gt;关于作者&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;关于作者-1&quot;&gt;&lt;strong&gt;关于作者&lt;/strong&gt;&lt;/h4&gt;
 
 &lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;/p&gt;
 
