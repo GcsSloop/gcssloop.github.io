@@ -5,9 +5,109 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 10 Aug 2018 12:32:50 +0800</pubDate>
-    <lastBuildDate>Fri, 10 Aug 2018 12:32:50 +0800</lastBuildDate>
+    <pubDate>Sun, 12 Aug 2018 16:45:15 +0800</pubDate>
+    <lastBuildDate>Sun, 12 Aug 2018 16:45:15 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
+    
+    
+      <item>
+        <title>雕虫晓技(八) Android与数据流的斗争</title>
+        <description>&lt;h2 id=&quot;android与数据流的斗争&quot;&gt;Android与数据流的斗争&lt;/h2&gt;
+
+&lt;p&gt;本文并没有什么实质性的内容，只是自己工作和学习这段时间的一些经验杂谈，仅从自己的角度阐述一下自己观察到的一些内容，可能并不全面，也不一定正确，仅供大家参考一下。&lt;/p&gt;
+
+&lt;p&gt;目前 Android 开发，从广义上来说可以划为前端的一部分，毕竟大部分 Android 开发所做的工作就是从服务器获取数据，将这些数据用合适的方式展示给用户，再把用户操作产生的数据传递给服务器。在这样的情境下 Android 开发所需要解决的一个核心问题就是数据的传递，如何把服务器与页面内容关联起来，并且保持同步。相信对于这一过程，每一个工程师都有自己的解决方案。这一个过程看似简单，但真正想要将其比较完美的实现，却也需要花费一番功夫。&lt;/p&gt;
+
+&lt;h3 id=&quot;蛮荒时代&quot;&gt;蛮荒时代&lt;/h3&gt;
+
+&lt;p&gt;在 Android 开发还未成熟，处于蛮荒时期的时候，没有成型方案作为参考，此时比较常见的做法就是在 Activity 里创建线程，在线程内发送网络请求，之后用 Handler 把请求结果传递到主线程，主线程收到信息后更新页面，这种方式缺陷是十分明显的，它会造成 Activity 十分臃肿，随着项目的发展会变成一团乱麻。&lt;/p&gt;
+
+&lt;h3 id=&quot;网络库&quot;&gt;网络库&lt;/h3&gt;
+
+&lt;p&gt;后来出现了诸多成型的网络的封装库，因此网络请求的核心逻辑就不在 Activity 中了，这为 Activity 减轻了不少负担，但是此时又一个问题出现了，那就是如何从请求库获取网络请求的返回结果，此时大多数网络库都采用了一个最容易想到的方案，那就是 Callback，Activity 发出请求时会得到一个 Callback，并通 Callback 回调得到最终的网络请求结果。&lt;/p&gt;
+
+&lt;h3 id=&quot;数据层&quot;&gt;数据层&lt;/h3&gt;
+
+&lt;p&gt;但是网络请求问题解决了，但是很快另一个问题又成了比较困扰的内容，例如：网络请求得到的结果并不能直接使用，需要进行一些数据的转换，又或者网络请求并不需太高的实时性，请求一次后需要缓存起来，避免多次重复请求。这样在 Activity 中就需要一些数据转换操作，或者进行一些数据库相关的操作，很快 Activity 又会变得臃肿起来。&lt;/p&gt;
+
+&lt;p&gt;为了避免在 Activity 中直接进行这些操作而变得臃肿，很多人不得不在网络请求和 Activity 之间封装一个数据层，Activity 向数据层请求数据，数据层根据需要从网络或者数据库获取数据并且对数据进行转换，然后交给 Activity。此时数据需要如何传递呢？&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Activity &amp;lt;--callbac-1-- 数据层 &amp;lt;--callback-2-- 网络请求
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;通常来说需要 Activity 向数据层发送请求时附带一个 Callback，而数据层直接向网络发出请求时又是另外一个 Callback，需要把数据从一个 Callback 传递到另一 Callback，当然这是对于一些比较简单的业务，如果业务更加复杂一点，可能会划分更多的层和节点，那么就不仅仅是两个 Callback 了，数据需要多在多个 Callback 之间流动，Callback 太多就会导致逻辑不是那么清晰，当项目大到一定程度时，里面的各种 Callback 就能把人绕晕。&lt;/p&gt;
+
+&lt;h3 id=&quot;eventbus&quot;&gt;EventBus&lt;/h3&gt;
+
+&lt;p&gt;为了解决错综复杂的 Callback 问题，EventBus 诞生了，它的核心其实就是发布订阅模式，当 Activity 需要获取一些信息时，发送一个事件(Event), 数据层接收到 Event 后执行相关操作，之后同样通过发送 Event 告诉 Activity 最终的结果。此时各个组件之间不需要再去关心各种错中复杂的数据传递方式，只需要把需要传递的数据包装成一个个的 Event 再通过 EventBus 发送出去，如果需要相关的事件的话，就在合适的位置注册一下监听该事件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/08-android-stream/EventBus-Publish-Subscribe.png&quot; alt=&quot;EventBus-Publish-Subscribe&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所谓事件总线，就是把所有的事件都通过一个地方进行传递，这个和计算机硬件上的总线原理类似，因此也就被称为“事件总线”，在我最初接触到这种思想时，确实也被惊艳了一下，这种方式在一定程度上解决了过多 Callback 的问题，让代码看起来更加简洁了。&lt;/p&gt;
+
+&lt;p&gt;但是这种方式也并不是完美无缺的，&lt;strong&gt;它的确让代码更加简洁了，但是它将数据传递的过程隐藏起来了，相当于切断了数据流的追踪线路，增大了数据流追踪的难度&lt;/strong&gt;，如果整个项目都是自己设计或者一开始就参与的问题倒是不大，但是如果是接手别人的项目是这样设计的，那么接手的人很可能会一脸懵逼。&lt;/p&gt;
+
+&lt;p&gt;例如：我需要当前的用户的信息，也知道通过哪个 Event 来接收这一信息，但是我发现接收到的信息有时是错误的，因此我需要找到发送该信息的位置并修改这一错误，这时就比较麻烦了，因为所有信息都是通过 EventBus 发送的，但我无法通过 EventBus 直接追踪到发送位置，因此我需要找到该 Event ，并追踪这个 Event 都被哪些地方使用了，然后从这些地方中筛选出时哪里发送了这个错误信息，对于一个庞大的项目来说，这一工作量无疑是巨大的，假若前人在多个地方都发送了这一个 Event，我则需要对所有发送过这个 Event 的地方都进行检查，这会浪费大量的工作时间。因此在实际的公司项目上我很少采用 EventBus 这一方案，尽管它很好用，但是这一点缺陷就足以致命。&lt;/p&gt;
+
+&lt;h3 id=&quot;数据流&quot;&gt;数据流&lt;/h3&gt;
+
+&lt;p&gt;正在我纠结到底如何传递数据时，Rx 技术方案就出现在了我的面前，Rx 的核心思想就是响应式编程，即&lt;strong&gt;一种面向数据流和变化传播的编程范式，数据更新是相关联的。&lt;/strong&gt; 这种思想和 Linux 中的管道也是类似的，数据从一个地方进入转换后输出，而这个输出恰好是另一段处理的输入，就这样把数据串联起来。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/08-android-stream/DataTransform.jpg&quot; alt=&quot;DataTransform&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这是一个简单的例子，将一个空白的圆通过两步转换变成我们所需要的样子，数据从一个位置流向另一个位置，并不断的变化。&lt;br /&gt;
+Rx 核心之一就是数据流，包括 Java8 中也有引入类似的流式思想。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;响应式这一思想并不算特别新颖，不过是这种思想近些年才被人用代码实现出来具备了商用能力而已，随着 RxJava 技术的成熟，目前我参与的项目中所有的数据获取基本都是通过 RxJava 进行处理的。并且基于 RxJava 提供的强大操作符和线程调度能力，确实也算解决了一大难题。&lt;/p&gt;
+
+&lt;p&gt;相比于 EventBus 这种形式，这种方案最重要的还是数据流的可追踪性，还是上面的例子，如果我发现了最终的结果有错误，那么我只需要跟随着这条数据链不断的向上追踪，并逐一环节的进行检查即可，很快就能找到问题的根源所在。就目前而言，这种方式还是不错的，尤其是配合 Java8 的一些新特性使用，相当爽快。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;如果想要了解这一思想的运用方式，个人推荐看 《RxJava的官方文档》和 《Java8 实战》，看完这些基本就可以理解响应式编程中数据流这一思想了。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;livedata&quot;&gt;LiveData&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;LiveData 是 Google 最近推出的一种技术方案，它需要配合 Lifecycle 来使用，它解决的问题核心不是数据传输的问题，而是生命周期。&lt;/strong&gt;我们都知道网络传输是比较慢的，而且具有不确定性，因此 Android 不允许其在主线程中执行，必须另开线程，在线程中获得结果后通过一些方式将结果告诉主线程，主线程并根据这些信息进行更新，正是因为网络返回时间的不确定性导致了一个问题的发生，当网络结果返回时，可能需要这一结果的页面已经不存在了。&lt;/p&gt;
+
+&lt;p&gt;例如：在我打开一个 activity 时发起了一个网络，网络请求的结果会更新 activity 里面的内容，但是在我发起请求后我不想要这个结果了，直接点击返回键把 activity 关闭了，如果我在关闭 activity 时忘记了取消这次网络请求，那么它在一段时间后就可能会返回结果，并在返回结果里面尝试去更新一些已经被销毁的 View，就会产生异常，导致程序崩溃。&lt;/p&gt;
+
+&lt;p&gt;为了避免这些问题的出现我们不得不在代码里面添加很多安全检查，每当有类似的情况出现都需要安全检查，于是核心的业务逻辑就可能被淹没在了诸多的安全检查中。&lt;/p&gt;
+
+&lt;p&gt;为了解决这一问题，Lifecycle 和 LiveData 就出现了，其实在 Lifecycle 出现之前，就有采用类似思想的技术方案出现，但是 Lifecycle 是 Google 官方推出的内容，在 support 包里面的很多组件已经默认支持了 Lifecycle，因此使用 Lifecycle 和 LiveData 会更加的简便。&lt;/p&gt;
+
+&lt;p&gt;在引入的 LiveData 后，基本的项目结构就变成下面这样了：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gebug/08-android-stream/BasicStructure.jpg&quot; alt=&quot;BasicStructure&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这只是一个简略的结构，在实际的项目中使用时肯定是比这个要复杂的，需要根据具体的业务需求选择不同的技术方案。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在经过上述的几次演变后，Activity 的工作量大大的减轻了，网络、数据库、一部分安全检查逻辑都被从 Activity 中移除了，Activity 只需要绑定一下 View，并控制一下显示内容就可以了，因此会看起来特别的简洁，如果配合 Butterknife 和 Dagger2 来使用的话，会更加简洁，不过这两个内容并不在本文的讨论范围内，因此也就不展开叙述了。&lt;/p&gt;
+
+&lt;p&gt;以上提到的相关技术，并没有详细的说明，若比较感兴趣，可以自己查询关键词去详细的了解一下。&lt;/p&gt;
+
+&lt;h3 id=&quot;结语&quot;&gt;结语&lt;/h3&gt;
+
+&lt;p&gt;马上结束了，顺便插一个题外话，随着 Android 相关从业人员的大量增加，相关的技术发展也是突飞猛进，几乎每个一段时间都有新的技术跳到我们面前，例如近两年蓬勃发展的 MVP 和 MVVM 架构，Kotlin，Flutter 等技术，很多人感觉自己在被技术追着走一样，似乎一天不学习，明天就赶不上发展形势了。在这种情况下，有些人被逼不断的去学习这些新技术，不断的储备，未雨绸缪。也有人在主动的追逐着这些新技术，每当新技术出现后，就迫不及待的想要把这些技术用到现有的项目中。&lt;/p&gt;
+
+&lt;p&gt;我个人觉得被迫学习或者疯狂追逐都不是一种很好的状态，每当一项新技术的出现，必然是解决了一些旧有技术无法解决的痛点，在新技术出现时没必要第一时刻就去学习如何使用它，但需要先查一下它的来龙去脉，它是为何而来，解决了哪些问题，相比于之前的技术有何优点，缺陷又在哪里。只有在了解了这些情况之后，再根据自身情况决定是否需要学习，盲目的学习可能会浪费掉自己的时间，同样，根据公司的项目需求再决定是否应该引入这项技术，有时引入一项不合适的技术方案反而会拖慢整体的进度。&lt;/p&gt;
+
+&lt;p&gt;最后，以上的一些观点仅为自己观察的内容，由于自己从业时间有限，接触到的项目自然也是有限的，所以上述理论并不能适合所有的 Android 项目，具体情况还需要具体分析才行。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 12 Aug 2018 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/gebug/android-stream</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/gebug/android-stream</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>GeBug</category>
+        
+      </item>
+    
     
     
       <item>
