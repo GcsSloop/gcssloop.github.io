@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-09-01T14:16:31+08:00</updated>
+  <updated>2018-09-01T14:18:42+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -16,7 +16,7 @@
   <entry>
     <id>http://www.gcssloop.com/gebug/netty-private-protocol</id>
     <link type="text/html" rel="alternate" href="http://www.gcssloop.com/gebug/netty-private-protocol"/>
-    <title>雕虫晓技(九) Netty与私有协议</title>
+    <title>雕虫晓技(九) Netty与私有协议框架</title>
     <updated>2018-09-01T00:00:00+08:00</updated>
     <author>
       <name>Karl Luo</name>
