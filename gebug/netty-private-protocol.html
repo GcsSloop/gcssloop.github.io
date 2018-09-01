@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>雕虫晓技(九) Netty与私有协议</title>
+  <meta name="description" content="Netty与私有协议">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Android, rxjava, netty, protocol">
+  <meta name="关键字" content="Android, rxjava, netty, protocol">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="雕虫晓技(九) Netty与私有协议">
+  <meta name="twitter:description" content="Netty与私有协议">
+  <meta name="twitter:keywords" content="Android, rxjava, netty, protocol">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="雕虫晓技(九) Netty与私有协议">
+  <meta property="og:description" content="Netty与私有协议">
+  <meta name="og:keywords" content="Android, rxjava, netty, protocol">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/gebug/netty-private-protocol">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+  <!-- Google Ad -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2767831356529421",
+      enable_page_level_ads: true
+    });
+  </script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/customview/CustomViewIndex" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="友链">友链</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2018-09-01 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-09-01</time> &#8226; <span class="post-meta__tags tags">Android</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">雕虫晓技(九) Netty与私有协议</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="关于作者">关于作者</h3>
+
+<p>GcsSloop，一名 2.5 次元魔法师。<br />
+<a href="http://weibo.com/GcsSloop/home">微博</a> | <a href="https://github.com/GcsSloop">GitHub</a> | <a href="http://www.gcssloop.com/">博客</a></p>
+
+<p><img src="https://ww3.sinaimg.cn/large/006tNc79gy1fl8bemmtmxj30p005k406.jpg" alt="" /></p>
+
+<h2 id="1前言">1.前言</h2>
+
+<p><strong><a href="http://android.demo.gcssloop.com/C0DE_Sample.zip">【本文示例源码下载】</a></strong></p>
+
+<p>在本系列的前一篇，说了 Android 与数据流的斗争，主要是 Android 前端自身处理方案。这一篇则是涉及一些前后端方面的数据传输的问题。</p>
+
+<p>通常来说，Android 和服务端之间的数据传输都会采用标准协议规范，且大多数是基于 HTTP 协议的，例如在Android端最常用的 Retrofit，则是 RESTful 风格的一套网络框架。虽然这是我们最常用的框架之一，但是很多人对该框架了解并不是特别深入，只知道用它可以和服务器进行交互，但是对于它在网络交互中到底处于哪一位置则比较模糊，下面就带大家看一下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>+=================================+
+|    协议    | ---&gt; |   对应的工具  |
++=================================+
+      |                    |
+      ∇                    ∇
++-----------+      +--------------+
+|  RESTful  | ---&gt; |   Retrofit   |
++-----------+      +--------------+
+      |                    |
+      ∇                    ∇
++-----------+      +--------------+
+|   HTTP    | ---&gt; |    OkHttp    | 
++-----------+      +--------------+
+     |                     |
+     ∇                     ∇
++-----------+       +-------------+
+|  TCP/IP   | ---&gt;  | Socket+Okio |
++-----------+       +-------------+
+     |                     |
+     ∇                     ∇
++-----------+       +-------------+
+| 更底层协议  | ---&gt;  |  更底层工具  |
++-----------+       +-------------+
+</code></pre>
+</div>
+
+<p>在上面，左侧是对应的一些协议规范，右侧则是对这些协议规范实现的相关工具，当然任何一套规范都有多种实现工具可以用，上面只是在 Android 平台最常用的一套实现方案而已。</p>
+
+<p><strong>相信学过计算机网络相关的同学都知道“OSI网络七层模型”和“TCP/IP五层模型”，我们的网络正是建立在这些模型之上的，而这些模型实际上是一套又一套的规范。</strong> 这些规范与语言无关，与平台设备无关，不论你用什么设备，使用什么语言进行开发，只要遵守这一套规范就可以接入现有的网络。正因如此，我们现在的各种设备才可以通过网络进行相互的通信，交流。</p>
+
+<h2 id="2标准协议与私有协议">2.标准协议与私有协议</h2>
+
+<p>上面是一些标准协议，即一种公开的，大家都采用的一种协议，在目前的工作中，我们大部分情况也会采用标准协议，因为标准协议都会有成熟的库可以用，可以快速的进行业务开发，而不用纠结各种底层通信的各种问题。</p>
+
+<h3 id="21-私有协议适用场景">2.1 私有协议适用场景</h3>
+
+<p>凡事都有例外，标准协议固然好，但在某些特定的场景下却不一定合适。</p>
+
+<p><strong>性能限制：</strong>我们需要和一些智能设备(物联网设备)直接进行通信，受限于这些设备的性能功耗等问题，无法承载部分标准协议库过大的内存消耗。<br />
+<strong>实时性要求：</strong>又或者我们本身需要传输的数据就很简单，而且需要较高的实时性，而部分标准协议每一次传输都需要携带很多的冗余内容，这明显会降低数据解析速度。<br />
+<strong>安全性：</strong>还有另外一个原因则是为了安全，私有协议固然也可能会被逆向破解，但由于私有协议的保密性，破解起来会更加麻烦，也更耗费时间，如果发现被破解了，更新一下协议规范就可以直接让之前的破解失效。</p>
+
+<h3 id="22-私有协议缺陷">2.2 私有协议缺陷</h3>
+
+<p>当然，私有协议也并非全是好处，不然目前也不可能是标准协议的天下了。首先还是安全性，其次开发速度，当然第三方对接也是大问题。<br />
+<strong>安全性：</strong>私有协议虽然因为规范保密而让其显得“更安全”，但规范一旦被泄露，安全性也就无从谈起了。部分协议设计者觉得协议是私有的，就在安全设计方面稍为欠缺了一点考虑，导致协议规范一旦被泄露，内容也就跟着被泄露了。相比之下，标准协议固然都是使用同一套标准，但是其安全性却更高一筹，对于需要保密的内容，在你知道协议规范的前提下依旧是难以破解的。<br />
+<strong>开发速度：</strong> 私有协议就意味着没有标准库可以使用，需要完全自己进行开发和解析。这样无疑会降低前期的开发速度。而开发速度对于企业来说则意味着大量的人力成本，对于部分企业而言，是不愿意承担这样的成本的。<br />
+<strong>第三方对接：</strong> 现在很少有企业会单独运作，多多少少都会和其他的企业有所业务往来，因此双方的部分系统就需要考虑对接问题，如果双方企业均采用私有协议，无疑还是会加大对接的成本，对企业来说可能并不是一件好事。</p>
+
+<h2 id="3-私有协议开发">3. 私有协议开发</h2>
+
+<p>作为一名 Android 程序员，虽然用到私有协议的机会可能比较少，但是也有碰到需要用的时候，既然用到了那也不能虚，毕竟技术学习永无止境。我最近在公司也就遇上的需要用到私有协议的地方，因此也对私有协议了解了一下，学习了一下如何封装私有协议。</p>
+
+<p>封装协议不比调用网络库，自己封装协议需要考虑的东西又很多，例如：数据包格式，数据包的拆包和封包，如何保持长连接，掉线如何自动重连，多个线程之间通信的处理方案，如何与前端隔离，即调用过程透明化。这么说吧，封装一个协议很简单，但是如果想要封装好则比较困难的。下面带大家实现一个自定义协议，并将其封装起来。</p>
+
+<p>这里主要使用到了 Netty 框架和 RxJava 相关技术，有关 Netty 相关的技术个人推荐看 《Netty 实战》这本书，当然自己去搜索网络博客也是可以的，对于 Netty 的基本使用方法，不在本文范围之内。</p>
+
+<h3 id="31-私有协议规范c0de协议">3.1 私有协议规范(C0DE协议)</h3>
+
+<p><strong>由于是简单教程向，协议自然也不能设计的太复杂，下面带大家实现一个我自定义的 <code class="highlighter-rouge">C0DE</code> 协议。 是 C0DE，不是 CODE，里面是数字 0。</strong></p>
+
+<h4 id="311-基本包结构">3.1.1 基本包结构</h4>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>帧类型</td><td>确认码</td><td>内容长度</td><td>内容，可能没有</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<ul>
+  <li>0xC0：表示一帧的开始</li>
+  <li>帧类型：表示该帧的功能(不可以与帧头、帧尾重复)</li>
+  <li>确认码：该帧的唯一标记，用于区分不同的帧，每一帧的确认码都应该不同，服务端给客户的响应，确认码应与客户端发送的确认码相同。</li>
+  <li>内容长度：内容区域的长度，可能为0</li>
+  <li>内容：存放的内容，长度不定。</li>
+  <li>CRC校验：使用  CRC-16/XMODEM 标准进行校验，校验范围：帧类型、确认码、内容长度和内容。用于验证内容的完整性。</li>
+  <li>0xDE：表示一帧的结束。</li>
+</ul>
+
+<p><strong>转义：</strong></p>
+
+<p>为了防止内容区域出现于帧头、帧尾相同的内容，导致无法准确的获取一帧的内容，所以设立了的转义规则，在帧头和帧尾之间遇到特殊字段都需要进行转义。防止出现冲突。</p>
+
+<ul>
+  <li>0xC0  -&gt; 0xAD 0x00</li>
+  <li>0xDE -&gt; 0xAD 0x01</li>
+  <li>0xAD -&gt; 0xAD 0x02</li>
+</ul>
+
+<blockquote>
+  <p><strong>注意：</strong> 该帧结构没有设计加密，是明文格式，在实际运用中需要对内容区域进行加密，加密方案则需要前后端采用统一的标准。</p>
+</blockquote>
+
+<h4 id="312-心跳命令">3.1.2 心跳命令</h4>
+
+<p>由于网络环境比较复杂，如果客户端和服务端长时间没有联系的话，就会可能被中间的传输设备默认进行断开，如果需要保持长连接的话，就需要发送一些空数据包作为心跳数据，以避免被中间设备断开。</p>
+
+<p><strong>客户端发送帧：</strong></p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>0x00</td><td>确认码</td><td>0</td><td>无</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<p><strong>服务端响应帧：</strong></p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>0x00</td><td>确认码</td><td>0</td><td>无</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<h4 id="313-2233命令">3.1.3 2233命令</h4>
+
+<p>2233 由客户端发送一个 22 命令，服务端收到后回复一个 33，该命令没有内容。</p>
+
+<p><strong>客户端发送帧：</strong></p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>0x22</td><td>确认码</td><td>0</td><td>无</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<p><strong>服务端响应帧：</strong></p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>0x33</td><td>确认码</td><td>0</td><td>无</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<h4 id="312-内容命令">3.1.2 内容命令</h4>
+
+<p>客户端发送一段内容，服务端收到后返回另一段内容，例如：当客户端发送内容为 <code class="highlighter-rouge">Fu</code> 时，服务端收到会返回一个 <code class="highlighter-rouge">ck</code>.</p>
+
+<p><strong>客户端发送帧：</strong></p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>0x01</td><td>确认码</td><td>内容长度</td><td>内容</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<p><strong>服务端响应帧：</strong></p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0x01</td><td>0x01</td><td>确认码</td><td>内容长度</td><td>内容</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<p>最终定义了 3 条指令，下面就看如何将这些指令封装起来。</p>
+
+<h3 id="32-协议封装">3.2 协议封装</h3>
+
+<p><strong>这里我们使用 Netty(4.0.56版本) 来做服务端与客户端，其中客户端与以调用者之间则使用 RxJava(2.1.16版本)，使用 intelliJ IEDA 作为开发工具。</strong>由于是使用 Java 语言进行开发的，你可以将其直接移植到 Android 项目中，而不用更改代码内容。</p>
+
+<p>你可以在文初或者文末下载到相关的 IntelliJ 工程代码，本文限于篇幅并不会将所有的代码内容都讲解到，如果有疑惑，可以去直接查看源代码。</p>
+
+<blockquote>
+  <p>有人可能会疑惑，Netty 主要是用 java 开发的，那么服务端和 Android 都是用 java 就可以了，但是如果需要在 iOS 端使用怎么办？协议本身就是与平台和语言无关的，iOS 上也有网络交互逻辑，只需要按照协议规范发送数据就可以了，不是必须使用 Netty 框架。当然，由于我本身对 iOS 开发了解有限，因此本文也就没有 iOS 相关的内容了。</p>
+</blockquote>
+
+<p>既然是要将私有协议封装起来，那么就要有一定的结构，最终设计出来的结构如下：</p>
+
+<p><strong>服务端：</strong></p>
+
+<p><img src="/assets/gebug/09-netty-private-protocol/Server_arch.jpg" alt="Server_arch" /></p>
+
+<p>服务端设计的结构比较简单，网络数据流在经过解码器之后转化为 Packet，各个 Packet 通过 Netty 分发到对应的  Handler 进行处理，Handler 处理结束后，将需要发送到内容封装成 Packet 发送，Packet 通过 Encoder 转换为 byte[]， 然后通过网络送到客户端。</p>
+
+<p><strong>客户端：</strong></p>
+
+<p><img src="/assets/gebug/09-netty-private-protocol/Client_arch.jpg" alt="Client_arch" /></p>
+
+<blockquote>
+  <p>绿色的线条表示发送的数据经过的主要路径。</p>
+
+  <p>橙色线条表述服务器返回结果数据经过的主要路径。</p>
+</blockquote>
+
+<p>可以看出，客户端的设计相对来说要复杂更多，这是因为客户端需要考虑到对图形化界面对支持和调用的透明化(即上层调用者完全无需知道底层的实现方案和逻辑)。除此之外，由于网络的不确定性，接受到的返回结果顺序未必和发送顺序一致，因此就需要对接收到的结果进行甄别，判断是那一次请求的返回结果(Frame里面的确认码就是用于区分返回结果属于哪一请求的)。因此，客户端的逻辑设计就变得更加复杂，不过得益于 Netty 良好的设计，这种复杂程度还是可以接受的。</p>
+
+<p>上层调用者只需关心 API 层都提供了哪些方法可以使用，而 API 调用层只和 Service 有限的接口进行交互，最终和服务器交互的一切细节都被隐藏在 Service 中。</p>
+
+<p>Service 不仅负责两个输入输出队列的基本管理，还需要负责保持与服务端的长连接，以及断线重连机制。尽管需要处理的内容稍微有点多，但是在 Netty 框架强力的支持下，只用了不到 400 行代码就实现了所有的功能。</p>
+
+<p>管理总览先看这么多，下面看一下里面的部分实现细节。</p>
+
+<h4 id="321-工具类">3.2.1 工具类</h4>
+
+<p>项目中主要是工具类有两个，一个是 CRC 校验工具，另一个则是 byte 数组和其他数据相互转换的工具。</p>
+
+<p><strong>CRCUtils：</strong> CRC 校验存在多个不同的标准，因此服务端与客户端使用标准必须统一，我这里采用了 CRC-16/XMODEM  标准。关于 CRC 校验工具的代码网上随处可见，我这里也只是根据网络代码简单封装了一下，具体可以看项目中。</p>
+
+<p>**ByteUtils： ** 由于通过网络传输的数据都是 byte 数组，所有的数据都绕不开数据转换过程，这里也只是简单的封装了一些常用的转换方法，这些方法都是随处可以查到的，详情依旧见项目中。</p>
+
+<h4 id="322-基础数据包">3.2.2 基础数据包</h4>
+
+<p>由于我们最终发送的任何数据都是 <code class="highlighter-rouge">byte[]</code> 我可以直接把需要发送的数据直接按照规范写到 <code class="highlighter-rouge">byte[]</code> 然后发送出去，但是呢，这样直接写数据显然是很不直观的，例如：<code class="highlighter-rouge">C0 00 00 00 00 01 00 00 00 00 AA 51 DE</code> 就是一个简单的心跳数据包，但是谁能一眼看出来这是个心跳包呢？这样显然是不合适的。因此需要将其封装为数据包，如用 <code class="highlighter-rouge">GHeartPacket</code> 表示心跳数据包，需要心跳数据的时候直接创建一个 <code class="highlighter-rouge">GHeartPacket</code> 发送，这样会直观很多，而且不容易出错。</p>
+
+<p>在封装之前，先观察一下协议的基本结构：</p>
+
+<table class="tableizer-table" align="center">
+<thead>
+    <tr class="tableizer-firstrow">
+        <th colspan="4">帧头</th><th>内容</th><th colspan="2">帧尾</th>
+    </tr>
+</thead>
+<tbody>
+ <tr><td>1 byte</td><td>1 byte</td><td>4 byte</td><td>4 byte</td><td>-</td><td>2 byte</td><td>1 byte</td></tr>
+ <tr><td>0xC0</td><td>帧类型</td><td>确认码</td><td>内容长度</td><td>内容，可能没有</td><td>CRC 校验码</td><td>0xDE</td></tr>
+</tbody>
+</table>
+
+<p>首先，帧头和帧尾是固定不变的，内容长度 和 CRC校验码是计算出来的，实际上我们各种数据包主要变化的内容就是 帧类型，确认码和内容而已，因此我们可以将不变的或者可以计算得出的内容抽象出来，作为基础的数据包，而最终的数据包，继承自该基础数据包，并提供变动的内容即可。</p>
+
+<p><strong>基础的数据包提供一个 getFrameBytes() 的抽象方法，该方法最终生成的数据就是通过网络发送的数据，同时提供数据打包，数据转义和反转义功能</strong>，最终看起来是这样子：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 基础发送数据包
+ * 基本的帧结构
+ * +----------+----------+--------------------------------------------------------
+ * |  大小    |  固定值   |  摘要
+ * +----------+----------+--------------------------------------------------------
+ * | 1 bytes  | 0xC0     |  帧起始符
+ * | 1 bytes  |          |  帧类型
+ * | 4 bytes  |          |  确认码
+ * | 4 bytes  |          |  内容长度
+ * |          |          |  内容
+ * | 2 bytes  |          |  校验码 CRC 校验
+ * | 1 bytes  | 0xDE     |  帧结束符
+ * +----------+----------+--------------------------------------------------------
+ * 加密范围:帧类型+确认码+内容长度+内容.
+ */</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Packet</span> <span class="o">{</span>
+    <span class="c1">//--- 通用数据 ---</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">HEAD</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mi">0</span><span class="n">xC0</span><span class="o">;</span>    <span class="c1">// 帧头</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">TAIL</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mi">0</span><span class="n">xDE</span><span class="o">;</span>    <span class="c1">// 帧尾</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">REVISE_CODE</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mi">0</span><span class="n">xAD</span><span class="o">;</span>    <span class="c1">// 转义码</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">REVISE_HEAD</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mh">0x00</span><span class="o">;</span>    <span class="c1">// 头部</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">REVISE_TAIL</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mh">0x01</span><span class="o">;</span>    <span class="c1">// 尾部</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">REVISE_SELF</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mh">0x02</span><span class="o">;</span>    <span class="c1">// 自身</span>
+    <span class="c1">//--- 通用数据结束 ---</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">mCode</span><span class="o">;</span>  <span class="c1">// 响应吗，一帧的唯一标识符号</span>
+
+    <span class="kd">public</span> <span class="nf">Packet</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 创建一帧同时设置响应码
+     *
+     * @param code 响应码
+     */</span>
+    <span class="kd">public</span> <span class="nf">Packet</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mCode</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 获取帧数据(byte[]), 该数据可以直接通过 TCP 协议进行发送.
+     *
+     * @return 帧数据
+     */</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getFrameBytes</span><span class="o">();</span>
+
+    <span class="cm">/**
+     * 原始数据转换到帧数据,CRC校验,头部和尾部以及相关信息.
+     *
+     * @param type 帧类型
+     * @param code 确认码
+     * @param data 原始数据
+     * @return 帧数据
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">packet</span><span class="o">(</span><span class="kt">byte</span> <span class="n">type</span><span class="o">,</span> <span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">data_len</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">data_len</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">total_len</span> <span class="o">=</span> <span class="n">data_len</span> <span class="o">+</span> <span class="mi">11</span><span class="o">;</span>                  <span class="c1">// 总长度</span>
+        <span class="n">ByteBuffer</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">ByteBuffer</span><span class="o">.</span><span class="na">allocate</span><span class="o">(</span><span class="n">total_len</span><span class="o">);</span>   <span class="c1">// 分配一个合适大小的区域</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>                               <span class="c1">// 添加帧类型</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>                            <span class="c1">// 添加响应码</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">putInt</span><span class="o">(</span><span class="n">data_len</span><span class="o">);</span>                        <span class="c1">// 数据长度</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">buffer</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>                           <span class="c1">// 添加数据</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 获取 CRC 数据</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">flip</span><span class="o">();</span>                                  <span class="c1">// 准备读取数据</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">mark</span><span class="o">();</span>                                  <span class="c1">// mark 指针位置, 防止读取后该部分数据被清除</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">crc_data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">buffer</span><span class="o">.</span><span class="na">limit</span><span class="o">()];</span>     <span class="c1">// 分配空间(之前所有的数据都参与 CRC 校验)</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">crc_data</span><span class="o">);</span>                           <span class="c1">// 获取数据</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>                                 <span class="c1">// 重置指针位置</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">compact</span><span class="o">();</span>                               <span class="c1">// 切换到写状态</span>
+        <span class="kt">short</span> <span class="n">crc</span> <span class="o">=</span> <span class="n">CRCUtils</span><span class="o">.</span><span class="na">getCRC</span><span class="o">(</span><span class="n">crc_data</span><span class="o">);</span>          <span class="c1">// 计算 CRC</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="na">putShort</span><span class="o">(</span><span class="n">crc</span><span class="o">);</span>                           <span class="c1">// 添加 CRC</span>
+
+        <span class="c1">// 数据转义</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span> <span class="o">=</span> <span class="n">revise</span><span class="o">((</span><span class="kt">byte</span><span class="o">[])</span> <span class="n">buffer</span><span class="o">.</span><span class="na">flip</span><span class="o">().</span><span class="na">array</span><span class="o">());</span>
+
+        <span class="c1">// 添加头尾</span>
+        <span class="n">ByteBuffer</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">ByteBuffer</span><span class="o">.</span><span class="na">allocate</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="n">frame</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">HEAD</span><span class="o">);</span>
+        <span class="n">frame</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+        <span class="n">frame</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">TAIL</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="o">(</span><span class="kt">byte</span><span class="o">[])</span> <span class="n">frame</span><span class="o">.</span><span class="na">flip</span><span class="o">().</span><span class="na">array</span><span class="o">();</span>          <span class="c1">// 返回最终结果</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 转义
+     *
+     * @param raw 原始数据
+     * @return 转义后数据
+     * 0xC0 -&gt; 0xAD 0x00
+     * 0xDE -&gt; 0xAD 0x01
+     * 0xAD -&gt; 0xAD 0x02
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">revise</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">raw</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ByteBuffer</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">ByteBuffer</span><span class="o">.</span><span class="na">allocate</span><span class="o">(</span><span class="n">raw</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">byte</span> <span class="n">b</span> <span class="o">:</span> <span class="n">raw</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="n">HEAD</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_CODE</span><span class="o">).</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_HEAD</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="n">TAIL</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_CODE</span><span class="o">).</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_TAIL</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="n">REVISE_CODE</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_CODE</span><span class="o">).</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_SELF</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kt">int</span> <span class="n">ret_len</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">position</span><span class="o">();</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">ret_len</span><span class="o">];</span>
+        <span class="n">temp</span><span class="o">.</span><span class="na">flip</span><span class="o">();</span>
+        <span class="n">temp</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ret</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 还原,反转义
+     *
+     * @param raw 转义后的数据
+     * @return 原始数据
+     * 0xAD 0x00 -&gt; 0xC0
+     * 0xAD 0x01 -&gt; 0xDE
+     * 0xAD 0x02 -&gt; 0xAD
+     * @throws Exception 发现不符合转义要求的数据，抛出异常，表明转义失败
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">revert</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">raw</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ByteBuffer</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">ByteBuffer</span><span class="o">.</span><span class="na">allocate</span><span class="o">(</span><span class="n">raw</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">raw</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Byte</span> <span class="n">b</span> <span class="o">=</span> <span class="n">raw</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="n">REVISE_CODE</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>
+                <span class="kt">byte</span> <span class="n">type</span> <span class="o">=</span> <span class="n">raw</span><span class="o">[</span><span class="n">i</span><span class="o">];</span> <span class="c1">// 此处发生越界异常</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="n">REVISE_HEAD</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">HEAD</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="n">REVISE_TAIL</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">TAIL</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="n">REVISE_SELF</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">REVISE_CODE</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"revert error!"</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kt">int</span> <span class="n">ret_len</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">position</span><span class="o">();</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">ret_len</span><span class="o">];</span>
+        <span class="n">temp</span><span class="o">.</span><span class="na">flip</span><span class="o">();</span>
+        <span class="n">temp</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ret</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">mCode</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mCode</span> <span class="o">=</span> <span class="n">CodeUtils</span><span class="o">.</span><span class="na">getCode</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">mCode</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCode</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mCode</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//--- 接收或者发送时间 ---</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateTime</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getTime</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>通过数据抽象处理后，其他的数据包就比较容易实现了，例如：</p>
+
+<p><strong>心跳数据包：</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GHeartPacket</span> <span class="kd">extends</span> <span class="n">Packet</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">FRAME_TYPE_HEART</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mh">0x00</span><span class="o">;</span>    <span class="c1">// 心跳</span>
+
+    <span class="kd">public</span> <span class="nf">GHeartPacket</span><span class="o">()</span> <span class="o">{}</span>
+
+    <span class="kd">public</span> <span class="nf">GHeartPacket</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span> <span class="kd">super</span><span class="o">(</span><span class="n">code</span><span class="o">);</span> <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getFrameBytes</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">packet</span><span class="o">(</span><span class="n">FRAME_TYPE_HEART</span><span class="o">,</span> <span class="n">getCode</span><span class="o">(),</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>内容数据包：</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GContentPacket</span> <span class="kd">extends</span> <span class="n">Packet</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">byte</span> <span class="n">FRAME_TYPE_CONTENT</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="mh">0x01</span><span class="o">;</span>  <span class="c1">// 内容</span>
+
+    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">GContentPacket</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">GContentPacket</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">Charset</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"UTF-8"</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">GContentPacket</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">GContentPacket</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">Charset</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"UTF-8"</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getFrameBytes</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">packet</span><span class="o">(</span><span class="n">FRAME_TYPE_CONTENT</span><span class="o">,</span> <span class="n">getCode</span><span class="o">(),</span> <span class="n">content</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">content</span><span class="o">)</span> <span class="k">return</span> <span class="s">""</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="n">Charset</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"UTF-8"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>有了基础数据包之后，利用基础数据包提供的方法，再去封装其他的数据包就十分容易了，上面以两类数据包举例，可以拓展任何其他类型的数据包。</p>
+
+<h4 id="323-数据包的编解码">3.2.3 数据包的编解码</h4>
+
+<p><strong>编码器：</strong></p>
+
+<p>由于我们封装的 Packet 已经自带了编码功能，因此编码器就非常简单了，首先继承 <code class="highlighter-rouge">MessageToByteEncoder</code> 然后调用 packet 的  <code class="highlighter-rouge">getFrameBytes()</code> 方法就可以了。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 作用: TCP 数据帧编码器
+ * 作者: GcsSloop
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TCPFrameEncoder</span> <span class="kd">extends</span> <span class="n">MessageToByteEncoder</span><span class="o">&lt;</span><span class="n">Packet</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">encode</span><span class="o">(</span><span class="n">ChannelHandlerContext</span> <span class="n">cxt</span><span class="o">,</span> <span class="n">Packet</span> <span class="n">in</span><span class="o">,</span> <span class="n">ByteBuf</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">writeBytes</span><span class="o">(</span><span class="n">in</span><span class="o">.</span><span class="na">getFrameBytes</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>解码器：</strong></p>
+
+<p>然而解码就比较麻烦了，不过根据协议一步步的处理也是可以的，解码主要有以下步骤：</p>
+
+<ol>
+  <li>根据帧头和帧尾准确获得一帧的内容数据。</li>
+  <li>判断内容数据长度是否符合要求。</li>
+  <li>对内容数据进行反转义。</li>
+  <li>进行 CRC 校验，确认内容完整性。</li>
+  <li>对内容尝试进行分解(得到帧类型，确认码，数据)。</li>
+  <li>将分解后的数据交给子类进行处理。</li>
+</ol>
+
+<blockquote>
+  <p>注意：一旦涉及到 TCP 传输数据，肯定绕不开 TCP 粘包和拆包问题，通常来说一个数据包使用一个 TCP 包来发送，发生粘包就是两个较小的数据包合并为一个 TCP 包同时发送，拆包则是一个较大的数据包被拆分为多个小的 TCP 包进行发送，如果对粘包和拆包问题处理不当，会导致数据解析出现问题。</p>
+
+  <p>不过拆包和粘包问题在这里是不会有影响的：<br />
+第一，我们有明确的帧头和帧尾表明界限，解决了粘包问题。<br />
+第二，Netty 默认已经处理了拆包问题，你可以注意一下 decode 中调用了 <code class="highlighter-rouge">skipBytes</code> 用于跳过已经处理过的数据，如果没有处理的数据在下次回调 decode 方法时还会存在。</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ * 作用: 基础 TCP 数据帧解码器, 只对基本结构进行解析, 具体需要转换为什么类型,交由子类进行处理
+ * 作者: GcsSloop
+ * 摘要: 基本的帧结构
+ * +----------+----------+--------------------------------------------------------
+ * |  大小    |  固定值   |  摘要
+ * +----------+----------+--------------------------------------------------------
+ * | 1 bytes  | 0xC0     |  帧起始符
+ * | 1 bytes  |          |  帧类型
+ * | 4 bytes  |          |  确认码
+ * | 4 bytes  |          |  内容长度
+ * |          |          |  内容
+ * | 2 bytes  |          |  校验码 CRC 校验
+ * | 1 bytes  | 0xDE     |  帧结束符
+ * +----------+----------+--------------------------------------------------------
+ * 加密范围:帧类型+确认码+内容长度+内容.
+ */</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseTCPFrameDecoder</span> <span class="kd">extends</span> <span class="n">ByteToMessageDecoder</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">decode</span><span class="o">(</span><span class="n">ChannelHandlerContext</span> <span class="n">channelHandlerContext</span><span class="o">,</span> <span class="n">ByteBuf</span> <span class="n">in</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ByteBuffer</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nioBuffer</span><span class="o">();</span>
+        <span class="kt">byte</span> <span class="n">temp</span><span class="o">;</span>
+        <span class="n">ByteBuffer</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">ByteBuffer</span><span class="o">.</span><span class="na">allocate</span><span class="o">(</span><span class="n">buffer</span><span class="o">.</span><span class="na">limit</span><span class="o">());</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">buffer</span><span class="o">.</span><span class="na">position</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">buffer</span><span class="o">.</span><span class="na">limit</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="o">(</span><span class="n">buffer</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="o">&amp;</span> <span class="mi">0</span><span class="n">xFF</span><span class="o">);</span>
+            <span class="c1">// 发现开始位置标识(尝试获取一帧的数据)</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">==</span> <span class="n">HEAD</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">buffer</span><span class="o">.</span><span class="na">position</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">buffer</span><span class="o">.</span><span class="na">limit</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="o">(</span><span class="n">buffer</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="o">&amp;</span> <span class="mi">0</span><span class="n">xFF</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="n">Packet</span><span class="o">.</span><span class="na">TAIL</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">frame</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">temp</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="c1">// 如果 temp != TAIL, 说明该数据帧不是完整的，无需解析</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="n">Packet</span><span class="o">.</span><span class="na">TAIL</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="c1">// 说明该帧数据是完整的，可以尝试进行解析，此时 frame 中存储的是去除了帧头和帧尾的数据</span>
+                <span class="n">in</span><span class="o">.</span><span class="na">skipBytes</span><span class="o">(</span><span class="n">buffer</span><span class="o">.</span><span class="na">position</span><span class="o">());</span>            <span class="c1">// 跳过该帧内容</span>
+
+                <span class="c1">// 在解析之前先进行反转义</span>
+                <span class="kt">byte</span><span class="o">[]</span> <span class="n">raw</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">frame</span><span class="o">.</span><span class="na">position</span><span class="o">()];</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">flip</span><span class="o">();</span>                               <span class="c1">// 切换到读取模式</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">raw</span><span class="o">);</span>                             <span class="c1">// 获取原始数据(frame中所有数据)</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">compact</span><span class="o">();</span>                            <span class="c1">// 将读取过的数据清除</span>
+
+                <span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span> <span class="o">=</span> <span class="n">Packet</span><span class="o">.</span><span class="na">revert</span><span class="o">(</span><span class="n">raw</span><span class="o">);</span>        <span class="c1">// 获取反转义后数据</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>                         <span class="c1">// 将反转义后数据依旧放入 frame 中</span>
+
+                <span class="c1">// 长度校验</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">frame</span><span class="o">.</span><span class="na">position</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">11</span><span class="o">)</span> <span class="o">{</span>                <span class="c1">// 判断帧的长度是否足够，一帧必须包含帧类型，确认码，内容长度，CRC校验码，因此最少也需要 11 个 byte</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"frame length too short!"</span><span class="o">);</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="c1">// CRC 校验</span>
+                <span class="k">if</span> <span class="o">(!</span><span class="n">checkCRC</span><span class="o">(</span><span class="n">content</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"CRC check error!"</span><span class="o">);</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="c1">// TODO 输出内容信息</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b2h</span><span class="o">(</span><span class="n">content</span><span class="o">));</span>
+
+                <span class="n">frame</span><span class="o">.</span><span class="na">flip</span><span class="o">();</span>
+                <span class="kt">byte</span> <span class="n">frame_type</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>              <span class="c1">// 帧类型</span>
+                <span class="kt">int</span> <span class="n">frame_code</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="na">getInt</span><span class="o">();</span>            <span class="c1">// 确认码</span>
+                <span class="kt">int</span> <span class="n">data_len</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="na">getInt</span><span class="o">();</span>              <span class="c1">// 内容长度</span>
+
+                <span class="kt">int</span> <span class="n">need_len</span> <span class="o">=</span> <span class="n">data_len</span> <span class="o">+</span> <span class="mi">11</span><span class="o">;</span>               <span class="c1">// 有了内容长度，就可以得到该帧需要的长度</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">frame</span><span class="o">.</span><span class="na">limit</span><span class="o">()</span> <span class="o">!=</span> <span class="n">need_len</span><span class="o">)</span> <span class="o">{</span>         <span class="c1">// 对帧长度进行严格校验</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"frame length error，real length = "</span> <span class="o">+</span> <span class="n">frame</span><span class="o">.</span><span class="na">position</span><span class="o">()</span> <span class="o">+</span> <span class="s">", but need length = "</span> <span class="o">+</span> <span class="n">need_len</span><span class="o">);</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="kt">byte</span><span class="o">[]</span> <span class="n">frame_data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">data_len</span><span class="o">];</span>
+                <span class="n">frame</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">frame_data</span><span class="o">);</span>                      <span class="c1">// 帧内容</span>
+
+                <span class="n">Packet</span> <span class="n">packet</span> <span class="o">=</span> <span class="n">decodeData</span><span class="o">(</span><span class="n">frame_type</span><span class="o">,</span> <span class="n">frame_code</span><span class="o">,</span> <span class="n">frame_data</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">packet</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 检查内容区域是否符合 CRC 校验
+     *
+     * @param content 内容数据，不包括帧头和帧尾部
+     * @return 校验结果，true 表示校验成功，false 表示校验失败
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">checkCRC</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">short</span> <span class="n">crc_result</span> <span class="o">=</span> <span class="n">CRCUtils</span><span class="o">.</span><span class="na">getCRC</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">content</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">crc_raw</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="n">content</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">2</span><span class="o">,</span> <span class="n">crc_raw</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="kt">short</span> <span class="n">crc_short</span> <span class="o">=</span> <span class="n">BytesUtils</span><span class="o">.</span><span class="na">byteArrayToShort</span><span class="o">(</span><span class="n">crc_raw</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">crc_result</span> <span class="o">==</span> <span class="n">crc_short</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 解析内容数据, 只有通过了数据帧校验和 CRC 校验的数据才会被送到这里进行解析
+     * 帧头, 帧尾, 校验码, 没有进行传递.
+     *
+     * @param frame_type 帧类型
+     * @param frame_code 确认码
+     * @param data       数据
+     * @return 数据包
+     */</span>
+    <span class="nd">@Nullable</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Packet</span> <span class="nf">decodeData</span><span class="o">(</span><span class="kt">byte</span> <span class="n">frame_type</span><span class="o">,</span> <span class="kt">int</span> <span class="n">frame_code</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>基础解码器只是做到将数据分解成为原始数据，但是并没有转换为数据包，数据包最终转换需要交由其子类进行处理。</p>
+
+<p><strong>服务端解码器：</strong></p>
+
+<p>服务端解码器为基础解码器的子类，主要就是实现了将原始数据转换为数据包的过程。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerTCPFrameDecoder</span> <span class="kd">extends</span> <span class="n">BaseTCPFrameDecoder</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Packet</span> <span class="nf">decodeData</span><span class="o">(</span><span class="kt">byte</span> <span class="n">frame_type</span><span class="o">,</span> <span class="kt">int</span> <span class="n">frame_code</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">FRAME_TYPE_HEART</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">GHeartPacket</span><span class="o">(</span><span class="n">frame_code</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">FRAME_TYPE_22</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">G22Packet</span><span class="o">(</span><span class="n">frame_code</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">FRAME_TYPE_CONTENT</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">GContentPacket</span><span class="o">(</span><span class="n">frame_code</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>客户端解码器：</strong></p>
+
+<p>客户端解码器同理。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientTCPFrameDecoder</span> <span class="kd">extends</span> <span class="n">BaseTCPFrameDecoder</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Packet</span> <span class="nf">decodeData</span><span class="o">(</span><span class="kt">byte</span> <span class="n">frame_type</span><span class="o">,</span> <span class="kt">int</span> <span class="n">frame_code</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">FRAME_TYPE_HEART</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">GHeartPacket</span> <span class="n">heart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GHeartPacket</span><span class="o">(</span><span class="n">frame_code</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">heart</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">FRAME_TYPE_33</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">G33Packet</span> <span class="n">g33</span> <span class="o">=</span> <span class="k">new</span> <span class="n">G33Packet</span><span class="o">(</span><span class="n">frame_code</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">g33</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">FRAME_TYPE_CONTENT</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">GContentPacket</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GContentPacket</span><span class="o">(</span><span class="n">frame_code</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>编解码器只是负责将数据包和数据流之间的相互转换，最终数据处理则是应该交由 Handler 进行处理。</p>
+
+<h4 id="324-数据包的处理">3.2.4 数据包的处理</h4>
+
+<p><strong>服务端处理：</strong></p>
+
+<p>在这里，由于服务端是用来测试的，因此处理就比较简单了，数据在解码后会转换为对应的 Packet，而 Netty 会将 Packet 发送给对应的 Handler，Handler 收到数据后，将需要返回给客户端的内容发送出去就可以了。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">G22Handler</span> <span class="kd">extends</span> <span class="n">SimpleChannelInboundHandler</span><span class="o">&lt;</span><span class="n">G22Packet</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">channelRead0</span><span class="o">(</span><span class="n">ChannelHandlerContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="n">G22Packet</span> <span class="n">g22</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"收到 22， 回复 33"</span><span class="o">);</span>
+        <span class="n">G33Packet</span> <span class="n">g33</span> <span class="o">=</span> <span class="k">new</span> <span class="n">G33Packet</span><span class="o">(</span><span class="n">g22</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="na">writeAndFlush</span><span class="o">(</span><span class="n">g33</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>例如： 2233 命令，当服务端收到 G22Packet 后，发送一个 G33Packet。</p>
+</blockquote>
+
+<p><strong>客户端处理：</strong></p>
+
+<p><strong>1. 客户端数据包的发送：</strong></p>
+
+<p>客户端有一个数据发送队列，在服务开启时，会启动一个线程不断的查询队列中是否存在数据，如果存在数据就将数据发送出去：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">mWorkThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 连接服务</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="n">boot</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">).</span><span class="na">sync</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"服务已启动!"</span><span class="o">);</span>
+            <span class="n">mSendQueue</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Packet</span> <span class="n">packet</span> <span class="o">=</span> <span class="n">mSendQueue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">packet</span> <span class="k">instanceof</span> <span class="n">ClosePacket</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="c1">// 发送</span>
+                <span class="n">future</span><span class="o">.</span><span class="na">channel</span><span class="o">().</span><span class="na">writeAndFlush</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"服务关闭!"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"服务被强制关闭!"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+<span class="n">mWorkThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>数据发送队列使用的 LinkedBlockingDeque 是一个双向队列，在轮训中使用了 take 方法来获取头部数据，而 take 方法在队列中没有数据时会阻塞，直到有新的数据进来，这样可以防止 while 循环空转，占用过高的 CPU 资源。</p>
+
+  <p>同时为了可以优雅的终止服务，设置了一个特殊的数据包 ClosePacket， 当该线程收到 ClosePacket 之后就会停止轮训，结束线程。</p>
+</blockquote>
+
+<p>有了该轮训后，所有需要发送的数据只需丢入到发送队列中即可发送出去。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendPacket</span><span class="o">(</span><span class="n">Packet</span> <span class="n">packet</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">isStart</span> <span class="o">||</span> <span class="kc">null</span> <span class="o">==</span> <span class="n">mWorkThread</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"服务未开启!"</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">mSendQueue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><strong>2. 客户端数据包的接收</strong></p>
+
+<p>数据包可以是单向发送的，即只有客户端发向服务端，或者只有服务端发给客户端，这样的单向数据后很好处理，只用转交给对应的 Handler 即可。</p>
+
+<p>但是还有很多情况下数据传递是双向的，例如：客户端发送请求获取用户信息，服务端收到后将用户信息返回给客户端。双向数据传递就需要把服务端返回的数据返回给对应的调用者，为了可以分辨服务端返回的数据包属于哪一个调用者发送的，在每一帧的数据里面都有确认码，客户端发送时每一帧的确认码都不相同，而服务端收到后会在返回帧里面设置相同的确认码，这样在客户端收到服务端的回执数据后就可以通过确认码知道是哪一次调用的结果了。</p>
+
+<p>首先，客户端收到服务端发送过来的消息后会先进行解码，之后交给 AckHandler，AckHandler 会把消息放到接收队列中。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">AckHandler</span> <span class="kd">extends</span> <span class="n">SimpleChannelInboundHandler</span><span class="o">&lt;</span><span class="n">Packet</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">channelRead0</span><span class="o">(</span><span class="n">ChannelHandlerContext</span> <span class="n">cxt</span><span class="o">,</span> <span class="n">Packet</span> <span class="n">ack</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">//noinspection StatementWithEmptyBody</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">ack</span> <span class="k">instanceof</span> <span class="n">GHeartPacket</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"心跳正常."</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"收到数据:"</span> <span class="o">+</span> <span class="n">ack</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+            <span class="n">mRecvQueue</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">ack</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>如果想要获取对应的结果，则通过 getFilterPacket 方法来过滤接收队列中的内容：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Nullable</span>
+<span class="kd">public</span> <span class="n">Packet</span> <span class="nf">getFilterPacket</span><span class="o">(</span><span class="n">Filter</span> <span class="n">filter</span><span class="o">,</span> <span class="kt">long</span> <span class="n">timeout</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">starttime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>    <span class="c1">// 记录开始时间</span>
+    <span class="n">Packet</span> <span class="n">ret</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="c1">// 在未超时的情况下不断尝试获取新数据</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="c1">// 计算新的 timeout</span>
+        <span class="kt">long</span> <span class="n">newtimeout</span> <span class="o">=</span> <span class="n">timeout</span> <span class="o">-</span> <span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">starttime</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">newtimeout</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">newtimeout</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">Packet</span> <span class="n">packet</span> <span class="o">=</span> <span class="n">mRecvQueue</span><span class="o">.</span><span class="na">pollLast</span><span class="o">(</span><span class="n">newtimeout</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">filter</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">packet</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// 获取到数据，直接跳出循环</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">packet</span><span class="o">;</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// 将不需要的数据放回队列</span>
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">packet</span><span class="o">)</span>
+                <span class="n">mRecvQueue</span><span class="o">.</span><span class="na">putFirst</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>   <span class="c1">// 默认休眠， 防止不断重复的取垃圾数据</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">starttime</span> <span class="o">&lt;</span> <span class="n">timeout</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>考虑到网络的不确定性，有时可能因为网络原因而无法收到回执结果，因此在获取过滤数据时是有超时设置的，一旦超过这个时限，如果依旧未获取到结果，则会返回 null。</p>
+
+<p>但是这会导致另外一个问题的发生，如果服务端返回数据速度比较慢，在返回时，客户端读取早就已经超时了，那么这条数据就会变成垃圾数据堆积在接收队列中。为了避免垃圾数据堆积，我让其在空闲时清除接收队列中的超时数据。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">clearTimeoutPacket</span><span class="o">(</span><span class="n">IdleStateEvent</span> <span class="n">evt</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">evt</span><span class="o">.</span><span class="na">state</span><span class="o">()</span> <span class="o">==</span> <span class="n">IdleState</span><span class="o">.</span><span class="na">ALL_IDLE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">mRecvQueue</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Packet</span> <span class="n">packet</span> <span class="o">=</span> <span class="n">mRecvQueue</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">packet</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">isPacketTimeout</span><span class="o">(</span><span class="n">packet</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">mRecvQueue</span><span class="o">.</span><span class="na">putLast</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="c1">//System.out.println("清理掉一条垃圾数据 队列大小 = " + mRecvQueue.size());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="325-心跳逻辑">3.2.5 心跳逻辑</h4>
+
+<p>由于网络连接的不稳定性，为了可以与服务端保持长连接，需要设计心跳机制来保证连接的稳定性。这里的心跳逻辑非常简单，那就是在发生“写超时(即一段时间内没有向服务端发送任何数据)“的情况下向服务端发送一个心跳包。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 发送心跳</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">heartbeat</span><span class="o">(</span><span class="n">IdleStateEvent</span> <span class="n">evt</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">evt</span><span class="o">.</span><span class="na">state</span><span class="o">()</span> <span class="o">==</span> <span class="n">IdleState</span><span class="o">.</span><span class="na">WRITER_IDLE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">GHeartPacket</span> <span class="n">mHeartBeat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GHeartPacket</span><span class="o">();</span>
+        <span class="n">sendPacket</span><span class="o">(</span><span class="n">mHeartBeat</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="326-自动重连">3.2.6 自动重连</h4>
+
+<p>在服务端与客户端断开连接时，需要判断一下是用户断开了连接还是因为网络原因意外断开了连接。如果是意外原因，则会尝试进行重新连接：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 自动重试</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">autoRetryConnect</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Timer</span> <span class="n">timer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Timer</span><span class="o">();</span><span class="c1">//实例化Timer类</span>
+    <span class="n">timer</span><span class="o">.</span><span class="na">schedule</span><span class="o">(</span><span class="k">new</span> <span class="n">TimerTask</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">isConnected</span> <span class="o">||</span> <span class="n">isUserClose</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">timer</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">tryReconnectSync</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">},</span> <span class="mi">100</span><span class="o">,</span> <span class="n">mHeartbeatTime</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="4-后记">4. 后记</h2>
+
+<p>限于文章篇幅，不可能将所有的内容都讲解到，在文章之外依旧有很多的知识需要学习，如果你对 Netty 尚不了解的话，推荐看一下 《Netty 官方文档》和《Netty实战》，或者在网上搜索一下 Netty 相关的知识，这将会有助于你理解本文的内容。同样，上文也只是展示了一些较为核心的内容，至于如何把这些内容串联起来，里面到底是用了那种设计思路和设计的细节，更推荐大家下载一下文章开头或者结尾的项目源码进行查看(如果是在公众号中看到这篇文章，可以点击查看原文，在原文中下载)，项目为 IntelliJ 项目，自己可以试运行一下，相信每个人都会有自己的理解和感悟。</p>
+
+<p>最后，由于本文所做设计为示例性质，仅仅花费了一天的时间把想到的内容转换为代码实现，不可能面面俱到，只是把一些核心功能做出来，如果有什么疑惑可以在文末评论或者联系我的私人微信“GcsSloop”进行交流。</p>
+
+<p><strong><a href="http://android.demo.gcssloop.com/C0DE_Sample.zip">【本文示例源码下载】</a></strong></p>
+
+    <hr>
+  </section>
+</article>
+
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，欢迎赞助一些服务器费用! </h4>
+      <p></p>
+      <a id=“btn-toggle-contribute” class="btn-contribute" onclick="toggle()" >¥ 点击赞助</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="left" >
+          &nbsp;&nbsp;因为自己喜欢折腾，所以每年在域名和服务器上也会支出不少钱，用于搭建私人maven服务购买coding会员服务等用途，例如我发布在GitHub上的部分开源库就是托管在自己搭建的仓库中，你现在查看的这篇文章就托管在Coding上面。<br/>
+          &nbsp;&nbsp;如果你感觉我写的内容对你有帮助的话，可以赞助一些服务器费用，也可以通过订阅我的小专栏来支持我。当然，不赞助也没关系，我依旧会提供免费的内容给大家。<br/>
+          &nbsp;&nbsp;我发布在小专栏的内容虽然是收费的，但是大部分依旧可以在我的博客上免费看到原始文章，只是象征性的关闭了几篇不重要的文章阅读权限，如果你细心一点的话，甚至可以在我的博客上找到直接查看这些收费文章的方法。<br/>
+          <b>最后，感谢所有支持我的魔法师！</b>
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/android-stream" title="link to 雕虫晓技(八) Android与数据流的斗争">雕虫晓技(八) Android与数据流的斗争</a></h2>
+       <p class="excerpt">关于作者GcsSloop，一名 2.5 次元魔法师。微博 | GitHub | 博客本文并没有什么实质性的内容，只是自己工作和学习这段时间的一些经验杂谈，仅从自己的角度阐述一下自己观察到的一些内...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2018-08-12 00:00:00 +0800" class="post-list__meta--date date">2018-08-12</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/android-stream>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+<style type="text/css">
+.isso-comment > div.avatar {
+    border: 0px;
+    box-shadow: none;
+    display: block;
+    float: left;
+    width: 7%;
+    margin: 3px 15px 0 0;
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input {
+    border-radius: 6px;
+    padding: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: 1px solid #CCC;
+    background-color: #D58D44;
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    size: 10;
+    line-height: 1.4em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input:hover {
+    background-color: #272822;
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input:active {
+    background-color: #986530;
+}
+</style>
+
+<section id="isso-thread"></section>
+
+<script data-isso="//47.52.58.34:1234/"
+        data-isso-css="true"
+        data-isso-lang="zh"
+        data-isso-reply-to-self="false"
+        data-isso-require-author="false"
+        data-isso-require-email="false"
+        data-isso-max-comments-top="10"
+        data-isso-max-comments-nested="5"
+        data-isso-reveal-on-click="5"
+        data-isso-avatar="true"
+        data-isso-avatar-bg="#f0f0f0"
+        data-isso-avatar-fg="#9abf88 #5698c4 #e279a3 #9163b6 ..."
+        data-isso-vote="true"
+        data-vote-levels=""
+        src="//47.52.58.34:1234/js/embed.min.js">
+        </script>
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
+        <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
