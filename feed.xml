@@ -5,9 +5,296 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 01 Sep 2018 14:18:42 +0800</pubDate>
-    <lastBuildDate>Sat, 01 Sep 2018 14:18:42 +0800</lastBuildDate>
+    <pubDate>Mon, 03 Sep 2018 23:33:11 +0800</pubDate>
+    <lastBuildDate>Mon, 03 Sep 2018 23:33:11 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
+    
+    
+      <item>
+        <title>ArcSeekBar(圆弧拖动条)</title>
+        <description>&lt;p&gt;这个是在公司项目中准备使用的一个控件，本准备直接在网上搜一个用，可惜找到的很多都是 ProgressBar，并不具备拖拽功能，于是自己动手实现了一个，其功能和特性均仿照 SeekBar 进行设计。&lt;/p&gt;
+
+&lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/libs/arc-seekbar/arcseekbar.gif&quot; width=&quot;300&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;支持的特性&quot;&gt;支持的特性&lt;/h2&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;进度功能。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;自定义属性配置。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;线条宽度。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;开口角度。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;旋转角度。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;渐变色。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;最大进度值。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;拖动按钮颜色、大小、样式(填充、描边、填充+描边)。&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;状态变化回调。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;主要文件&quot;&gt;主要文件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名字&lt;/th&gt;
+      &lt;th&gt;摘要&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ArcSeekBar&lt;/td&gt;
+      &lt;td&gt;圆弧形状SeekBar。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;1-基本用法&quot;&gt;1. 基本用法&lt;/h3&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;com.gcssloop.widget.ArcSeekBar&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@+id/arc_seek_bar&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;280dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;280dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_colors=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@array/arc_colors_default&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_max=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;100&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_open_angle=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;90&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_progress=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_rotate_angle=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;90&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_thumb_color=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#fff&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_thumb_mode=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;STROKE&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_thumb_radius=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;16dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_thumb_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;3dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;40dp&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;2-配置属性&quot;&gt;2. 配置属性&lt;/h3&gt;
+
+&lt;p&gt;可以在布局文件中配置的基本属性如下：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;属性名称&lt;/th&gt;
+      &lt;th&gt;摘要&lt;/th&gt;
+      &lt;th&gt;是否必须设置&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_width&lt;/td&gt;
+      &lt;td&gt;圆弧的宽度&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_open_angle&lt;/td&gt;
+      &lt;td&gt;圆弧开口的角度&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_rotate_angle&lt;/td&gt;
+      &lt;td&gt;旋转角度，默认90&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_colors&lt;/td&gt;
+      &lt;td&gt;圆弧渐变色&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;array&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_max&lt;/td&gt;
+      &lt;td&gt;进度最大数值&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_progress&lt;/td&gt;
+      &lt;td&gt;默认进度&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_thumb_width&lt;/td&gt;
+      &lt;td&gt;拖动按钮描边宽度&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_thumb_color&lt;/td&gt;
+      &lt;td&gt;拖动按钮颜色&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;color&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_thumb_radius&lt;/td&gt;
+      &lt;td&gt;拖动按钮半径&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_thumb_mode&lt;/td&gt;
+      &lt;td&gt;拖动按钮模式(FILL、STROKE、FILL_STROKE)&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;emnu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_border_width&lt;/td&gt;
+      &lt;td&gt;描边宽度，默认为 0，即不显示。&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;dp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;arc_border_color&lt;/td&gt;
+      &lt;td&gt;描边颜色，默认为白色。&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;color&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;3-属性简介&quot;&gt;3. 属性简介&lt;/h3&gt;
+
+&lt;h4 id=&quot;31-基本绘制属性&quot;&gt;3.1 基本绘制属性&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/libs/arc-seekbar/arc_attrs_1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进度条宽度(arc_width)、开口角度(arc_open_angle)、旋转角度(arc_rotate_angle) 的基本含义如上图所示。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;进度条宽度(arc_width)：&lt;/strong&gt; 进度条宽度是上图白色部分所示的内容，是控制绘制宽窄的。&lt;br /&gt;
+&lt;strong&gt;开口角度(arc_open_angle)：&lt;/strong&gt; 开口角度是上图中下方没有进度显示的部分，如果开口角度为 0 则绘制出来是一个圆。如果开口角度为 180 度，则为一个半圆。&lt;br /&gt;
+&lt;strong&gt;旋转角度：&lt;/strong&gt;  旋转角度是圆环开口的最终指向，该数值默认为 90 度。&lt;/p&gt;
+
+&lt;h4 id=&quot;32-渐变色&quot;&gt;3.2 渐变色&lt;/h4&gt;
+
+&lt;p&gt;渐变色如上图所展示的那样，允许指定大于等于两种以上的颜色进行渲染，基本使用如下.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 在 /res/values 里面定义一个 array 数组，其条目为一系列颜色(颜色数量大于等于2)。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;array&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;arc_colors_default&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;item&amp;gt;&lt;/span&gt;#1a2a6c&lt;span class=&quot;nt&quot;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;item&amp;gt;&lt;/span&gt;#b21f1f&lt;span class=&quot;nt&quot;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;item&amp;gt;&lt;/span&gt;#fdbb2d&lt;span class=&quot;nt&quot;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/array&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 引用指定颜色&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;com.gcssloop.widget.ArcSeekBar&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;280dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;280dp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app:arc_colors=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@array/arc_colors_default&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;注意： 所指定的颜色数组数量必须大于 2，如果想要使用纯色，则直接将两个array条目设置为同一种颜色即可。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;33-进度属性&quot;&gt;3.3 进度属性&lt;/h4&gt;
+
+&lt;p&gt;进度属性有两个， &lt;code class=&quot;highlighter-rouge&quot;&gt;arc_max&lt;/code&gt; 指定最大数值， &lt;code class=&quot;highlighter-rouge&quot;&gt;arc_progress&lt;/code&gt; 指定默认的进度。&lt;/p&gt;
+
+&lt;h4 id=&quot;34-拖动按钮属性&quot;&gt;3.4 拖动按钮属性&lt;/h4&gt;
+
+&lt;p&gt;拖动按钮即上方演示图中的圆环，
+&lt;strong&gt;arc_thumb_width：&lt;/strong&gt;指定圆环宽度。&lt;br /&gt;
+&lt;strong&gt;arc_thumb_color：&lt;/strong&gt; 指定按钮颜色。&lt;br /&gt;
+&lt;strong&gt;arc_thumb_radius：&lt;/strong&gt; 指定按钮半径。&lt;br /&gt;
+&lt;strong&gt;arc_thumb_mode：&lt;/strong&gt; 指定按钮绘制模式，默认为 STROKE(描边)，可以指定 FILL、STROKE、FILL_STROKE。&lt;/p&gt;
+
+&lt;h4 id=&quot;35-描边&quot;&gt;3.5 描边&lt;/h4&gt;
+
+&lt;p&gt;v1.1.0 以上版本支持。&lt;/p&gt;
+
+&lt;p&gt;可以实现描边效果，具体看图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/libs/arc-seekbar/arc_border.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;4添加方法&quot;&gt;4.添加方法&lt;/h3&gt;
+
+&lt;h4 id=&quot;41-添加仓库&quot;&gt;4.1 添加仓库&lt;/h4&gt;
+
+&lt;p&gt;在项目的 &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; 文件中配置仓库地址。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;allprojects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 私有仓库地址&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;maven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://lib.gcssloop.com:8081/repository/gcssloop-central/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;42-添加项目依赖&quot;&gt;4.2 添加项目依赖&lt;/h4&gt;
+
+&lt;p&gt;在需要添加依赖的 Module 下添加以下信息，使用方式和普通的远程仓库一样。&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.gcssloop.widget:arc-seekbar:1.1.0'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;作者简介&quot;&gt;作者简介&lt;/h2&gt;
+
+&lt;h4 id=&quot;作者微博-gcssloop&quot;&gt;作者微博: &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;@GcsSloop&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;个人网站-httpwwwgcssloopcom&quot;&gt;个人网站: http://www.gcssloop.com&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;更新日志&quot;&gt;更新日志&lt;/h2&gt;
+
+&lt;h4 id=&quot;v110&quot;&gt;v1.1.0&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;完善 onMeasure。&lt;/li&gt;
+  &lt;li&gt;添加描边(border)属性。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;v100&quot;&gt;v1.0.0&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;完成基本的 ArcSeekBar 功能与相关的自定义属性。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;版权信息&quot;&gt;版权信息&lt;/h2&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Copyright (c) 2018 GcsSloop
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 02 Sep 2018 00:00:00 +0800</pubDate>
+        <link>http://www.gcssloop.com/tools/arc-seekbar</link>
+        <guid isPermaLink="true">http://www.gcssloop.com/tools/arc-seekbar</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>Tools</category>
+        
+      </item>
+    
     
     
       <item>
