@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 03 Sep 2018 23:33:11 +0800</pubDate>
-    <lastBuildDate>Mon, 03 Sep 2018 23:33:11 +0800</lastBuildDate>
+    <pubDate>Tue, 04 Sep 2018 23:09:36 +0800</pubDate>
+    <lastBuildDate>Tue, 04 Sep 2018 23:09:36 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -5618,7 +5618,7 @@ GCS-LOG: onDoubleTapEvent - up
   &lt;li&gt;判断小球边缘是否碰触控件边界，如果碰触了边界则让速度反向。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;根据这三条基本的逻辑就可以做出比较像的弹球效果，&lt;a href=&quot;https://raw.githubusercontent.com/GcsSloop/AndroidNote/master/CustomView/Demo/FlingBall.zip&quot;&gt;具体的Demo可以看这里&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;根据这三条基本的逻辑就可以做出比较像的弹球效果，&lt;a href=&quot;https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Demo/FailingBall.zip&quot;&gt;具体的Demo可以看这里&lt;/a&gt;。&lt;/p&gt;
 
 &lt;h5 id=&quot;233-onlongpress&quot;&gt;2.3.3 onLongPress&lt;/h5&gt;
 
