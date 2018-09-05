@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-09-04T23:09:36+08:00</updated>
+  <updated>2018-09-05T16:37:50+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -22,7 +22,9 @@
       <name>Karl Luo</name>
       <uri>http://luolinjia.com/cn/</uri>
     </author>
-    <content type="html">&lt;p&gt;这个是在公司项目中准备使用的一个控件，本准备直接在网上搜一个用，可惜找到的很多都是 ProgressBar，并不具备拖拽功能，于是自己动手实现了一个，其功能和特性均仿照 SeekBar 进行设计。&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/GcsSloop/arc-seekbar&quot;&gt;GitHub项目地址: https://github.com/GcsSloop/arc-seekbar&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个是在公司项目中准备使用的一个控件，本准备直接在网上搜一个用，可惜找到的很多都是 ProgressBar，并不具备拖拽功能，于是自己动手实现了一个，其功能和特性均仿照 SeekBar 进行设计。&lt;/p&gt;
 
 &lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
 

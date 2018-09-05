@@ -5,14 +5,16 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 04 Sep 2018 23:09:36 +0800</pubDate>
-    <lastBuildDate>Tue, 04 Sep 2018 23:09:36 +0800</lastBuildDate>
+    <pubDate>Wed, 05 Sep 2018 16:37:50 +0800</pubDate>
+    <lastBuildDate>Wed, 05 Sep 2018 16:37:50 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
       <item>
         <title>ArcSeekBar(圆弧拖动条)</title>
-        <description>&lt;p&gt;这个是在公司项目中准备使用的一个控件，本准备直接在网上搜一个用，可惜找到的很多都是 ProgressBar，并不具备拖拽功能，于是自己动手实现了一个，其功能和特性均仿照 SeekBar 进行设计。&lt;/p&gt;
+        <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/GcsSloop/arc-seekbar&quot;&gt;GitHub项目地址: https://github.com/GcsSloop/arc-seekbar&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个是在公司项目中准备使用的一个控件，本准备直接在网上搜一个用，可惜找到的很多都是 ProgressBar，并不具备拖拽功能，于是自己动手实现了一个，其功能和特性均仿照 SeekBar 进行设计。&lt;/p&gt;
 
 &lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
 
