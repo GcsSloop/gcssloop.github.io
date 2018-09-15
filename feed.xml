@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 15 Sep 2018 11:31:27 +0800</pubDate>
-    <lastBuildDate>Sat, 15 Sep 2018 11:31:27 +0800</lastBuildDate>
+    <pubDate>Sat, 15 Sep 2018 17:57:07 +0800</pubDate>
+    <lastBuildDate>Sat, 15 Sep 2018 17:57:07 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -18797,7 +18797,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;hr /&gt;
 
 &lt;h3 id=&quot;绘制椭圆&quot;&gt;绘制椭圆：&lt;/h3&gt;
-&lt;p&gt;相对于绘制圆角矩形，绘制椭圆就简单的多了，因为他只需要一个矩形矩形作为参数:&lt;/p&gt;
+&lt;p&gt;相对于绘制圆角矩形，绘制椭圆就简单的多了，因为他只需要一个矩形作为参数:&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 第一种&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;RectF&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rectF&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RectF&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;800&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
