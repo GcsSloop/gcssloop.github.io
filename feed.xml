@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 15 Sep 2018 11:14:09 +0800</pubDate>
-    <lastBuildDate>Sat, 15 Sep 2018 11:14:09 +0800</lastBuildDate>
+    <pubDate>Sat, 15 Sep 2018 11:31:27 +0800</pubDate>
+    <lastBuildDate>Sat, 15 Sep 2018 11:31:27 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -18712,7 +18712,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 &lt;h3 id=&quot;绘制矩形&quot;&gt;绘制矩形：&lt;/h3&gt;
 
-&lt;p&gt;确定确定一个矩形最少需要四个数据，就是&lt;strong&gt;对角线的两个点&lt;/strong&gt;的坐标值，这里一般采用&lt;strong&gt;左上角和右下角&lt;/strong&gt;的两个点的坐标。&lt;/p&gt;
+&lt;p&gt;我们都知道，确定一个矩形最少需要四个数据，就是&lt;strong&gt;对角线的两个点&lt;/strong&gt;的坐标值，这里一般采用&lt;strong&gt;左上角和右下角&lt;/strong&gt;的两个点的坐标。&lt;/p&gt;
 
 &lt;p&gt;关于绘制矩形，Canvas提供了三种重载方法，第一种就是提供&lt;strong&gt;四个数值(矩形左上角和右下角两个点的坐标)来确定一个矩形&lt;/strong&gt;进行绘制。
 其余两种是先将矩形封装为&lt;strong&gt;Rect或RectF&lt;/strong&gt;(实际上仍然是用两个坐标点来确定的矩形)，然后传递给Canvas绘制，如下：&lt;/p&gt;
