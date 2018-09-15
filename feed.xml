@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 13 Sep 2018 21:04:09 +0800</pubDate>
-    <lastBuildDate>Thu, 13 Sep 2018 21:04:09 +0800</lastBuildDate>
+    <pubDate>Sat, 15 Sep 2018 11:14:09 +0800</pubDate>
+    <lastBuildDate>Sat, 15 Sep 2018 11:14:09 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -19256,7 +19256,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
   &lt;p&gt;例如：制作一个支持自动加载网络图片的ImageView，制作图表等。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;strong&gt;PS： 自定义View在大多数情况下都有替代方案，利用图片或者组合动画来实现，但是使用后者可能会面临内存耗费过大，制作麻烦更诸多问题。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PS： 自定义View在大多数情况下都有替代方案，利用图片或者组合动画来实现，但是使用后者可能会面临内存耗费过大，制作麻烦等诸多问题。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -19695,7 +19695,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 &lt;p&gt;&lt;em&gt;其中 A R G B 的取值范围均为0~255(即16进制的0x00~0xff)&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;A 从ox00到oxff表示从透明到不透明。&lt;/p&gt;
+&lt;p&gt;A 从0x00到0xff表示从透明到不透明。&lt;/p&gt;
 
 &lt;p&gt;RGB 从0x00到0xff表示颜色从浅到深。&lt;/p&gt;
 
@@ -19798,7 +19798,7 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 &lt;p&gt;&lt;b&gt;注意：&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;1.这里我们一般把每个通道的取值从0(ox00)到255(0xff)映射到0到1的浮点数表示。&lt;/p&gt;
+&lt;p&gt;1.这里我们一般把每个通道的取值从0(0x00)到255(0xff)映射到0到1的浮点数表示。&lt;/p&gt;
 
 &lt;p&gt;2.这里等式右边的“绘制的颜色”、“Canvas上的原有颜色” 都是经过预乘了自己的Alpha通道的值。如绘制颜色：0x88ffffff，那么参与运算时的每个颜色通道的值不是1.0，而是(1.0 * 0.5333 = 0.5333)。  (其中0.5333 = 0x88/0xff)&lt;/p&gt;
 
