@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 15 Sep 2018 17:57:07 +0800</pubDate>
-    <lastBuildDate>Sat, 15 Sep 2018 17:57:07 +0800</lastBuildDate>
+    <pubDate>Mon, 17 Sep 2018 22:38:16 +0800</pubDate>
+    <lastBuildDate>Mon, 17 Sep 2018 22:38:16 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -18039,7 +18039,7 @@ drawable.draw(canvas);
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;[-∞, -1)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;(-∞, -1)&lt;/td&gt;
       &lt;td&gt;先根据缩放中心放大n倍，再根据中心轴进行翻转&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -18172,6 +18172,10 @@ drawable.draw(canvas);
 &lt;p&gt;调用两次缩放则 x轴实际缩放为0.5x0.5=0.25 y轴实际缩放为0.5x0.1=0.05&lt;/p&gt;
 
 &lt;p&gt;下面我们利用这一特性制作一个有趣的图形。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意设置画笔模式为描边(STROKE)&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 将坐标系原点移动到画布正中心&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;translate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
@@ -18332,7 +18336,7 @@ Y = sy * x + y
 
 &lt;h4 id=&quot;快照save和回滚restore&quot;&gt;⑸快照(save)和回滚(restore)&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;Q: 为什存在快照与回滚&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Q: 为什么存在快照与回滚&lt;/strong&gt;&lt;br /&gt;
 A：画布的操作是不可逆的，而且很多画布操作会影响后续的步骤，例如第一个例子，两个圆形都是在坐标原点绘制的，而因为坐标系的移动绘制出来的实际位置不同。所以会对画布的一些状态进行保存和回滚。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;与之相关的API:&lt;/strong&gt;&lt;/p&gt;

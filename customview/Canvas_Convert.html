@@ -354,7 +354,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center">[-∞, -1)</td>
+      <td style="text-align: center">(-∞, -1)</td>
       <td>先根据缩放中心放大n倍，再根据中心轴进行翻转</td>
     </tr>
     <tr>
@@ -487,6 +487,10 @@
 <p>调用两次缩放则 x轴实际缩放为0.5x0.5=0.25 y轴实际缩放为0.5x0.1=0.05</p>
 
 <p>下面我们利用这一特性制作一个有趣的图形。</p>
+
+<blockquote>
+  <p>注意设置画笔模式为描边(STROKE)</p>
+</blockquote>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 将坐标系原点移动到画布正中心</span>
 <span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">mWidth</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">mHeight</span> <span class="o">/</span> <span class="mi">2</span><span class="o">);</span>
@@ -647,7 +651,7 @@ Y = sy * x + y
 
 <h4 id="快照save和回滚restore">⑸快照(save)和回滚(restore)</h4>
 
-<p><strong>Q: 为什存在快照与回滚</strong><br />
+<p><strong>Q: 为什么存在快照与回滚</strong><br />
 A：画布的操作是不可逆的，而且很多画布操作会影响后续的步骤，例如第一个例子，两个圆形都是在坐标原点绘制的，而因为坐标系的移动绘制出来的实际位置不同。所以会对画布的一些状态进行保存和回滚。</p>
 
 <p><strong>与之相关的API:</strong></p>
