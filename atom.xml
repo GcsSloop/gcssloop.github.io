@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-09-17T22:38:16+08:00</updated>
+  <updated>2018-10-05T14:35:15+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -16236,7 +16236,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
     &lt;tr&gt;
       &lt;td&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/thumbnail/005Xtdi2jw1f0zxg8ilpxj30f00aimx8.jpg&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
       &lt;td&gt;开放路径&lt;/td&gt;
-      &lt;td&gt;没有首位相接形成封闭区域&lt;/td&gt;
+      &lt;td&gt;没有首尾相接形成封闭区域&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
