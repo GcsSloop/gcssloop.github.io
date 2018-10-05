@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 Oct 2018 14:40:51 +0800</pubDate>
-    <lastBuildDate>Fri, 05 Oct 2018 14:40:51 +0800</lastBuildDate>
+    <pubDate>Fri, 05 Oct 2018 14:46:34 +0800</pubDate>
+    <lastBuildDate>Fri, 05 Oct 2018 14:46:34 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -13283,7 +13283,7 @@ $$&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;后乘post&quot;&gt;后乘(post)&lt;/h3&gt;
 
-&lt;p&gt;前乘相当于矩阵的左乘：&lt;/p&gt;
+&lt;p&gt;后乘相当于矩阵的左乘：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://latex.codecogs.com/png.latex?$$ M' =  S \cdot M $$&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -14161,7 +14161,7 @@ com.gcssloop.canvas E/TAG: &lt;span class=&quot;nv&quot;&gt;forceClosed&lt;/span
 
 &lt;h3 id=&quot;4nextcontour&quot;&gt;4.nextContour&lt;/h3&gt;
 
-&lt;p&gt;我们知道 Path 可以由多条曲线构成，但不论是 getLength , getgetSegment 或者是其它方法，都只会在其中第一条线段上运行，而这个 &lt;code class=&quot;highlighter-rouge&quot;&gt;nextContour&lt;/code&gt; 就是用于跳转到下一条曲线到方法，&lt;em&gt;如果跳转成功，则返回 true， 如果跳转失败，则返回 false。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;我们知道 Path 可以由多条曲线构成，但不论是 getLength , getSegment 或者是其它方法，都只会在其中第一条线段上运行，而这个 &lt;code class=&quot;highlighter-rouge&quot;&gt;nextContour&lt;/code&gt; 就是用于跳转到下一条曲线到方法，&lt;em&gt;如果跳转成功，则返回 true， 如果跳转失败，则返回 false。&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;如下，我们创建了一个 Path 并使其中包含了两个闭合的曲线，内部的边长是200，外面的边长是400，现在我们使用 PathMeasure 分别测量两条曲线的总长度。&lt;/p&gt;
 
