@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-10-05T14:35:15+08:00</updated>
+  <updated>2018-10-05T14:40:51+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -16193,7 +16193,7 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 
 &lt;p&gt;&lt;strong&gt;请关闭硬件加速，以免引起不必要的问题！&lt;br /&gt;请关闭硬件加速，以免引起不必要的问题！&lt;br /&gt;请关闭硬件加速，以免引起不必要的问题！&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;在AndroidMenifest文件中application节点下添上 android:hardwareAccelerated=”false”以关闭整个应用的硬件加速。 &lt;br /&gt;更多请参考这里：&lt;a href=&quot;https://github.com/GcsSloop/AndroidNote/issues/7&quot;&gt;Android的硬件加速及可能导致的问题&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在AndroidMainfest文件中application节点下添上 android:hardwareAccelerated=”false”以关闭整个应用的硬件加速。 &lt;br /&gt;更多请参考这里：&lt;a href=&quot;https://github.com/GcsSloop/AndroidNote/issues/7&quot;&gt;Android的硬件加速及可能导致的问题&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;path作用&quot;&gt;Path作用&lt;/h2&gt;
 
@@ -16850,7 +16850,7 @@ com.sloop.canvas E/2: false
 
 &lt;p&gt;&lt;strong&gt;但是第二个方法最后怎么会有一个path作为参数？&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;其实第二个方法中最后的参数das是存储平移后的path的。&lt;/p&gt;
+&lt;p&gt;其实第二个方法中最后的参数dst是存储平移后的path的。&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -16865,7 +16865,7 @@ com.sloop.canvas E/2: false
       &lt;td&gt;将当前path平移后的状态存入dst中，不会影响当前path&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;dat为空(null)&lt;/td&gt;
+      &lt;td&gt;dst为空(null)&lt;/td&gt;
       &lt;td&gt;平移将作用于当前path，相当于第一种方法&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;

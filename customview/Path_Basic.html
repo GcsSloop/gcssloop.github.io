@@ -325,7 +325,7 @@
 
 <p><strong>请关闭硬件加速，以免引起不必要的问题！<br />请关闭硬件加速，以免引起不必要的问题！<br />请关闭硬件加速，以免引起不必要的问题！</strong></p>
 
-<p><strong>在AndroidMenifest文件中application节点下添上 android:hardwareAccelerated=”false”以关闭整个应用的硬件加速。 <br />更多请参考这里：<a href="https://github.com/GcsSloop/AndroidNote/issues/7">Android的硬件加速及可能导致的问题</a></strong></p>
+<p><strong>在AndroidMainfest文件中application节点下添上 android:hardwareAccelerated=”false”以关闭整个应用的硬件加速。 <br />更多请参考这里：<a href="https://github.com/GcsSloop/AndroidNote/issues/7">Android的硬件加速及可能导致的问题</a></strong></p>
 
 <h2 id="path作用">Path作用</h2>
 
@@ -982,7 +982,7 @@ com.sloop.canvas E/2: false
 
 <p><strong>但是第二个方法最后怎么会有一个path作为参数？</strong></p>
 
-<p>其实第二个方法中最后的参数das是存储平移后的path的。</p>
+<p>其实第二个方法中最后的参数dst是存储平移后的path的。</p>
 
 <table>
   <thead>
@@ -997,7 +997,7 @@ com.sloop.canvas E/2: false
       <td>将当前path平移后的状态存入dst中，不会影响当前path</td>
     </tr>
     <tr>
-      <td>dat为空(null)</td>
+      <td>dst为空(null)</td>
       <td>平移将作用于当前path，相当于第一种方法</td>
     </tr>
   </tbody>
