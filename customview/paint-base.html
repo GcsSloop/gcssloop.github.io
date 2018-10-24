@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>安卓自定义View进阶-画笔入门(Paint)</title>
+  <meta name="description" content="Android Paint，。">
+  <meta name="author" content="GcsSloop">
+  <meta name="keywords" content="Paint, getFillPath, StrokeMiter, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  <meta name="关键字" content="Paint, getFillPath, StrokeMiter, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安卓自定义View进阶-画笔入门(Paint)">
+  <meta name="twitter:description" content="Android Paint，。">
+  <meta name="twitter:keywords" content="Paint, getFillPath, StrokeMiter, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="安卓自定义View进阶-画笔入门(Paint)">
+  <meta property="og:description" content="Android Paint，。">
+  <meta name="og:keywords" content="Paint, getFillPath, StrokeMiter, 自定义View详解, 自定义控件, 安卓, Android, CustomView, GcsSloop">
+
+  <meta name="theme-color" content="#343434">
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" />
+  <link href="https://raw.githubusercontent.com/GcsSloop/gcssloop.github.io/master/assets/siteinfo/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="http://www.gcssloop.com/customview/paint-base">
+  <link rel="alternate" type="application/rss+xml" title="GcsSloop" href="http://www.gcssloop.com/feed.xml">
+  
+  <meta name="google-site-verification" content="Z_g58PkzRAyBMxkqrcDdWrTBK8oOWM-7rUHauhLNF2E" />
+  <meta name="baidu-site-verification" content="kUtTXCKaZs" />
+  <meta name="baidu-site-verification" content="6DuDv3aaJX" />
+  
+  <!--阅读次数统计-->
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+  
+  <!--Fuck Weixin and Baidu-->
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv=”Cache-Control” content=”no-siteapp” />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="HandheldFriendly" content="true"/>
+
+  <!-- Google Ad -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-2767831356529421",
+      enable_page_level_ads: true
+    });
+  </script>
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/siteinfo/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 GcsSloop 的主页" class="blog-button"><img src="/assets/siteinfo/avatar.jpg" width="80" alt="GcsSloop logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for GcsSloop" class="blog-button">GcsSloop</a></h1>
+
+        
+        <span class="panel-cover__subtitle panel-subtitle">Just do IT later.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description">欢迎来到我的魔法世界!</p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+                
+                  
+                    <li class="navigation__item"><a href="https://github.com/GcsSloop" target="_blank" title="GcsSloop's GitHub">GitHub</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/timeline" title="博客目录">目录</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="https://xiaozhuanlan.com/u/GcsSloop" target="_blank" title="小专栏">专栏</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/category/customview" title="自定义View教程目录">自定义控件</a></li>
+                  
+                  
+                
+                  
+                    <li class="navigation__item"><a href="/friends" title="友链">友链</a></li>
+                  
+                  
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/GcsSloop" title="@GcsSloop 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/GcsSloop" title="@GcsSloop 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/GcsSloop" title="@GcsSloop" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+    
+
+  
+
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:GcsSloop@gmail.com" title="发邮件给我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Copyright -->
+  <li class="navigation__item">
+    <a href="http://choosealicense.online" title="选择版权"  target="_blank">
+      <i class="social fa fa-copyright"></i>
+      <span class="label">版权</span>
+    </a>
+  </li>
+  
+  
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta" style="font-size:.8em">
+      <time datetime="2018-10-24 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-10-24</time> &#8226; <span class="post-meta__tags tags">Android,Paint</span> &#8226; View <span id="busuanzi_value_page_pv"></span> times.
+</span>
+    </div>
+    <h1 class="post-title">安卓自定义View进阶-画笔入门(Paint)</h1>
+  </header>
+
+  <section class="post">
+    <p>在Android自定义View系列文章中，前面的部分有详细的讲解画布(Canvas)的功能和用法，但是和画布(Canvas)共同出现的画笔(Paint)却没有详细的讲解，本文带大家较为详细的了解一下画笔的相关内容。</p>
+
+<blockquote>
+  <p>Paint 在英文中作为名词时主要含义是涂料，油漆，颜料的意思，作为动词则具有绘画、粉刷的意思，不过在程序相关的中文博客里面，Paint 通常被解释为画笔，本文也将采用这种翻译，因此本文里面提到的画笔如没有特殊表明就指代 Paint。</p>
+</blockquote>
+
+<h2 id="0引子">0.引子</h2>
+
+<p>通过本系列前面的文章知道，View 上的内容是通过 Canvas 绘制出来的，但 Canvas 中的大多数绘制方法都是需要 Paint 作为参数的，例如 <code class="highlighter-rouge">canvas.drawCircle(100, 100, 50, paint)</code> 最后就需要传递一个 Paint。这是为什么呢？</p>
+
+<p>因为画布本身只是呈现的一个载体，真正绘制出来的效果却要取决于画笔，就像同样白纸，要绘制一幅山水图，用毛笔画和用铅笔画的效果肯定是完全不同的，决定不同显示效果的并不是画布(Canvas), 而是画笔(Paint)。</p>
+
+<p>同样，在程序设计中也采用的类似的设计思想，画布的 draw 方法只是规定了所需要绘制的是什么东西，但具体绘制出什么效果则通过画笔来控制。<br />
+例如： <code class="highlighter-rouge">canvas.drawCircle(100, 100, 50, paint)</code>，这个方法说明了要在坐标 (100, 100) 的位置绘制一个半径为 50 的圆，但是这个圆具体要绘制成什么样子却没有明确的表明，圆的颜色，圆环还是圆饼等都没有明确的指示，而这些内容正存在于画笔之中。</p>
+
+<h2 id="1-内容概览">1. 内容概览</h2>
+
+<p>既然是介绍画笔，自然要先总览一下它都有哪些功能，下面简要的列出一些本文中会涉及到的内容。</p>
+
+<h3 id="11-内部类">1.1 内部类</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>enum</td>
+      <td><strong>Paint.Cap</strong><br />Cap指定了描边线和路径(Path)的开始和结束显示效果。</td>
+    </tr>
+    <tr>
+      <td>enum</td>
+      <td><strong>Paint.Join</strong><br />Join指定线条和曲线段在描边路径上连接的处理。</td>
+    </tr>
+    <tr>
+      <td>enum</td>
+      <td><strong>Paint.Style</strong><br />Style指定绘制的图元是否被填充，描边或两者均有(以相同的颜色)。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="12-常量">1.2 常量</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>int</td>
+      <td><strong>ANTI_ALIAS_FLAG</strong><br />开启抗锯齿功能的标记。</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td><strong>DITHER_FLAG</strong><br />在绘制时启用抖动的标志。</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td><strong>FILTER_BITMAP_FLAG</strong><br />绘制标志，在缩放的位图上启用双线性采样。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="13-构造方法">1.3 构造方法</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>构造方法</th>
+      <th>摘要</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Paint()</td>
+      <td>使用默认设置创建一个新画笔。</td>
+    </tr>
+    <tr>
+      <td>Paint(int flags)</td>
+      <td>创建一个新画笔并提供一些特殊设置(通过 flags 参数)。</td>
+    </tr>
+    <tr>
+      <td>Paint(Paint paint)</td>
+      <td>创建一个新画笔，并使用指定画笔参数初始化。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="14-公开方法">1.4 公开方法</h3>
+
+<p>画笔有 100 个左右的公开方法，限于篇幅，在本文中只会列举一部分方法，其余的内容，则放置于后续文章中再详细介绍。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>返回值</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>int</td>
+      <td><strong>getFlags()</strong><br />获取画笔相关的一些设置(标志)。</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td><strong>getFlags()</strong><br />获取画笔相关的一些设置(标志)。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setFlags(int flags)</strong><br />设置画笔的标志位。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>set(Paint src)</strong><br />复制 src 的画笔设置。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>reset()</strong><br />将画笔恢复为默认设置。</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td><strong>getAlpha()</strong><br />只返回颜色的alpha值。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setAlpha(int a)</strong><br />设置透明度。</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td><strong>getColor()</strong><br />返回画笔的颜色。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setColor(int color)</strong><br />设置颜色。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setARGB(int a, int r, int g, int b)</strong><br />设置带透明通道的颜色。</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td><strong>getStrokeWidth()</strong><br />返回描边的宽度。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setStrokeWidth(float width)</strong><br />设置线条宽度。</td>
+    </tr>
+    <tr>
+      <td>Paint.Style</td>
+      <td><strong>getStyle()</strong><br />返回paint的样式，用于控制如何解释几何元素（除了drawBitmap，它总是假定为FILL_STYLE）。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setStyle(Paint.Style style)</strong><br />设置画笔绘制模式(填充，描边，或两者均有)。</td>
+    </tr>
+    <tr>
+      <td>Paint.Cap</td>
+      <td><strong>getStrokeCap()</strong><br />返回paint的Cap，控制如何处理描边线和路径的开始和结束。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setStrokeCap(Paint.Cap cap)</strong><br />设置线帽。</td>
+    </tr>
+    <tr>
+      <td>Paint.Join</td>
+      <td><strong>getStrokeJoin()</strong><br />返回画笔的笔触连接类型。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setStrokeJoin(Paint.Join join)</strong><br />设置连接方式。</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td><strong>getStrokeMiter()</strong><br />返回画笔的笔触斜接值。用于在连接角度锐利时控制斜接连接的行为。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setStrokeMiter(float miter)</strong><br />设置画笔的笔触斜接值。用于在连接角度锐利时控制斜接连接的行为。</td>
+    </tr>
+    <tr>
+      <td>PathEffect</td>
+      <td><strong>getPathEffect()</strong><br />获取画笔的 patheffect 对象。</td>
+    </tr>
+    <tr>
+      <td>PathEffect</td>
+      <td><strong>setPathEffect(PathEffect effect)</strong><br />设置 Path 效果。</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td><strong>getFillPath(Path src, Path dst)</strong><br />将任何/所有效果（patheffect，stroking）应用于src，并将结果返回到dst。<br />结果是使用此画笔绘制绘制 src 将与使用默认画笔绘制绘制 dst 相同（至少从几何角度来说是这样的）。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-画笔介绍">2. 画笔介绍</h2>
+
+<p>由于画笔需要控制的内容也相当的多，因此它内部包含了相当多的属性变量，配置起来也相当繁杂，不过比较好的是，画笔会提供一套默认设置来供我们使用。例如，创建一个新画笔，这个新画笔已经默认设置了绘制颜色为黑色，绘制模式为填充。</p>
+
+<h3 id="21-画笔基本设置">2.1 画笔基本设置</h3>
+
+<p>要使用画笔就要会创建画笔，创建一个画笔是非常简单的，在之前的文章中也有过简单的介绍。它有三种创建方法，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 1.创建一个默认画笔，使用默认的配置</span>
+<span class="n">Paint</span><span class="o">()</span>
+<span class="c1">// 2.创建一个新画笔，并通过 flags 参数进行配置。</span>
+<span class="n">Paint</span><span class="o">(</span><span class="kt">int</span> <span class="n">flags</span><span class="o">)</span>
+<span class="c1">// 3.创建一个新画笔，并复制参数中画笔的设置。</span>
+<span class="n">Paint</span><span class="o">(</span><span class="n">Paint</span> <span class="n">paint</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>第1种方式创建默认画笔的方式相信大家都会。</p>
+
+<p>第2种方式如果设置 flags 为 0  创建出来和默认画笔也是相同的，至于 flags 参数可用设置哪些内容，可以参考最上面的常量表格，里面的参数都是可以设置的，如果需要设置多个参数，参数之间用 <code class="highlighter-rouge">|</code> 进行连接即可。如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">ANTI_ALIAS_FLAG</span> <span class="o">|</span> <span class="n">Paint</span><span class="o">.</span><span class="na">DITHER_FLAG</span><span class="o">);</span> 
+</code></pre>
+</div>
+
+<p>第3种方式是根据已有的画笔复制一个画笔，就是将已有画笔的所有属性都复制到新画笔种，也比较容易理解：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Paint paintCopy = new Paint(paint);
+</code></pre>
+</div>
+
+<blockquote>
+  <p>复制后的画笔是一个全新的画笔，对复制后的画笔进行任何修改调整都不会影响到被复制的画笔。</p>
+</blockquote>
+
+<p>你可以观察下面的测试代码来了解以上的3种创建方式。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Paint</span> <span class="n">paint1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint1 isAntiAlias = "</span> <span class="o">+</span> <span class="n">paint1</span><span class="o">.</span><span class="na">isAntiAlias</span><span class="o">());</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint1 isDither = "</span> <span class="o">+</span> <span class="n">paint1</span><span class="o">.</span><span class="na">isDither</span><span class="o">());</span>
+
+<span class="n">Paint</span> <span class="n">paint2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">ANTI_ALIAS_FLAG</span> <span class="o">|</span> <span class="n">Paint</span><span class="o">.</span><span class="na">DITHER_FLAG</span><span class="o">);</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint2 isAntiAlias = "</span> <span class="o">+</span> <span class="n">paint2</span><span class="o">.</span><span class="na">isAntiAlias</span><span class="o">());</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint2 isDither = "</span> <span class="o">+</span> <span class="n">paint2</span><span class="o">.</span><span class="na">isDither</span><span class="o">());</span>
+
+<span class="n">Paint</span> <span class="n">paint3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">(</span><span class="n">paint2</span><span class="o">);</span>
+<span class="n">paint3</span><span class="o">.</span><span class="na">setAntiAlias</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint3 isAntiAlias = "</span> <span class="o">+</span> <span class="n">paint3</span><span class="o">.</span><span class="na">isAntiAlias</span><span class="o">());</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint3 isDither = "</span> <span class="o">+</span> <span class="n">paint3</span><span class="o">.</span><span class="na">isDither</span><span class="o">());</span>
+</code></pre>
+</div>
+
+<p>输出结果：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">paint1</span> <span class="n">isAntiAlias</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="n">paint1</span> <span class="n">isDither</span> <span class="o">=</span> <span class="kc">false</span>
+    
+<span class="n">paint2</span> <span class="n">isAntiAlias</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="n">paint2</span> <span class="n">isDither</span> <span class="o">=</span> <span class="kc">true</span>
+    
+<span class="n">paint3isAntiAlias</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="n">paint3</span> <span class="n">isDither</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre>
+</div>
+
+<p>画笔在创建之后依旧可以调整，上面的第2种和第3种创建方式，进行的参数设置，在画笔创建完成后依旧可以进行。通过如下的方法：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>返回值</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>int</td>
+      <td><strong>getFlags()</strong><br />获取画笔相关的一些设置(标志)。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setFlags(int flags)</strong><br />设置画笔的标志位。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>set(Paint src)</strong><br />复制 src 的画笔设置。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>reset()</strong><br />将画笔恢复为默认设置。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>不过<strong>并不建议使用 setFlags 方法，这是因为 setFlags 方法会覆盖之前设置的内容</strong>，例如：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">ANTI_ALIAS_FLAG</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">DITHER_FLAG</span><span class="o">);</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint isAntiAlias = "</span> <span class="o">+</span> <span class="n">paint</span><span class="o">.</span><span class="na">isAntiAlias</span><span class="o">());</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"paint isDither = "</span> <span class="o">+</span> <span class="n">paint</span><span class="o">.</span><span class="na">isDither</span><span class="o">());</span>
+</code></pre>
+</div>
+
+<p>输出结果：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">paint</span> <span class="n">isAntiAlias</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="n">paint</span> <span class="n">isDither</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>从结果可以看出，只有最后一次设置的内容有效，之前设置的所有内容都会被覆盖掉。因此不推荐使用。</p>
+
+  <p>如果了解 Google 工程师比较喜欢的编码规范就可以知道原因是什么，最终的flags是由多个flag用”或(<code class="highlighter-rouge">|</code>)”连接起来的，也就是一个变量，如果直接使用 set 方法，自然是会覆盖掉之前设置的内容的。如果想要调整 flag 个人建议还是使用 paint 提供的一些封装方法，如：<code class="highlighter-rouge">setDither(true)</code>，而不要自己手动去直接操作 flag。</p>
+
+  <p>如果有人对 flags 的存储方式感兴趣可以看看这个例子，假如：0x0001 表示类型A， 0x0010 表示类型B，0x0100 表示类型C，0x1000 表示类型D，那么当类型ABD同时存在，但C不存在时时只用存储 0x1011 即可，相比于使用4个 boolean 值来说，这种方案可以显著的节省内存空间的占用，并且用户设置起来也比较方便，可以使用或”|“同时设置多个类型。当然弊端也是有的，那就是单独更改其中一个参数时时稍微麻烦一点，需要进行一些位运算。</p>
+</blockquote>
+
+<p><strong>使用 set(Paint src) 可以复制一个画笔，但需要注意的是，如果调用了这个方法，当前画笔的所有设置都会被覆盖掉，而替换为所选画笔的设置。</strong></p>
+
+<p><strong>如果想将画笔重置为初始状态，那就调用 <code class="highlighter-rouge">reset()</code> 方法，该方法会让画笔的所有设置都还原为初始状态，调用该方法后得到的画笔和刚创建时的状态是一样的。</strong></p>
+
+<h3 id="22-画笔颜色">2.2 画笔颜色</h3>
+
+<p>这个是最常用的方法，它相关的方法如下；</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>返回值</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>int</td>
+      <td><strong>getAlpha()</strong><br />只返回颜色的alpha值。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setAlpha(int a)</strong><br />设置透明度。</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td><strong>getColor()</strong><br />返回画笔的颜色。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setColor(int color)</strong><br />设置颜色。</td>
+    </tr>
+    <tr>
+      <td>void</td>
+      <td><strong>setARGB(int a, int r, int g, int b)</strong><br />设置带透明通道的颜色。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Android 中有 1 个透明通道(Alpha)和 3 个色彩通道(RGB)，其中 Alpha 通道可以单独设置。通过 <strong>getAlpha()</strong> 和 <strong>setAlpha(int a)</strong> 方法可以单独调整透明通道，其中 <strong>setAlpha(int a)</strong> 中参数的取值范围是 0 - 255，即对应 16 进制中的 0x00 - 0xFF。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 下面两种设置方式是等价的，一种是 10 进制，一种是 16 进制</span>
+<span class="n">paint1</span><span class="o">.</span><span class="na">setAlpha</span><span class="o">(</span><span class="mi">204</span><span class="o">);</span>
+<span class="n">paint2</span><span class="o">.</span><span class="na">setAlpha</span><span class="o">(</span><span class="mi">0</span><span class="n">xCC</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>同理，<strong>setARGB(int a, int r, int g, int b)</strong> 的 4 个参数的取值范围也是 0 - 255，对应 0x00 - 0xFF，下面的设置同样是等价的。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>paint1.setARGB(204, 255, 255, 0);
+paint2.setARGB(0xCC, 0xFF, 0xFF, 0x00);
+</code></pre>
+</div>
+
+<p>当然，这样设置起来比较麻烦，我们最常用的还是直接使用 <strong>setColor(int color)</strong> 方法，它接受一个 int 类型的参数来表示颜色，我们既可以使用系统内置的一些标准颜色，也可以使用自定义的一些颜色，如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="mi">0</span><span class="n">xFFE2A588</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>注意：</strong></p>
+
+<p>在使用 setColor 方法时，所设置的颜色必须是 ARGB 同时存在的，通常每个通道用两位16进制数值表示，如 0xFFE2A588。总共 8 位，其中 FF 表示 Alpha 通道。</p>
+
+<p>如果不设置 Alpha 通道，则默认Alpha通道为 0，即完全透明，如：0xE2A588，总共 6 位，没有 Alpha 通道，如果这样设置，则什么颜色也绘制不出来。</p>
+
+<p>同样需要注意的是，setColor 不能直接引用资源，不能这样使用：<code class="highlighter-rouge">paint.setColor(R.color.colorPrimary);</code> 如果你这样使用了，编译器会报错的。如果想要使用预定义的颜色资源，可以像下面这样调用：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="n">color</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getColor</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">colorPrimary</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">color</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="24-画笔宽度">2.4 画笔宽度</h3>
+
+<p>画笔宽度，就是画笔的粗细，它通过下面的方式设置。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 将画笔设置为描边</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="c1">// 设置线条宽度</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">120</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>注意： 这条线的宽度是同时向两边进行扩展的，例如绘制一个圆时，将其宽度设置为 120 则会向外扩展 60 ，向内缩进 60，如下图所示。</strong></p>
+
+<p><img src="/assets/customview/paint/paint-stroke-0.png" alt="paint-width" /></p>
+
+<p><strong>因此如果绘制的内容比较靠近视图边缘，使用了比较粗的描边的情况下，一定要注意和边缘保持一定距离(<code class="highlighter-rouge">边距&gt;StrokeWidth/2</code>) 以保证内容不会被剪裁掉。</strong></p>
+
+<p>如下面这种情况，直接绘制一个矩形，如果不考虑画笔宽度，则绘制的内容就可能不正常。</p>
+
+<p><strong>在一个 1000x1000 大小的画布上绘制与个大小为 500x500 ，宽度为 100 的矩形。</strong></p>
+
+<blockquote>
+  <p>灰色部分为画布大小。  <br />
+红色为分割线，将画笔分为均等的四份。<br />
+蓝色为矩形。</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="mi">0</span><span class="n">xFF7FC2D8</span><span class="o">);</span>
+<span class="n">Rect</span> <span class="n">rect</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rect</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">500</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="n">rect</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-stroke-1.png" alt="paing-stroke-0" /></p>
+
+<p>如果考虑到画笔宽度，需要绘制一个大小刚好填充满左上角区域的矩形，那么实际绘制的矩形就要小一些，(<strong>如果只是绘制一个矩形的话，可以将矩形向内缩小画笔宽度的一半</strong>) 这样绘制出来就是符合预期的。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="mi">0</span><span class="n">xFF7FC2D8</span><span class="o">);</span>
+<span class="n">Rect</span> <span class="n">rect</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rect</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">500</span><span class="o">);</span>
+<span class="n">rect</span><span class="o">.</span><span class="na">inset</span><span class="o">(</span><span class="mi">50</span><span class="o">,</span> <span class="mi">50</span><span class="o">);</span>     <span class="c1">// 注意这里，向内缩小半个宽度</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="n">rect</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-stroke-2.png" alt="paing-stroke-1" /></p>
+
+<blockquote>
+  <p><strong>这里只是用矩形作为例子说明，事实上，绘制任何图形，只要有描边的，就要考虑描边宽度占用的空间，需要适当的缩小图形，以保证其可以完整的显示出来。</strong></p>
+
+  <p><strong>注意：在实际的自定义 View 中也不要忽略 padding 占用的空间哦。</strong></p>
+</blockquote>
+
+<h4 id="hairline-mode-发际线模式"><strong>hairline mode (发际线模式)：</strong></h4>
+
+<p>在设置画笔宽度的的方法有如下注释：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Set the width for stroking.
+Pass 0 to stroke in hairline mode.
+Hairlines always draws a single pixel independent of the canva's matrix.
+</code></pre>
+</div>
+
+<p>在画笔宽度为 0 的情况下，使用 drawLine 或者使用描边模式(STROKE)也可以绘制出内容。只是绘制出的内容始终是 1 像素，不受画布缩放的影响。该模式被称为<strong>hairline mode (发际线模式)</strong>。</p>
+
+<blockquote>
+  <p>如果你设置了画笔宽度为 1 像素，那么如果画布放大到 2 倍，1 像素会变成 2 像素。但如果是 0 像素，那么不论画布如何缩放，绘制出来的宽度依旧为 1 像素。</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 缩放 5 倍</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">scale</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">500</span><span class="o">);</span>
+
+<span class="c1">// 0 像素 (Hairline Mode)</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="mi">0</span><span class="n">xFF7FC2D8</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="mi">455</span><span class="o">,</span> <span class="mi">40</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 1 像素</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="mi">0</span><span class="n">xFF7FC2D8</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="mi">545</span><span class="o">,</span> <span class="mi">40</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>可以看到，在放大 5 倍的情况下，1 像素已经变成了 5 像素，但 hairline mode 绘制出来依旧是 1 像素。</p>
+
+<p><img src="/assets/customview/paint/paint-stroke-3.png" alt="paint-stroke-3" /></p>
+
+<h3 id="23-画笔模式">2.3 画笔模式</h3>
+
+<p>这里的画笔模式(<strong>Paint.Style</strong>)就是指绘制一个图形时，是绘制边缘轮廓，绘制内容区域还是两者都绘制，它有三种模式。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Style</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Paint.Style.FILL</td>
+      <td>填充内容，也是画笔的默认模式。</td>
+    </tr>
+    <tr>
+      <td>Paint.Style.STROKE</td>
+      <td>描边，只绘制图形轮廓。</td>
+    </tr>
+    <tr>
+      <td>Paint.Style.FILL_AND_STROKE</td>
+      <td>描边+填充，同时绘制轮廓和填充内容。</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">//填充</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL</span><span class="o">);</span>
+<span class="c1">// 描边</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="c1">// 描边+填充</span>
+<span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL_AND_STROKE</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>示例程序：</strong></p>
+
+<p>用一个简单的例子说明一下不同模式的区别。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 画笔初始设置</span>
+<span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setAntiAlias</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">50</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="mi">0</span><span class="n">xFF7FC2D8</span><span class="o">);</span>
+
+<span class="c1">// 填充，默认</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="mi">200</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 描边</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 描边 + 填充</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">FILL_AND_STROKE</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawCircle</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-style.png" alt="paint-style" /></p>
+
+<h3 id="25-画笔线帽">2.5 画笔线帽</h3>
+
+<p>画笔线帽(<strong>Paint.Cap</strong>)用于指定线段开始和结束时的效果。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 它通过下面方式设置</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeCap</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Cap</span><span class="o">.</span><span class="na">ROUND</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>Android 中有三种线帽可供选择。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cap</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Paint.Cap.BUTT</td>
+      <td>无线帽，也是默认类型。</td>
+    </tr>
+    <tr>
+      <td>Paint.Cap.SQUARE</td>
+      <td>以线条宽度为大小，在开头和结尾分别添加半个正方形。</td>
+    </tr>
+    <tr>
+      <td>Paint.Cap.ROUND</td>
+      <td>以线条宽度为直径，在开头和结尾分别添加一个半圆。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>我们用以下代码来测试线帽。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 画笔初始设置</span>
+<span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setAntiAlias</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">80</span><span class="o">);</span>
+<span class="kt">float</span> <span class="n">pointX</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">lineStartX</span> <span class="o">=</span> <span class="mi">320</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">lineStopX</span> <span class="o">=</span> <span class="mi">800</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">y</span><span class="o">;</span>
+
+<span class="c1">// 默认</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">pointX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">lineStartX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">lineStopX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 无线帽(BUTT)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">400</span><span class="o">;</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeCap</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Cap</span><span class="o">.</span><span class="na">BUTT</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">pointX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">lineStartX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">lineStopX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 方形线帽(SQUARE)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">600</span><span class="o">;</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeCap</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Cap</span><span class="o">.</span><span class="na">SQUARE</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">pointX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">lineStartX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">lineStopX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 圆形线帽(ROUND)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">800</span><span class="o">;</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeCap</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Cap</span><span class="o">.</span><span class="na">ROUND</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPoint</span><span class="o">(</span><span class="n">pointX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="n">lineStartX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">lineStopX</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-cap.png" alt="paint-cap" /></p>
+
+<p><strong>注意：</strong></p>
+
+<ol>
+  <li>画笔默认是无线帽的，即 BUTT。</li>
+  <li>Cap 也会影响到点的绘制，在 Round 的状态下绘制的点是圆的。</li>
+  <li>在绘制线条时，线帽时在线段外的，如上图红色部分所显示的内容就是线帽。</li>
+  <li><strong>上图中红色的线帽是用特殊方式展示出来的，直接绘制的情况下，线帽颜色和线段颜色相同。</strong></li>
+</ol>
+
+<h3 id="26-线段连接方式拐角类型">2.6 线段连接方式(拐角类型)</h3>
+
+<p>画笔的连接方式(<strong>Paint.Join</strong>)是指两条连接起来的线段拐角显示方式。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 通过下面方式设置连接类型</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeJoin</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Join</span><span class="o">.</span><span class="na">ROUND</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>它同样有三种样式：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cap</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Paint.Join.MITER</td>
+      <td>尖角 (默认模式)</td>
+    </tr>
+    <tr>
+      <td>Paint.Join.BEVEL</td>
+      <td>平角</td>
+    </tr>
+    <tr>
+      <td>Paint.Join.ROUND</td>
+      <td>圆角</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/customview/paint/paint-join-1.png" alt="paint-join-1" /></p>
+
+<p>通过效果图可以看出几种不同模式的补偿规则。</p>
+
+<h3 id="27-斜接模式长度限制">2.7 斜接模式长度限制</h3>
+
+<p>Android 中线段连接方式默认是 MITER，即在拐角处延长外边缘，直到相交位置。</p>
+
+<p><img src="/assets/customview/paint/paint-join-2.png" alt="paint-join-2" /></p>
+
+<p>根据数学原理我们可知，如果夹角足够小，接近于零，那么交点位置就会在延长线上无限远的位置。
+<strong>为了避免这种情况，如果连接模式为 MITER(尖角)，当连接角度小于一定程度时会自动将连接模式转换为 BEVEL(平角)。</strong></p>
+
+<p>那么多大的角度算是比较小呢？根据资料显示，这个角度大约是 28.96°，即 MITER(尖角) 模式下小于该角度的线段连接方式会自动转换为 BEVEL(平角) 模式。</p>
+
+<p>我们可以通过下面的方法来更改默认限制：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 设置 Miter Limit，参数并不是角度</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeMiter</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p><strong>注意：</strong></p>
+
+  <p><strong>参数 miter 就是对长度的限制，它可以通过这个公式计算：miter = 1 / sin ( angle / 2 ) ， angel 是两条线的形成的夹角。</strong></p>
+
+  <p><strong>其中 miter 的数值应该 &gt;= 0，小于 0 的数值无效，其默认数值是 4，下表是 miter 和角度的一些对应关系。</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center">miter</th>
+        <th style="text-align: center">angle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center">10</td>
+        <td style="text-align: center">11.48</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">9</td>
+        <td style="text-align: center">12.76</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">8</td>
+        <td style="text-align: center">14.36</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">7</td>
+        <td style="text-align: center">16.43</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">6</td>
+        <td style="text-align: center">19.19</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">5</td>
+        <td style="text-align: center">23.07</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">4</td>
+        <td style="text-align: center">28.96</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">3</td>
+        <td style="text-align: center">38.94</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">2</td>
+        <td style="text-align: center">60</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">1</td>
+        <td style="text-align: center">180</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>关于这部分内容可以在 <a href="https://skia.org/user/api/SkPaint_Reference#Miter_Limit">https://skia.org/user/api/SkPaint_Reference#Miter_Limit</a> 查看到。</p>
+</blockquote>
+
+<h3 id="28-patheffect">2.8 PathEffect</h3>
+
+<p><strong>PathEffect 在绘制之前修改几何路径，它可以实现划线，自定义填充效果和自定义笔触效果。PathEffect 虽然名字看起来是和 Path 相关的，但实际上它的效果可以作用于 Canvas 的各种绘制，例如 drawLine， drawRect，drawPath 等。</strong></p>
+
+<blockquote>
+  <p><strong>注意： PathEffect  在部分情况下不支持硬件加速，需要关闭硬件加速才能正常使用：</strong></p>
+
+  <ol>
+    <li><code class="highlighter-rouge">Canvas.drawLine()</code> 和 <code class="highlighter-rouge">Canvas.drawLines()</code> 方法画直线时，<code class="highlighter-rouge">setPathEffect()</code> 是不支持硬件加速的；</li>
+    <li><code class="highlighter-rouge">PathDashPathEffect</code> 对硬件加速的支持也有问题，所以当使用 <code class="highlighter-rouge">PathDashPathEffect</code> 的时候，最好也把硬件加速关了。</li>
+  </ol>
+</blockquote>
+
+<p>在 Android 中有 6 种 PathEffect，4 种基础效果，2 种叠加效果。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PathEffect</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CornerPathEffect</td>
+      <td>圆角效果，将尖角替换为圆角。</td>
+    </tr>
+    <tr>
+      <td>DashPathEffect</td>
+      <td>虚线效果，用于各种虚线效果。</td>
+    </tr>
+    <tr>
+      <td>PathDashPathEffect</td>
+      <td>Path 虚线效果，虚线中的间隔使用 Path 代替。</td>
+    </tr>
+    <tr>
+      <td>DiscretePathEffect</td>
+      <td>让路径分段随机偏移。</td>
+    </tr>
+    <tr>
+      <td>SumPathEffect</td>
+      <td>两个 PathEffect 效果组合，同时绘制两种效果。</td>
+    </tr>
+    <tr>
+      <td>ComposePathEffect</td>
+      <td>两个 PathEffect 效果叠加，先使用效果1，之后使用效果2。</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 通过 setPathEffect 来设置效果</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="n">effect</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h4 id="281-cornerpatheffect">2.8.1 CornerPathEffect</h4>
+
+<p>CornerPathEffect 可以将线段之间的任何锐角替换为指定半径的圆角(适用于 STROKE 或 FILL 样式)。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// radius 为圆角半径大小，半径越大，path 越平滑。</span>
+<span class="n">CornerPathEffect</span><span class="o">(</span><span class="n">radius</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-corner-effect.png" alt="paint-corner-effect" /></p>
+
+<p>**使用 CornerPathEffect，可以实现圆角矩形效果。 但是在一些特殊情况下，它和圆角矩形的显示效果还是稍有不同的，例如下面这种情况：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">RectF</span> <span class="n">rect</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">600</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
+<span class="kt">float</span> <span class="n">corner</span> <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+
+<span class="c1">// 使用 CornerPathEffect 实现类圆角效果</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">((</span><span class="mi">1080</span> <span class="o">-</span> <span class="mi">600</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="o">(</span><span class="mi">1920</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">600</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">CornerPathEffect</span><span class="o">(</span><span class="n">corner</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="n">rect</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 直接绘制圆角矩形</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1920</span> <span class="o">/</span> <span class="mi">2</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawRoundRect</span><span class="o">(</span><span class="n">rect</span><span class="o">,</span> <span class="n">corner</span><span class="o">,</span> <span class="n">corner</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-corcer-effect-1.png" alt="paint-corcer-effect-1" /></p>
+
+<p>如上图所示，左侧是使用 CornerPathEffect 将矩形的边角变圆润的效果，右侧则是直接绘制圆角矩形的效果。我们知道，在绘制圆角矩形时，如果圆角足够大时，那么绘制出来就会是圆或者椭圆。但是使用 CornerPathEffect 时，不论圆角有多大，它也不会变成圆形或者椭圆。</p>
+
+<p><strong>CornerPathEffect 也可以让手绘效果更加圆润。</strong></p>
+
+<blockquote>
+  <p>一些简单的绘图场景或者签名场景中，一般使用 Path 来保存用户的手指轨迹，通过连续的 lineTo 来记录用户手指划过的路径，但是直接的 LineTo 会让转角看起来非常生硬，而使用 CornerPathEffect 效果则可以快速的让轨迹圆润起来。</p>
+</blockquote>
+
+<p><img src="/assets/customview/paint/paint-corcer-effect-2.gif" alt="paint-corcer-effect-2" /></p>
+
+<p>如上图，左侧是未经优化的原始路径，右侧是使用了 CornerPathEffect 效果后的路径。上图测试代码如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CornerPathEffectTestView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+    <span class="n">Paint</span> <span class="n">mPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+    <span class="n">PathEffect</span> <span class="n">mPathEffect</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CornerPathEffect</span><span class="o">(</span><span class="mi">200</span><span class="o">);</span>
+    <span class="n">Path</span> <span class="n">mPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="nf">CornerPathEffectTestView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">CornerPathEffectTestView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouchEvent</span><span class="o">(</span><span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getActionMasked</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">:</span>
+                <span class="n">mPath</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+                <span class="n">mPath</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">());</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_MOVE</span><span class="o">:</span>
+                <span class="n">mPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span> <span class="n">event</span><span class="o">.</span><span class="na">getY</span><span class="o">());</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_CANCEL</span><span class="o">:</span>
+            <span class="k">case</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_UP</span><span class="o">:</span>
+                <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">postInvalidate</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+        <span class="c1">// 绘制原始路径</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">mPath</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+
+        <span class="c1">// 绘制带有效果的路径</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">canvas</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+        <span class="n">mPaint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="n">mPathEffect</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">mPath</span><span class="o">,</span> <span class="n">mPaint</span><span class="o">);</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="282-dashpatheffect">2.8.2 DashPathEffect</h4>
+
+<p>DashPathEffect 用于实现虚线效果(适用于 STROKE 或 FILL_AND_STROKE 样式)。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// intervals：必须为偶数，用于控制显示和隐藏的长度。</span>
+<span class="c1">// phase：相位。</span>
+<span class="n">DashPathEffect</span><span class="o">(</span><span class="kt">float</span> <span class="n">intervals</span><span class="o">[],</span> <span class="kt">float</span> <span class="n">phase</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>intervals[]</td>
+      <td>间隔，用于控制虚线显示长度和隐藏长度，它必须为偶数(且至少为 2 个)，按照[显示长度，隐藏长度，显示长度，隐藏长度]的顺序来显示。</td>
+    </tr>
+    <tr>
+      <td>phase</td>
+      <td>相位(和正余弦函数中的相位类似，周期为intervals长度总和)，也可以简单的理解为偏移量。</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Path</span> <span class="n">path_dash</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">path_dash</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1720</span><span class="o">);</span>
+
+<span class="n">canvas</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">980</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">DashPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="kt">float</span><span class="o">[]{</span><span class="mi">200</span><span class="o">,</span> <span class="mi">100</span><span class="o">},</span> <span class="mi">0</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">path_dash</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+
+<span class="n">canvas</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">400</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">DashPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="kt">float</span><span class="o">[]{</span><span class="mi">200</span><span class="o">,</span> <span class="mi">100</span><span class="o">},</span> <span class="mi">100</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">path_dash</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">restore</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-dash-effect3.png" alt="paint-dash-effect3" /></p>
+
+<p><strong>如上图所示，虚线效果是根据 intervals[] 中的数值周期显示的，而 phase 则用于控制相位差(偏移量)。</strong></p>
+
+<p><strong>注意：intervals[] 中是允许设置多组数据的，每两个为一组，第一个表示显示长度，第二个表示隐藏长度。</strong></p>
+
+<blockquote>
+  <p>DashPathEffect 使用起来比较简单，但是也有人拿来玩一些特殊效果，例如这篇文章：<a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0907/3429.html">使用DashPathEffect绘制一条动画曲线</a>。 不过这篇文章中实现的效果也可以使用 PathMeasure 的截取功能来实现，通过截取不同长度的 Path 来实现动画效果。</p>
+</blockquote>
+
+<h4 id="283-pathdashpatheffect">2.8.3 PathDashPathEffect</h4>
+
+<p>这个也是实现类似虚线效果，只不过这个虚线中显示的部分可以指定为一个 Path(适用于 STROKE 或 FILL_AND_STROKE 样式)。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// shape: Path 图形</span>
+<span class="c1">// advance: 图形占据长度</span>
+<span class="c1">// phase: 相位差</span>
+<span class="c1">// style: 转角样式</span>
+<span class="n">PathDashPathEffect</span><span class="o">(</span><span class="n">Path</span> <span class="n">shape</span><span class="o">,</span> <span class="kt">float</span> <span class="n">advance</span><span class="o">,</span> <span class="kt">float</span> <span class="n">phase</span><span class="o">,</span> <span class="n">PathDashPathEffect</span><span class="o">.</span><span class="na">Style</span> <span class="n">style</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>注意：参数中的 shape 只能是 FILL 模式。</strong></p>
+
+<p>PathDashPathEffect 允许使用一个 Path 图形作为显示效果，如下：</p>
+
+<p><img src="/assets/customview/paint/paint-pash-dash-effect.png" alt="paint-pash-dash-effect" /></p>
+
+<p><strong>注意：参数中的shape(Path)只能是 FILL 模式，即便画笔是 STROKE 样式，shape 也只会是 FILL。</strong></p>
+
+<p>上图中分割线示例代码：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 画笔初始设置</span>
+<span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setAntiAlias</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+<span class="n">RectF</span> <span class="n">rectF</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">50</span><span class="o">,</span> <span class="mi">50</span><span class="o">);</span>
+
+<span class="c1">// 方形</span>
+<span class="n">Path</span> <span class="n">rectPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">rectPath</span><span class="o">.</span><span class="na">addRect</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="n">Path</span><span class="o">.</span><span class="na">Direction</span><span class="o">.</span><span class="na">CW</span><span class="o">);</span>
+
+<span class="c1">// 圆形 椭圆</span>
+<span class="n">Path</span> <span class="n">ovalPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">ovalPath</span><span class="o">.</span><span class="na">addOval</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="n">Path</span><span class="o">.</span><span class="na">Direction</span><span class="o">.</span><span class="na">CW</span><span class="o">);</span>
+
+<span class="c1">// 子弹形状</span>
+<span class="n">Path</span> <span class="n">bulletPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">bulletPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">rectF</span><span class="o">.</span><span class="na">centerX</span><span class="o">(),</span> <span class="n">rectF</span><span class="o">.</span><span class="na">top</span><span class="o">);</span>
+<span class="n">bulletPath</span><span class="o">.</span><span class="na">addArc</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="o">-</span><span class="mi">90</span><span class="o">,</span> <span class="mi">180</span><span class="o">);</span>
+<span class="n">bulletPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">rectF</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">bottom</span><span class="o">);</span>
+<span class="n">bulletPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">rectF</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">top</span><span class="o">);</span>
+
+<span class="c1">// 星星形状</span>
+<span class="n">PathMeasure</span> <span class="n">pathMeasure</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PathMeasure</span><span class="o">(</span><span class="n">ovalPath</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+<span class="kt">float</span> <span class="n">length</span> <span class="o">=</span> <span class="n">pathMeasure</span><span class="o">.</span><span class="na">getLength</span><span class="o">();</span>
+<span class="kt">float</span> <span class="n">split</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">5</span><span class="o">;</span>
+<span class="kt">float</span><span class="o">[]</span> <span class="n">starPos</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+<span class="kt">float</span><span class="o">[]</span> <span class="n">pos</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+<span class="kt">float</span><span class="o">[]</span> <span class="n">tan</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">pathMeasure</span><span class="o">.</span><span class="na">getPosTan</span><span class="o">(</span><span class="n">split</span> <span class="o">*</span> <span class="n">i</span><span class="o">,</span> <span class="n">pos</span><span class="o">,</span> <span class="n">tan</span><span class="o">);</span>
+    <span class="n">starPos</span><span class="o">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="n">starPos</span><span class="o">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+<span class="o">}</span>
+<span class="n">Path</span> <span class="n">starPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="n">starPos</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">starPos</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">starPos</span><span class="o">[</span><span class="mi">4</span><span class="o">],</span> <span class="n">starPos</span><span class="o">[</span><span class="mi">5</span><span class="o">]);</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">starPos</span><span class="o">[</span><span class="mi">8</span><span class="o">],</span> <span class="n">starPos</span><span class="o">[</span><span class="mi">9</span><span class="o">]);</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">starPos</span><span class="o">[</span><span class="mi">2</span><span class="o">],</span> <span class="n">starPos</span><span class="o">[</span><span class="mi">3</span><span class="o">]);</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">starPos</span><span class="o">[</span><span class="mi">6</span><span class="o">],</span> <span class="n">starPos</span><span class="o">[</span><span class="mi">7</span><span class="o">]);</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">lineTo</span><span class="o">(</span><span class="n">starPos</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">starPos</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+<span class="n">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Matrix</span><span class="o">();</span>
+<span class="n">matrix</span><span class="o">.</span><span class="na">postRotate</span><span class="o">(-</span><span class="mi">90</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">centerX</span><span class="o">(),</span> <span class="n">rectF</span><span class="o">.</span><span class="na">centerY</span><span class="o">());</span>
+<span class="n">starPath</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">matrix</span><span class="o">);</span>
+
+
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">360</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="c1">// 绘制分割线 - 方形</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">PathDashPathEffect</span><span class="o">(</span><span class="n">rectPath</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">width</span><span class="o">()</span> <span class="o">*</span> <span class="mf">1.5f</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">PathDashPathEffect</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">TRANSLATE</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1200</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 绘制分割线 - 圆形</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">PathDashPathEffect</span><span class="o">(</span><span class="n">ovalPath</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">width</span><span class="o">()</span> <span class="o">*</span> <span class="mf">1.5f</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">PathDashPathEffect</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">TRANSLATE</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1200</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 绘制分割线 - 子弹型</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">PathDashPathEffect</span><span class="o">(</span><span class="n">bulletPath</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">width</span><span class="o">()</span> <span class="o">*</span> <span class="mf">1.5f</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">PathDashPathEffect</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">TRANSLATE</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1200</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+
+<span class="c1">// 绘制分割线 - 星型</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setPathEffect</span><span class="o">(</span><span class="k">new</span> <span class="n">PathDashPathEffect</span><span class="o">(</span><span class="n">starPath</span><span class="o">,</span> <span class="n">rectF</span><span class="o">.</span><span class="na">width</span><span class="o">()</span> <span class="o">*</span> <span class="mf">1.5f</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">PathDashPathEffect</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">TRANSLATE</span><span class="o">));</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawLine</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1200</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>PathDashPathEffect.Style</strong></p>
+
+<p>PathDashPathEffect 的最后一个参数是 PathDashPathEffect.Style，这个参数用于处理 Path 图形在转角处的样式。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Style</th>
+      <th>简介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TRANSLATE</td>
+      <td>在转角处对图形平移。</td>
+    </tr>
+    <tr>
+      <td>ROTATE</td>
+      <td>在转角处对图形旋转。</td>
+    </tr>
+    <tr>
+      <td>MORPH</td>
+      <td>在转角处对图形变形。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/customview/paint/paint-pash-dash-effect3.png" alt="paint-pash-dash-effect3" /></p>
+
+<h4 id="284-discretepatheffect">2.8.4 DiscretePathEffect</h4>
+
+<p>DiscretePathEffect 可以让 Path 产生随机偏移效果。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// segmentLength: 分段长度</span>
+<span class="c1">// deviation: 偏移距离</span>
+<span class="n">DiscretePathEffect</span><span class="o">(</span><span class="kt">float</span> <span class="n">segmentLength</span><span class="o">,</span> <span class="kt">float</span> <span class="n">deviation</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-discrete-effect.png" alt="paint-discrete-effect" /></p>
+
+<blockquote>
+  <p>至今为止还尚未见过这种效果的应用场景。</p>
+</blockquote>
+
+<h4 id="285-sumpatheffect">2.8.5 SumPathEffect</h4>
+
+<p>SumPathEffect 用于合并两种效果，它相当于两种效果都绘制一遍。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 两种效果相加</span>
+<span class="n">SumPathEffect</span><span class="o">(</span><span class="n">PathEffect</span> <span class="n">first</span><span class="o">,</span> <span class="n">PathEffect</span> <span class="n">second</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-sum-effect-0349877.png" alt="paint-sum-effect-0349877" /></p>
+
+<h4 id="286-composepatheffect">2.8.6 ComposePathEffect</h4>
+
+<p>ComposePathEffect 也是合并两种效果，只不过先应用一种效果后，再次叠加另一种效果，因此<strong>交换参数最终得到的效果是不同的</strong>。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 构造一个 PathEffect, 其效果是首先应用 innerpe 再应用 outerpe (如: outer(inner(path)))。</span>
+<span class="n">ComposePathEffect</span><span class="o">(</span><span class="n">PathEffect</span> <span class="n">outerpe</span><span class="o">,</span> <span class="n">PathEffect</span> <span class="n">innerpe</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/customview/paint/paint-compose-effect.png" alt="paint-compose-effect" /></p>
+
+<h3 id="29-getfillpath">2.9 getFillPath</h3>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 根据原始Path(src)获取预处理后的Path(dst)</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">getFillPath</span><span class="o">(</span><span class="n">Path</span> <span class="n">src</span><span class="o">,</span> <span class="n">Path</span> <span class="n">dst</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>在 PathEffect 一开始有这样一句介绍：“<strong>PathEffect 在绘制之前修改几何路径</strong>… ” 这句话表示的意思是，我们在绘制内容时，会在绘制之前对这些内容进行处理，最终进行绘制的内容实际上是经过处理的，而不是原始的。</p>
+
+<p>事实上，我们所有绘制的图形，包括线条，矩形，Path 等内容，由于存在线条宽度，填充模式，线帽等不同的设置，在绘制之前都是需要进行预处理的。</p>
+
+<p><strong>Q: 我们能不能拿到预处理后的图形呢？</strong></p>
+
+<p>A: 答案是可以的，但是我们只能拿到 Path 预处理后的内容。</p>
+
+<p><img src="/assets/customview/paint/paint-getfillpath.png" alt="paint-getfillpath" /></p>
+
+<p>如上图，我们使用一个圆弧形状的 Path，设置画笔为描边，绘制出来就是第一个图形的效果。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Path</span> <span class="n">arcPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">arcPath</span><span class="o">.</span><span class="na">addArc</span><span class="o">(</span><span class="k">new</span> <span class="n">RectF</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">500</span><span class="o">),</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">300</span><span class="o">);</span>
+
+<span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">arcPath</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>将画笔设置为描边模式，较粗的描边效果，线帽效果为 Round 后绘制出来就是第二个图形的效果。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Paint</span> <span class="n">paint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeCap</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Cap</span><span class="o">.</span><span class="na">ROUND</span><span class="o">);</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">arcPath</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>如果通过 paint 的 getFillPath 获取处理后的 Path，然后绘制出来就是第三种图形的样式。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Path</span> <span class="n">borderPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">();</span>
+<span class="n">paint</span><span class="o">.</span><span class="na">getFillPath</span><span class="o">(</span><span class="n">arcPath</span><span class="o">,</span> <span class="n">borderPath</span><span class="o">);</span>	<span class="c1">// getFillPath</span>
+
+<span class="c1">// 测试画笔，注意设置为 STROKE</span>
+<span class="n">Paint</span> <span class="n">testPaint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+<span class="n">testPaint</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+<span class="n">testPaint</span><span class="o">.</span><span class="na">setStrokeWidth</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="n">testPaint</span><span class="o">.</span><span class="na">setAntiAlias</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="c1">// 绘制通过 getFillPath 获取到的 Path</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawPath</span><span class="o">(</span><span class="n">borderPath</span><span class="o">,</span> <span class="n">testPaint</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>Q: 可是我们拿到预处理后的 Path 有什么作用呢？</strong></p>
+
+<p>A: 尽管通常情况下我们用不到，但在一些特殊情况下还是有些作用的，可以通过下面的一个实例了解。</p>
+
+<p>在我前段时间开源的一个库里面，需要实现下面这样的效果，一个弧形的 SeekBbar。</p>
+
+<p><img src="/assets/customview/paint/arcseekbar-shadow.gif" alt="arcseekbar-shadow" /></p>
+
+<p>如上图，是一个非常粗的圆弧，有一个白色的描边，这个白色的描边效果就可以通过 getFillPath 轻松实现。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// 通过 getFillPath 来获得圆弧的实际区域, 存储到 mBorderPath 中</span>
+<span class="n">mArcPaint</span><span class="o">.</span><span class="na">getFillPath</span><span class="o">(</span><span class="n">mSeekPath</span><span class="o">,</span> <span class="n">mBorderPath</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>直接用 getFillPath 获取到这个粗圆弧的边缘，存储到 mBorderPath 中，把 mBorderPath 用白色画笔绘制出来就可以实现上图中的描边效果啦。</p>
+
+<p>并且，用户的点击事件也需要进行一些限制，只有用户点击到圆弧上的时候才能触发进度变化，而点击其余部分则不处理，这里可以利用 getFillPath 和 Region 来实现点击区域限定。</p>
+
+<p><strong>关于使用 Region 判断点击区域可以参考 ：<a href="http://www.gcssloop.com/customview/touch-matrix-region">特殊控件的事件处理方案</a></strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Path</span> <span class="n">mSeekPath</span> <span class="o">=</span> <span class="o">...</span>	<span class="c1">// 圆弧 Path。</span>
+<span class="n">Path</span> <span class="n">mBorderPath</span> <span class="o">=</span> <span class="o">...</span>	<span class="c1">// 圆弧 Path 的边缘。</span>
+<span class="n">Paint</span> <span class="n">mArcPaint</span> <span class="o">=</span> <span class="o">...</span>	<span class="c1">// 画笔，设置好 Style，Cap, StrokeWidth。</span>
+<span class="n">Region</span> <span class="n">mArcRegion</span> <span class="o">=</span> <span class="o">...</span>	<span class="c1">// 用户点击区域</span>
+
+<span class="c1">// 通过 getFillPath 来获得圆弧的实际区域, 存储到 mBorderPath 中</span>
+<span class="n">mArcPaint</span><span class="o">.</span><span class="na">getFillPath</span><span class="o">(</span><span class="n">mSeekPath</span><span class="o">,</span> <span class="n">mBorderPath</span><span class="o">);</span>
+<span class="c1">// 将实际区域赋值给 Region</span>
+<span class="n">mArcRegion</span><span class="o">.</span><span class="na">setPath</span><span class="o">(</span><span class="n">mBorderPath</span><span class="o">,</span> <span class="k">new</span> <span class="n">Region</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">));</span>
+
+<span class="c1">// 使用 Region 判断点击是否处于 Region 区域中</span>
+<span class="n">mArcRegion</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>更多的细节可以去开源库 <a href="https://github.com/GcsSloop/arc-seekbar">ArcSeekBar</a> 中查看。</strong></p>
+
+<p><strong>ArcSeekBar: <a href="https://github.com/GcsSloop/arc-seekbar">https://github.com/GcsSloop/arc-seekbar</a></strong></p>
+
+<h2 id="3-结语">3. 结语</h2>
+
+<p>在 Android 绘图之中，Paint 是相当重要的组成部分，由于 Paint 内容十分繁杂，本文也只能介绍其中一部分内容，关于画笔图像优化，叠加模式，文本处理等相关内容会放到后续的文章中进行介绍。</p>
+
+<h2 id="about-me">About Me</h2>
+
+<h3 id="作者微博-gcssloop">作者微博: <a href="http://weibo.com/GcsSloop" target="_blank">@GcsSloop</a></h3>
+
+<p><a href="http://www.gcssloop.com/info/about" target="_blank"><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg" width="300" style="display:inline;" /></a></p>
+
+<h2 id="参考文章">参考文章</h2>
+
+<ul>
+  <li><a href="https://developer.android.com/reference/android/graphics/Paint">Android · Paint</a></li>
+  <li><a href="https://hencoder.com/ui-1-2/">HenCoder: 自定义 View 1-2 Paint 详解</a></li>
+  <li><a href="https://skia.org/user/api/SkPaint_Reference">SkPaint_Reference</a></li>
+  <li><a href="http://www.curious-creature.com/2013/12/21/android-recipe-4-path-tracing/">Android Recipe #4, path tracing</a></li>
+  <li><a href="https://medium.com/androiddevelopers/a-better-underline-for-android-90ba3a2e4fb">A better underline for Android</a></li>
+</ul>
+
+    <hr>
+  </section>
+</article>
+
+<!--广告-->
+<!--
+<div>
+<a href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=hn5smxtw" target="_blank"><img src="/assets/aliyun/ecs-1146x150.jpg" width="100%"></a>
+</div>
+-->
+<!--捐赠晶石-->
+<section class="contribute">
+    <script type="text/javascript"> 
+      function toggle() {
+        var con = document.getElementById("contribute");
+        if (con.style.display == "none") {
+          con.style.display = "block";
+        } else {
+          con.style.display = "none";
+        }
+      }
+    </script> 
+    <blockquote style="background-color:#F5F5F5; padding: 10px 20px 20px 10px; margin:0px" >
+      <h4> 如果你觉得我的文章对你有帮助的话，欢迎赞助一些服务器费用! </h4>
+      <p></p>
+      <a id=“btn-toggle-contribute” class="btn-contribute" onclick="toggle()" >¥ 点击赞助</a>
+      <br>
+      <div id="contribute" style="display:none;">
+        <p align="center" >
+        <img src="/assets/images/wechat.png" alt="微信">
+        <img src="/assets/images/alipay.png" alt="支付宝">
+        </p>
+        <p align="left" >
+          &nbsp;&nbsp;因为自己喜欢折腾，所以每年在域名和服务器上也会支出不少钱，用于搭建私人maven服务购买coding会员服务等用途，例如我发布在GitHub上的部分开源库就是托管在自己搭建的仓库中，你现在查看的这篇文章就托管在Coding上面。<br/>
+          &nbsp;&nbsp;如果你感觉我写的内容对你有帮助的话，可以赞助一些服务器费用，如果你也需要服务器的话，可以通过上面的推广链接购买来支持我。当然，不赞助也没关系，我依旧会提供免费的内容给大家。<br/>
+          &nbsp;&nbsp;我发布在小专栏的内容虽然是收费的，但是大部分依旧可以在我的博客上免费看到原始文章，只是象征性的关闭了几篇不重要的文章阅读权限，如果你细心一点的话，甚至可以在我的博客上找到直接查看这些收费文章的方法。<br/>
+          <b>最后，感谢所有支持我的魔法师！</b>
+          <!--
+          <a href="/contribute">点击这里查看捐赠者名单。</a>
+          -->
+        </p>
+      </div>
+    </blockquote>
+</section>
+<div>
+  <h2>欢迎关注我的微信公众号</h2>
+  <img src="/assets/images/banner.jpg" width="100%">
+</div>
+
+<!--阅读更多-->
+<section class="read-more">
+  
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/gebug/bubble-sample" title="link to 雕虫晓技(十) Android超简单气泡效果">雕虫晓技(十) Android超简单气泡效果</a></h2>
+       <p class="excerpt">【示例项目：BubbleSample】最近有用到水下气泡上升效果，因此在网上查了一下资料，结果还真找到了，就是这篇文章 [Android实例] 水下气泡上升界面效果, 不过这篇文章所附带的示例代...&hellip;</p>
+       <div class="post-list__meta">
+          <time datetime="2018-09-09 00:00:00 +0800" class="post-list__meta--date date">2018-09-09</time> &#8226; <span class="post-list__meta--tags tags">GeBug</span>
+          <br/><br/>
+          <a style="float:none; margin:0 auto;" class="btn-border-small" href=/gebug/bubble-sample>继续阅读</a>
+       </div>
+   </div>
+   
+</section>
+
+<!--网易云跟帖-->
+<!--
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "a85dba2840134721a7b69a15b2e0f217",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+-->
+
+<style type="text/css">
+.isso-comment > div.avatar {
+    border: 0px;
+    box-shadow: none;
+    display: block;
+    float: left;
+    width: 7%;
+    margin: 3px 15px 0 0;
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input {
+    border-radius: 6px;
+    padding: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border: 1px solid #CCC;
+    background-color: #D58D44;
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    size: 10;
+    line-height: 1.4em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input:hover {
+    background-color: #272822;
+}
+.isso-postbox > .form-wrapper > .auth-section .post-action > input:active {
+    background-color: #986530;
+}
+</style>
+
+<section id="isso-thread"></section>
+
+<script data-isso="//47.52.58.34:1234/"
+        data-isso-css="true"
+        data-isso-lang="zh"
+        data-isso-reply-to-self="false"
+        data-isso-require-author="false"
+        data-isso-require-email="false"
+        data-isso-max-comments-top="10"
+        data-isso-max-comments-nested="5"
+        data-isso-reveal-on-click="5"
+        data-isso-avatar="true"
+        data-isso-avatar-bg="#f0f0f0"
+        data-isso-avatar-fg="#9abf88 #5698c4 #e279a3 #9163b6 ..."
+        data-isso-vote="true"
+        data-vote-levels=""
+        src="//47.52.58.34:1234/js/embed.min.js">
+        </script>
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+-->
+<!-- OneV's Den -->
+<!--
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3324997515191619"
+     data-ad-slot="9170309685"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+            <section class="footer">
+    <footer>
+    	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
+        <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82493667-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    
+  </body>
+
+</html>
