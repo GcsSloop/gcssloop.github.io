@@ -5,13 +5,13 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 24 Oct 2018 22:42:56 +0800</pubDate>
-    <lastBuildDate>Wed, 24 Oct 2018 22:42:56 +0800</lastBuildDate>
+    <pubDate>Wed, 24 Oct 2018 23:10:36 +0800</pubDate>
+    <lastBuildDate>Wed, 24 Oct 2018 23:10:36 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
       <item>
-        <title>安卓自定义View进阶-画笔入门(Paint)</title>
+        <title>安卓自定义View进阶-画笔基础(Paint)</title>
         <description>&lt;p&gt;在Android自定义View系列文章中，前面的部分有详细的讲解画布(Canvas)的功能和用法，但是和画布(Canvas)共同出现的画笔(Paint)却没有详细的讲解，本文带大家较为详细的了解一下画笔的相关内容。&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -1097,7 +1097,7 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 &lt;p&gt;&lt;img src=&quot;/assets/customview/paint/paint-discrete-effect.png&quot; alt=&quot;paint-discrete-effect&quot; /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;至今为止还尚未见过这种效果的应用场景。&lt;/p&gt;
+  &lt;p&gt;至今为止尚未见过这种效果的应用场景。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h4 id=&quot;285-sumpatheffect&quot;&gt;2.8.5 SumPathEffect&lt;/h4&gt;

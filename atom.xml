@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-10-24T22:42:56+08:00</updated>
+  <updated>2018-10-24T23:10:36+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -16,7 +16,7 @@
   <entry>
     <id>http://www.gcssloop.com/customview/paint-base</id>
     <link type="text/html" rel="alternate" href="http://www.gcssloop.com/customview/paint-base"/>
-    <title>安卓自定义View进阶-画笔入门(Paint)</title>
+    <title>安卓自定义View进阶-画笔基础(Paint)</title>
     <updated>2018-10-24T00:00:00+08:00</updated>
     <author>
       <name>Karl Luo</name>
@@ -1107,7 +1107,7 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 &lt;p&gt;&lt;img src=&quot;/assets/customview/paint/paint-discrete-effect.png&quot; alt=&quot;paint-discrete-effect&quot; /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;至今为止还尚未见过这种效果的应用场景。&lt;/p&gt;
+  &lt;p&gt;至今为止尚未见过这种效果的应用场景。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h4 id=&quot;285-sumpatheffect&quot;&gt;2.8.5 SumPathEffect&lt;/h4&gt;
