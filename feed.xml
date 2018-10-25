@@ -5,8 +5,8 @@
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
     <link>http://www.gcssloop.com/</link>
     <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 25 Oct 2018 08:49:15 +0800</pubDate>
-    <lastBuildDate>Thu, 25 Oct 2018 08:49:15 +0800</lastBuildDate>
+    <pubDate>Thu, 25 Oct 2018 16:58:13 +0800</pubDate>
+    <lastBuildDate>Thu, 25 Oct 2018 16:58:13 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -8570,7 +8570,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
     
       <item>
         <title>程序员练级指北</title>
-        <description>&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7c95aispj30rs07qmyp.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-085619.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;之前非常有幸收到 &lt;a href=&quot;https://github.com/inferjay&quot;&gt;脉脉不得语&lt;/a&gt; 的邀请参加 郑州GDG&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 举办的 DevFest&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; 活动，并上台分享了一下自己的拙见，回来之后我将自己演讲的内容整理了一下，并分享给大家，希望对一些人有帮助，关于 郑州GDG 更多的活动内容，大家可以到 &lt;a href=&quot;https://github.com/GDGZhengzhou/Events&quot;&gt;GDGZhengzou&lt;/a&gt; 查看。另外，欢迎关注我的 &lt;a href=&quot;https://github.com/GcsSloop&quot;&gt;GitHub&lt;/a&gt; 和  &lt;a href=&quot;http://weibo.com/GcsSloop&quot;&gt;微博&lt;/a&gt; 。&lt;/p&gt;
 
@@ -8588,7 +8588,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;h2 id=&quot;第一阶段---新手村&quot;&gt;第一阶段 - 新手村&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/005Xtdi2jw1fa7a60w9nqj30m80c0gma.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-085620.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;作为编程的新手，自然是不能在大佬面前装逼的，否则分分钟被吊打。这一阶段我们要先给自己定一个小目标，什么是小目标呢？例如挣他个一百万？这对于我们来说当然是不现实的，作为编程菜鸟，小目标当然是稍微努力一下就能完成的，例如：看完几个新手教程，时间不要太长，两三天能完成的任务量就够了。当然了，光看还不行的，要发在朋友圈，让大家觉得你是一个非常有上进心的人。&lt;/p&gt;
 
@@ -8605,7 +8605,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;h2 id=&quot;第二阶段---初级套装&quot;&gt;第二阶段 - 初级套装&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/005Xtdi2jw1fa7abwlqq8j30m80c0dgm.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-085621.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;初级套装虽然攻击和防御力都很弱，但至少能单挑一些野怪了，有了一定的装逼资本，这时候就要在新手村附近刷一些野怪练级。&lt;/p&gt;
 
@@ -8629,7 +8629,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;h2 id=&quot;第三阶段---青铜套装&quot;&gt;第三阶段 - 青铜套装&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7afft4xgj30m80c00tc.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-085622.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;刷野怪时间长了就会发现其实也挺没意思的，不过好在能够练装备，把数据结构知识和一些常见的算法弄明白，熟悉敌人的攻击套路，这样经过一段时间后，装备基本也升级到青铜了，这时候就应该尝试去挑战一下区域小boss了。&lt;/p&gt;
 
@@ -8647,7 +8647,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;h2 id=&quot;第四阶段---白银套装&quot;&gt;第四阶段 - 白银套装&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7ajkrs5aj30m80c0751.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-85623.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;单挑完一些区域小boss后，将套装升级为白银，有了一定的装逼资本，此时发现总在朋友圈装逼成就感太差了，这时候可以去论坛、贴吧、社区、微博等地方好好的装一把，让那些装备还没有升级起来的小白看看这套锃亮的白银套装是多么耀眼，不过仍要注意不能太过火，在出来帮助新手解决问题的时候顺便展示一下白银套装的威力就行了，装的太狠容易被大佬发现抓起来吊打，这不就尴尬了么。&lt;/p&gt;
 
@@ -8675,7 +8675,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;h2 id=&quot;第五阶段---黄金套装&quot;&gt;第五阶段 - 黄金套装&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7ar2u1gjj30m80c03zb.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-085623.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在白银阶段，就具备了职业程序员的基本素养，但是离出任CTO，迎娶白富美，走上人生巅峰还差的很远呢，想要实现这些目标，首先要拿到黄金套装。&lt;/p&gt;
 
@@ -8716,7 +8716,7 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 &lt;h2 id=&quot;第六阶段---钻石套装&quot;&gt;第六阶段 - 钻石套装&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2jw1fa7aswevd3j30m80c0gm8.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-085624.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;能拿到钻石套装的人在全球范围内都是屈指可数的，这一类人通常是某一领域的开拓者，就是我们所说的 XXX之父。这些开拓者已经将自己的影响力渗透进了社会的各行各业，说他们推动了社会的进步也是可以的，我有生之年不说集齐套装，仅仅能拿一件钻石武器便足以令我心满意足了。&lt;/p&gt;
 
