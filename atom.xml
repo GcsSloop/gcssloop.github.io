@@ -4,7 +4,7 @@
   <title>luolinjia.com</title>
   <link href="http://luolinjia.com/cn/"/>
   <link type="application/atom+xml" rel="self" href="http://luolinjia.com/cn/atom.xml"/>
-  <updated>2018-10-25T16:58:13+08:00</updated>
+  <updated>2018-10-25T17:10:52+08:00</updated>
   <id>http://luolinjia.com/cn/</id>
   <author>
     <name>Karl Luo</name>
@@ -1721,7 +1721,7 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 
 &lt;h2 id=&quot;效果预览&quot;&gt;效果预览&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/libs/arc-seekbar/arcseekbar.gif&quot; width=&quot;300&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-arcseekbar.gif?gcssloop&quot; width=&quot;300&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;支持的特性&quot;&gt;支持的特性&lt;/h2&gt;
 
@@ -1866,7 +1866,7 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 
 &lt;h4 id=&quot;31-基本绘制属性&quot;&gt;3.1 基本绘制属性&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/libs/arc-seekbar/arc_attrs_1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-090345.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;进度条宽度(arc_width)、开口角度(arc_open_angle)、旋转角度(arc_rotate_angle) 的基本含义如上图所示。&lt;/p&gt;
 
@@ -1922,7 +1922,7 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 
 &lt;p&gt;可以实现描边效果，具体看图。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/libs/arc-seekbar/arc_border.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2018-10-25-090346.jpg?gcssloop&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;4添加方法&quot;&gt;4.添加方法&lt;/h3&gt;
 
