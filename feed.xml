@@ -3,10 +3,10 @@
   <channel>
     <title>GcsSloop</title>
     <description>嗨，我是 GcsSloop，一名来自2.5次元的魔法师，Android自定义View系列文章作者，非著名程序员。</description>
-    <link>http://www.gcssloop.com/</link>
-    <atom:link href="http://www.gcssloop.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 30 Oct 2018 12:32:44 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Oct 2018 12:32:44 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 08 Nov 2018 09:08:52 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Nov 2018 09:08:52 +0800</lastBuildDate>
     <generator>Jekyll v3.4.4</generator>
     
     
@@ -1237,8 +1237,8 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 24 Oct 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/paint-base</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/paint-base</guid>
+        <link>http://localhost:4000/customview/paint-base</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/paint-base</guid>
         
         <category>Android,Paint</category>
         
@@ -1699,8 +1699,8 @@ Hairlines always draws a single pixel independent of the canva's matrix.
 
 </description>
         <pubDate>Sun, 09 Sep 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/bubble-sample</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/bubble-sample</guid>
+        <link>http://localhost:4000/gebug/bubble-sample</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/bubble-sample</guid>
         
         <category>Android</category>
         
@@ -1988,8 +1988,8 @@ limitations under the License.
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 02 Sep 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/tools/arc-seekbar</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/tools/arc-seekbar</guid>
+        <link>http://localhost:4000/tools/arc-seekbar</link>
+        <guid isPermaLink="true">http://localhost:4000/tools/arc-seekbar</guid>
         
         <category>Android</category>
         
@@ -2929,8 +2929,8 @@ limitations under the License.
 &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://android.demo.gcssloop.com/C0DE_Sample.zip&quot;&gt;【本文示例源码下载】&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/netty-private-protocol</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/netty-private-protocol</guid>
+        <link>http://localhost:4000/gebug/netty-private-protocol</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/netty-private-protocol</guid>
         
         <category>Android</category>
         
@@ -3034,8 +3034,8 @@ Rx 核心之一就是数据流，包括 Java8 中也有引入类似的流式思�
 &lt;p&gt;最后，以上的一些观点仅为自己观察的内容，由于自己从业时间有限，接触到的项目自然也是有限的，所以上述理论并不能适合所有的 Android 项目，具体情况还需要具体分析才行。&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/android-stream</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/android-stream</guid>
+        <link>http://localhost:4000/gebug/android-stream</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/android-stream</guid>
         
         <category>Android</category>
         
@@ -3336,8 +3336,8 @@ Rx 核心之一就是数据流，包括 Java8 中也有引入类似的流式思�
 
 </description>
         <pubDate>Thu, 09 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/scalegesturedetector</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/scalegesturedetector</guid>
+        <link>http://localhost:4000/customview/scalegesturedetector</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/scalegesturedetector</guid>
         
         <category>Android,ScaleGestureDecetor</category>
         
@@ -3710,8 +3710,8 @@ nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl tr
 
 </description>
         <pubDate>Tue, 12 Jun 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/internet-ip-webcam</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/internet-ip-webcam</guid>
+        <link>http://localhost:4000/gebug/internet-ip-webcam</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/internet-ip-webcam</guid>
         
         <category>Android</category>
         
@@ -5297,8 +5297,8 @@ nexus run
 
 </description>
         <pubDate>Thu, 15 Mar 2018 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/maven-private</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/maven-private</guid>
+        <link>http://localhost:4000/gebug/maven-private</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/maven-private</guid>
         
         <category>Android</category>
         
@@ -5567,8 +5567,8 @@ nexus run
 &lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;/p&gt;
 </description>
         <pubDate>Fri, 29 Dec 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/rclayout</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/rclayout</guid>
+        <link>http://localhost:4000/gebug/rclayout</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/rclayout</guid>
         
         <category>Android</category>
         
@@ -5697,8 +5697,8 @@ nexus run
 &lt;p&gt;GcsSloop，一名 2.5 次元魔法师。&lt;/p&gt;
 </description>
         <pubDate>Fri, 10 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/coding</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/coding</guid>
+        <link>http://localhost:4000/gebug/coding</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/coding</guid>
         
         <category>Android</category>
         
@@ -5823,8 +5823,8 @@ nexus run
 &lt;p&gt;关于组件化暂时就说到这里，当然了具体到现实的业务中，还有很多细节和技巧需要注意，不过这些东西还是自己去体会更好，听别人说的再多，终究不如自己实践一下记忆更深刻。&lt;/p&gt;
 </description>
         <pubDate>Mon, 06 Nov 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/gebug/componentr</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/gebug/componentr</guid>
+        <link>http://localhost:4000/gebug/componentr</link>
+        <guid isPermaLink="true">http://localhost:4000/gebug/componentr</guid>
         
         <category>Android</category>
         
@@ -6276,8 +6276,8 @@ limitations under the License.
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 15 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/tools/pager-grid-layoutmanager</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/tools/pager-grid-layoutmanager</guid>
+        <link>http://localhost:4000/tools/pager-grid-layoutmanager</link>
+        <guid isPermaLink="true">http://localhost:4000/tools/pager-grid-layoutmanager</guid>
         
         <category>Android</category>
         
@@ -6594,8 +6594,8 @@ limitations under the License.
 &lt;/div&gt;
 </description>
         <pubDate>Thu, 05 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/tools/rclayout</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/tools/rclayout</guid>
+        <link>http://localhost:4000/tools/rclayout</link>
+        <guid isPermaLink="true">http://localhost:4000/tools/rclayout</guid>
         
         <category>Android,</category>
         
@@ -6999,8 +6999,8 @@ limitations under the License.
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 01 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/tools/encrypt</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/tools/encrypt</guid>
+        <link>http://localhost:4000/tools/encrypt</link>
+        <guid isPermaLink="true">http://localhost:4000/tools/encrypt</guid>
         
         <category>Base64,</category>
         
@@ -7554,8 +7554,8 @@ GCS-LOG: onDoubleTapEvent - up
 &lt;a href=&quot;https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/GestureDetector.java&quot;&gt;源码 · GestureDetector&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 09 Jul 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/gestruedector</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/gestruedector</guid>
+        <link>http://localhost:4000/customview/gestruedector</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/gestruedector</guid>
         
         <category>Android,GestureDecetor</category>
         
@@ -8414,8 +8414,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 </description>
         <pubDate>Mon, 16 Jan 2017 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/multi-touch</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/multi-touch</guid>
+        <link>http://localhost:4000/customview/multi-touch</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/multi-touch</guid>
         
         <category>Android,Multitouch</category>
         
@@ -8556,8 +8556,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Wed, 07 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-editor</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-editor</guid>
+        <link>http://localhost:4000/markdown/markdown-editor</link>
+        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-editor</guid>
         
         <category>Markdown</category>
         
@@ -8744,8 +8744,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 28 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/lecture/gdg-developer-growth-guide</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/lecture/gdg-developer-growth-guide</guid>
+        <link>http://localhost:4000/lecture/gdg-developer-growth-guide</link>
+        <guid isPermaLink="true">http://localhost:4000/lecture/gdg-developer-growth-guide</guid>
         
         <category>演讲</category>
         
@@ -9339,8 +9339,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 
 </description>
         <pubDate>Wed, 16 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/touch-matrix-region</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/touch-matrix-region</guid>
+        <link>http://localhost:4000/customview/touch-matrix-region</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/touch-matrix-region</guid>
         
         <category>Android,Region,Matrix</category>
         
@@ -9546,8 +9546,8 @@ ACTION_POINTER_INDEX_SHIFT = 8&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Tue, 08 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-links</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-links</guid>
+        <link>http://localhost:4000/markdown/markdown-links</link>
+        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-links</guid>
         
         <category>Markdown</category>
         
@@ -10198,8 +10198,8 @@ ACTION_POINTER_DOWN 的默认数值为 (0x00000005)&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 02 Nov 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/motionevent</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/motionevent</guid>
+        <link>http://localhost:4000/customview/motionevent</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/motionevent</guid>
         
         <category>Android,MotionEvent</category>
         
@@ -10581,8 +10581,8 @@ int a = 5;
 &lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 25 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-grammar</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-grammar</guid>
+        <link>http://localhost:4000/markdown/markdown-grammar</link>
+        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-grammar</guid>
         
         <category>Markdown</category>
         
@@ -10814,8 +10814,8 @@ int a = 5;
 
 </description>
         <pubDate>Mon, 24 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/markdown/markdown-start</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/markdown/markdown-start</guid>
+        <link>http://localhost:4000/markdown/markdown-start</link>
+        <guid isPermaLink="true">http://localhost:4000/markdown/markdown-start</guid>
         
         <category>Markdown</category>
         
@@ -11431,8 +11431,8 @@ int a = 5;
 
 </description>
         <pubDate>Fri, 14 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/dispatch-touchevent-source</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/dispatch-touchevent-source</guid>
+        <link>http://localhost:4000/customview/dispatch-touchevent-source</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/dispatch-touchevent-source</guid>
         
         <category>Camera,</category>
         
@@ -11625,8 +11625,8 @@ tinypng.py －w 300 -f /User/GcsSloop/demo.jpg   // 指定压缩一个文件，�
 
 </description>
         <pubDate>Mon, 10 Oct 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/python/tinypng-voice</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/python/tinypng-voice</guid>
+        <link>http://localhost:4000/python/tinypng-voice</link>
+        <guid isPermaLink="true">http://localhost:4000/python/tinypng-voice</guid>
         
         <category>GcsSloop,</category>
         
@@ -11994,8 +11994,8 @@ ViewGroupA   [组长]: onTouchEvent           正在测试,明天就测试完
 
 </description>
         <pubDate>Wed, 28 Sep 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/dispatch-touchevent-theory</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/dispatch-touchevent-theory</guid>
+        <link>http://localhost:4000/customview/dispatch-touchevent-theory</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/dispatch-touchevent-theory</guid>
         
         <category>Camera,</category>
         
@@ -12156,8 +12156,8 @@ ViewGroupA   [组长]: onTouchEvent           正在测试,明天就测试完
 
 </description>
         <pubDate>Tue, 20 Sep 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/tips/choose-license</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/tips/choose-license</guid>
+        <link>http://localhost:4000/tips/choose-license</link>
+        <guid isPermaLink="true">http://localhost:4000/tips/choose-license</guid>
         
         <category>GcsSloop,</category>
         
@@ -12756,8 +12756,8 @@ translate: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0
 
 </description>
         <pubDate>Wed, 14 Sep 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/matrix-3d-camera</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/matrix-3d-camera</guid>
+        <link>http://localhost:4000/customview/matrix-3d-camera</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/matrix-3d-camera</guid>
         
         <category>Camera,</category>
         
@@ -12867,8 +12867,8 @@ translate: [1.0, 0.0, -72.0][0.0, 1.0, 0.0][0.0, 0.0, 1.0
 &lt;img src=&quot;http://ww1.sinaimg.cn/large/005Xtdi2jw1f7o8gabelfj31400mbjy0.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 09 Sep 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/course/jitpack-sources-javadoc</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/course/jitpack-sources-javadoc</guid>
+        <link>http://localhost:4000/course/jitpack-sources-javadoc</link>
+        <guid isPermaLink="true">http://localhost:4000/course/jitpack-sources-javadoc</guid>
         
         <category>Android,</category>
         
@@ -13924,8 +13924,8 @@ location2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&
 &lt;a href=&quot;http://code.tutsplus.com/tutorials/understanding-affine-transformations-with-matrix-mathematics--active-10884&quot;&gt;Understanding Affine Transformations With Matrix Mathematics&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 30 Aug 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Matrix_Method</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Matrix_Method</guid>
+        <link>http://localhost:4000/customview/Matrix_Method</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Matrix_Method</guid>
         
         <category>自定义View,</category>
         
@@ -14137,8 +14137,8 @@ com.gcssloop.alltest I/Time: ForEach-LinkedList：5ms
 &lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 21 Aug 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/tips/arratlist-linkedlist-performance</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/tips/arratlist-linkedlist-performance</guid>
+        <link>http://localhost:4000/tips/arratlist-linkedlist-performance</link>
+        <guid isPermaLink="true">http://localhost:4000/tips/arratlist-linkedlist-performance</guid>
         
         <category>GcsSloop,</category>
         
@@ -15041,8 +15041,8 @@ $$&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;a href=&quot;https://guangchun.wordpress.com/2011/10/12/affineandhomogeneous/&quot;&gt;仿射变换与齐次坐标&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 03 Aug 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Matrix_Basic</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Matrix_Basic</guid>
+        <link>http://localhost:4000/customview/Matrix_Basic</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Matrix_Basic</guid>
         
         <category>自定义View,</category>
         
@@ -15842,8 +15842,8 @@ tan[1] = y = 1&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 02 Jun 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Path_PathMeasure</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Path_PathMeasure</guid>
+        <link>http://localhost:4000/customview/Path_PathMeasure</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Path_PathMeasure</guid>
         
         <category>自定义View,</category>
         
@@ -16480,8 +16480,8 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 
 </description>
         <pubDate>Mon, 02 May 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Path_Over</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Path_Over</guid>
+        <link>http://localhost:4000/customview/Path_Over</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Path_Over</guid>
         
         <category>自定义View,</category>
         
@@ -17236,8 +17236,8 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 
 </description>
         <pubDate>Fri, 29 Apr 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Path_Bezier</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Path_Bezier</guid>
+        <link>http://localhost:4000/customview/Path_Bezier</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Path_Bezier</guid>
         
         <category>自定义View,</category>
         
@@ -17483,8 +17483,8 @@ P3: 从P3点发出一条射线，沿射线方向移动，在第一个交点处�
 
 </description>
         <pubDate>Sun, 20 Mar 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/course/PublishLibraryByJitPack</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/course/PublishLibraryByJitPack</guid>
+        <link>http://localhost:4000/course/PublishLibraryByJitPack</link>
+        <guid isPermaLink="true">http://localhost:4000/course/PublishLibraryByJitPack</guid>
         
         <category>Android,</category>
         
@@ -18341,8 +18341,8 @@ com.sloop.canvas E/2: false
 
 </description>
         <pubDate>Wed, 02 Mar 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Path_Basic</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Path_Basic</guid>
+        <link>http://localhost:4000/customview/Path_Basic</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Path_Basic</guid>
         
         <category>自定义View,</category>
         
@@ -19118,8 +19118,8 @@ drawable.draw(canvas);
 
 </description>
         <pubDate>Fri, 12 Feb 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Canvas_PictureText</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Canvas_PictureText</guid>
+        <link>http://localhost:4000/customview/Canvas_PictureText</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Canvas_PictureText</guid>
         
         <category>自定义View,</category>
         
@@ -19765,8 +19765,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Thu, 28 Jan 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Canvas_Convert</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Canvas_Convert</guid>
+        <link>http://localhost:4000/customview/Canvas_Convert</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Canvas_Convert</guid>
         
         <category>自定义View,</category>
         
@@ -20457,8 +20457,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Thu, 21 Jan 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Canvas_BasicGraphics</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Canvas_BasicGraphics</guid>
+        <link>http://localhost:4000/customview/Canvas_BasicGraphics</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Canvas_BasicGraphics</guid>
         
         <category>自定义View,</category>
         
@@ -20842,8 +20842,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;a href=&quot;http://www.gcssloop.com/customview/CoordinateSystem/&quot;&gt;Android自定义View基础-坐标系&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 16 Jan 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/CustomViewProcess</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/CustomViewProcess</guid>
+        <link>http://localhost:4000/customview/CustomViewProcess</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/CustomViewProcess</guid>
         
         <category>自定义View,</category>
         
@@ -21143,8 +21143,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Mon, 11 Jan 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/Color</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/Color</guid>
+        <link>http://localhost:4000/customview/Color</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/Color</guid>
         
         <category>自定义View,</category>
         
@@ -21263,8 +21263,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Wed, 06 Jan 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/AngleAndRadian</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/AngleAndRadian</guid>
+        <link>http://localhost:4000/customview/AngleAndRadian</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/AngleAndRadian</guid>
         
         <category>自定义View,</category>
         
@@ -21366,8 +21366,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Tue, 05 Jan 2016 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/CoordinateSystem</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/CoordinateSystem</guid>
+        <link>http://localhost:4000/customview/CoordinateSystem</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/CoordinateSystem</guid>
         
         <category>自定义View,</category>
         
@@ -21646,8 +21646,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;p&gt;虽然写了这么长，但核心代码不过二十几行，其实还是挺简单的，一个没什么用但很中国特色的自定义View。&lt;/p&gt;
 </description>
         <pubDate>Sat, 26 Dec 2015 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/taiji</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/taiji</guid>
+        <link>http://localhost:4000/customview/taiji</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/taiji</guid>
         
         <category>自定义View,</category>
         
@@ -21742,8 +21742,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Mon, 30 Nov 2015 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/course/UsePlantUMLInAS(Win)</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/course/UsePlantUMLInAS(Win)</guid>
+        <link>http://localhost:4000/course/UsePlantUMLInAS(Win)</link>
+        <guid isPermaLink="true">http://localhost:4000/course/UsePlantUMLInAS(Win)</guid>
         
         <category>AndroidStudio,</category>
         
@@ -21847,8 +21847,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Mon, 30 Nov 2015 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/course/UsePlantUMLInAS(Mac)</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/course/UsePlantUMLInAS(Mac)</guid>
+        <link>http://localhost:4000/course/UsePlantUMLInAS(Mac)</link>
+        <guid isPermaLink="true">http://localhost:4000/course/UsePlantUMLInAS(Mac)</guid>
         
         <category>AndroidStudio,</category>
         
@@ -21929,8 +21929,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 &lt;p&gt;&lt;a href=&quot;http://www.gcssloop.com/info/about/&quot; target=&quot;_blank&quot;&gt; &lt;img src=&quot;http://ww4.sinaimg.cn/large/005Xtdi2gw1f1qn89ihu3j315o0dwwjc.jpg&quot; width=&quot;300&quot; style=&quot;display:inline;&quot; /&gt; &lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 03 Jan 1970 00:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/customview/CustomViewIndex</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/customview/CustomViewIndex</guid>
+        <link>http://localhost:4000/customview/CustomViewIndex</link>
+        <guid isPermaLink="true">http://localhost:4000/customview/CustomViewIndex</guid>
         
         <category>自定义View,</category>
         
@@ -21992,8 +21992,8 @@ A：实际上我们看到的画布是由多个图层构成的，如下图(图片
 
 </description>
         <pubDate>Thu, 01 Jan 1970 08:00:00 +0800</pubDate>
-        <link>http://www.gcssloop.com/info/about</link>
-        <guid isPermaLink="true">http://www.gcssloop.com/info/about</guid>
+        <link>http://localhost:4000/info/about</link>
+        <guid isPermaLink="true">http://localhost:4000/info/about</guid>
         
         <category>GcsSloop,</category>
         
