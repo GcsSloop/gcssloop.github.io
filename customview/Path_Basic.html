@@ -433,7 +433,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1ap1tu0w9j30u01hcjse.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082007.jpg?gcssloop" alt="" /></p>
 
 <p>在示例中我们调用了两次lineTo，<strong>第一次由于之前没有过操作，所以默认点就是坐标原点O，结果就是坐标原点O到A(200,200)之间连直线(用蓝色圈1标注)。</strong></p>
 
@@ -494,7 +494,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f1aqjptdtjj30u01hct9t.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-82034.jpg?gcssloop" alt="" /></p>
 
 <p>这个和上面演示lineTo的方法类似，只不过在两个lineTo之间添加了一个moveTo。</p>
 
@@ -516,7 +516,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gw1f1ari1l9g8j30u01hcab5.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082032.jpg?gcssloop" alt="" /></p>
 
 <p><strong>setLastPoint是重置上一次操作的最后一个点，在执行完第一次的lineTo的时候，最后一个点是A(200,200),而setLastPoint更改最后一个点为C(200,100),所以在实际执行的时候，第一次的lineTo就不是从原点O到A(200,200)的连线了，而变成了从原点O到C(200,100)之间的连线了。</strong></p>
 
@@ -546,7 +546,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1axmfeojzj30u01hcwfi.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082033.jpg?gcssloop" alt="" /></p>
 
 <p>很明显，两个lineTo分别代表第1和第2条线，而close在此处的作用就算连接了B(200,0)点和原点O之间的第3条线，使之形成一个封闭的图形。</p>
 
@@ -642,7 +642,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gw1f1cmvjtuxcj30u01hcwgm.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082035.jpg?gcssloop" alt="" /></p>
 
 <p><strong>将上面代码的CW改为CCW再运行一次。接下来就是见证奇迹的时刻，两次运行结果一模一样，有木有很神奇！</strong></p>
 
@@ -665,7 +665,7 @@ canvas.drawPath(path,mPaint);
 </code></pre>
 </div>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f4bg7ly3n7j30u01hc78a.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082034.jpg?gcssloop" alt="" /></p>
 
 <p>可以明显看到，图形发生了奇怪的变化。为何会如此呢？</p>
 
@@ -695,7 +695,7 @@ canvas.drawPath(path,mPaint);
 </code></pre>
 </div>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f4bgkdk8efj30u01hctcu.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082030.jpg?gcssloop" alt="" /></p>
 
 <p>通过验证发现，发现结果和我们猜想的一样，但是还有一个潜藏的问题不晓得大家可否注意到。<strong>我们用两个点的坐标确定了一个矩形，矩形起始点(A)就是我们指定的第一个点的坐标。</strong></p>
 
@@ -743,7 +743,7 @@ canvas.drawPath(path,mPaint);
 </code></pre>
 </div>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2gw1f4iylko7zzj30u01hc0tm.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082031.jpg?gcssloop" alt="" /></p>
 
 <p>首先我们新建地方两个Path(矩形和圆形)中心都是坐标原点，我们在将包含圆形的path添加到包含矩形的path之前将其进行移动了一段距离，最终绘制出来的效果就如上面所示。</p>
 
@@ -863,7 +863,7 @@ canvas.drawPath(path,mPaint);
 </code></pre>
 </div>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1ihr1s77jj30u01hcmzh.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082026.jpg?gcssloop" alt="" /></p>
 
 <p><strong>示例(arcTo)：</strong></p>
 
@@ -882,7 +882,7 @@ canvas.drawPath(path,mPaint);
 </code></pre>
 </div>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f1ihsfjexcj30u01hcjts.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082027.jpg?gcssloop" alt="" /></p>
 
 <p>从上面两张运行效果图可以清晰的看出来两者的区别，我就不再废话了。</p>
 
@@ -967,7 +967,7 @@ com.sloop.canvas E/2: false
 </code></pre>
 </div>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f1iv2lnnblj30u01hc3zc.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-82031.jpg?gcssloop" alt="" /></p>
 
 <h4 id="offset">offset</h4>
 
@@ -1024,7 +1024,7 @@ com.sloop.canvas E/2: false
 </code></pre>
 </div>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f1ix3vlwlwj30u01hcq3x.jpg" width="270" height="480" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-082029.jpg?gcssloop" alt="" /></p>
 
 <p>从运行效果图可以看出，虽然我们在dst中添加了一个矩形，但是并没有表现出来，所以，当dst中存在内容时，dst中原有的内容会被清空，而存放平移后的path。</p>
 
