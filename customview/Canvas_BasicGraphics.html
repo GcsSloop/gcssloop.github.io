@@ -313,7 +313,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f8f0c7f257j308c0etglf.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071434.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p>关于颜色的更多资料请参考<a href="http://www.gcssloop.com/customview/Color/">基础篇_颜色</a></p>
@@ -366,7 +366,7 @@
   <p>更多参考这里 <a href="http://www.gcssloop.com/customview/CoordinateSystem/">基础篇_坐标系</a></p>
 </blockquote>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0euxnw7j308c0etmwz.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071435.jpg?gcssloop" alt="" /></p>
 
 <hr />
 
@@ -382,7 +382,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f8f0f6xijoj308c0et0sk.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071436.jpg?gcssloop" alt="" /></p>
 
 <hr />
 
@@ -408,7 +408,7 @@
 
 <p>以上三种方法所绘制出来的结果是完全一样的。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f8f0fkp6sej308c0etglg.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071437.jpg?gcssloop" alt="" /></p>
 
 <p>看到这里,相信很多观众会产生一个疑问，<strong>为什么会有Rect和RectF两种？两者有什么区别吗？</strong></p>
 
@@ -431,7 +431,7 @@
 
 <p>上面两种方法绘制效果也是一样的，但鉴于第二种方法在API21的时候才添加上，所以我们一般使用的都是第一种。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f8f0fvkpzqj308c0etglg.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071438.jpg?gcssloop" alt="" /></p>
 
 <p>下面简单解析一下圆角矩形的几个必要的参数的意思。</p>
 
@@ -447,7 +447,7 @@
 
 <p>好吧，让你发现了，<strong>这里圆角矩形的角实际上不是一个正圆的圆弧，而是椭圆的圆弧，这里的两个参数实际上是椭圆的两个半径</strong>，他们看起来个如下图：</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f2748fjw2bj308c0dwmx8.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071439.jpg?gcssloop" alt="" /></p>
 
 <p><strong>红线标注的 rx 与 ry 就是两个半径，也就是相比绘制矩形多出来的那两个参数。</strong></p>
 
@@ -466,7 +466,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f8f0hfza2kj308c0etmx1.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071440.jpg?gcssloop" alt="" /></p>
 
 <p>其中灰色部分是我们所选定的矩形，而里面的圆角矩形则变成了一个椭圆，<strong>实际上在rx为宽度的一半，ry为高度的一半时，刚好是一个椭圆，通过上面我们分析的原理推算一下就能得到，而当rx大于宽度的一半，ry大于高度的一半时，实际上是无法计算出圆弧的，所以drawRoundRect对大于该数值的参数进行了限制(修正)，凡是大于一半的参数均按照一半来处理。</strong></p>
 
@@ -486,11 +486,11 @@
 
 <p>同样，以上两种方法效果完全一样，但一般使用第一种。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f8f0hxq2r6j308c0eta9x.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071441.jpg?gcssloop" alt="" /></p>
 
 <p>绘制椭圆实际上就是绘制一个矩形的内切图形，原理如下，就不多说了：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f274bq1h4rj308c0dwjrl.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071442.jpg?gcssloop" alt="" /></p>
 
 <p>PS： 如果你传递进来的是一个长宽相等的矩形(即正方形)，那么绘制出来的实际上就是一个圆。</p>
 
@@ -506,7 +506,7 @@
 
 <p>绘制圆形有四个参数，前两个是圆心坐标，第三个是半径，最后一个是画笔。</p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f8f0ic63h9j308c0etgli.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071443.jpg?gcssloop" alt="" /></p>
 
 <hr />
 
@@ -557,7 +557,7 @@
 
 <p>上述代码实际上是绘制了一个起始角度为0度，扫过90度的圆弧，两者的区别就是是否使用了中心点，结果如下：</p>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0ijg8pvj308c0ett8m.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071444.jpg?gcssloop" alt="" /></p>
 
 <p>可以发现使用了中心点之后绘制出来类似于一个扇形，而不使用中心点则是圆弧起始点和结束点之间的连线加上圆弧围成的图形。这样中心点这个参数的作用就很明显了，不必多说想必大家试一下就明白了。 另外可以关于角度可以参考一下这篇文章： <a href="http://www.gcssloop.com/customview/AngleAndRadian/">角度与弧度</a></p>
 
@@ -585,7 +585,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0iuf3h9j308c0etwee.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071445.jpg?gcssloop" alt="" /></p>
 
 <hr />
 
@@ -629,7 +629,7 @@
 </code></pre>
 </div>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f8f0j4t36dj308c0ett8n.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071446.jpg?gcssloop" alt="" /></p>
 
 <p>一图胜千言，通过以上实验我们可以比较明显的看出三种模式的区别，如果只需要边缘不需要填充内容的话只需要设置模式为描边(STROKE)即可。</p>
 
@@ -676,7 +676,7 @@
 
 <p>在展示百分比数据的时候经常会用到饼状图，像这样：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f274gmnlk3j308c0dwglq.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071447.jpg?gcssloop" alt="" /></p>
 
 <h3 id="简单分析">简单分析</h3>
 
@@ -864,7 +864,7 @@
 
 <h3 id="效果图">效果图</h3>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f8f0jt95mlj308c0etweg.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071448.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p><strong>PS: 这个饼状图并没有添加百分比等数据，仅作为示例使用。</strong></p>
@@ -1050,7 +1050,7 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
             <section class="footer">
     <footer>
     	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2019</span>
         <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
         <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
     </footer>

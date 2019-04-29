@@ -325,7 +325,7 @@
 
 <p>上一次除了一些常用函数之外，讲解的基本上都是直线，本次需要了解其中的曲线部分,说到曲线，就不得不提大名鼎鼎的贝塞尔曲线。它的发明者是下面这个人(法国数学家PierreBézier)。</p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f1ky5bw28pg305k07h3yo.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071602.gif?gcssloop" alt="" /></p>
 
 <h3 id="贝塞尔曲线能干什么">贝塞尔曲线能干什么？</h3>
 
@@ -390,13 +390,13 @@
 
 <p>一阶曲线是没有控制点的，仅有两个数据点(A 和 B)，最终效果一个线段。</p>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f35of045w8j308c0dwq2z.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071603.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p><strong>上图表示的是一阶曲线生成过程中的某一个阶段，动态过程可以参照下图(本文中贝塞尔曲线相关的动态演示图片来自维基百科)。</strong></p>
 </blockquote>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f9v40d50l8g30a0046tbk.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071604.gif?gcssloop" alt="" /></p>
 
 <blockquote>
   <p><strong>PS：一阶曲线其实就是前面讲解过的lineTo。</strong></p>
@@ -406,23 +406,23 @@
 
 <p>二阶曲线由两个数据点(A 和 C)，一个控制点(B)来描述曲线状态，大致如下：</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f35p4913k7j308c0dw74d.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071605.jpg?gcssloop" alt="" /></p>
 
 <p>上图中红色曲线部分就是传说中的二阶贝塞尔曲线，那么这条红色曲线是如何生成的呢？接下来我们就以其中的一个状态分析一下：</p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f361bjqj2vj308c0dwwem.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071606.jpg?gcssloop" alt="" /></p>
 
 <p>连接AB BC，并在AB上取点D，BC上取点E，使其满足条件：
 <img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=%5Cfrac%7BAD%7D%7BAB%7D%20%3D%20%5Cfrac%7BBE%7D%7BBC%7D" style="border:none;" /></p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f361oje6h1j308c0dwdg0.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071607.jpg?gcssloop" alt="" /></p>
 
 <p>连接DE，取点F，使得: 
 <img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=%5Cfrac%7BAD%7D%7BAB%7D%20%3D%20%5Cfrac%7BBE%7D%7BBC%7D%20%3D%20%5Cfrac%7BDF%7D%7BDE%7D" style="border:none;" /></p>
 
 <p>这样获取到的点F就是贝塞尔曲线上的一个点，动态过程如下：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f9v41f7vi8g30a0046ady.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071609.gif?gcssloop" alt="" /></p>
 
 <blockquote>
   <p><strong>PS: 二阶曲线对应的方法是quadTo</strong></p>
@@ -432,11 +432,11 @@
 
 <p>三阶曲线由两个数据点(A 和 D)，两个控制点(B 和 C)来描述曲线状态，如下：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f36myeqcu5j308c0dwdg2.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071609.jpg?gcssloop" alt="" /></p>
 
 <p>三阶曲线计算过程与二阶类似，具体可以见下图动态效果：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f9v428wf31g30a004679v.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071611.gif?gcssloop" alt="" /></p>
 
 <blockquote>
   <p><strong>PS: 三阶曲线对应的方法是cubicTo</strong></p>
@@ -458,7 +458,7 @@
 
 <p>首先，两个数据点是控制贝塞尔曲线开始和结束的位置，比较容易理解，而控制点则是控制贝塞尔的弯曲状态，相对来说比较难以理解，所以本示例重点在于理解贝塞尔曲线弯曲状态与控制点的关系，废话不多说，先上效果图：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f39vugjg0vg308c0e8409.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071612.gif?gcssloop" alt="" /></p>
 
 <blockquote>
   <p>为了更加容易看出控制点与曲线弯曲程度的关系，上图中绘制出了辅助点和辅助线，从上面的动态图可以看出，贝塞尔曲线在动态变化过程中有类似于橡皮筋一样的弹性效果，因此在制作一些弹性效果的时候很常用。</p>
@@ -546,7 +546,7 @@
 
 <p>三阶曲线由两个数据点和两个控制点来控制曲线状态。</p>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2gw1f3bmilt4flg308c0e8q5e.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071613.gif?gcssloop" alt="" /></p>
 
 <p>代码:</p>
 
@@ -722,17 +722,17 @@
 
 <h4 id="效果图">效果图：</h4>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f3cg2cs7lyg308c0e8gpn.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071614.gif?gcssloop" alt="" /></p>
 
 <h4 id="思路分析">思路分析：</h4>
 
 <p>我们最终的需要的效果是将一个圆转变成一个心形，通过分析可知，圆可以由四段三阶贝塞尔曲线组合而成，如下：</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2gw1f3chnpgub3j308c0e7weq.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071615.jpg?gcssloop" alt="" /></p>
 
 <p>心形也可以由四段的三阶的贝塞尔曲线组成，如下：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2gw1f3chod09sbj308c0e774j.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071616.jpg?gcssloop" alt="" /></p>
 
 <p>两者的差别仅仅在于数据点和控制点位置不同，因此只需要调整数据点和控制点的位置，就能将圆形变为心形。</p>
 
@@ -748,7 +748,7 @@
 
 <p>渐变其实就是每次对数据点和控制点稍微移动一点，然后重绘界面，在短时间多次的调整数据点与控制点，使其逐渐接近目标值，通过不断的重绘界面达到一种渐变的效果。过程可以参照下图动态效果：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f3ch74ewiig308c0e8wic.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071620.gif?gcssloop" alt="" /></p>
 
 <h4 id="代码">代码：</h4>
 
@@ -929,7 +929,7 @@
 
 <p>解锁新的境界之<a href="http://www.jianshu.com/p/791d3a791ec2">【绘制一个弹性的圆】</a>：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f72ddc0yh4g308c0et43r.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-71622.gif?gcssloop" alt="" /></p>
 
 <p>(,,• ₃ •,,)</p>
 
@@ -1112,7 +1112,7 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
             <section class="footer">
     <footer>
     	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2019</span>
         <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
         <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
     </footer>

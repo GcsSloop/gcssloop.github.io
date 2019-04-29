@@ -253,7 +253,7 @@ $$" alt="" /></p>
   <p>假设通知栏高度为20像素，导航栏高度为40像素,那么我们在内容区的(0，0)位置绘制一个点，最终就要转化为在实际坐标系中的(0，60)位置绘制一个点。</p>
 </blockquote>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f624vi3eb6j30rs0goab5.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071728.jpg?gcssloop" alt="" /></p>
 
 <p>以上是仅作为一个简单的示例，实际上不论2D还是3D，我们要将图形显示在屏幕上，都离不开Matrix，所以说Matrix是一个在背后辛勤工作的劳模。</p>
 
@@ -296,8 +296,8 @@ $$" alt="" /></p>
 
 <p>下面我们看一下四种变换都是由哪些参数控制的。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f60gwrhlnyj30c008zdgy.jpg" alt="" />
-<img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f633hvklfnj30c008zdge.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071730.jpg?gcssloop" alt="" />
+<img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071731.jpg?gcssloop" alt="" /></p>
 
 <p><strong>从上图可以看到最后三个参数是控制透视的，这三个参数主要在3D效果中运用，通常为(0, 0, 1)，不在本篇讨论范围内，暂不过多叙述，会在之后对文章中详述其作用。</strong></p>
 
@@ -306,9 +306,9 @@ $$" alt="" /></p>
 
 <h3 id="1缩放scale">1.缩放(Scale)</h3>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$x = k_1 x_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071733.png?gcssloop" alt="" /></p>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$y = k_2 y_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071736.png?gcssloop" alt="" /></p>
 
 <p>用矩阵表示:</p>
 
@@ -349,7 +349,7 @@ $$" alt="" /></p>
 
 <p>图例：</p>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f6cnk02zy9j308c0dwwej.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071736.jpg?gcssloop" alt="" /></p>
 
 <h3 id="2错切skew">2.错切(Skew)</h3>
 
@@ -357,9 +357,9 @@ $$" alt="" /></p>
 
 <h4 id="水平错切">水平错切</h4>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$ x = x_0 + ky_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071738.png?gcssloop" alt="" /></p>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$ y = y_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071739.png?gcssloop" alt="" /></p>
 
 <p>用矩阵表示:</p>
 
@@ -390,13 +390,13 @@ $$" alt="" /></p>
 
 <p>图例:</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f6cniifb0sj308c0dw3yz.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071740.jpg?gcssloop" alt="" /></p>
 
 <h4 id="垂直错切">垂直错切</h4>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$ x = x_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071744.png?gcssloop" alt="" /></p>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$ y = kx_0 + y_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071745.png?gcssloop" alt="" /></p>
 
 <p>用矩阵表示:</p>
 
@@ -427,7 +427,7 @@ $$" alt="" /></p>
 
 <p>图例:</p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f6cnkwyksij308c0dwq3f.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071745.jpg?gcssloop" alt="" /></p>
 
 <h4 id="复合错切">复合错切</h4>
 
@@ -435,9 +435,9 @@ $$" alt="" /></p>
   <p>水平错切和垂直错切的复合。</p>
 </blockquote>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$ x = x_0 + k_1 y_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071747.png?gcssloop" alt="" /></p>
 
-<p><img src="http://latex.codecogs.com/png.latex?$$ y = k_2 x_0 + y_0 $$" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071748.png?gcssloop" alt="" /></p>
 
 <p>用矩阵表示:</p>
 
@@ -468,7 +468,7 @@ $$" alt="" /></p>
 
 <p>图例:</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f6cqdu6olfj308c0dwdgi.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-71752.jpg?gcssloop" alt="" /></p>
 
 <h3 id="3旋转rotate">3.旋转(Rotate)</h3>
 
@@ -520,7 +520,7 @@ $$" alt="" /></p>
 
 <p>图例:</p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f6cpp174twj308c0dwt8s.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071753.jpg?gcssloop" alt="" /></p>
 
 <h3 id="4平移translate">4.平移(Translate)</h3>
 
@@ -563,7 +563,7 @@ $$" alt="" /></p>
 
 <p>图例:</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f6dqiw20xoj308c0dw0su.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071754.jpg?gcssloop" alt="" /></p>
 
 <h2 id="matrix复合原理">Matrix复合原理</h2>
 
@@ -1262,7 +1262,7 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
             <section class="footer">
     <footer>
     	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2019</span>
         <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
         <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
     </footer>

@@ -228,7 +228,7 @@
 
 <p>如下图，View是一层一层嵌套的，当手指点击 <code class="highlighter-rouge">View1</code> 的时候，下面的<code class="highlighter-rouge">ViewGroupA</code>、 <code class="highlighter-rouge">RootView</code>  等也是能够响应的，为了确定到底应该是哪个View处理这次点击事件，就需要事件分发机制来帮忙。</p>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f87nsnluf5j308c0eamxg.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071555.jpg?gcssloop" alt="" /></p>
 
 <h2 id="view的结构">View的结构:</h2>
 
@@ -268,7 +268,7 @@
 
 <p><strong>View结构:</strong></p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f87juodlepj308q09ut8v.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071556.jpg?gcssloop" alt="" /></p>
 
 <p><strong>可以看到在上面的View结构中莫名多出来的两个东西，<code class="highlighter-rouge">PhoneWindow</code> 和 <code class="highlighter-rouge">DecorView</code> ，这两个我们并没有在Layout文件中定义过，但是为什么会存在呢？</strong></p>
 
@@ -392,7 +392,7 @@
 
 <h3 id="1点击-view1-区域但没有任何-view-消费事件">1.点击 View1 区域但没有任何 View 消费事件</h3>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f87nsnluf5j308c0eamxg.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071555.jpg?gcssloop" alt="" /></p>
 
 <p>当手指在 <code class="highlighter-rouge">View1</code> 区域点击了一下之后，如果所有View都不消耗事件，你就能看到一个完整的事件分发流程，大致如下：</p>
 
@@ -402,7 +402,7 @@
   <p>绿色箭头方向表示事件回传方向。</p>
 </blockquote>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f88i0q8uozj30nm0kqwhm.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-71558.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p><strong>注意: 上图显示分发流程仅仅是一个示意流程，并不代表实际情况，如果按照实际情况绘制，会导致流程图非常复杂和混乱，在纠结了好久之后做了一个艰难的决定，采用这样一个简化后的流程。</strong></p>
@@ -459,7 +459,7 @@ MainActivity [老板]: onTouchEvent           这么简单都做不了,你们�
 
 <p>如果事件被View1消费掉了则事件会回传告诉上层View这个事件已经被我解决了，上层View就无需再响应了。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f88ll27wv9j30nm0kqtbo.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071559.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p>注意：这张图中的事件回传路径才是正确的路径。</p>
@@ -488,7 +488,7 @@ View1        [码农]: onTouchEvent           做好了.
 <blockquote>
   <p>加一道光：</p>
 
-  <p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f88oqj0o4jj304j03paa4.jpg" alt="" /></p>
+  <p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071600.jpg?gcssloop" alt="" /></p>
 </blockquote>
 
 <h3 id="3点击-view1-区域但事件被-viewgroupa-拦截">3.点击 View1 区域但事件被 ViewGroupA 拦截</h3>
@@ -497,7 +497,7 @@ View1        [码农]: onTouchEvent           做好了.
   <p>上层的View有权拦截事件，不传递给下层View，例如 ListView 滑动的时候，就不会将事件传递给下层的子 View。</p>
 </blockquote>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f88p3r45vfj30nm0kqn00.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-71601.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p>注意：可以看到，如果上层拦截了事件，下层View将接收不到事件信息。</p>
@@ -727,7 +727,7 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
             <section class="footer">
     <footer>
     	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2019</span>
         <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
         <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
     </footer>

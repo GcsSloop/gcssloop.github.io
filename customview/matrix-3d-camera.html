@@ -273,7 +273,7 @@
 
 <p>我们Camera使用的3维坐标系是<strong>左手坐标系，即左手手臂指向x轴正方向，四指弯曲指向y轴正方向，此时展开大拇指指向的方向是z轴正方向</strong>。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f7mruav2nhj308c05iglp.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071654.jpg?gcssloop" alt="" /></p>
 
 <blockquote>
   <p>至于为什么要用左手坐标系呢？<del>大概是因为赶工的时候右手不方便比划吧，大雾。</del>实际上不同平台上使用的坐标系也有不同，有的是左手，有的是右手，貌似并没有统一的标准，只需要记住 Android 平台上面使用的是左手坐标系即可。</p>
@@ -319,7 +319,7 @@
   <p>注意y轴默认方向是向上，而2D则是向下，另外本图不代表3D坐标系实际位置。</p>
 </blockquote>
 
-<p><img src="http://ww1.sinaimg.cn/large/005Xtdi2jw1f7nxn8hcqqj308c0ea74a.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071659.jpg?gcssloop" alt="" /></p>
 
 <h3 id="三维投影">三维投影</h3>
 
@@ -341,7 +341,7 @@
 
 <p><strong>Android 上面观察View的摄像机默认位置在屏幕左上角，而且是距屏幕有一段距离的，假设灰色部分是手机屏幕，白色是上面的一个View，摄像机位置看起来大致就是下面这样子的(为了更好的展示摄像机的位置，做了一个空间转换效果的动图)。</strong></p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7q71yek4wg308c058go5.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071700.gif?gcssloop" alt="" /></p>
 
 <blockquote>
   <p>摄像机的位置默认是 (0, 0, -576)。其中 -576＝ -8 x 72，虽然官方文档说距离屏幕的距离是 -8, 但经过测试实际距离是 -576 像素，当距离为 -10 的时候，实际距离为 -720 像素。不过这个数值72我也不明白是什么东西，我使用了3款手机测试，屏幕大小和像素密度均不同，但结果都是一样的，知道的小伙伴可以告诉我一声。</p>
@@ -442,11 +442,11 @@
   <p>假设大矩形是手机屏幕，白色小矩形是View，摄像机位于屏幕左上角，请注意上面View与摄像机的距离以及下方View的大小以及距离左上角(摄像机在屏幕投影位置)的距离。</p>
 </blockquote>
 
-<p><img src="http://ww3.sinaimg.cn/large/005Xtdi2jw1f7qerbksn4g30dc0ct7vt.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071701.gif?gcssloop" alt="" /></p>
 
 <p>至于为什么会这样，因为我们人眼视觉就是这样的，当我们看向远方的时候，视线最终都会消失在视平线上，如果你站在两条平行线中间，看起来它们会在远方(视平线上)相交，虽然在3D空间上两者距离不变，但在2D投影上却是越来越接近，如下图(图片来自网络):</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f7qf2vug02j308c08ct9w.jpg" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071703.jpg?gcssloop" alt="" /></p>
 
 <p><strong>结论:</strong></p>
 
@@ -585,7 +585,7 @@
 
 <p>不知诸位在使用的时候可否发现了一个问题，同一份代码在不同手机上显示效果也是不同的，在像素密度较低的手机上，旋转效果比较正常，但是在像素密度较高的手机上显示效果则会很夸张，具体会怎样的，下面就来看一下具体效果。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/005Xtdi2jw1f7sk60825wg308c0ea1kx.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071704.gif?gcssloop" alt="" /></p>
 
 <p>可以看到，图片不仅因为形变失真，而且在中间一段因为形变过大导致图片无法显示，当然了，单个手机失真，你可以用<code class="highlighter-rouge">depthZ</code>忽悠过去，当 <code class="highlighter-rouge">depthZ</code> 设置的数值比较大大时候，图像在翻转同时会远离摄像头，距离比较远，失真就不会显得很严重，但这仍掩盖不了在不同手机上显示效果不同。</p>
 
@@ -686,7 +686,7 @@ $$" alt="" /></p>
 
 <p>修改后效果：</p>
 
-<p><img src="http://ww4.sinaimg.cn/large/005Xtdi2jw1f7sksrhraog308c0ea4qi.gif" alt="" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071706.gif?gcssloop" alt="" /></p>
 
 <p>上下对比差别还是很大的，顺便附上测试代码吧，layout文件就不写了，随便放一个ImageView就行了。</p>
 
@@ -958,7 +958,7 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
             <section class="footer">
     <footer>
     	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2019</span>
         <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
         <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
     </footer>

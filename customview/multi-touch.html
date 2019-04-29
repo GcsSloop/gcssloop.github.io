@@ -844,7 +844,7 @@ ACTION_POINTER_INDEX_SHIFT = 8<br />
 
 <p>这段代码也非常短，其核心就是通过判断数值为 1 的 pointerId 是否存在，如果存在就在 move 的时候取出其坐标，并绘制出来。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/006y8lVagw1fbs1vkt1mwj30bo0jq3z3.jpg" alt="SecondPoint" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071428.jpg?gcssloop" alt="SecondPoint" /></p>
 
 <blockquote>
   <p>虽然逻辑简单，但个人感觉写起来还是有些麻烦，如果有更简单的方案欢迎告诉我。</p>
@@ -933,7 +933,7 @@ ACTION_POINTER_INDEX_SHIFT = 8<br />
 
 <p>这个版本非常简单，当然了，如果正常使用(只使用一个手指)的话也不会出问题，但是当使用多个手指，且有抬起和按下的时候就可能出问题，下面用一个典型的场景演示一下：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/006y8lVagw1fbs1vm2rppg308c0d4kfm.gif" alt="dragview1" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071430.gif?gcssloop" alt="dragview1" /></p>
 
 <p>注意在第二个手指按下，第一个手指抬起时，此时原本的第二个手指会被识别为第一个，所以图片会直接跳动到第二个手指位置。</p>
 
@@ -1018,7 +1018,7 @@ ACTION_POINTER_INDEX_SHIFT = 8<br />
 
 <p>可以看到，比起上一个版本，只添加了少量代码，就变得更加“智能”了，可以准确识别某一个手指，不会因为手指抬起而认错手指。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/006y8lVagw1fbs1vmwpu4g308c0d4nf9.gif" alt="dragview2" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071432.gif?gcssloop" alt="dragview2" /></p>
 
 <p><strong>重点注意最后，第一个手指抬起之后，图片并没有跳跃到第二个手指的位置。</strong></p>
 
@@ -1030,7 +1030,7 @@ ACTION_POINTER_INDEX_SHIFT = 8<br />
 
 <p>因为这不仅要追踪两个手指的位置，还要根据位置变化来计算缩放比例和缩放中心，单单这两个非常简单的数学问题就能难倒一大批人。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/006y8lVagw1fbs1vnfni1g307b07ct8m.gif" alt="-510a02a1a3f8d16d" /></p>
+<p><img src="http://gcsblog.oss-cn-shanghai.aliyuncs.com/blog/2019-04-29-071433.gif?gcssloop" alt="-510a02a1a3f8d16d" /></p>
 
 <p>当然了，很多麻烦问题都有简单的解决方案，假如说我们真的要实现一个可以用两个或者多个手指缩放的控件，何必要自己算呢，可以尝试一下 Android 自带的解决方案：<strong>手势检测(GestureDetector、ScaleGestureDecetor)</strong>，不仅能自动帮你计算好缩放比例和缩放中心，而且还可以检测出 单击、长按、滑屏 等不同的手势，不过这就不是本篇的事情了，以后有时间会写一下有关手势检测的用法(继续挖坑)。</p>
 
@@ -1220,7 +1220,7 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
             <section class="footer">
     <footer>
     	<span class="footer__copyright">本站点采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" target="_blank">知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2018</span>
+        <span class="footer__copyright">本站由 <a href="http://www.GcsSloop.com">@GcsSloop</a> 创建，采用 <a href="https://github.com/GcsSloop/Gcs-Vno-Jekyll" target="_blank">Gcs-Vno-Jekyll</a> 作为主题。<span id="busuanzi_container_site_pv"> 总访问量 <span id="busuanzi_value_site_pv"></span> 次</span> - &copy; 2019</span>
         <span class="footer__sitemap, footer__copyright"><a href="http://www.gcssloop.com/sitemap.xml" target="_blank">Site Map</a>
         <a href="http://www.gcssloop.com/vip" target="_blank">vip</a></span>
     </footer>
